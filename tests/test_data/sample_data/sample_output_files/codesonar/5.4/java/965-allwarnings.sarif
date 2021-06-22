@@ -1,0 +1,263 @@
+{
+  "version": "2.1.0", 
+  "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json", 
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "CodeSonar", 
+          "fullName": "CodeSonar 5.4p0.20200911-x86_64-pc-linux", 
+          "version": "5.4p0", 
+          "semanticVersion": "5.4.0"
+        }
+      }, 
+      "invocations": [
+        {
+          "startTimeUtc": "2021-04-02T15:59:28.566560Z", 
+          "endTimeUtc": "2021-04-02T16:05:11.165231Z", 
+          "executionSuccessful": true, 
+          "machine": "82e6e741d499", 
+          "account": "root"
+        }
+      ], 
+      "originalUriBaseIds": {
+        "SRCROOT0": {
+          "uri": "file:///opt/project/test/integration_tests/java_testcase/src/"
+        }
+      }, 
+      "artifacts": [
+        {
+          "location": {
+            "uri": "testcases/CWE835_Infinite_Loop/CWE835_Infinite_Loop__do_01.java", 
+            "uriBaseId": "SRCROOT0"
+          }, 
+          "mimeType": "text/plain", 
+          "hashes": {
+            "LOOKUP3-FILENAME+CONTENT": "edaa7359a469f0dd"
+          }
+        }, 
+        {
+          "location": {
+            "uri": "testcases/CWE835_Infinite_Loop/CWE835_Infinite_Loop__do_true_01.java", 
+            "uriBaseId": "SRCROOT0"
+          }, 
+          "mimeType": "text/plain", 
+          "hashes": {
+            "LOOKUP3-FILENAME+CONTENT": "c2a3115b63de8241"
+          }
+        }, 
+        {
+          "location": {
+            "uri": "testcases/CWE835_Infinite_Loop/CWE835_Infinite_Loop__for_01.java", 
+            "uriBaseId": "SRCROOT0"
+          }, 
+          "mimeType": "text/plain", 
+          "hashes": {
+            "LOOKUP3-FILENAME+CONTENT": "3ba4a5822168bb30"
+          }
+        }, 
+        {
+          "location": {
+            "uri": "testcases/CWE835_Infinite_Loop/CWE835_Infinite_Loop__for_empty_01.java", 
+            "uriBaseId": "SRCROOT0"
+          }, 
+          "mimeType": "text/plain", 
+          "hashes": {
+            "LOOKUP3-FILENAME+CONTENT": "83b12ad70f222672"
+          }
+        }, 
+        {
+          "location": {
+            "uri": "testcases/CWE835_Infinite_Loop/CWE835_Infinite_Loop__while_01.java", 
+            "uriBaseId": "SRCROOT0"
+          }, 
+          "mimeType": "text/plain", 
+          "hashes": {
+            "LOOKUP3-FILENAME+CONTENT": "1c53a2e39327c5b0"
+          }
+        }, 
+        {
+          "location": {
+            "uri": "testcases/CWE835_Infinite_Loop/CWE835_Infinite_Loop__while_true_01.java", 
+            "uriBaseId": "SRCROOT0"
+          }, 
+          "mimeType": "text/plain", 
+          "hashes": {
+            "LOOKUP3-FILENAME+CONTENT": "f890b2ec78ee6014"
+          }
+        }, 
+        {
+          "location": {
+            "uri": "testcases/CWE835_Infinite_Loop/Main.java", 
+            "uriBaseId": "SRCROOT0"
+          }, 
+          "mimeType": "text/plain", 
+          "hashes": {
+            "LOOKUP3-FILENAME+CONTENT": "132edebe70e891e9"
+          }
+        }, 
+        {
+          "location": {
+            "uri": "testcases/CWE835_Infinite_Loop/ServletMain.java", 
+            "uriBaseId": "SRCROOT0"
+          }, 
+          "mimeType": "text/plain", 
+          "hashes": {
+            "LOOKUP3-FILENAME+CONTENT": "60bd42f9a7382dfc"
+          }
+        }, 
+        {
+          "location": {
+            "uri": "testcasesupport/AbstractTestCase.java", 
+            "uriBaseId": "SRCROOT0"
+          }, 
+          "mimeType": "text/plain", 
+          "hashes": {
+            "LOOKUP3-FILENAME+CONTENT": "f52c65115ec2fbf"
+          }
+        }, 
+        {
+          "location": {
+            "uri": "testcasesupport/AbstractTestCaseBadOnly.java", 
+            "uriBaseId": "SRCROOT0"
+          }, 
+          "mimeType": "text/plain", 
+          "hashes": {
+            "LOOKUP3-FILENAME+CONTENT": "99daaa1d4484e583"
+          }
+        }, 
+        {
+          "location": {
+            "uri": "testcasesupport/AbstractTestCaseBase.java", 
+            "uriBaseId": "SRCROOT0"
+          }, 
+          "mimeType": "text/plain", 
+          "hashes": {
+            "LOOKUP3-FILENAME+CONTENT": "c2799dd52b32b957"
+          }
+        }, 
+        {
+          "location": {
+            "uri": "testcasesupport/AbstractTestCaseClassIssue.java", 
+            "uriBaseId": "SRCROOT0"
+          }, 
+          "mimeType": "text/plain", 
+          "hashes": {
+            "LOOKUP3-FILENAME+CONTENT": "72ca8cf768238310"
+          }
+        }, 
+        {
+          "location": {
+            "uri": "testcasesupport/AbstractTestCaseClassIssueBad.java", 
+            "uriBaseId": "SRCROOT0"
+          }, 
+          "mimeType": "text/plain", 
+          "hashes": {
+            "LOOKUP3-FILENAME+CONTENT": "1960b172fb28325f"
+          }
+        }, 
+        {
+          "location": {
+            "uri": "testcasesupport/AbstractTestCaseClassIssueGood.java", 
+            "uriBaseId": "SRCROOT0"
+          }, 
+          "mimeType": "text/plain", 
+          "hashes": {
+            "LOOKUP3-FILENAME+CONTENT": "d8b824bfc62794de"
+          }
+        }, 
+        {
+          "location": {
+            "uri": "testcasesupport/AbstractTestCaseServlet.java", 
+            "uriBaseId": "SRCROOT0"
+          }, 
+          "mimeType": "text/plain", 
+          "hashes": {
+            "LOOKUP3-FILENAME+CONTENT": "2e2e69c1f5f4de36"
+          }
+        }, 
+        {
+          "location": {
+            "uri": "testcasesupport/AbstractTestCaseServletBadOnly.java", 
+            "uriBaseId": "SRCROOT0"
+          }, 
+          "mimeType": "text/plain", 
+          "hashes": {
+            "LOOKUP3-FILENAME+CONTENT": "9daf523d6cc4c27"
+          }
+        }, 
+        {
+          "location": {
+            "uri": "testcasesupport/AbstractTestCaseServletBase.java", 
+            "uriBaseId": "SRCROOT0"
+          }, 
+          "mimeType": "text/plain", 
+          "hashes": {
+            "LOOKUP3-FILENAME+CONTENT": "cbff66d522277fd2"
+          }
+        }, 
+        {
+          "location": {
+            "uri": "testcasesupport/IO.java", 
+            "uriBaseId": "SRCROOT0"
+          }, 
+          "mimeType": "text/plain", 
+          "hashes": {
+            "LOOKUP3-FILENAME+CONTENT": "9402404328869ff3"
+          }
+        }
+      ], 
+      "results": [
+        {
+          "ruleId": "Empty database password", 
+          "level": "error", 
+          "message": {
+            "text": "This code creates a database connect using a blank or empty password. This indicates that the database is not protected by a password.Full description: FB.SECURITY.DMI_EMPTY_DB_PASSWORD."
+          }, 
+          "locations": [
+            {
+              "id": 1, 
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 17
+                }, 
+                "region": {
+                  "startLine": 70, 
+                  "startColumn": 1, 
+                  "endColumn": 76
+                }
+              }, 
+              "message": {
+                "text": "This code creates a database connect using a blank or empty password. This indicates that the database is not protected by a password.Full description: FB.SECURITY.DMI_EMPTY_DB_PASSWORD."
+              }
+            }
+          ], 
+          "fingerprints": {
+            "codesonarCluster": "a103b232fab4f0ed", 
+            "codesonarFingerprint": "a103b232fab4f0ed"
+          }, 
+          "relatedLocations": [
+            {
+              "id": 1, 
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 17
+                }, 
+                "region": {
+                  "startLine": 70, 
+                  "startColumn": 1, 
+                  "endColumn": 76
+                }
+              }, 
+              "message": {
+                "text": "This code creates a database connect using a blank or empty password. This indicates that the database is not protected by a password.Full description: FB.SECURITY.DMI_EMPTY_DB_PASSWORD."
+              }
+            }
+          ], 
+          "rank": 41.33824157714844, 
+          "hostedViewerUri": "https://fake-codesonar-hub.com/warninginstance/776477.html"
+        }
+      ]
+    }
+  ]
+}

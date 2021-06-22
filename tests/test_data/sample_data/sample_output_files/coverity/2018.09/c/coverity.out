@@ -1,0 +1,102 @@
+Error: CHECKED_RETURN:
+/root/scrub/test/integration_tests/c_testcase/testcasesupport/io.c:34:
+check_return: Calling "printf" without checking return value (as is done elsewhere 0 out of 14 times).
+Error: CHECKED_RETURN:
+/root/scrub/test/integration_tests/c_testcase/testcasesupport/io.c:54:
+check_return: Calling "printf" without checking return value (as is done elsewhere 0 out of 14 times).
+Error: CHECKED_RETURN:
+/root/scrub/test/integration_tests/c_testcase/testcasesupport/io.c:89:
+check_return: Calling "printf" without checking return value (as is done elsewhere 0 out of 14 times).
+Error: CHECKED_RETURN:
+/root/scrub/test/integration_tests/c_testcase/testcasesupport/io.c:74:
+check_return: Calling "printf" without checking return value (as is done elsewhere 0 out of 14 times).
+Error: CHECKED_RETURN:
+path:/root/scrub/test/integration_tests/c_testcase/testcasesupport/io.c:21:
+cond_true: Condition "line != NULL", taking true branch.
+/root/scrub/test/integration_tests/c_testcase/testcasesupport/io.c:23:
+check_return: Calling "wprintf" without checking return value (as is done elsewhere 0 out of 1 times).
+Error: CHECKED_RETURN:
+/root/scrub/test/integration_tests/c_testcase/testcasesupport/io.c:69:
+check_return: Calling "printf" without checking return value (as is done elsewhere 0 out of 14 times).
+Error: CHECKED_RETURN:
+/root/scrub/test/integration_tests/c_testcase/testcasesupport/std_thread.c:184:
+check_return: Calling "pthread_mutex_lock" without checking return value (as is done elsewhere 0 out of 1 times).
+Error: CHECKED_RETURN:
+/root/scrub/test/integration_tests/c_testcase/testcasesupport/std_thread.c:205:
+check_return: Calling "pthread_mutex_destroy" without checking return value (as is done elsewhere 0 out of 1 times).
+Error: CHECKED_RETURN:
+/root/scrub/test/integration_tests/c_testcase/testcasesupport/std_thread.c:196:
+check_return: Calling "pthread_mutex_unlock" without checking return value (as is done elsewhere 0 out of 1 times).
+Error: CHECKED_RETURN:
+path:/root/scrub/test/integration_tests/c_testcase/testcasesupport/io.c:135:
+cond_true: Condition "numWritten < numBytes", taking true branch.
+path:/root/scrub/test/integration_tests/c_testcase/testcasesupport/io.c:135:
+cond_true: Condition "iswxdigit(hex[2 * numWritten])", taking true branch.
+path:/root/scrub/test/integration_tests/c_testcase/testcasesupport/io.c:135:
+cond_true: Condition "iswxdigit(hex[2 * numWritten + 1])", taking true branch.
+/root/scrub/test/integration_tests/c_testcase/testcasesupport/io.c:138:
+check_return: Calling "swscanf" without checking return value (as is done elsewhere 0 out of 1 times).
+Error: CHECKED_RETURN:
+path:/root/scrub/test/integration_tests/c_testcase/testcasesupport/io.c:95:
+cond_true: Condition "i < numBytes", taking true branch.
+/root/scrub/test/integration_tests/c_testcase/testcasesupport/io.c:97:
+check_return: Calling "printf" without checking return value (as is done elsewhere 0 out of 14 times).
+Error: CHECKED_RETURN:
+path:/root/scrub/test/integration_tests/c_testcase/testcasesupport/io.c:95:
+cond_true: Condition "i < numBytes", taking true branch.
+path:/root/scrub/test/integration_tests/c_testcase/testcasesupport/io.c:98:
+loop: Jumping back to the beginning of the loop.
+path:/root/scrub/test/integration_tests/c_testcase/testcasesupport/io.c:95:
+loop_begin: Jumped back to beginning of loop.
+path:/root/scrub/test/integration_tests/c_testcase/testcasesupport/io.c:95:
+cond_true: Condition "i < numBytes", taking true branch.
+path:/root/scrub/test/integration_tests/c_testcase/testcasesupport/io.c:98:
+loop: Jumping back to the beginning of the loop.
+path:/root/scrub/test/integration_tests/c_testcase/testcasesupport/io.c:95:
+loop_begin: Jumped back to beginning of loop.
+path:/root/scrub/test/integration_tests/c_testcase/testcasesupport/io.c:95:
+cond_false: Condition "i < numBytes", taking false branch.
+path:/root/scrub/test/integration_tests/c_testcase/testcasesupport/io.c:98:
+loop_end: Reached end of loop.
+/root/scrub/test/integration_tests/c_testcase/testcasesupport/io.c:99:
+check_return: Calling "puts" without checking return value (as is done elsewhere 0 out of 1 times).
+Error: CHECKED_RETURN:
+/root/scrub/test/integration_tests/c_testcase/testcasesupport/io.c:84:
+check_return: Calling "printf" without checking return value (as is done elsewhere 0 out of 14 times).
+Error: CHECKED_RETURN:
+/root/scrub/test/integration_tests/c_testcase/testcasesupport/io.c:39:
+check_return: Calling "printf" without checking return value (as is done elsewhere 0 out of 14 times).
+Error: CHECKED_RETURN:
+/root/scrub/test/integration_tests/c_testcase/testcasesupport/io.c:59:
+check_return: Calling "printf" without checking return value (as is done elsewhere 0 out of 14 times).
+Error: CHECKED_RETURN:
+/root/scrub/test/integration_tests/c_testcase/testcasesupport/io.c:79:
+check_return: Calling "printf" without checking return value (as is done elsewhere 0 out of 14 times).
+Error: CHECKED_RETURN:
+/root/scrub/test/integration_tests/c_testcase/testcasesupport/io.c:44:
+check_return: Calling "printf" without checking return value (as is done elsewhere 0 out of 14 times).
+Error: CHECKED_RETURN:
+/root/scrub/test/integration_tests/c_testcase/testcasesupport/io.c:49:
+check_return: Calling "printf" without checking return value (as is done elsewhere 0 out of 14 times).
+Error: CHECKED_RETURN:
+/root/scrub/test/integration_tests/c_testcase/testcasesupport/io.c:29:
+check_return: Calling "printf" without checking return value (as is done elsewhere 0 out of 14 times).
+Error: CHECKED_RETURN:
+path:/root/scrub/test/integration_tests/c_testcase/testcasesupport/io.c:13:
+cond_true: Condition "line != NULL", taking true branch.
+/root/scrub/test/integration_tests/c_testcase/testcasesupport/io.c:15:
+check_return: Calling "printf" without checking return value (as is done elsewhere 0 out of 14 times).
+Error: CHECKED_RETURN:
+path:/root/scrub/test/integration_tests/c_testcase/testcasesupport/io.c:113:
+cond_true: Condition "numWritten < numBytes", taking true branch.
+path:/root/scrub/test/integration_tests/c_testcase/testcasesupport/io.c:113:
+cond_true: Condition "*__ctype_b_loc()[(int)hex[2 * numWritten]] & 4096 /* (unsigned short)_ISxdigit */", taking true branch.
+path:/root/scrub/test/integration_tests/c_testcase/testcasesupport/io.c:113:
+cond_true: Condition "*__ctype_b_loc()[(int)hex[2 * numWritten + 1]] & 4096 /* (unsigned short)_ISxdigit */", taking true branch.
+/root/scrub/test/integration_tests/c_testcase/testcasesupport/io.c:116:
+check_return: Calling "sscanf" without checking return value (as is done elsewhere 0 out of 1 times).
+Error: DC.WEAK_CRYPTO:
+/root/scrub/test/integration_tests/c_testcase/testcasesupport/io.c:160:
+dont_call: "rand" should not be used for security-related applications, because linear congruential algorithms are too easy to break.
+/root/scrub/test/integration_tests/c_testcase/testcasesupport/io.c:160:
+remediation: Use a compliant random number generator, such as "/dev/random" or "/dev/urandom" on Unix-like systems, and CNG (Cryptography API: Next Generation) on Windows.

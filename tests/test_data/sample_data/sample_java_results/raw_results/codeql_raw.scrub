@@ -1,0 +1,192 @@
+codeql001 <Low> :/opt/project/test/integration_tests/java_testcase/src/testcases/CWE835_Infinite_Loop/CWE835_Infinite_Loop__do_01.java:43: java/missing-override-annotation
+    This method overrides [AbstractTestCase.good](1); it is advisable to add an Override annotation.
+    A method that overrides a method in a superclass but does not have an 'Override' annotation cannot take advantage of compiler checks, and makes code less readable.
+
+codeql002 <Low> :/opt/project/test/integration_tests/java_testcase/src/testcases/CWE835_Infinite_Loop/CWE835_Infinite_Loop__do_01.java:13: java/missing-override-annotation
+    This method overrides [AbstractTestCase.bad](1); it is advisable to add an Override annotation.
+    A method that overrides a method in a superclass but does not have an 'Override' annotation cannot take advantage of compiler checks, and makes code less readable.
+
+codeql003 <Low> :/opt/project/test/integration_tests/java_testcase/src/testcases/CWE835_Infinite_Loop/CWE835_Infinite_Loop__do_true_01.java:42: java/missing-override-annotation
+    This method overrides [AbstractTestCase.good](1); it is advisable to add an Override annotation.
+    A method that overrides a method in a superclass but does not have an 'Override' annotation cannot take advantage of compiler checks, and makes code less readable.
+
+codeql004 <Low> :/opt/project/test/integration_tests/java_testcase/src/testcases/CWE835_Infinite_Loop/CWE835_Infinite_Loop__do_true_01.java:13: java/missing-override-annotation
+    This method overrides [AbstractTestCase.bad](1); it is advisable to add an Override annotation.
+    A method that overrides a method in a superclass but does not have an 'Override' annotation cannot take advantage of compiler checks, and makes code less readable.
+
+codeql005 <Low> :/opt/project/test/integration_tests/java_testcase/src/testcases/CWE835_Infinite_Loop/CWE835_Infinite_Loop__for_01.java:43: java/missing-override-annotation
+    This method overrides [AbstractTestCase.good](1); it is advisable to add an Override annotation.
+    A method that overrides a method in a superclass but does not have an 'Override' annotation cannot take advantage of compiler checks, and makes code less readable.
+
+codeql006 <Low> :/opt/project/test/integration_tests/java_testcase/src/testcases/CWE835_Infinite_Loop/CWE835_Infinite_Loop__for_01.java:12: java/missing-override-annotation
+    This method overrides [AbstractTestCase.bad](1); it is advisable to add an Override annotation.
+    A method that overrides a method in a superclass but does not have an 'Override' annotation cannot take advantage of compiler checks, and makes code less readable.
+
+codeql007 <Low> :/opt/project/test/integration_tests/java_testcase/src/testcases/CWE835_Infinite_Loop/CWE835_Infinite_Loop__for_empty_01.java:41: java/missing-override-annotation
+    This method overrides [AbstractTestCase.good](1); it is advisable to add an Override annotation.
+    A method that overrides a method in a superclass but does not have an 'Override' annotation cannot take advantage of compiler checks, and makes code less readable.
+
+codeql008 <Low> :/opt/project/test/integration_tests/java_testcase/src/testcases/CWE835_Infinite_Loop/CWE835_Infinite_Loop__for_empty_01.java:12: java/missing-override-annotation
+    This method overrides [AbstractTestCase.bad](1); it is advisable to add an Override annotation.
+    A method that overrides a method in a superclass but does not have an 'Override' annotation cannot take advantage of compiler checks, and makes code less readable.
+
+codeql009 <Low> :/opt/project/test/integration_tests/java_testcase/src/testcases/CWE835_Infinite_Loop/CWE835_Infinite_Loop__while_01.java:41: java/missing-override-annotation
+    This method overrides [AbstractTestCase.good](1); it is advisable to add an Override annotation.
+    A method that overrides a method in a superclass but does not have an 'Override' annotation cannot take advantage of compiler checks, and makes code less readable.
+
+codeql010 <Low> :/opt/project/test/integration_tests/java_testcase/src/testcases/CWE835_Infinite_Loop/CWE835_Infinite_Loop__while_01.java:12: java/missing-override-annotation
+    This method overrides [AbstractTestCase.bad](1); it is advisable to add an Override annotation.
+    A method that overrides a method in a superclass but does not have an 'Override' annotation cannot take advantage of compiler checks, and makes code less readable.
+
+codeql011 <Low> :/opt/project/test/integration_tests/java_testcase/src/testcases/CWE835_Infinite_Loop/CWE835_Infinite_Loop__while_true_01.java:42: java/missing-override-annotation
+    This method overrides [AbstractTestCase.good](1); it is advisable to add an Override annotation.
+    A method that overrides a method in a superclass but does not have an 'Override' annotation cannot take advantage of compiler checks, and makes code less readable.
+
+codeql012 <Low> :/opt/project/test/integration_tests/java_testcase/src/testcases/CWE835_Infinite_Loop/CWE835_Infinite_Loop__while_true_01.java:13: java/missing-override-annotation
+    This method overrides [AbstractTestCase.bad](1); it is advisable to add an Override annotation.
+    A method that overrides a method in a superclass but does not have an 'Override' annotation cannot take advantage of compiler checks, and makes code less readable.
+
+codeql013 <Low> :/opt/project/test/integration_tests/java_testcase/src/testcases/CWE835_Infinite_Loop/ServletMain.java:15: java/missing-override-annotation
+    This method overrides [HttpServlet.doGet](1); it is advisable to add an Override annotation.
+    A method that overrides a method in a superclass but does not have an 'Override' annotation cannot take advantage of compiler checks, and makes code less readable.
+
+codeql014 <Low> :/opt/project/test/integration_tests/java_testcase/src/testcases/CWE835_Infinite_Loop/ServletMain.java:11: java/missing-override-annotation
+    This method overrides [HttpServlet.doPost](1); it is advisable to add an Override annotation.
+    A method that overrides a method in a superclass but does not have an 'Override' annotation cannot take advantage of compiler checks, and makes code less readable.
+
+codeql015 <Low> :/opt/project/test/integration_tests/java_testcase/src/testcasesupport/AbstractTestCase.java:16: java/missing-override-annotation
+    This method overrides [AbstractTestCaseBase.runTest](1); it is advisable to add an Override annotation.
+    A method that overrides a method in a superclass but does not have an 'Override' annotation cannot take advantage of compiler checks, and makes code less readable.
+
+codeql016 <Low> :/opt/project/test/integration_tests/java_testcase/src/testcasesupport/AbstractTestCaseBadOnly.java:12: java/missing-override-annotation
+    This method overrides [AbstractTestCaseBase.runTest](1); it is advisable to add an Override annotation.
+    A method that overrides a method in a superclass but does not have an 'Override' annotation cannot take advantage of compiler checks, and makes code less readable.
+
+codeql017 <Low> :/opt/project/test/integration_tests/java_testcase/src/testcasesupport/AbstractTestCaseClassIssue.java:16: java/missing-override-annotation
+    This method overrides [AbstractTestCaseBase.runTest](1); it is advisable to add an Override annotation.
+    A method that overrides a method in a superclass but does not have an 'Override' annotation cannot take advantage of compiler checks, and makes code less readable.
+
+codeql018 <Low> :/opt/project/test/integration_tests/java_testcase/src/testcasesupport/AbstractTestCaseClassIssueBad.java:14: java/missing-override-annotation
+    This method overrides [AbstractTestCaseBase.runTest](1); it is advisable to add an Override annotation.
+    A method that overrides a method in a superclass but does not have an 'Override' annotation cannot take advantage of compiler checks, and makes code less readable.
+
+codeql019 <Low> :/opt/project/test/integration_tests/java_testcase/src/testcasesupport/AbstractTestCaseClassIssueGood.java:14: java/missing-override-annotation
+    This method overrides [AbstractTestCaseBase.runTest](1); it is advisable to add an Override annotation.
+    A method that overrides a method in a superclass but does not have an 'Override' annotation cannot take advantage of compiler checks, and makes code less readable.
+
+codeql020 <Low> :/opt/project/test/integration_tests/java_testcase/src/testcasesupport/AbstractTestCaseServlet.java:35: java/missing-override-annotation
+    This method overrides [AbstractTestCaseServletBase.runTest](1); it is advisable to add an Override annotation.
+    A method that overrides a method in a superclass but does not have an 'Override' annotation cannot take advantage of compiler checks, and makes code less readable.
+
+codeql021 <Low> :/opt/project/test/integration_tests/java_testcase/src/testcasesupport/AbstractTestCaseServletBadOnly.java:32: java/missing-override-annotation
+    This method overrides [AbstractTestCaseServletBase.runTest](1); it is advisable to add an Override annotation.
+    A method that overrides a method in a superclass but does not have an 'Override' annotation cannot take advantage of compiler checks, and makes code less readable.
+
+codeql022 <Low> :/opt/project/test/integration_tests/java_testcase/src/testcasesupport/AbstractTestCaseServletBase.java:68: java/missing-override-annotation
+    This method overrides [HttpServlet.doGet](1); it is advisable to add an Override annotation.
+    A method that overrides a method in a superclass but does not have an 'Override' annotation cannot take advantage of compiler checks, and makes code less readable.
+
+codeql023 <Low> :/opt/project/test/integration_tests/java_testcase/src/testcasesupport/AbstractTestCaseServletBase.java:63: java/missing-override-annotation
+    This method overrides [HttpServlet.doPost](1); it is advisable to add an Override annotation.
+    A method that overrides a method in a superclass but does not have an 'Override' annotation cannot take advantage of compiler checks, and makes code less readable.
+
+codeql024 <Low> :/opt/project/test/integration_tests/java_testcase/src/testcases/CWE835_Infinite_Loop/CWE835_Infinite_Loop__do_01.java:16: java/local-variable-is-never-read
+    Variable 'int j' is never read.
+    A local variable that is never read is redundant.
+
+codeql025 <Low> :/opt/project/test/integration_tests/java_testcase/src/testcasesupport/AbstractTestCaseBase.java:18: java/unused-parameter
+    The parameter args is unused.
+    Parameters that are not used add unnecessary complexity to an interface.
+
+codeql026 <Low> :/opt/project/test/integration_tests/java_testcase/src/testcasesupport/AbstractTestCaseServletBase.java:31: java/unused-parameter
+    The parameter args is unused.
+    Parameters that are not used add unnecessary complexity to an interface.
+
+codeql027 <Low> :/opt/project/test/integration_tests/java_testcase/src/testcases/CWE835_Infinite_Loop/ServletMain.java:236: java/unused-parameter
+    The parameter request is unused.
+    Parameters that are not used add unnecessary complexity to an interface.
+
+codeql028 <Low> :/opt/project/test/integration_tests/java_testcase/src/testcases/CWE835_Infinite_Loop/ServletMain.java:236: java/unused-parameter
+    The parameter response is unused.
+    Parameters that are not used add unnecessary complexity to an interface.
+
+codeql029 <Low> :/opt/project/test/integration_tests/java_testcase/src/testcases/CWE835_Infinite_Loop/ServletMain.java:210: java/unused-parameter
+    The parameter request is unused.
+    Parameters that are not used add unnecessary complexity to an interface.
+
+codeql030 <Low> :/opt/project/test/integration_tests/java_testcase/src/testcases/CWE835_Infinite_Loop/ServletMain.java:210: java/unused-parameter
+    The parameter response is unused.
+    Parameters that are not used add unnecessary complexity to an interface.
+
+codeql031 <Low> :/opt/project/test/integration_tests/java_testcase/src/testcases/CWE835_Infinite_Loop/ServletMain.java:184: java/unused-parameter
+    The parameter request is unused.
+    Parameters that are not used add unnecessary complexity to an interface.
+
+codeql032 <Low> :/opt/project/test/integration_tests/java_testcase/src/testcases/CWE835_Infinite_Loop/ServletMain.java:184: java/unused-parameter
+    The parameter response is unused.
+    Parameters that are not used add unnecessary complexity to an interface.
+
+codeql033 <Low> :/opt/project/test/integration_tests/java_testcase/src/testcases/CWE835_Infinite_Loop/ServletMain.java:158: java/unused-parameter
+    The parameter request is unused.
+    Parameters that are not used add unnecessary complexity to an interface.
+
+codeql034 <Low> :/opt/project/test/integration_tests/java_testcase/src/testcases/CWE835_Infinite_Loop/ServletMain.java:158: java/unused-parameter
+    The parameter response is unused.
+    Parameters that are not used add unnecessary complexity to an interface.
+
+codeql035 <Low> :/opt/project/test/integration_tests/java_testcase/src/testcases/CWE835_Infinite_Loop/ServletMain.java:131: java/unused-parameter
+    The parameter request is unused.
+    Parameters that are not used add unnecessary complexity to an interface.
+
+codeql036 <Low> :/opt/project/test/integration_tests/java_testcase/src/testcases/CWE835_Infinite_Loop/ServletMain.java:131: java/unused-parameter
+    The parameter response is unused.
+    Parameters that are not used add unnecessary complexity to an interface.
+
+codeql037 <Low> :/opt/project/test/integration_tests/java_testcase/src/testcases/CWE835_Infinite_Loop/ServletMain.java:105: java/unused-parameter
+    The parameter request is unused.
+    Parameters that are not used add unnecessary complexity to an interface.
+
+codeql038 <Low> :/opt/project/test/integration_tests/java_testcase/src/testcases/CWE835_Infinite_Loop/ServletMain.java:105: java/unused-parameter
+    The parameter response is unused.
+    Parameters that are not used add unnecessary complexity to an interface.
+
+codeql039 <Low> :/opt/project/test/integration_tests/java_testcase/src/testcases/CWE835_Infinite_Loop/ServletMain.java:79: java/unused-parameter
+    The parameter request is unused.
+    Parameters that are not used add unnecessary complexity to an interface.
+
+codeql040 <Low> :/opt/project/test/integration_tests/java_testcase/src/testcases/CWE835_Infinite_Loop/ServletMain.java:79: java/unused-parameter
+    The parameter response is unused.
+    Parameters that are not used add unnecessary complexity to an interface.
+
+codeql041 <Low> :/opt/project/test/integration_tests/java_testcase/src/testcases/CWE835_Infinite_Loop/ServletMain.java:53: java/unused-parameter
+    The parameter request is unused.
+    Parameters that are not used add unnecessary complexity to an interface.
+
+codeql042 <Low> :/opt/project/test/integration_tests/java_testcase/src/testcases/CWE835_Infinite_Loop/ServletMain.java:53: java/unused-parameter
+    The parameter response is unused.
+    Parameters that are not used add unnecessary complexity to an interface.
+
+codeql043 <Low> :/opt/project/test/integration_tests/java_testcase/src/testcases/CWE835_Infinite_Loop/ServletMain.java:27: java/unused-parameter
+    The parameter request is unused.
+    Parameters that are not used add unnecessary complexity to an interface.
+
+codeql044 <Low> :/opt/project/test/integration_tests/java_testcase/src/testcases/CWE835_Infinite_Loop/ServletMain.java:27: java/unused-parameter
+    The parameter response is unused.
+    Parameters that are not used add unnecessary complexity to an interface.
+
+codeql045 <Low> :/opt/project/test/integration_tests/java_testcase/src/testcasesupport/AbstractTestCaseServlet.java:56: java/stack-trace-exposure
+    [Error information](1) can be exposed to an external user.
+    Information from a stack trace propagates to an external user. Stack traces can unintentionally reveal implementation details that are useful to an attacker for developing a subsequent exploit.
+
+codeql046 <Low> :/opt/project/test/integration_tests/java_testcase/src/testcasesupport/AbstractTestCaseServlet.java:78: java/stack-trace-exposure
+    [Error information](1) can be exposed to an external user.
+    Information from a stack trace propagates to an external user. Stack traces can unintentionally reveal implementation details that are useful to an attacker for developing a subsequent exploit.
+
+codeql047 <Low> :/opt/project/test/integration_tests/java_testcase/src/testcasesupport/AbstractTestCaseServletBadOnly.java:53: java/stack-trace-exposure
+    [Error information](1) can be exposed to an external user.
+    Information from a stack trace propagates to an external user. Stack traces can unintentionally reveal implementation details that are useful to an attacker for developing a subsequent exploit.
+
+codeql048 <Low> :/opt/project/test/integration_tests/java_testcase/src/testcasesupport/IO.java:100: java/random-used-once
+    Random object created and used only once.
+    Creating an instance of 'Random' for each pseudo-random number required does not guarantee an evenly distributed sequence of random numbers.
+

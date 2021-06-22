@@ -1,0 +1,413 @@
+2021-03-25 19:24:16,302 INFO     
+2021-03-25 19:24:16,303 INFO     Perform Klocwork analysis...
+2021-03-25 19:24:16,323 INFO     	Klocwork Version: 20.2.0
+2021-03-25 19:24:16,324 INFO     	Changing directory: /opt/project/test/integration_tests/c_testcase/src
+2021-03-25 19:24:16,327 INFO     
+2021-03-25 19:24:16,329 INFO     	>> Executing command: make clean
+2021-03-25 19:24:16,330 INFO     	>> From directory: /opt/project/test/integration_tests/c_testcase/src
+2021-03-25 19:24:16,331 DEBUG    	Console output:
+2021-03-25 19:24:16,353 DEBUG    		rm -rf *.o *.out CWE835
+2021-03-25 19:24:16,372 INFO     
+2021-03-25 19:24:16,374 INFO     	>> Executing command: /opt/local/klocwork/bin/kwinject --output /root/scrub_working_dir/klocwork_analysis/kwinject.out make all
+2021-03-25 19:24:16,377 INFO     	>> From directory: /opt/project/test/integration_tests/c_testcase/src
+2021-03-25 19:24:16,379 DEBUG    	Console output:
+2021-03-25 19:24:16,421 DEBUG    		/usr/bin/gcc -c -Wall -Wextra -Wpedantic -I ../testcasesupport main_linux.cpp -o main_linux.o
+2021-03-25 19:24:17,244 DEBUG    		/usr/bin/gcc -c -Wall -Wextra -Wpedantic -I ../testcasesupport CWE835_Infinite_Loop__for_empty_01.c -o CWE835_Infinite_Loop__for_empty_01.o
+2021-03-25 19:24:17,270 DEBUG    		In file included from CWE835_Infinite_Loop__for_empty_01.c:6:0:
+2021-03-25 19:24:17,271 DEBUG    		../testcasesupport/std_testcase.h:33:32: warning: C++ style comments are not allowed in ISO C90 [enabled by default]
+2021-03-25 19:24:17,272 DEBUG    		 # define __STDC_LIMIT_MACROS 1 //SCRUB_IGNORE_WARNING_DUMMY
+2021-03-25 19:24:17,273 DEBUG    		                                ^
+2021-03-25 19:24:17,274 DEBUG    		../testcasesupport/std_testcase.h:33:32: warning: (this will be reported only once per input file) [enabled by default]
+2021-03-25 19:24:17,311 DEBUG    		In file included from ../testcasesupport/std_testcase_io.h:8:0,
+2021-03-25 19:24:17,312 DEBUG    		                 from ../testcasesupport/std_testcase.h:120,
+2021-03-25 19:24:17,313 DEBUG    		                 from CWE835_Infinite_Loop__for_empty_01.c:6:
+2021-03-25 19:24:17,313 DEBUG    		../testcasesupport/std_testcase.h:33:32: warning: C++ style comments are not allowed in ISO C90 [enabled by default]
+2021-03-25 19:24:17,314 DEBUG    		 # define __STDC_LIMIT_MACROS 1 //SCRUB_IGNORE_WARNING_DUMMY
+2021-03-25 19:24:17,315 DEBUG    		                                ^
+2021-03-25 19:24:17,316 DEBUG    		../testcasesupport/std_testcase.h:33:32: warning: (this will be reported only once per input file) [enabled by default]
+2021-03-25 19:24:17,340 DEBUG    		/usr/bin/gcc -c -Wall -Wextra -Wpedantic -I ../testcasesupport CWE835_Infinite_Loop__while_true_01.c -o CWE835_Infinite_Loop__while_true_01.o
+2021-03-25 19:24:17,371 DEBUG    		In file included from CWE835_Infinite_Loop__while_true_01.c:6:0:
+2021-03-25 19:24:17,373 DEBUG    		../testcasesupport/std_testcase.h:33:32: warning: C++ style comments are not allowed in ISO C90 [enabled by default]
+2021-03-25 19:24:17,374 DEBUG    		 # define __STDC_LIMIT_MACROS 1 //SCRUB_IGNORE_WARNING_DUMMY
+2021-03-25 19:24:17,376 DEBUG    		                                ^
+2021-03-25 19:24:17,378 DEBUG    		../testcasesupport/std_testcase.h:33:32: warning: (this will be reported only once per input file) [enabled by default]
+2021-03-25 19:24:17,456 DEBUG    		In file included from ../testcasesupport/std_testcase_io.h:8:0,
+2021-03-25 19:24:17,457 DEBUG    		                 from ../testcasesupport/std_testcase.h:120,
+2021-03-25 19:24:17,458 DEBUG    		                 from CWE835_Infinite_Loop__while_true_01.c:6:
+2021-03-25 19:24:17,460 DEBUG    		../testcasesupport/std_testcase.h:33:32: warning: C++ style comments are not allowed in ISO C90 [enabled by default]
+2021-03-25 19:24:17,462 DEBUG    		 # define __STDC_LIMIT_MACROS 1 //SCRUB_IGNORE_WARNING_DUMMY
+2021-03-25 19:24:17,463 DEBUG    		                                ^
+2021-03-25 19:24:17,467 DEBUG    		../testcasesupport/std_testcase.h:33:32: warning: (this will be reported only once per input file) [enabled by default]
+2021-03-25 19:24:17,495 DEBUG    		/usr/bin/gcc -c -Wall -Wextra -Wpedantic -I ../testcasesupport CWE835_Infinite_Loop__do_true_01.c -o CWE835_Infinite_Loop__do_true_01.o
+2021-03-25 19:24:17,524 DEBUG    		In file included from CWE835_Infinite_Loop__do_true_01.c:6:0:
+2021-03-25 19:24:17,526 DEBUG    		../testcasesupport/std_testcase.h:33:32: warning: C++ style comments are not allowed in ISO C90 [enabled by default]
+2021-03-25 19:24:17,528 DEBUG    		 # define __STDC_LIMIT_MACROS 1 //SCRUB_IGNORE_WARNING_DUMMY
+2021-03-25 19:24:17,529 DEBUG    		                                ^
+2021-03-25 19:24:17,530 DEBUG    		../testcasesupport/std_testcase.h:33:32: warning: (this will be reported only once per input file) [enabled by default]
+2021-03-25 19:24:17,589 DEBUG    		In file included from ../testcasesupport/std_testcase_io.h:8:0,
+2021-03-25 19:24:17,590 DEBUG    		                 from ../testcasesupport/std_testcase.h:120,
+2021-03-25 19:24:17,591 DEBUG    		                 from CWE835_Infinite_Loop__do_true_01.c:6:
+2021-03-25 19:24:17,592 DEBUG    		../testcasesupport/std_testcase.h:33:32: warning: C++ style comments are not allowed in ISO C90 [enabled by default]
+2021-03-25 19:24:17,592 DEBUG    		 # define __STDC_LIMIT_MACROS 1 //SCRUB_IGNORE_WARNING_DUMMY
+2021-03-25 19:24:17,594 DEBUG    		                                ^
+2021-03-25 19:24:17,595 DEBUG    		../testcasesupport/std_testcase.h:33:32: warning: (this will be reported only once per input file) [enabled by default]
+2021-03-25 19:24:17,617 DEBUG    		/usr/bin/gcc -c -Wall -Wextra -Wpedantic -I ../testcasesupport CWE835_Infinite_Loop__while_01.c -o CWE835_Infinite_Loop__while_01.o
+2021-03-25 19:24:17,642 DEBUG    		In file included from CWE835_Infinite_Loop__while_01.c:6:0:
+2021-03-25 19:24:17,643 DEBUG    		../testcasesupport/std_testcase.h:33:32: warning: C++ style comments are not allowed in ISO C90 [enabled by default]
+2021-03-25 19:24:17,644 DEBUG    		 # define __STDC_LIMIT_MACROS 1 //SCRUB_IGNORE_WARNING_DUMMY
+2021-03-25 19:24:17,645 DEBUG    		                                ^
+2021-03-25 19:24:17,646 DEBUG    		../testcasesupport/std_testcase.h:33:32: warning: (this will be reported only once per input file) [enabled by default]
+2021-03-25 19:24:17,695 DEBUG    		In file included from ../testcasesupport/std_testcase_io.h:8:0,
+2021-03-25 19:24:17,697 DEBUG    		                 from ../testcasesupport/std_testcase.h:120,
+2021-03-25 19:24:17,698 DEBUG    		                 from CWE835_Infinite_Loop__while_01.c:6:
+2021-03-25 19:24:17,698 DEBUG    		../testcasesupport/std_testcase.h:33:32: warning: C++ style comments are not allowed in ISO C90 [enabled by default]
+2021-03-25 19:24:17,700 DEBUG    		 # define __STDC_LIMIT_MACROS 1 //SCRUB_IGNORE_WARNING_DUMMY
+2021-03-25 19:24:17,701 DEBUG    		                                ^
+2021-03-25 19:24:17,702 DEBUG    		../testcasesupport/std_testcase.h:33:32: warning: (this will be reported only once per input file) [enabled by default]
+2021-03-25 19:24:17,729 DEBUG    		/usr/bin/gcc -c -Wall -Wextra -Wpedantic -I ../testcasesupport CWE835_Infinite_Loop__for_01.c -o CWE835_Infinite_Loop__for_01.o
+2021-03-25 19:24:17,757 DEBUG    		In file included from CWE835_Infinite_Loop__for_01.c:6:0:
+2021-03-25 19:24:17,758 DEBUG    		../testcasesupport/std_testcase.h:33:32: warning: C++ style comments are not allowed in ISO C90 [enabled by default]
+2021-03-25 19:24:17,760 DEBUG    		 # define __STDC_LIMIT_MACROS 1 //SCRUB_IGNORE_WARNING_DUMMY
+2021-03-25 19:24:17,761 DEBUG    		                                ^
+2021-03-25 19:24:17,762 DEBUG    		../testcasesupport/std_testcase.h:33:32: warning: (this will be reported only once per input file) [enabled by default]
+2021-03-25 19:24:17,813 DEBUG    		In file included from ../testcasesupport/std_testcase_io.h:8:0,
+2021-03-25 19:24:17,814 DEBUG    		                 from ../testcasesupport/std_testcase.h:120,
+2021-03-25 19:24:17,816 DEBUG    		                 from CWE835_Infinite_Loop__for_01.c:6:
+2021-03-25 19:24:17,817 DEBUG    		../testcasesupport/std_testcase.h:33:32: warning: C++ style comments are not allowed in ISO C90 [enabled by default]
+2021-03-25 19:24:17,818 DEBUG    		 # define __STDC_LIMIT_MACROS 1 //SCRUB_IGNORE_WARNING_DUMMY
+2021-03-25 19:24:17,819 DEBUG    		                                ^
+2021-03-25 19:24:17,820 DEBUG    		../testcasesupport/std_testcase.h:33:32: warning: (this will be reported only once per input file) [enabled by default]
+2021-03-25 19:24:17,851 DEBUG    		/usr/bin/gcc -c -Wall -Wextra -Wpedantic -I ../testcasesupport CWE835_Infinite_Loop__do_01.c -o CWE835_Infinite_Loop__do_01.o
+2021-03-25 19:24:17,879 DEBUG    		In file included from CWE835_Infinite_Loop__do_01.c:6:0:
+2021-03-25 19:24:17,880 DEBUG    		../testcasesupport/std_testcase.h:33:32: warning: C++ style comments are not allowed in ISO C90 [enabled by default]
+2021-03-25 19:24:17,881 DEBUG    		 # define __STDC_LIMIT_MACROS 1 //SCRUB_IGNORE_WARNING_DUMMY
+2021-03-25 19:24:17,882 DEBUG    		                                ^
+2021-03-25 19:24:17,884 DEBUG    		../testcasesupport/std_testcase.h:33:32: warning: (this will be reported only once per input file) [enabled by default]
+2021-03-25 19:24:17,931 DEBUG    		In file included from ../testcasesupport/std_testcase_io.h:8:0,
+2021-03-25 19:24:17,932 DEBUG    		                 from ../testcasesupport/std_testcase.h:120,
+2021-03-25 19:24:17,933 DEBUG    		                 from CWE835_Infinite_Loop__do_01.c:6:
+2021-03-25 19:24:17,934 DEBUG    		../testcasesupport/std_testcase.h:33:32: warning: C++ style comments are not allowed in ISO C90 [enabled by default]
+2021-03-25 19:24:17,935 DEBUG    		 # define __STDC_LIMIT_MACROS 1 //SCRUB_IGNORE_WARNING_DUMMY
+2021-03-25 19:24:17,936 DEBUG    		                                ^
+2021-03-25 19:24:17,937 DEBUG    		../testcasesupport/std_testcase.h:33:32: warning: (this will be reported only once per input file) [enabled by default]
+2021-03-25 19:24:17,971 DEBUG    		/usr/bin/gcc -c -Wall -Wextra -Wpedantic -I ../testcasesupport ../testcasesupport/io.c -o io.o
+2021-03-25 19:24:18,038 DEBUG    		In file included from ../testcasesupport/io.c:5:0:
+2021-03-25 19:24:18,039 DEBUG    		../testcasesupport/std_testcase.h:33:32: warning: C++ style comments are not allowed in ISO C90 [enabled by default]
+2021-03-25 19:24:18,040 DEBUG    		 # define __STDC_LIMIT_MACROS 1 //SCRUB_IGNORE_WARNING_DUMMY
+2021-03-25 19:24:18,041 DEBUG    		                                ^
+2021-03-25 19:24:18,042 DEBUG    		../testcasesupport/std_testcase.h:33:32: warning: (this will be reported only once per input file) [enabled by default]
+2021-03-25 19:24:18,058 DEBUG    		In file included from ../testcasesupport/std_testcase_io.h:8:0,
+2021-03-25 19:24:18,059 DEBUG    		                 from ../testcasesupport/std_testcase.h:120,
+2021-03-25 19:24:18,061 DEBUG    		                 from ../testcasesupport/io.c:5:
+2021-03-25 19:24:18,062 DEBUG    		../testcasesupport/std_testcase.h:33:32: warning: C++ style comments are not allowed in ISO C90 [enabled by default]
+2021-03-25 19:24:18,063 DEBUG    		 # define __STDC_LIMIT_MACROS 1 //SCRUB_IGNORE_WARNING_DUMMY
+2021-03-25 19:24:18,064 DEBUG    		                                ^
+2021-03-25 19:24:18,065 DEBUG    		../testcasesupport/std_testcase.h:33:32: warning: (this will be reported only once per input file) [enabled by default]
+2021-03-25 19:24:18,067 DEBUG    		../testcasesupport/io.c: In function 'printSizeTLine':
+2021-03-25 19:24:18,069 DEBUG    		../testcasesupport/io.c:54:5: warning: ISO C90 does not support the 'z' gnu_printf length modifier [-Wformat=]
+2021-03-25 19:24:18,070 DEBUG    		     printf("%zu\n", sizeTNumber);
+2021-03-25 19:24:18,071 DEBUG    		     ^
+2021-03-25 19:24:18,073 DEBUG    		../testcasesupport/io.c: In function 'printWcharLine':
+2021-03-25 19:24:18,074 DEBUG    		../testcasesupport/io.c:67:29: warning: C++ style comments are not allowed in ISO C90 [enabled by default]
+2021-03-25 19:24:18,075 DEBUG    		         s[0] = wideChar;    // lgtm
+2021-03-25 19:24:18,076 DEBUG    		                             ^
+2021-03-25 19:24:18,078 DEBUG    		../testcasesupport/io.c:67:29: warning: (this will be reported only once per input file) [enabled by default]
+2021-03-25 19:24:18,079 DEBUG    		../testcasesupport/io.c:69:5: warning: ISO C90 does not support the '%ls' gnu_printf format [-Wformat=]
+2021-03-25 19:24:18,080 DEBUG    		     printf("%ls\n", s);
+2021-03-25 19:24:18,081 DEBUG    		     ^
+2021-03-25 19:24:18,082 DEBUG    		../testcasesupport/io.c: In function 'decodeHexChars':
+2021-03-25 19:24:18,083 DEBUG    		../testcasesupport/io.c:116:9: warning: format '%x' expects argument of type 'unsigned int *', but argument 3 has type 'int *' [-Wformat=]
+2021-03-25 19:24:18,085 DEBUG    		         sscanf(&hex[2 * numWritten], "%02x", &byte);
+2021-03-25 19:24:18,086 DEBUG    		         ^
+2021-03-25 19:24:18,128 DEBUG    		/usr/bin/gcc -c -Wall -Wextra -Wpedantic -I ../testcasesupport ../testcasesupport/std_thread.c -o std_thread.o
+2021-03-25 19:24:18,154 DEBUG    		In file included from ../testcasesupport/std_thread.c:5:0:
+2021-03-25 19:24:18,155 DEBUG    		../testcasesupport/std_testcase.h:33:32: warning: C++ style comments are not allowed in ISO C90 [enabled by default]
+2021-03-25 19:24:18,156 DEBUG    		 # define __STDC_LIMIT_MACROS 1 //SCRUB_IGNORE_WARNING_DUMMY
+2021-03-25 19:24:18,157 DEBUG    		                                ^
+2021-03-25 19:24:18,159 DEBUG    		../testcasesupport/std_testcase.h:33:32: warning: (this will be reported only once per input file) [enabled by default]
+2021-03-25 19:24:18,202 DEBUG    		In file included from ../testcasesupport/std_testcase_io.h:8:0,
+2021-03-25 19:24:18,203 DEBUG    		                 from ../testcasesupport/std_testcase.h:120,
+2021-03-25 19:24:18,204 DEBUG    		                 from ../testcasesupport/std_thread.c:5:
+2021-03-25 19:24:18,206 DEBUG    		../testcasesupport/std_testcase.h:33:32: warning: C++ style comments are not allowed in ISO C90 [enabled by default]
+2021-03-25 19:24:18,207 DEBUG    		 # define __STDC_LIMIT_MACROS 1 //SCRUB_IGNORE_WARNING_DUMMY
+2021-03-25 19:24:18,208 DEBUG    		                                ^
+2021-03-25 19:24:18,209 DEBUG    		../testcasesupport/std_testcase.h:33:32: warning: (this will be reported only once per input file) [enabled by default]
+2021-03-25 19:24:18,248 DEBUG    		/usr/bin/g++ -lpthread -lm main_linux.o CWE835_Infinite_Loop__for_empty_01.o CWE835_Infinite_Loop__while_true_01.o CWE835_Infinite_Loop__do_true_01.o CWE835_Infinite_Loop__while_01.o CWE835_Infinite_Loop__for_01.o CWE835_Infinite_Loop__do_01.o  io.o std_thread.o -o CWE835
+2021-03-25 19:24:18,884 INFO     
+2021-03-25 19:24:18,886 INFO     	>> Executing command: /opt/local/klocwork/bin/kwbuildproject --url https://fake-klocwork-server.com:443/TestProject --tables-directory /root/scrub_working_dir/klocwork_analysis/kw_tables /root/scrub_working_dir/klocwork_analysis/kwinject.out
+2021-03-25 19:24:18,888 INFO     	>> From directory: /opt/project/test/integration_tests/c_testcase/src
+2021-03-25 19:24:18,890 DEBUG    	Console output:
+2021-03-25 19:24:23,388 DEBUG    		March 25, 2021 7:24:23 PM UTC: Downloading configuration files of the 'TestProject' project...
+2021-03-25 19:24:23,861 DEBUG    		March 25, 2021 7:24:23 PM UTC: Configuration files successfully downloaded
+2021-03-25 19:24:26,475 DEBUG    		-----
+2021-03-25 19:24:26,477 DEBUG    		Klocwork 20.2.0.89
+2021-03-25 19:24:26,479 DEBUG    		-----
+2021-03-25 19:24:26,729 DEBUG    		March 25, 2021 7:24:26 PM UTC: Running build preparation stage...
+2021-03-25 19:24:26,803 DEBUG    		March 25, 2021 7:24:26 PM UTC: Build preparation stage completed
+2021-03-25 19:24:27,359 DEBUG    		March 25, 2021 7:24:27 PM UTC: Running compilation stage...
+2021-03-25 19:24:27,446 DEBUG    		5> CLASSIC: Compiling /opt/project/test/integration_tests/c_testcase/src/CWE835_Infinite_Loop__for_empty_01.c
+2021-03-25 19:24:27,470 DEBUG    		2> CLASSIC: Compiling /opt/project/test/integration_tests/c_testcase/src/main_linux.cpp
+2021-03-25 19:24:27,493 DEBUG    		Progress 0%
+2021-03-25 19:24:27,494 DEBUG    		1> MODERN: Compiling /opt/project/test/integration_tests/c_testcase/src/main_linux.cpp
+2021-03-25 19:24:27,502 DEBUG    		Progress 0%
+2021-03-25 19:24:27,516 DEBUG    		Progress 0%
+2021-03-25 19:24:27,518 DEBUG    		4> CLASSIC: Compiling /opt/project/test/integration_tests/c_testcase/src/CWE835_Infinite_Loop__while_true_01.c
+2021-03-25 19:24:27,531 DEBUG    		Progress 0%
+2021-03-25 19:24:27,545 DEBUG    		Progress 0%
+2021-03-25 19:24:27,547 DEBUG    		3> MODERN: Compiling /opt/project/test/integration_tests/c_testcase/src/CWE835_Infinite_Loop__for_empty_01.c
+2021-03-25 19:24:27,554 DEBUG    		Progress 0%
+2021-03-25 19:24:27,556 DEBUG    		Progress 0%
+2021-03-25 19:24:28,159 DEBUG    		Progress 0%
+2021-03-25 19:24:28,160 DEBUG    		4> CLASSIC: Compiling /opt/project/test/integration_tests/c_testcase/src/CWE835_Infinite_Loop__do_true_01.c
+2021-03-25 19:24:28,165 DEBUG    		Progress 0%
+2021-03-25 19:24:28,176 DEBUG    		Progress 22%
+2021-03-25 19:24:28,178 DEBUG    		3> MODERN: Compiling /opt/project/test/integration_tests/c_testcase/src/CWE835_Infinite_Loop__while_true_01.c
+2021-03-25 19:24:28,180 DEBUG    		Progress 22%
+2021-03-25 19:24:28,191 DEBUG    		Progress 5% 
+2021-03-25 19:24:28,193 DEBUG    		5> CLASSIC: Compiling /opt/project/test/integration_tests/c_testcase/src/CWE835_Infinite_Loop__while_01.c
+2021-03-25 19:24:28,197 DEBUG    		Progress 5%
+2021-03-25 19:24:28,203 DEBUG    		Progress 27%
+2021-03-25 19:24:28,205 DEBUG    		2> MODERN: Compiling /opt/project/test/integration_tests/c_testcase/src/CWE835_Infinite_Loop__do_true_01.c
+2021-03-25 19:24:28,221 DEBUG    		Progress 27%
+2021-03-25 19:24:28,223 DEBUG    		1> MODERN: Compiling /opt/project/test/integration_tests/c_testcase/src/CWE835_Infinite_Loop__while_01.c
+2021-03-25 19:24:28,226 DEBUG    		Progress 27%
+2021-03-25 19:24:28,230 DEBUG    		Progress 27%
+2021-03-25 19:24:28,559 DEBUG    		Progress 27%
+2021-03-25 19:24:28,561 DEBUG    		3> CLASSIC: Compiling /opt/project/test/integration_tests/c_testcase/src/CWE835_Infinite_Loop__for_01.c
+2021-03-25 19:24:28,586 DEBUG    		Progress 27%
+2021-03-25 19:24:28,614 DEBUG    		Progress 33%
+2021-03-25 19:24:28,616 DEBUG    		4> MODERN: Compiling /opt/project/test/integration_tests/c_testcase/src/CWE835_Infinite_Loop__for_01.c
+2021-03-25 19:24:28,618 DEBUG    		Progress 33%
+2021-03-25 19:24:28,676 DEBUG    		Progress 38%
+2021-03-25 19:24:28,678 DEBUG    		2> CLASSIC: Compiling /opt/project/test/integration_tests/c_testcase/src/CWE835_Infinite_Loop__do_01.c
+2021-03-25 19:24:28,690 DEBUG    		Progress 38%
+2021-03-25 19:24:28,751 DEBUG    		Progress 44%
+2021-03-25 19:24:28,752 DEBUG    		5> MODERN: Compiling /opt/project/test/integration_tests/c_testcase/src/CWE835_Infinite_Loop__do_01.c
+2021-03-25 19:24:28,759 DEBUG    		Progress 44%
+2021-03-25 19:24:28,764 DEBUG    		Progress 50%
+2021-03-25 19:24:28,766 DEBUG    		1> CLASSIC: Compiling /opt/project/test/integration_tests/c_testcase/testcasesupport/io.c
+2021-03-25 19:24:28,770 DEBUG    		Progress 50%
+2021-03-25 19:24:28,964 DEBUG    		Progress 55%
+2021-03-25 19:24:28,965 DEBUG    		4> MODERN: Compiling /opt/project/test/integration_tests/c_testcase/testcasesupport/io.c
+2021-03-25 19:24:28,974 DEBUG    		Progress 55%
+2021-03-25 19:24:28,988 DEBUG    		Progress 61%
+2021-03-25 19:24:28,989 DEBUG    		3> CLASSIC: Compiling /opt/project/test/integration_tests/c_testcase/testcasesupport/std_thread.c
+2021-03-25 19:24:28,992 DEBUG    		Progress 61%
+2021-03-25 19:24:29,160 DEBUG    		Progress 66%
+2021-03-25 19:24:29,161 DEBUG    		2> MODERN: Compiling /opt/project/test/integration_tests/c_testcase/testcasesupport/std_thread.c
+2021-03-25 19:24:29,175 DEBUG    		Progress 66%
+2021-03-25 19:24:29,444 DEBUG    		Progress 72%
+2021-03-25 19:24:30,391 DEBUG    		Progress 100%
+2021-03-25 19:24:30,394 DEBUG    		March 25, 2021 7:24:30 PM UTC: Compilation stage completed
+2021-03-25 19:24:30,396 DEBUG    		March 25, 2021 7:24:30 PM UTC: Running C/C++ defects detection stage...
+2021-03-25 19:24:30,856 DEBUG    		1> Analyzing io.c_7.o
+2021-03-25 19:24:30,859 DEBUG    		Progress 0%
+2021-03-25 19:24:30,861 DEBUG    		2> Analyzing std_thread.c_8.o
+2021-03-25 19:24:30,862 DEBUG    		Progress 0%
+2021-03-25 19:24:31,062 DEBUG    		Progress 0%
+2021-03-25 19:24:31,063 DEBUG    		3> Analyzing CWE835_Infinite_Loop__for_empty_01.c_1.o
+2021-03-25 19:24:31,065 DEBUG    		Progress 0%
+2021-03-25 19:24:31,067 DEBUG    		Progress 22%
+2021-03-25 19:24:31,069 DEBUG    		4> Analyzing CWE835_Infinite_Loop__while_true_01.c_2.o
+2021-03-25 19:24:31,070 DEBUG    		Progress 22%
+2021-03-25 19:24:31,072 DEBUG    		Progress 22%
+2021-03-25 19:24:31,073 DEBUG    		5> Analyzing CWE835_Infinite_Loop__do_true_01.c_3.o
+2021-03-25 19:24:31,075 DEBUG    		Progress 22%
+2021-03-25 19:24:31,075 DEBUG    		Progress 22%
+2021-03-25 19:24:31,076 DEBUG    		1> Analyzing CWE835_Infinite_Loop__while_01.c_4.o
+2021-03-25 19:24:31,077 DEBUG    		Progress 22%
+2021-03-25 19:24:31,078 DEBUG    		Progress 22%
+2021-03-25 19:24:31,080 DEBUG    		2> Analyzing CWE835_Infinite_Loop__for_01.c_5.o
+2021-03-25 19:24:31,081 DEBUG    		Progress 22%
+2021-03-25 19:24:31,167 DEBUG    		Progress 22%
+2021-03-25 19:24:31,168 DEBUG    		5> Analyzing CWE835_Infinite_Loop__do_01.c_6.o
+2021-03-25 19:24:31,169 DEBUG    		Progress 22%
+2021-03-25 19:24:31,304 DEBUG    		Progress 33%
+2021-03-25 19:24:31,305 DEBUG    		1> Analyzing main_linux.cpp_0.o
+2021-03-25 19:24:31,307 DEBUG    		Progress 33%
+2021-03-25 19:24:31,447 DEBUG    		Progress 88%
+2021-03-25 19:24:31,978 DEBUG    		Progress 100%
+2021-03-25 19:24:31,980 DEBUG    		1> Analyzing CWE835_Infinite_Loop__for_empty_01.c_1.o
+2021-03-25 19:24:31,981 DEBUG    		Progress 0%
+2021-03-25 19:24:31,981 DEBUG    		2> Analyzing io.c_7.o
+2021-03-25 19:24:31,982 DEBUG    		Progress 0%
+2021-03-25 19:24:31,983 DEBUG    		Progress 0%
+2021-03-25 19:24:31,984 DEBUG    		3> Analyzing std_thread.c_8.o
+2021-03-25 19:24:31,984 DEBUG    		Progress 0%
+2021-03-25 19:24:32,157 DEBUG    		Progress 0%
+2021-03-25 19:24:32,159 DEBUG    		4> Analyzing CWE835_Infinite_Loop__while_true_01.c_2.o
+2021-03-25 19:24:32,160 DEBUG    		Progress 0%
+2021-03-25 19:24:32,162 DEBUG    		Progress 33%
+2021-03-25 19:24:32,163 DEBUG    		5> Analyzing CWE835_Infinite_Loop__do_true_01.c_3.o
+2021-03-25 19:24:32,164 DEBUG    		Progress 33%
+2021-03-25 19:24:32,166 DEBUG    		Progress 33%
+2021-03-25 19:24:32,167 DEBUG    		1> Analyzing CWE835_Infinite_Loop__while_01.c_4.o
+2021-03-25 19:24:32,170 DEBUG    		Progress 33%
+2021-03-25 19:24:32,171 DEBUG    		Progress 33%
+2021-03-25 19:24:32,173 DEBUG    		2> Analyzing CWE835_Infinite_Loop__for_01.c_5.o
+2021-03-25 19:24:32,174 DEBUG    		Progress 33%
+2021-03-25 19:24:32,175 DEBUG    		Progress 33%
+2021-03-25 19:24:32,176 DEBUG    		3> Analyzing CWE835_Infinite_Loop__do_01.c_6.o
+2021-03-25 19:24:32,177 DEBUG    		Progress 33%
+2021-03-25 19:24:32,394 DEBUG    		Progress 33%
+2021-03-25 19:24:32,396 DEBUG    		1> Analyzing main_linux.cpp_0.o
+2021-03-25 19:24:32,397 DEBUG    		Progress 33%
+2021-03-25 19:24:32,538 DEBUG    		Progress 88%
+2021-03-25 19:24:32,640 DEBUG    		Progress 100%
+2021-03-25 19:24:32,642 DEBUG    		March 25, 2021 7:24:32 PM UTC: C/C++ defects detection stage completed
+2021-03-25 19:24:32,645 DEBUG    		March 25, 2021 7:24:32 PM UTC: Running linking stage...
+2021-03-25 19:24:32,735 DEBUG    		Progress 0%
+2021-03-25 19:24:32,736 DEBUG    		Progress 4%
+2021-03-25 19:24:32,737 DEBUG    		Progress 9%
+2021-03-25 19:24:32,738 DEBUG    		Progress 14%
+2021-03-25 19:24:32,739 DEBUG    		Progress 18%
+2021-03-25 19:24:32,745 DEBUG    		Progress 23%
+2021-03-25 19:24:32,746 DEBUG    		Progress 28%
+2021-03-25 19:24:32,747 DEBUG    		Progress 32%
+2021-03-25 19:24:32,748 DEBUG    		Progress 37%
+2021-03-25 19:24:32,749 DEBUG    		Progress 42%
+2021-03-25 19:24:32,750 DEBUG    		Progress 47%
+2021-03-25 19:24:32,751 DEBUG    		Progress 51%
+2021-03-25 19:24:32,752 DEBUG    		Progress 56%
+2021-03-25 19:24:32,752 DEBUG    		Progress 61%
+2021-03-25 19:24:32,753 DEBUG    		Progress 65%
+2021-03-25 19:24:32,755 DEBUG    		Progress 70%
+2021-03-25 19:24:32,758 DEBUG    		Progress 75%
+2021-03-25 19:24:32,760 DEBUG    		Progress 79%
+2021-03-25 19:24:32,763 DEBUG    		Progress 84%
+2021-03-25 19:24:32,767 DEBUG    		Progress 89%
+2021-03-25 19:24:32,875 DEBUG    		Progress 94%
+2021-03-25 19:24:32,879 DEBUG    		Progress 100%
+2021-03-25 19:24:32,881 DEBUG    		March 25, 2021 7:24:32 PM UTC: Linking stage completed
+2021-03-25 19:24:32,883 DEBUG    		March 25, 2021 7:24:32 PM UTC: Running reports generation stage...
+2021-03-25 19:24:34,105 DEBUG    		March 25, 2021 7:24:34 PM UTC: Reports generation stage completed
+2021-03-25 19:24:34,122 DEBUG    		March 25, 2021 7:24:34 PM UTC: Running sources archive stage...
+2021-03-25 19:24:34,292 DEBUG    		Progress 0%
+2021-03-25 19:24:34,323 DEBUG    		Progress 1%
+2021-03-25 19:24:34,353 DEBUG    		Progress 2%
+2021-03-25 19:24:34,355 DEBUG    		Progress 3%
+2021-03-25 19:24:34,362 DEBUG    		Progress 4%
+2021-03-25 19:24:34,364 DEBUG    		Progress 5%
+2021-03-25 19:24:34,375 DEBUG    		Progress 7%
+2021-03-25 19:24:34,429 DEBUG    		Progress 8%
+2021-03-25 19:24:34,438 DEBUG    		Progress 9%
+2021-03-25 19:24:34,442 DEBUG    		Progress 10%
+2021-03-25 19:24:34,456 DEBUG    		Progress 11%
+2021-03-25 19:24:34,464 DEBUG    		Progress 13%
+2021-03-25 19:24:34,471 DEBUG    		Progress 14%
+2021-03-25 19:24:34,487 DEBUG    		Progress 15%
+2021-03-25 19:24:34,489 DEBUG    		Progress 16%
+2021-03-25 19:24:34,491 DEBUG    		Progress 17%
+2021-03-25 19:24:34,495 DEBUG    		Progress 19%
+2021-03-25 19:24:34,504 DEBUG    		Progress 20%
+2021-03-25 19:24:34,510 DEBUG    		Progress 21%
+2021-03-25 19:24:34,516 DEBUG    		Progress 22%
+2021-03-25 19:24:34,519 DEBUG    		Progress 23%
+2021-03-25 19:24:34,523 DEBUG    		Progress 25%
+2021-03-25 19:24:34,527 DEBUG    		Progress 26%
+2021-03-25 19:24:34,531 DEBUG    		Progress 27%
+2021-03-25 19:24:34,577 DEBUG    		Progress 28%
+2021-03-25 19:24:34,583 DEBUG    		Progress 29%
+2021-03-25 19:24:34,587 DEBUG    		Progress 30%
+2021-03-25 19:24:34,589 DEBUG    		Progress 32%
+2021-03-25 19:24:34,593 DEBUG    		Progress 33%
+2021-03-25 19:24:34,597 DEBUG    		Progress 34%
+2021-03-25 19:24:34,598 DEBUG    		Progress 35%
+2021-03-25 19:24:34,602 DEBUG    		Progress 36%
+2021-03-25 19:24:34,607 DEBUG    		Progress 38%
+2021-03-25 19:24:34,613 DEBUG    		Progress 39%
+2021-03-25 19:24:34,615 DEBUG    		Progress 40%
+2021-03-25 19:24:34,621 DEBUG    		Progress 41%
+2021-03-25 19:24:34,628 DEBUG    		Progress 42%
+2021-03-25 19:24:34,642 DEBUG    		Progress 44%
+2021-03-25 19:24:34,649 DEBUG    		Progress 45%
+2021-03-25 19:24:34,657 DEBUG    		Progress 46%
+2021-03-25 19:24:34,679 DEBUG    		Progress 47%
+2021-03-25 19:24:34,681 DEBUG    		Progress 48%
+2021-03-25 19:24:34,689 DEBUG    		Progress 50%
+2021-03-25 19:24:34,704 DEBUG    		Progress 51%
+2021-03-25 19:24:34,711 DEBUG    		Progress 52%
+2021-03-25 19:24:34,717 DEBUG    		Progress 53%
+2021-03-25 19:24:34,736 DEBUG    		Progress 54%
+2021-03-25 19:24:34,738 DEBUG    		Progress 55%
+2021-03-25 19:24:34,741 DEBUG    		Progress 57%
+2021-03-25 19:24:34,744 DEBUG    		Progress 58%
+2021-03-25 19:24:34,745 DEBUG    		Progress 59%
+2021-03-25 19:24:34,752 DEBUG    		Progress 60%
+2021-03-25 19:24:34,757 DEBUG    		Progress 61%
+2021-03-25 19:24:34,759 DEBUG    		Progress 63%
+2021-03-25 19:24:34,768 DEBUG    		Progress 64%
+2021-03-25 19:24:34,770 DEBUG    		Progress 65%
+2021-03-25 19:24:34,772 DEBUG    		Progress 66%
+2021-03-25 19:24:34,774 DEBUG    		Progress 67%
+2021-03-25 19:24:34,776 DEBUG    		Progress 69%
+2021-03-25 19:24:34,777 DEBUG    		Progress 70%
+2021-03-25 19:24:34,782 DEBUG    		Progress 71%
+2021-03-25 19:24:34,784 DEBUG    		Progress 72%
+2021-03-25 19:24:34,785 DEBUG    		Progress 73%
+2021-03-25 19:24:34,787 DEBUG    		Progress 75%
+2021-03-25 19:24:34,788 DEBUG    		Progress 76%
+2021-03-25 19:24:34,791 DEBUG    		Progress 77%
+2021-03-25 19:24:34,794 DEBUG    		Progress 78%
+2021-03-25 19:24:34,796 DEBUG    		Progress 79%
+2021-03-25 19:24:34,799 DEBUG    		Progress 80%
+2021-03-25 19:24:34,802 DEBUG    		Progress 82%
+2021-03-25 19:24:34,805 DEBUG    		Progress 83%
+2021-03-25 19:24:34,808 DEBUG    		Progress 84%
+2021-03-25 19:24:34,810 DEBUG    		Progress 85%
+2021-03-25 19:24:34,811 DEBUG    		Progress 86%
+2021-03-25 19:24:34,819 DEBUG    		Progress 88%
+2021-03-25 19:24:34,820 DEBUG    		Progress 89%
+2021-03-25 19:24:34,823 DEBUG    		Progress 90%
+2021-03-25 19:24:34,825 DEBUG    		Progress 91%
+2021-03-25 19:24:34,826 DEBUG    		Progress 92%
+2021-03-25 19:24:34,834 DEBUG    		Progress 94%
+2021-03-25 19:24:34,836 DEBUG    		Progress 95%
+2021-03-25 19:24:34,842 DEBUG    		Progress 96%
+2021-03-25 19:24:34,844 DEBUG    		Progress 97%
+2021-03-25 19:24:34,847 DEBUG    		Progress 98%
+2021-03-25 19:24:34,854 DEBUG    		Progress 100%
+2021-03-25 19:24:34,855 DEBUG    		March 25, 2021 7:24:34 PM UTC: Sources archive stage completed
+2021-03-25 19:24:35,141 INFO     
+2021-03-25 19:24:35,142 INFO     	>> Executing command: /opt/local/klocwork/bin/kwadmin --url https://fake-klocwork-server.com:443 load TestProject /root/scrub_working_dir/klocwork_analysis/kw_tables
+2021-03-25 19:24:35,144 INFO     	>> From directory: /opt/project/test/integration_tests/c_testcase/src
+2021-03-25 19:24:35,145 DEBUG    	Console output:
+2021-03-25 19:24:39,813 DEBUG    		March 25, 2021 7:24:39 PM UTC: Running upload files stage...
+2021-03-25 19:24:43,301 DEBUG    		March 25, 2021 7:24:43 PM UTC: Completed upload files stage...
+2021-03-25 19:24:43,303 DEBUG    		March 25, 2021 7:24:43 PM UTC: Running check and start loading stage...
+2021-03-25 19:24:44,172 DEBUG    		March 25, 2021 7:24:41 PM UTC: Completed check and start loading stage...
+2021-03-25 19:24:44,175 DEBUG    		March 25, 2021 7:24:41 PM UTC: Running initializing server-side loader stage...
+2021-03-25 19:24:46,384 DEBUG    		Progress : 0%
+2021-03-25 19:24:46,386 DEBUG    		March 25, 2021 7:24:44 PM UTC: Completed initializing server-side loader stage...
+2021-03-25 19:24:46,387 DEBUG    		March 25, 2021 7:24:44 PM UTC: Running propagation stage...
+2021-03-25 19:24:48,566 DEBUG    		Progress : 0%
+2021-03-25 19:24:48,570 DEBUG    		March 25, 2021 7:24:45 PM UTC: Completed propagation stage...
+2021-03-25 19:24:48,571 DEBUG    		March 25, 2021 7:24:45 PM UTC: Running parsing source files stage...
+2021-03-25 19:24:51,074 DEBUG    		Progress : 0%
+2021-03-25 19:24:51,076 DEBUG    		March 25, 2021 7:24:48 PM UTC: Completed parsing source files stage...
+2021-03-25 19:24:51,077 DEBUG    		March 25, 2021 7:24:48 PM UTC: Running build database loading stage...
+2021-03-25 19:24:51,079 DEBUG    		March 25, 2021 7:24:48 PM UTC: Completed build database loading stage...
+2021-03-25 19:24:51,080 DEBUG    		March 25, 2021 7:24:48 PM UTC: Running shared database loading stage...
+2021-03-25 19:24:53,305 DEBUG    		Progress : 0%
+2021-03-25 19:24:55,509 DEBUG    		Progress : 52%
+2021-03-25 19:24:55,511 DEBUG    		March 25, 2021 7:24:53 PM UTC: Completed shared database loading stage...
+2021-03-25 19:24:55,513 DEBUG    		March 25, 2021 7:24:53 PM UTC: Running defect groups calculation stage...
+2021-03-25 19:24:59,860 DEBUG    		Progress : 0%
+2021-03-25 19:24:59,861 DEBUG    		March 25, 2021 7:24:59 PM UTC: Completed defect groups calculation stage...
+2021-03-25 19:24:59,862 DEBUG    		March 25, 2021 7:24:59 PM UTC: Running downloading log files stage...
+2021-03-25 19:25:00,603 DEBUG    		March 25, 2021 7:25:00 PM UTC: Completed downloading log files stage...
+2021-03-25 19:25:00,605 DEBUG    		Build successfully created.
+2021-03-25 19:25:00,748 INFO     
+2021-03-25 19:25:00,750 INFO     	>> Executing command: curl --silent --data "action=search&user=lbarner&project=TestProject&ltoken=94733ab9e54ca385442ef51350a275af5f528ff787f5371d6a432b0192a46e0b&query=build:build_225 state:New,+Existing" https://fake-klocwork-server.com/review/api
+2021-03-25 19:25:00,751 INFO     	>> From directory: /opt/project/test/integration_tests/c_testcase/src
+2021-03-25 19:25:00,752 DEBUG    	Console output:
+2021-03-25 19:25:01,629 DEBUG    		{"id":7,"status":"Analyze","severity":"Error","severityCode":2,"supportLevel":"Klocwork Certified","supportLevelCode":1,"state":"Existing","code":"SV.FMT_STR.SCAN_FORMAT_MISMATCH.UNDESIRED","title":"Unexpected type of a scan function parameter","message":"sscanf format specification \u0027%02x\u0027 expects type \u0027unsigned int *\u0027 for \u0027x\u0027, but parameter 3 has a different type \u0027int*\u0027","file":"/opt/project/test/integration_tests/c_testcase/testcasesupport/io.c","method":"decodeHexChars","owner":"unowned","taxonomyName":"C and C++","dateOriginated":1595433011981,"url":"https://fake-klocwork-server.com:443/review/insight-review.html#issuedetails_goto:problemid\u003d7,project\u003dTestProject,searchquery\u003dbuild:build_225 state:New, Existing","issueIds":[4]}
+2021-03-25 19:25:01,631 DEBUG    		{"id":8,"status":"Analyze","severity":"Error","severityCode":2,"supportLevel":"Klocwork Certified","supportLevelCode":1,"state":"Existing","code":"INFINITE_LOOP.LOCAL","title":"Infinite loop","message":"Infinite loop","file":"/opt/project/test/integration_tests/c_testcase/src/CWE835_Infinite_Loop__while_true_01.c","method":"CWE835_Infinite_Loop__while_true_01_bad","owner":"unowned","taxonomyName":"C and C++","dateOriginated":1595433011981,"url":"https://fake-klocwork-server.com:443/review/insight-review.html#issuedetails_goto:problemid\u003d8,project\u003dTestProject,searchquery\u003dbuild:build_225 state:New, Existing","issueIds":[3]}
+2021-03-25 19:25:01,632 DEBUG    		{"id":9,"status":"Analyze","severity":"Error","severityCode":2,"supportLevel":"Klocwork Certified","supportLevelCode":1,"state":"Existing","code":"SV.FMT_STR.SCAN_FORMAT_MISMATCH.UNDESIRED","title":"Unexpected type of a scan function parameter","message":"swscanf format specification \u0027%02x\u0027 expects type \u0027unsigned int *\u0027 for \u0027x\u0027, but parameter 3 has a different type \u0027int*\u0027","file":"/opt/project/test/integration_tests/c_testcase/testcasesupport/io.c","method":"decodeHexWChars","owner":"unowned","taxonomyName":"C and C++","dateOriginated":1595433011981,"url":"https://fake-klocwork-server.com:443/review/insight-review.html#issuedetails_goto:problemid\u003d9,project\u003dTestProject,searchquery\u003dbuild:build_225 state:New, Existing","issueIds":[5]}
+2021-03-25 19:25:01,634 DEBUG    		{"id":10,"status":"Analyze","severity":"Error","severityCode":2,"supportLevel":"Klocwork Certified","supportLevelCode":1,"state":"Existing","code":"INFINITE_LOOP.LOCAL","title":"Infinite loop","message":"Infinite loop","file":"/opt/project/test/integration_tests/c_testcase/src/CWE835_Infinite_Loop__do_true_01.c","method":"CWE835_Infinite_Loop__do_true_01_bad","owner":"unowned","taxonomyName":"C and C++","dateOriginated":1595433011981,"url":"https://fake-klocwork-server.com:443/review/insight-review.html#issuedetails_goto:problemid\u003d10,project\u003dTestProject,searchquery\u003dbuild:build_225 state:New, Existing","issueIds":[1]}
+2021-03-25 19:25:01,634 DEBUG    		{"id":11,"status":"Analyze","severity":"Error","severityCode":2,"supportLevel":"Klocwork Certified","supportLevelCode":1,"state":"Existing","code":"INFINITE_LOOP.LOCAL","title":"Infinite loop","message":"Infinite loop","file":"/opt/project/test/integration_tests/c_testcase/src/CWE835_Infinite_Loop__for_empty_01.c","method":"CWE835_Infinite_Loop__for_empty_01_bad","owner":"unowned","taxonomyName":"C and C++","dateOriginated":1595433011981,"url":"https://fake-klocwork-server.com:443/review/insight-review.html#issuedetails_goto:problemid\u003d11,project\u003dTestProject,searchquery\u003dbuild:build_225 state:New, Existing","issueIds":[2]}
+2021-03-25 19:25:01,635 DEBUG    		{"id":12,"status":"Analyze","severity":"Error","severityCode":2,"supportLevel":"Klocwork Certified","supportLevelCode":1,"state":"Existing","code":"MLK.MIGHT","title":"Memory Leak - possible","message":"Possible memory leak. Dynamic memory stored in \u0027my_lock\u0027 allocated through function \u0027malloc\u0027 at line 139 can be lost at line 152","file":"/opt/project/test/integration_tests/c_testcase/testcasesupport/std_thread.c","method":"stdThreadLockCreate","owner":"unowned","taxonomyName":"C and C++","dateOriginated":1595433011981,"url":"https://fake-klocwork-server.com:443/review/insight-review.html#issuedetails_goto:problemid\u003d12,project\u003dTestProject,searchquery\u003dbuild:build_225 state:New, Existing","issueIds":[6]}
+2021-03-25 19:25:01,642 INFO     
+2021-03-25 19:25:01,643 INFO     	>> Executing command: get_klocwork_warnings.parse_warnings_2020_2(/root/scrub_working_dir/klocwork_analysis/klocwork_results.json, /opt/project/test/integration_tests/c_testcase/.scrub/raw_results/klocwork_raw.scrub)
+2021-03-25 19:25:01,645 INFO     	>> From directory: /opt/project/test/integration_tests/c_testcase/src
+2021-03-25 19:25:01,653 INFO     	Changing directory: /opt/project/test/integration_tests/c_testcase

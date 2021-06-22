@@ -1,0 +1,2828 @@
+{
+  "$schema" : "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json",
+  "version" : "2.1.0",
+  "runs" : [ {
+    "tool" : {
+      "driver" : {
+        "name" : "Semmle Core",
+        "productSuite" : "Semmle",
+        "version" : "1.22.1",
+        "rules" : [ {
+          "id" : "cpp/architecture/cyclomatic-complexity",
+          "name" : "cpp/architecture/cyclomatic-complexity",
+          "shortDescription" : {
+            "text" : "Cyclomatic Complexity"
+          },
+          "fullDescription" : {
+            "text" : "Functions with high cyclomatic complexity. With increasing cyclomatic complexity there need to be more test cases that are necessary to achieve a complete branch coverage when testing this function."
+          },
+          "defaultConfiguration" : { },
+          "properties" : {
+            "tags" : [ "testability", "statistical", "non-attributable" ],
+            "kind" : "problem",
+            "name" : "Cyclomatic Complexity",
+            "description" : "Functions with high cyclomatic complexity. With increasing cyclomatic complexity there need to be more test cases that are necessary to achieve a complete branch coverage when testing this function.",
+            "id" : "cpp/architecture/cyclomatic-complexity",
+            "query-path" : "/semmlecode-cpp-queries/Architecture/Refactoring Opportunities/CyclomaticComplexity.ql",
+            "problem.severity" : "warning"
+          }
+        }, {
+          "id" : "cpp/jpl-c/enum-initialization",
+          "name" : "cpp/jpl-c/enum-initialization",
+          "shortDescription" : {
+            "text" : "Irregular enum initialization"
+          },
+          "fullDescription" : {
+            "text" : "In an enumerator list, the = construct should not be used to explicitly initialize members other than the first, unless all items are explicitly initialized. An exception is the pattern to use the last element of an enumerator list to get the number of possible values."
+          },
+          "defaultConfiguration" : { },
+          "properties" : {
+            "tags" : [ "maintainability", "readability", "external/jpl" ],
+            "kind" : "problem",
+            "name" : "Irregular enum initialization",
+            "description" : "In an enumerator list, the = construct should not be used to explicitly initialize members other than the first, unless all items are explicitly initialized. An exception is the pattern to use the last element of an enumerator list to get the number of possible values.",
+            "id" : "cpp/jpl-c/enum-initialization",
+            "query-path" : "/semmlecode-cpp-queries/JPL_C/LOC-2/Rule 12/EnumInitialization.ql",
+            "problem.severity" : "recommendation"
+          }
+        }, {
+          "id" : "cpp/jpl-c/thread-safety",
+          "name" : "cpp/jpl-c/thread-safety",
+          "shortDescription" : {
+            "text" : "Use of delay function"
+          },
+          "fullDescription" : {
+            "text" : "Task synchronization shall not be performed through the use of task delays."
+          },
+          "defaultConfiguration" : { },
+          "properties" : {
+            "tags" : [ "correctness", "concurrency", "external/jpl" ],
+            "kind" : "problem",
+            "name" : "Use of delay function",
+            "description" : "Task synchronization shall not be performed through the use of task delays.",
+            "id" : "cpp/jpl-c/thread-safety",
+            "query-path" : "/semmlecode-cpp-queries/JPL_C/LOC-2/Rule 07/ThreadSafety.ql",
+            "problem.severity" : "warning"
+          }
+        }, {
+          "id" : "cpp/jpl-c/use-of-undef",
+          "name" : "cpp/jpl-c/use-of-undef",
+          "shortDescription" : {
+            "text" : "Use of #undef"
+          },
+          "fullDescription" : {
+            "text" : "#undef shall not be used."
+          },
+          "defaultConfiguration" : { },
+          "properties" : {
+            "tags" : [ "maintainability", "readability", "external/jpl" ],
+            "kind" : "problem",
+            "name" : "Use of #undef",
+            "description" : "#undef shall not be used.",
+            "id" : "cpp/jpl-c/use-of-undef",
+            "query-path" : "/semmlecode-cpp-queries/JPL_C/LOC-4/Rule 22/UseOfUndef.ql",
+            "problem.severity" : "recommendation"
+          }
+        }, {
+          "id" : "cpp/jpl-c/function-pointer-conversions",
+          "name" : "cpp/jpl-c/function-pointer-conversions",
+          "shortDescription" : {
+            "text" : "Invalid function pointer conversion"
+          },
+          "fullDescription" : {
+            "text" : "Conversions shall not be performed between a pointer to a function and any type other than an integral type."
+          },
+          "defaultConfiguration" : { },
+          "properties" : {
+            "tags" : [ "correctness", "external/jpl" ],
+            "kind" : "problem",
+            "precision" : "low",
+            "name" : "Invalid function pointer conversion",
+            "description" : "Conversions shall not be performed between a pointer to a function and any type other than an integral type.",
+            "id" : "cpp/jpl-c/function-pointer-conversions",
+            "query-path" : "/semmlecode-cpp-queries/JPL_C/LOC-4/Rule 30/FunctionPointerConversions.ql",
+            "problem.severity" : "warning"
+          }
+        }, {
+          "id" : "cpp/jpl-c/includes-first",
+          "name" : "cpp/jpl-c/includes-first",
+          "shortDescription" : {
+            "text" : "Misplaced include"
+          },
+          "fullDescription" : {
+            "text" : "#include directives in a file shall only be preceded by other preprocessor directives or comments."
+          },
+          "defaultConfiguration" : { },
+          "properties" : {
+            "tags" : [ "maintainability", "readability", "external/jpl" ],
+            "kind" : "problem",
+            "name" : "Misplaced include",
+            "description" : "#include directives in a file shall only be preceded by other preprocessor directives or comments.",
+            "id" : "cpp/jpl-c/includes-first",
+            "query-path" : "/semmlecode-cpp-queries/JPL_C/LOC-4/Rule 31/IncludesFirst.ql",
+            "problem.severity" : "recommendation"
+          }
+        }, {
+          "id" : "cpp/jpl-c/avoid-semaphores",
+          "name" : "cpp/jpl-c/avoid-semaphores",
+          "shortDescription" : {
+            "text" : "Avoid semaphores"
+          },
+          "fullDescription" : {
+            "text" : "The use of semaphores or locks to access shared data should be avoided."
+          },
+          "defaultConfiguration" : { },
+          "properties" : {
+            "tags" : [ "concurrency", "external/jpl" ],
+            "kind" : "problem",
+            "name" : "Avoid semaphores",
+            "description" : "The use of semaphores or locks to access shared data should be avoided.",
+            "id" : "cpp/jpl-c/avoid-semaphores",
+            "query-path" : "/semmlecode-cpp-queries/JPL_C/LOC-2/Rule 09/AvoidSemaphores.ql",
+            "problem.severity" : "recommendation"
+          }
+        }, {
+          "id" : "cpp/jpl-c/hidden-pointer-dereference-macro",
+          "name" : "cpp/jpl-c/hidden-pointer-dereference-macro",
+          "shortDescription" : {
+            "text" : "Pointer dereference hidden in macro"
+          },
+          "fullDescription" : {
+            "text" : "Pointer dereference operations should not be hidden in macro definitions."
+          },
+          "defaultConfiguration" : { },
+          "properties" : {
+            "tags" : [ "maintainability", "readability", "external/jpl" ],
+            "kind" : "problem",
+            "name" : "Pointer dereference hidden in macro",
+            "description" : "Pointer dereference operations should not be hidden in macro definitions.",
+            "id" : "cpp/jpl-c/hidden-pointer-dereference-macro",
+            "query-path" : "/semmlecode-cpp-queries/JPL_C/LOC-4/Rule 28/HiddenPointerDereferenceMacro.ql",
+            "problem.severity" : "recommendation"
+          }
+        }, {
+          "id" : "cpp/jpl-c/compound-expressions",
+          "name" : "cpp/jpl-c/compound-expressions",
+          "shortDescription" : {
+            "text" : "Implicit precedence in compound expression"
+          },
+          "fullDescription" : {
+            "text" : "In compound expressions with multiple sub-expressions the intended order of evaluation shall be made explicit with parentheses."
+          },
+          "defaultConfiguration" : { },
+          "properties" : {
+            "tags" : [ "maintainability", "readability", "external/jpl" ],
+            "kind" : "problem",
+            "name" : "Implicit precedence in compound expression",
+            "description" : "In compound expressions with multiple sub-expressions the intended order of evaluation shall be made explicit with parentheses.",
+            "id" : "cpp/jpl-c/compound-expressions",
+            "query-path" : "/semmlecode-cpp-queries/JPL_C/LOC-3/Rule 18/CompoundExpressions.ql",
+            "problem.severity" : "recommendation"
+          }
+        }, {
+          "id" : "cpp/jpl-c/function-size-limits",
+          "name" : "cpp/jpl-c/function-size-limits",
+          "shortDescription" : {
+            "text" : "Function too long"
+          },
+          "fullDescription" : {
+            "text" : "Function length should be limited to what can be printed on a single sheet of paper (60 lines). Number of parameters is limited to 6 or fewer."
+          },
+          "defaultConfiguration" : { },
+          "properties" : {
+            "tags" : [ "maintainability", "readability", "external/jpl" ],
+            "kind" : "problem",
+            "name" : "Function too long",
+            "description" : "Function length should be limited to what can be printed on a single sheet of paper (60 lines). Number of parameters is limited to 6 or fewer.",
+            "id" : "cpp/jpl-c/function-size-limits",
+            "query-path" : "/semmlecode-cpp-queries/JPL_C/LOC-4/Rule 25/FunctionSizeLimits.ql",
+            "problem.severity" : "recommendation"
+          }
+        }, {
+          "id" : "cpp/jpl-c/extern-decls-in-header",
+          "name" : "cpp/jpl-c/extern-decls-in-header",
+          "shortDescription" : {
+            "text" : "\"extern\" declaration in source file"
+          },
+          "fullDescription" : {
+            "text" : "All \"extern\" declarations should be placed in a header file that is included in every file referring to the corresponding data object."
+          },
+          "defaultConfiguration" : { },
+          "properties" : {
+            "tags" : [ "maintainability", "external/jpl" ],
+            "kind" : "problem",
+            "name" : "\"extern\" declaration in source file",
+            "description" : "All \"extern\" declarations should be placed in a header file that is included in every file referring to the corresponding data object.",
+            "id" : "cpp/jpl-c/extern-decls-in-header",
+            "query-path" : "/semmlecode-cpp-queries/JPL_C/LOC-3/Rule 13/ExternDeclsInHeader.ql",
+            "problem.severity" : "warning"
+          }
+        }, {
+          "id" : "cpp/jpl-c/multiple-var-decls-per-line",
+          "name" : "cpp/jpl-c/multiple-var-decls-per-line",
+          "shortDescription" : {
+            "text" : "Multiple variable declarations on one line"
+          },
+          "fullDescription" : {
+            "text" : "There should be no more than one variable declaration per line."
+          },
+          "defaultConfiguration" : { },
+          "properties" : {
+            "tags" : [ "maintainability", "readability", "external/jpl" ],
+            "kind" : "problem",
+            "name" : "Multiple variable declarations on one line",
+            "description" : "There should be no more than one variable declaration per line.",
+            "id" : "cpp/jpl-c/multiple-var-decls-per-line",
+            "query-path" : "/semmlecode-cpp-queries/JPL_C/LOC-4/Rule 24/MultipleVarDeclsPerLine.ql",
+            "problem.severity" : "recommendation"
+          }
+        }, {
+          "id" : "cpp/jpl-c/basic-int-types",
+          "name" : "cpp/jpl-c/basic-int-types",
+          "shortDescription" : {
+            "text" : "Use of basic integral type"
+          },
+          "fullDescription" : {
+            "text" : "Typedefs that indicate size and signedness should be used in place of the basic types."
+          },
+          "defaultConfiguration" : { },
+          "properties" : {
+            "tags" : [ "maintainability", "readability", "external/jpl" ],
+            "kind" : "problem",
+            "name" : "Use of basic integral type",
+            "description" : "Typedefs that indicate size and signedness should be used in place of the basic types.",
+            "id" : "cpp/jpl-c/basic-int-types",
+            "query-path" : "/semmlecode-cpp-queries/JPL_C/LOC-3/Rule 17/BasicIntTypes.ql",
+            "problem.severity" : "recommendation"
+          }
+        }, {
+          "id" : "cpp/lossy-pointer-cast",
+          "name" : "cpp/lossy-pointer-cast",
+          "shortDescription" : {
+            "text" : "Lossy pointer cast"
+          },
+          "fullDescription" : {
+            "text" : "A pointer type is converted to a smaller integer type. This may lead to loss of information in the variable and is highly non-portable."
+          },
+          "defaultConfiguration" : { },
+          "properties" : {
+            "tags" : [ "reliability", "correctness", "types" ],
+            "kind" : "problem",
+            "precision" : "high",
+            "name" : "Lossy pointer cast",
+            "description" : "A pointer type is converted to a smaller integer type. This may\n              lead to loss of information in the variable and is highly\n              non-portable.",
+            "id" : "cpp/lossy-pointer-cast",
+            "query-path" : "/semmlecode-cpp-queries/Likely Bugs/Conversion/LossyPointerCast.ql",
+            "problem.severity" : "warning"
+          }
+        }, {
+          "id" : "cpp/slicing",
+          "name" : "cpp/slicing",
+          "shortDescription" : {
+            "text" : "Slicing"
+          },
+          "fullDescription" : {
+            "text" : "Assigning a non-reference instance of a derived type to a variable of the base type slices off all members added by the derived class, and can cause an unexpected state."
+          },
+          "defaultConfiguration" : { },
+          "properties" : {
+            "tags" : [ "reliability", "correctness", "types" ],
+            "kind" : "problem",
+            "precision" : "high",
+            "name" : "Slicing",
+            "description" : "Assigning a non-reference instance of a derived type to a variable of the base type slices off all members added by the derived class, and can cause an unexpected state.",
+            "id" : "cpp/slicing",
+            "query-path" : "/semmlecode-cpp-queries/Best Practices/Likely Errors/Slicing.ql",
+            "problem.severity" : "warning"
+          }
+        }, {
+          "id" : "cpp/incomplete-parity-check",
+          "name" : "cpp/incomplete-parity-check",
+          "shortDescription" : {
+            "text" : "Bad check for oddness"
+          },
+          "fullDescription" : {
+            "text" : "Using \"x % 2 == 1\" to check whether x is odd does not work for negative numbers."
+          },
+          "defaultConfiguration" : { },
+          "properties" : {
+            "tags" : [ "reliability", "correctness", "types" ],
+            "kind" : "problem",
+            "precision" : "medium",
+            "name" : "Bad check for oddness",
+            "description" : "Using \"x % 2 == 1\" to check whether x is odd does not work for\n              negative numbers.",
+            "id" : "cpp/incomplete-parity-check",
+            "query-path" : "/semmlecode-cpp-queries/Likely Bugs/Arithmetic/BadCheckOdd.ql",
+            "problem.severity" : "warning"
+          }
+        }, {
+          "id" : "cpp/integer-multiplication-cast-to-long",
+          "name" : "cpp/integer-multiplication-cast-to-long",
+          "shortDescription" : {
+            "text" : "Multiplication result converted to larger type"
+          },
+          "fullDescription" : {
+            "text" : "A multiplication result that is converted to a larger type can be a sign that the result can overflow the type converted from."
+          },
+          "defaultConfiguration" : { },
+          "properties" : {
+            "tags" : [ "reliability", "security", "correctness", "types", "external/cwe/cwe-190", "external/cwe/cwe-192", "external/cwe/cwe-197", "external/cwe/cwe-681" ],
+            "kind" : "problem",
+            "precision" : "high",
+            "name" : "Multiplication result converted to larger type",
+            "description" : "A multiplication result that is converted to a larger type can\n              be a sign that the result can overflow the type converted from.",
+            "id" : "cpp/integer-multiplication-cast-to-long",
+            "query-path" : "/semmlecode-cpp-queries/Likely Bugs/Arithmetic/IntMultToLong.ql",
+            "problem.severity" : "warning"
+          }
+        }, {
+          "id" : "cpp/cast-to-pointer",
+          "name" : "cpp/cast-to-pointer",
+          "shortDescription" : {
+            "text" : "Non-zero value cast to pointer"
+          },
+          "fullDescription" : {
+            "text" : "A constant value other than zero is converted to a pointer type. This is a dangerous practice, since the meaning of the numerical value of pointers is platform dependent."
+          },
+          "defaultConfiguration" : { },
+          "properties" : {
+            "tags" : [ "reliability", "correctness", "types" ],
+            "kind" : "problem",
+            "precision" : "medium",
+            "name" : "Non-zero value cast to pointer",
+            "description" : "A constant value other than zero is converted to a pointer type. This is a dangerous practice, since the meaning of the numerical value of pointers is platform dependent.",
+            "id" : "cpp/cast-to-pointer",
+            "query-path" : "/semmlecode-cpp-queries/Likely Bugs/Conversion/NonzeroValueCastToPointer.ql",
+            "problem.severity" : "recommendation"
+          }
+        }, {
+          "id" : "cpp/array-arg-size-mismatch",
+          "name" : "cpp/array-arg-size-mismatch",
+          "shortDescription" : {
+            "text" : "Array argument size mismatch"
+          },
+          "fullDescription" : {
+            "text" : "Finds function calls where the size of an array being passed is smaller than the array size of the declared parameter. This could lead to accesses to memory locations beyond the parameter's array bounds."
+          },
+          "defaultConfiguration" : { },
+          "properties" : {
+            "tags" : [ "reliability" ],
+            "kind" : "problem",
+            "precision" : "high",
+            "name" : "Array argument size mismatch",
+            "description" : "Finds function calls where the size of an array being passed is smaller than the array size of the declared parameter.\n              This could lead to accesses to memory locations beyond the parameter's array bounds.",
+            "id" : "cpp/array-arg-size-mismatch",
+            "query-path" : "/semmlecode-cpp-queries/Likely Bugs/Conversion/ArrayArgSizeMismatch.ql",
+            "problem.severity" : "warning"
+          }
+        }, {
+          "id" : "cpp/inconsistent-null-check",
+          "name" : "cpp/inconsistent-null-check",
+          "shortDescription" : {
+            "text" : "Inconsistent nullness check"
+          },
+          "fullDescription" : {
+            "text" : "The result value of a function is often checked for nullness, but not always. Since the value is mostly checked, it is likely that the function can return null values in some cases, and omitting the check could crash the program."
+          },
+          "defaultConfiguration" : {
+            "level" : "error"
+          },
+          "properties" : {
+            "tags" : [ "reliability", "correctness", "statistical", "non-attributable", "external/cwe/cwe-476" ],
+            "kind" : "problem",
+            "precision" : "medium",
+            "name" : "Inconsistent nullness check",
+            "description" : "The result value of a function is often checked for nullness,\n              but not always. Since the value is mostly checked, it is likely\n              that the function can return null values in some cases, and\n              omitting the check could crash the program.",
+            "id" : "cpp/inconsistent-null-check",
+            "query-path" : "/semmlecode-cpp-queries/Likely Bugs/InconsistentCheckReturnNull.ql",
+            "problem.severity" : "error"
+          }
+        }, {
+          "id" : "cpp/inconsistent-call-on-result",
+          "name" : "cpp/inconsistent-call-on-result",
+          "shortDescription" : {
+            "text" : "Inconsistent operation on return value"
+          },
+          "fullDescription" : {
+            "text" : "A function is called, and the same operation is usually performed on the return value - for example, free, delete, close etc. However, in some cases it is not performed. These unusual cases may indicate misuse of the API and could cause resource leaks."
+          },
+          "defaultConfiguration" : { },
+          "properties" : {
+            "tags" : [ "reliability", "correctness", "statistical", "non-attributable", "external/cwe/cwe-252" ],
+            "kind" : "problem",
+            "precision" : "medium",
+            "name" : "Inconsistent operation on return value",
+            "description" : "A function is called, and the same operation is usually performed on the return value - for example, free, delete, close etc. However, in some cases it is not performed. These unusual cases may indicate misuse of the API and could cause resource leaks.",
+            "id" : "cpp/inconsistent-call-on-result",
+            "query-path" : "/semmlecode-cpp-queries/Likely Bugs/InconsistentCallOnResult.ql",
+            "problem.severity" : "warning"
+          }
+        }, {
+          "id" : "cpp/assign-where-compare-meant",
+          "name" : "cpp/assign-where-compare-meant",
+          "shortDescription" : {
+            "text" : "Assignment where comparison was intended"
+          },
+          "fullDescription" : {
+            "text" : "The '=' operator may have been used accidentally, where '==' was intended."
+          },
+          "defaultConfiguration" : {
+            "level" : "error"
+          },
+          "properties" : {
+            "tags" : [ "reliability", "correctness", "external/cwe/cwe-481" ],
+            "kind" : "problem",
+            "precision" : "high",
+            "name" : "Assignment where comparison was intended",
+            "description" : "The '=' operator may have been used accidentally, where '=='\n              was intended.",
+            "id" : "cpp/assign-where-compare-meant",
+            "query-path" : "/semmlecode-cpp-queries/Likely Bugs/Likely Typos/AssignWhereCompareMeant.ql",
+            "problem.severity" : "error"
+          }
+        }, {
+          "id" : "cpp/compare-where-assign-meant",
+          "name" : "cpp/compare-where-assign-meant",
+          "shortDescription" : {
+            "text" : "Comparison where assignment was intended"
+          },
+          "fullDescription" : {
+            "text" : "The '==' operator may have been used accidentally, where '=' was intended, resulting in a useless test."
+          },
+          "defaultConfiguration" : {
+            "level" : "error"
+          },
+          "properties" : {
+            "tags" : [ "reliability", "correctness", "external/cwe/cwe-482" ],
+            "kind" : "problem",
+            "precision" : "high",
+            "name" : "Comparison where assignment was intended",
+            "description" : "The '==' operator may have been used accidentally, where '='\n              was intended, resulting in a useless test.",
+            "id" : "cpp/compare-where-assign-meant",
+            "query-path" : "/semmlecode-cpp-queries/Likely Bugs/Likely Typos/CompareWhereAssignMeant.ql",
+            "problem.severity" : "error"
+          }
+        }, {
+          "id" : "cpp/useless-expression",
+          "name" : "cpp/useless-expression",
+          "shortDescription" : {
+            "text" : "Expression has no effect"
+          },
+          "fullDescription" : {
+            "text" : "A pure expression whose value is ignored is likely to be the result of a typo."
+          },
+          "defaultConfiguration" : { },
+          "properties" : {
+            "tags" : [ "maintainability", "correctness", "external/cwe/cwe-561" ],
+            "kind" : "problem",
+            "precision" : "high",
+            "name" : "Expression has no effect",
+            "description" : "A pure expression whose value is ignored is likely to be the\n              result of a typo.",
+            "id" : "cpp/useless-expression",
+            "query-path" : "/semmlecode-cpp-queries/Likely Bugs/Likely Typos/ExprHasNoEffect.ql",
+            "problem.severity" : "warning"
+          }
+        }, {
+          "id" : "cpp/logical-operator-applied-to-flag",
+          "name" : "cpp/logical-operator-applied-to-flag",
+          "shortDescription" : {
+            "text" : "Short-circuiting operator applied to flag"
+          },
+          "fullDescription" : {
+            "text" : "A short-circuiting logical operator is applied to what looks like a flag. This may be a typo for a bitwise operator."
+          },
+          "defaultConfiguration" : { },
+          "properties" : {
+            "tags" : [ "reliability", "correctness", "external/cwe/cwe-480" ],
+            "kind" : "problem",
+            "precision" : "high",
+            "name" : "Short-circuiting operator applied to flag",
+            "description" : "A short-circuiting logical operator is applied to what looks like a flag.\n              This may be a typo for a bitwise operator.",
+            "id" : "cpp/logical-operator-applied-to-flag",
+            "query-path" : "/semmlecode-cpp-queries/Likely Bugs/Likely Typos/ShortCircuitBitMask.ql",
+            "problem.severity" : "warning"
+          }
+        }, {
+          "id" : "cpp/missing-case-in-switch",
+          "name" : "cpp/missing-case-in-switch",
+          "shortDescription" : {
+            "text" : "Missing enum case in switch"
+          },
+          "fullDescription" : {
+            "text" : "A switch statement over an enum type is missing a case for some enum constant and does not have a default case. This may cause logic errors."
+          },
+          "defaultConfiguration" : { },
+          "properties" : {
+            "tags" : [ "reliability", "correctness", "external/cwe/cwe-478" ],
+            "kind" : "problem",
+            "precision" : "medium",
+            "name" : "Missing enum case in switch",
+            "description" : "A switch statement over an enum type is missing a case for some enum constant\n              and does not have a default case. This may cause logic errors.",
+            "id" : "cpp/missing-case-in-switch",
+            "query-path" : "/semmlecode-cpp-queries/Likely Bugs/Likely Typos/MissingEnumCaseInSwitch.ql",
+            "problem.severity" : "warning"
+          }
+        }, {
+          "id" : "cpp/equality-on-floats",
+          "name" : "cpp/equality-on-floats",
+          "shortDescription" : {
+            "text" : "Equality test on floating-point values"
+          },
+          "fullDescription" : {
+            "text" : "Comparing results of floating-point computations with '==' or '!=' is likely to yield surprising results since floating-point computation does not follow the standard rules of algebra."
+          },
+          "defaultConfiguration" : { },
+          "properties" : {
+            "tags" : [ "reliability", "correctness" ],
+            "kind" : "problem",
+            "precision" : "high",
+            "name" : "Equality test on floating-point values",
+            "description" : "Comparing results of floating-point computations with '==' or\n              '!=' is likely to yield surprising results since floating-point\n              computation does not follow the standard rules of algebra.",
+            "id" : "cpp/equality-on-floats",
+            "query-path" : "/semmlecode-cpp-queries/Likely Bugs/Arithmetic/FloatComparison.ql",
+            "problem.severity" : "recommendation"
+          }
+        }, {
+          "id" : "cpp/bitwise-sign-check",
+          "name" : "cpp/bitwise-sign-check",
+          "shortDescription" : {
+            "text" : "Sign check of bitwise operation"
+          },
+          "fullDescription" : {
+            "text" : "Checking the sign of a bitwise operation often has surprising edge cases."
+          },
+          "defaultConfiguration" : { },
+          "properties" : {
+            "tags" : [ "reliability", "correctness" ],
+            "kind" : "problem",
+            "precision" : "high",
+            "name" : "Sign check of bitwise operation",
+            "description" : "Checking the sign of a bitwise operation often has surprising\n              edge cases.",
+            "id" : "cpp/bitwise-sign-check",
+            "query-path" : "/semmlecode-cpp-queries/Likely Bugs/Arithmetic/BitwiseSignCheck.ql",
+            "problem.severity" : "warning"
+          }
+        }, {
+          "id" : "cpp/nested-loops-with-same-variable",
+          "name" : "cpp/nested-loops-with-same-variable",
+          "shortDescription" : {
+            "text" : "Nested loops with same variable"
+          },
+          "fullDescription" : {
+            "text" : "When a nested loop uses the same iteration variable as its outer loop, the behavior of the outer loop easily becomes difficult to understand as the inner loop will affect its control flow. It is likely to be a typo."
+          },
+          "defaultConfiguration" : { },
+          "properties" : {
+            "tags" : [ "maintainability", "correctness" ],
+            "kind" : "problem",
+            "precision" : "medium",
+            "name" : "Nested loops with same variable",
+            "description" : "When a nested loop uses the same iteration variable as its outer loop, the\n   behavior of the outer loop easily becomes difficult to understand as the\n   inner loop will affect its control flow. It is likely to be a typo.",
+            "id" : "cpp/nested-loops-with-same-variable",
+            "query-path" : "/semmlecode-cpp-queries/Likely Bugs/NestedLoopSameVar.ql",
+            "problem.severity" : "warning"
+          }
+        }, {
+          "id" : "cpp/suspicious-call-to-memset",
+          "name" : "cpp/suspicious-call-to-memset",
+          "shortDescription" : {
+            "text" : "Suspicious call to memset"
+          },
+          "fullDescription" : {
+            "text" : "Use of memset where the size argument is computed as the size of some non-struct type. When initializing a buffer, you should specify its size as <number of elements> * <size of one element> to ensure portability."
+          },
+          "defaultConfiguration" : { },
+          "properties" : {
+            "tags" : [ "reliability", "correctness", "security", "external/cwe/cwe-676" ],
+            "kind" : "problem",
+            "precision" : "medium",
+            "name" : "Suspicious call to memset",
+            "description" : "Use of memset where the size argument is computed as the size of\n              some non-struct type. When initializing a buffer, you should specify\n              its size as <number of elements> * <size of one element> to ensure\n              portability.",
+            "id" : "cpp/suspicious-call-to-memset",
+            "query-path" : "/semmlecode-cpp-queries/Likely Bugs/Memory Management/SuspiciousCallToMemset.ql",
+            "problem.severity" : "recommendation"
+          }
+        }, {
+          "id" : "cpp/suspicious-sizeof",
+          "name" : "cpp/suspicious-sizeof",
+          "shortDescription" : {
+            "text" : "Suspicious 'sizeof' use"
+          },
+          "fullDescription" : {
+            "text" : "Taking 'sizeof' of an array parameter is often mistakenly thought to yield the size of the underlying array, but it always yields the machine pointer size."
+          },
+          "defaultConfiguration" : { },
+          "properties" : {
+            "tags" : [ "reliability", "correctness", "security", "external/cwe/cwe-467" ],
+            "kind" : "problem",
+            "precision" : "medium",
+            "name" : "Suspicious 'sizeof' use",
+            "description" : "Taking 'sizeof' of an array parameter is often mistakenly thought\n              to yield the size of the underlying array, but it always yields\n              the machine pointer size.",
+            "id" : "cpp/suspicious-sizeof",
+            "query-path" : "/semmlecode-cpp-queries/Likely Bugs/Memory Management/SuspiciousSizeof.ql",
+            "problem.severity" : "warning"
+          }
+        }, {
+          "id" : "cpp/unsafe-strcat",
+          "name" : "cpp/unsafe-strcat",
+          "shortDescription" : {
+            "text" : "Potentially unsafe use of strcat"
+          },
+          "fullDescription" : {
+            "text" : "Using 'strcat' without checking the size of the source string may result in a buffer overflow"
+          },
+          "defaultConfiguration" : { },
+          "properties" : {
+            "tags" : [ "reliability", "correctness", "security", "external/cwe/cwe-676", "external/cwe/cwe-120", "external/cwe/cwe-251" ],
+            "kind" : "problem",
+            "precision" : "medium",
+            "name" : "Potentially unsafe use of strcat",
+            "description" : "Using 'strcat' without checking the size of the source string\n              may result in a buffer overflow",
+            "id" : "cpp/unsafe-strcat",
+            "query-path" : "/semmlecode-cpp-queries/Likely Bugs/Memory Management/UnsafeUseOfStrcat.ql",
+            "problem.severity" : "warning"
+          }
+        }, {
+          "id" : "cpp/unsafe-strncat",
+          "name" : "cpp/unsafe-strncat",
+          "shortDescription" : {
+            "text" : "Potentially unsafe call to strncat"
+          },
+          "fullDescription" : {
+            "text" : "Calling 'strncat' with the size of the destination buffer as the third argument may result in a buffer overflow."
+          },
+          "defaultConfiguration" : { },
+          "properties" : {
+            "tags" : [ "reliability", "correctness", "security", "external/cwe/cwe-676", "external/cwe/cwe-119", "external/cwe/cwe-251" ],
+            "kind" : "problem",
+            "precision" : "medium",
+            "name" : "Potentially unsafe call to strncat",
+            "description" : "Calling 'strncat' with the size of the destination buffer\n              as the third argument may result in a buffer overflow.",
+            "id" : "cpp/unsafe-strncat",
+            "query-path" : "/semmlecode-cpp-queries/Likely Bugs/Memory Management/SuspiciousCallToStrncat.ql",
+            "problem.severity" : "warning"
+          }
+        }, {
+          "id" : "cpp/bad-strncpy-size",
+          "name" : "cpp/bad-strncpy-size",
+          "shortDescription" : {
+            "text" : "Possibly wrong buffer size in string copy"
+          },
+          "fullDescription" : {
+            "text" : "Calling 'strncpy' with the size of the source buffer as the third argument may result in a buffer overflow."
+          },
+          "defaultConfiguration" : { },
+          "properties" : {
+            "tags" : [ "reliability", "correctness", "security", "external/cwe/cwe-676", "external/cwe/cwe-119", "external/cwe/cwe-251" ],
+            "kind" : "problem",
+            "precision" : "medium",
+            "name" : "Possibly wrong buffer size in string copy",
+            "description" : "Calling 'strncpy' with the size of the source buffer\n              as the third argument may result in a buffer overflow.",
+            "id" : "cpp/bad-strncpy-size",
+            "query-path" : "/semmlecode-cpp-queries/Likely Bugs/Memory Management/StrncpyFlippedArgs.ql",
+            "problem.severity" : "warning"
+          }
+        }, {
+          "id" : "cpp/wrong-number-format-arguments",
+          "name" : "cpp/wrong-number-format-arguments",
+          "shortDescription" : {
+            "text" : "Too few arguments to formatting function"
+          },
+          "fullDescription" : {
+            "text" : "Calling a printf-like function with too few arguments can be a source of security issues."
+          },
+          "defaultConfiguration" : {
+            "level" : "error"
+          },
+          "properties" : {
+            "tags" : [ "reliability", "correctness", "security", "external/cwe/cwe-685" ],
+            "kind" : "problem",
+            "precision" : "high",
+            "name" : "Too few arguments to formatting function",
+            "description" : "Calling a printf-like function with too few arguments can be\n              a source of security issues.",
+            "id" : "cpp/wrong-number-format-arguments",
+            "query-path" : "/semmlecode-cpp-queries/Likely Bugs/Format/WrongNumberOfFormatArguments.ql",
+            "problem.severity" : "error"
+          }
+        }, {
+          "id" : "cpp/wrong-type-format-argument",
+          "name" : "cpp/wrong-type-format-argument",
+          "shortDescription" : {
+            "text" : "Wrong type of arguments to formatting function"
+          },
+          "fullDescription" : {
+            "text" : "Calling a printf-like function with the wrong type of arguments causes unpredictable behavior."
+          },
+          "defaultConfiguration" : {
+            "level" : "error"
+          },
+          "properties" : {
+            "tags" : [ "reliability", "correctness", "security", "external/cwe/cwe-686" ],
+            "kind" : "problem",
+            "precision" : "high",
+            "name" : "Wrong type of arguments to formatting function",
+            "description" : "Calling a printf-like function with the wrong type of arguments causes unpredictable\n              behavior.",
+            "id" : "cpp/wrong-type-format-argument",
+            "query-path" : "/semmlecode-cpp-queries/Likely Bugs/Format/WrongTypeFormatArguments.ql",
+            "problem.severity" : "error"
+          }
+        }, {
+          "id" : "cpp/non-constant-format",
+          "name" : "cpp/non-constant-format",
+          "shortDescription" : {
+            "text" : "Non-constant format string"
+          },
+          "fullDescription" : {
+            "text" : "Passing a non-constant 'format' string to a printf-like function can lead to a mismatch between the number of arguments defined by the 'format' and the number of arguments actually passed to the function. If the format string ultimately stems from an untrusted source, this can be used for exploits."
+          },
+          "defaultConfiguration" : { },
+          "properties" : {
+            "tags" : [ "maintainability", "correctness", "security", "external/cwe/cwe-134" ],
+            "kind" : "problem",
+            "precision" : "high",
+            "name" : "Non-constant format string",
+            "description" : "Passing a non-constant 'format' string to a printf-like function can lead\n              to a mismatch between the number of arguments defined by the 'format' and the number\n              of arguments actually passed to the function. If the format string ultimately stems\n              from an untrusted source, this can be used for exploits.",
+            "id" : "cpp/non-constant-format",
+            "query-path" : "/semmlecode-cpp-queries/Likely Bugs/Format/NonConstantFormat.ql",
+            "problem.severity" : "recommendation"
+          }
+        }, {
+          "id" : "cpp/magic-string",
+          "name" : "cpp/magic-string",
+          "shortDescription" : {
+            "text" : "Magic strings"
+          },
+          "fullDescription" : {
+            "text" : "'Magic constants' should be avoided: if a nontrivial constant is used repeatedly, it should be encapsulated into a const variable or macro definition."
+          },
+          "defaultConfiguration" : { },
+          "properties" : {
+            "tags" : [ "maintainability", "statistical", "non-attributable" ],
+            "kind" : "problem",
+            "precision" : "medium",
+            "name" : "Magic strings",
+            "description" : "'Magic constants' should be avoided: if a nontrivial constant is used repeatedly, it should be encapsulated into a const variable or macro definition.",
+            "id" : "cpp/magic-string",
+            "query-path" : "/semmlecode-cpp-queries/Best Practices/Magic Constants/MagicConstantsString.ql",
+            "problem.severity" : "recommendation"
+          }
+        }, {
+          "id" : "cpp/magic-number",
+          "name" : "cpp/magic-number",
+          "shortDescription" : {
+            "text" : "Magic numbers"
+          },
+          "fullDescription" : {
+            "text" : "'Magic constants' should be avoided: if a nontrivial constant is used repeatedly, it should be encapsulated into a const variable or macro definition."
+          },
+          "defaultConfiguration" : { },
+          "properties" : {
+            "tags" : [ "maintainability", "statistical", "non-attributable" ],
+            "kind" : "problem",
+            "precision" : "medium",
+            "name" : "Magic numbers",
+            "description" : "'Magic constants' should be avoided: if a nontrivial constant is used repeatedly, it should be encapsulated into a const variable or macro definition.",
+            "id" : "cpp/magic-number",
+            "query-path" : "/semmlecode-cpp-queries/Best Practices/Magic Constants/MagicConstantsNumbers.ql",
+            "problem.severity" : "recommendation"
+          }
+        }, {
+          "id" : "cpp/unused-static-function",
+          "name" : "cpp/unused-static-function",
+          "shortDescription" : {
+            "text" : "Unused static function"
+          },
+          "fullDescription" : {
+            "text" : "A static function that is never called or accessed may be an indication that the code is incomplete or has a typo."
+          },
+          "defaultConfiguration" : { },
+          "properties" : {
+            "tags" : [ "efficiency", "useless-code", "external/cwe/cwe-561" ],
+            "kind" : "problem",
+            "precision" : "high",
+            "name" : "Unused static function",
+            "description" : "A static function that is never called or accessed may be an\n              indication that the code is incomplete or has a typo.",
+            "id" : "cpp/unused-static-function",
+            "query-path" : "/semmlecode-cpp-queries/Best Practices/Unused Entities/UnusedStaticFunctions.ql",
+            "problem.severity" : "recommendation"
+          }
+        }, {
+          "id" : "cpp/unused-static-variable",
+          "name" : "cpp/unused-static-variable",
+          "shortDescription" : {
+            "text" : "Unused static variable"
+          },
+          "fullDescription" : {
+            "text" : "A static variable that is never accessed may be an indication that the code is incomplete or has a typo."
+          },
+          "defaultConfiguration" : { },
+          "properties" : {
+            "tags" : [ "efficiency", "useless-code", "external/cwe/cwe-563" ],
+            "kind" : "problem",
+            "precision" : "high",
+            "name" : "Unused static variable",
+            "description" : "A static variable that is never accessed may be an indication\n              that the code is incomplete or has a typo.",
+            "id" : "cpp/unused-static-variable",
+            "query-path" : "/semmlecode-cpp-queries/Best Practices/Unused Entities/UnusedStaticVariables.ql",
+            "problem.severity" : "recommendation"
+          }
+        }, {
+          "id" : "cpp/unused-local-variable",
+          "name" : "cpp/unused-local-variable",
+          "shortDescription" : {
+            "text" : "Unused local variable"
+          },
+          "fullDescription" : {
+            "text" : "A local variable that is never called or accessed may be an indication that the code is incomplete or has a typo."
+          },
+          "defaultConfiguration" : { },
+          "properties" : {
+            "tags" : [ "maintainability", "useless-code", "external/cwe/cwe-563" ],
+            "kind" : "problem",
+            "precision" : "high",
+            "name" : "Unused local variable",
+            "description" : "A local variable that is never called or accessed may be an\n              indication that the code is incomplete or has a typo.",
+            "id" : "cpp/unused-local-variable",
+            "query-path" : "/semmlecode-cpp-queries/Best Practices/Unused Entities/UnusedLocals.ql",
+            "problem.severity" : "recommendation"
+          }
+        }, {
+          "id" : "cpp/duplicate-function",
+          "name" : "cpp/duplicate-function",
+          "shortDescription" : {
+            "text" : "Duplicate function"
+          },
+          "fullDescription" : {
+            "text" : "There is another identical implementation of this function. Extract the code to a common file or superclass or delegate to improve sharing."
+          },
+          "defaultConfiguration" : { },
+          "properties" : {
+            "tags" : [ "testability", "maintainability", "duplicate-code", "non-attributable" ],
+            "kind" : "problem",
+            "precision" : "medium",
+            "name" : "Duplicate function",
+            "description" : "There is another identical implementation of this function. Extract the code to a common file or superclass or delegate to improve sharing.",
+            "id" : "cpp/duplicate-function",
+            "query-path" : "/semmlecode-cpp-queries/external/DuplicateFunction.ql",
+            "problem.severity" : "recommendation"
+          }
+        }, {
+          "id" : "cpp/duplicate-class",
+          "name" : "cpp/duplicate-class",
+          "shortDescription" : {
+            "text" : "Mostly duplicate class"
+          },
+          "fullDescription" : {
+            "text" : "More than 80% of the methods in this class are duplicated in another class. Create a common supertype to improve code sharing."
+          },
+          "defaultConfiguration" : { },
+          "properties" : {
+            "tags" : [ "testability", "maintainability", "duplicate-code", "non-attributable" ],
+            "kind" : "problem",
+            "precision" : "medium",
+            "name" : "Mostly duplicate class",
+            "description" : "More than 80% of the methods in this class are duplicated in another class. Create a common supertype to improve code sharing.",
+            "id" : "cpp/duplicate-class",
+            "query-path" : "/semmlecode-cpp-queries/external/MostlyDuplicateClass.ql",
+            "problem.severity" : "recommendation"
+          }
+        }, {
+          "id" : "cpp/duplicate-file",
+          "name" : "cpp/duplicate-file",
+          "shortDescription" : {
+            "text" : "Mostly duplicate file"
+          },
+          "fullDescription" : {
+            "text" : "There is another file that shares a lot of the code with this file. Merge the two files to improve maintainability."
+          },
+          "defaultConfiguration" : { },
+          "properties" : {
+            "tags" : [ "testability", "maintainability", "duplicate-code", "non-attributable" ],
+            "kind" : "problem",
+            "precision" : "medium",
+            "name" : "Mostly duplicate file",
+            "description" : "There is another file that shares a lot of the code with this file. Merge the two files to improve maintainability.",
+            "id" : "cpp/duplicate-file",
+            "query-path" : "/semmlecode-cpp-queries/external/MostlyDuplicateFile.ql",
+            "problem.severity" : "recommendation"
+          }
+        }, {
+          "id" : "cpp/mostly-duplicate-function",
+          "name" : "cpp/mostly-duplicate-function",
+          "shortDescription" : {
+            "text" : "Mostly duplicate function"
+          },
+          "fullDescription" : {
+            "text" : "There is another function that shares a lot of the code with this one. Extract the code to a common file/superclass or delegate to improve sharing."
+          },
+          "defaultConfiguration" : { },
+          "properties" : {
+            "tags" : [ "testability", "duplicate-code", "non-attributable" ],
+            "kind" : "problem",
+            "precision" : "medium",
+            "name" : "Mostly duplicate function",
+            "description" : "There is another function that shares a lot of the code with this one. Extract the code to a common file/superclass or delegate to improve sharing.",
+            "id" : "cpp/mostly-duplicate-function",
+            "query-path" : "/semmlecode-cpp-queries/external/MostlyDuplicateFunction.ql",
+            "problem.severity" : "recommendation"
+          }
+        }, {
+          "id" : "cpp/similar-file",
+          "name" : "cpp/similar-file",
+          "shortDescription" : {
+            "text" : "Mostly similar file"
+          },
+          "fullDescription" : {
+            "text" : "There is another file that shares a lot of the code with this file. Notice that names of variables and types may have been changed. Merge the two files to improve maintainability."
+          },
+          "defaultConfiguration" : { },
+          "properties" : {
+            "tags" : [ "testability", "maintainability", "duplicate-code", "non-attributable" ],
+            "kind" : "problem",
+            "precision" : "medium",
+            "name" : "Mostly similar file",
+            "description" : "There is another file that shares a lot of the code with this file. Notice that names of variables and types may have been changed. Merge the two files to improve maintainability.",
+            "id" : "cpp/similar-file",
+            "query-path" : "/semmlecode-cpp-queries/external/MostlySimilarFile.ql",
+            "problem.severity" : "recommendation"
+          }
+        } ]
+      }
+    },
+    "artifacts" : [ {
+      "location" : {
+        "uri" : "testcasesupport/std_testcase.h",
+        "uriBaseId" : "%SRCROOT%",
+        "index" : 0
+      }
+    }, {
+      "location" : {
+        "uri" : "src/main_linux.cpp",
+        "uriBaseId" : "%SRCROOT%",
+        "index" : 1
+      }
+    }, {
+      "location" : {
+        "uri" : "src/CWE835_Infinite_Loop__do_01.c",
+        "uriBaseId" : "%SRCROOT%",
+        "index" : 2
+      }
+    }, {
+      "location" : {
+        "uri" : "src/CWE835_Infinite_Loop__do_true_01.c",
+        "uriBaseId" : "%SRCROOT%",
+        "index" : 3
+      }
+    }, {
+      "location" : {
+        "uri" : "src/CWE835_Infinite_Loop__for_01.c",
+        "uriBaseId" : "%SRCROOT%",
+        "index" : 4
+      }
+    }, {
+      "location" : {
+        "uri" : "testcasesupport/io.c",
+        "uriBaseId" : "%SRCROOT%",
+        "index" : 5
+      }
+    }, {
+      "location" : {
+        "uri" : "src/CWE835_Infinite_Loop__for_empty_01.c",
+        "uriBaseId" : "%SRCROOT%",
+        "index" : 6
+      }
+    }, {
+      "location" : {
+        "uri" : "src/CWE835_Infinite_Loop__while_01.c",
+        "uriBaseId" : "%SRCROOT%",
+        "index" : 7
+      }
+    }, {
+      "location" : {
+        "uri" : "src/CWE835_Infinite_Loop__while_true_01.c",
+        "uriBaseId" : "%SRCROOT%",
+        "index" : 8
+      }
+    }, {
+      "location" : {
+        "uri" : "testcasesupport/std_thread.c",
+        "uriBaseId" : "%SRCROOT%",
+        "index" : 9
+      }
+    } ],
+    "results" : [ {
+      "ruleId" : "cpp/jpl-c/includes-first",
+      "ruleIndex" : 5,
+      "message" : {
+        "text" : "'#include \"std_testcase_io.h\"' is preceded by code -- it should be moved above line 61 in std_testcase.h."
+      },
+      "locations" : [ {
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "testcasesupport/std_testcase.h",
+            "uriBaseId" : "%SRCROOT%",
+            "index" : 0
+          },
+          "region" : {
+            "startLine" : 120,
+            "startColumn" : 1,
+            "endLine" : 120,
+            "endColumn" : 29,
+            "charOffset" : 3561,
+            "charLength" : 28
+          }
+        }
+      } ],
+      "partialFingerprints" : {
+        "primaryLocationLineHash" : "316f02d5054d08e4:1",
+        "primaryLocationStartColumnFingerprint" : "0"
+      }
+    }, {
+      "ruleId" : "cpp/jpl-c/function-size-limits",
+      "ruleIndex" : 9,
+      "message" : {
+        "text" : "main has too many lines (88, while 60 are allowed)."
+      },
+      "locations" : [ {
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "src/main_linux.cpp",
+            "uriBaseId" : "%SRCROOT%",
+            "index" : 1
+          },
+          "region" : {
+            "startLine" : 11,
+            "startColumn" : 5,
+            "endLine" : 11,
+            "endColumn" : 9,
+            "charOffset" : 303,
+            "charLength" : 4
+          }
+        }
+      } ],
+      "partialFingerprints" : {
+        "primaryLocationLineHash" : "32e77cbca61875c6:1",
+        "primaryLocationStartColumnFingerprint" : "4"
+      }
+    }, {
+      "ruleId" : "cpp/jpl-c/basic-int-types",
+      "ruleIndex" : 12,
+      "message" : {
+        "text" : "i uses the basic integral type int rather than a typedef with size and signedness."
+      },
+      "locations" : [ {
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "src/CWE835_Infinite_Loop__do_01.c",
+            "uriBaseId" : "%SRCROOT%",
+            "index" : 2
+          },
+          "region" : {
+            "startLine" : 29,
+            "startColumn" : 9,
+            "endLine" : 29,
+            "endColumn" : 10,
+            "charOffset" : 417,
+            "charLength" : 1
+          }
+        }
+      } ],
+      "partialFingerprints" : {
+        "primaryLocationLineHash" : "f87e6a86ebdaf95a:1",
+        "primaryLocationStartColumnFingerprint" : "4"
+      }
+    }, {
+      "ruleId" : "cpp/jpl-c/basic-int-types",
+      "ruleIndex" : 12,
+      "message" : {
+        "text" : "i uses the basic integral type int rather than a typedef with size and signedness."
+      },
+      "locations" : [ {
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "src/CWE835_Infinite_Loop__do_01.c",
+            "uriBaseId" : "%SRCROOT%",
+            "index" : 2
+          },
+          "region" : {
+            "startLine" : 12,
+            "startColumn" : 9,
+            "endLine" : 12,
+            "endColumn" : 10,
+            "charOffset" : 163,
+            "charLength" : 1
+          }
+        }
+      } ],
+      "partialFingerprints" : {
+        "primaryLocationLineHash" : "a161cc6a4a64b4ec:1",
+        "primaryLocationStartColumnFingerprint" : "4"
+      }
+    }, {
+      "ruleId" : "cpp/jpl-c/basic-int-types",
+      "ruleIndex" : 12,
+      "message" : {
+        "text" : "i uses the basic integral type int rather than a typedef with size and signedness."
+      },
+      "locations" : [ {
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "src/CWE835_Infinite_Loop__do_true_01.c",
+            "uriBaseId" : "%SRCROOT%",
+            "index" : 3
+          },
+          "region" : {
+            "startLine" : 29,
+            "startColumn" : 9,
+            "endLine" : 29,
+            "endColumn" : 10,
+            "charOffset" : 407,
+            "charLength" : 1
+          }
+        }
+      } ],
+      "partialFingerprints" : {
+        "primaryLocationLineHash" : "f87e68fa1a35b014:1",
+        "primaryLocationStartColumnFingerprint" : "4"
+      }
+    }, {
+      "ruleId" : "cpp/jpl-c/basic-int-types",
+      "ruleIndex" : 12,
+      "message" : {
+        "text" : "i uses the basic integral type int rather than a typedef with size and signedness."
+      },
+      "locations" : [ {
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "src/CWE835_Infinite_Loop__do_true_01.c",
+            "uriBaseId" : "%SRCROOT%",
+            "index" : 3
+          },
+          "region" : {
+            "startLine" : 12,
+            "startColumn" : 9,
+            "endLine" : 12,
+            "endColumn" : 10,
+            "charOffset" : 168,
+            "charLength" : 1
+          }
+        }
+      } ],
+      "partialFingerprints" : {
+        "primaryLocationLineHash" : "dc40a3968597edda:1",
+        "primaryLocationStartColumnFingerprint" : "4"
+      }
+    }, {
+      "ruleId" : "cpp/jpl-c/basic-int-types",
+      "ruleIndex" : 12,
+      "message" : {
+        "text" : "i uses the basic integral type int rather than a typedef with size and signedness."
+      },
+      "locations" : [ {
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "src/CWE835_Infinite_Loop__for_01.c",
+            "uriBaseId" : "%SRCROOT%",
+            "index" : 4
+          },
+          "region" : {
+            "startLine" : 43,
+            "startColumn" : 9,
+            "endLine" : 43,
+            "endColumn" : 10,
+            "charOffset" : 659,
+            "charLength" : 1
+          }
+        }
+      } ],
+      "partialFingerprints" : {
+        "primaryLocationLineHash" : "8172537cbe007dc6:1",
+        "primaryLocationStartColumnFingerprint" : "4"
+      }
+    }, {
+      "ruleId" : "cpp/jpl-c/basic-int-types",
+      "ruleIndex" : 12,
+      "message" : {
+        "text" : "i uses the basic integral type int rather than a typedef with size and signedness."
+      },
+      "locations" : [ {
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "src/CWE835_Infinite_Loop__for_01.c",
+            "uriBaseId" : "%SRCROOT%",
+            "index" : 4
+          },
+          "region" : {
+            "startLine" : 28,
+            "startColumn" : 9,
+            "endLine" : 28,
+            "endColumn" : 10,
+            "charOffset" : 399,
+            "charLength" : 1
+          }
+        }
+      } ],
+      "partialFingerprints" : {
+        "primaryLocationLineHash" : "9dbc7d16bdb32796:1",
+        "primaryLocationStartColumnFingerprint" : "4"
+      }
+    }, {
+      "ruleId" : "cpp/jpl-c/basic-int-types",
+      "ruleIndex" : 12,
+      "message" : {
+        "text" : "i uses the basic integral type int rather than a typedef with size and signedness."
+      },
+      "locations" : [ {
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "src/CWE835_Infinite_Loop__for_01.c",
+            "uriBaseId" : "%SRCROOT%",
+            "index" : 4
+          },
+          "region" : {
+            "startLine" : 12,
+            "startColumn" : 9,
+            "endLine" : 12,
+            "endColumn" : 10,
+            "charOffset" : 158,
+            "charLength" : 1
+          }
+        }
+      } ],
+      "partialFingerprints" : {
+        "primaryLocationLineHash" : "4bf28fcaef74e90:1",
+        "primaryLocationStartColumnFingerprint" : "4"
+      }
+    }, {
+      "ruleId" : "cpp/jpl-c/basic-int-types",
+      "ruleIndex" : 12,
+      "message" : {
+        "text" : "globalReturnsTrueOrFalse uses the basic integral type int rather than a typedef with size and signedness."
+      },
+      "locations" : [ {
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "testcasesupport/io.c",
+            "uriBaseId" : "%SRCROOT%",
+            "index" : 5
+          },
+          "region" : {
+            "startLine" : 158,
+            "startColumn" : 5,
+            "endLine" : 158,
+            "endColumn" : 29,
+            "charOffset" : 4110,
+            "charLength" : 24
+          }
+        }
+      } ],
+      "partialFingerprints" : {
+        "primaryLocationLineHash" : "dffc5a1579604a46:1",
+        "primaryLocationStartColumnFingerprint" : "4"
+      }
+    }, {
+      "ruleId" : "cpp/jpl-c/basic-int-types",
+      "ruleIndex" : 12,
+      "message" : {
+        "text" : "globalReturnsFalse uses the basic integral type int rather than a typedef with size and signedness."
+      },
+      "locations" : [ {
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "testcasesupport/io.c",
+            "uriBaseId" : "%SRCROOT%",
+            "index" : 5
+          },
+          "region" : {
+            "startLine" : 153,
+            "startColumn" : 5,
+            "endLine" : 153,
+            "endColumn" : 23,
+            "charOffset" : 4060,
+            "charLength" : 18
+          }
+        }
+      } ],
+      "partialFingerprints" : {
+        "primaryLocationLineHash" : "21fd75971dd0baa3:1",
+        "primaryLocationStartColumnFingerprint" : "4"
+      }
+    }, {
+      "ruleId" : "cpp/jpl-c/basic-int-types",
+      "ruleIndex" : 12,
+      "message" : {
+        "text" : "globalReturnsTrue uses the basic integral type int rather than a typedef with size and signedness."
+      },
+      "locations" : [ {
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "testcasesupport/io.c",
+            "uriBaseId" : "%SRCROOT%",
+            "index" : 5
+          },
+          "region" : {
+            "startLine" : 148,
+            "startColumn" : 5,
+            "endLine" : 148,
+            "endColumn" : 22,
+            "charOffset" : 4011,
+            "charLength" : 17
+          }
+        }
+      } ],
+      "partialFingerprints" : {
+        "primaryLocationLineHash" : "65cec60afa60f9d9:1",
+        "primaryLocationStartColumnFingerprint" : "4"
+      }
+    }, {
+      "ruleId" : "cpp/jpl-c/basic-int-types",
+      "ruleIndex" : 12,
+      "message" : {
+        "text" : "decodeHexWChars uses the basic integral type unsigned long rather than a typedef with size and signedness."
+      },
+      "locations" : [ {
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "testcasesupport/io.c",
+            "uriBaseId" : "%SRCROOT%",
+            "index" : 5
+          },
+          "region" : {
+            "startLine" : 127,
+            "startColumn" : 9,
+            "endLine" : 127,
+            "endColumn" : 24,
+            "charOffset" : 3109,
+            "charLength" : 15
+          }
+        }
+      } ],
+      "partialFingerprints" : {
+        "primaryLocationLineHash" : "9262a4378ad834a1:1",
+        "primaryLocationStartColumnFingerprint" : "7"
+      }
+    }, {
+      "ruleId" : "cpp/jpl-c/basic-int-types",
+      "ruleIndex" : 12,
+      "message" : {
+        "text" : "bytes uses the basic integral type unsigned char rather than a typedef with size and signedness."
+      },
+      "locations" : [ {
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "testcasesupport/io.c",
+            "uriBaseId" : "%SRCROOT%",
+            "index" : 5
+          },
+          "region" : {
+            "startLine" : 127,
+            "startColumn" : 41,
+            "endLine" : 127,
+            "endColumn" : 46,
+            "charOffset" : 3141,
+            "charLength" : 5
+          }
+        }
+      } ],
+      "partialFingerprints" : {
+        "primaryLocationLineHash" : "9262a4378ad834a1:1",
+        "primaryLocationStartColumnFingerprint" : "39"
+      }
+    }, {
+      "ruleId" : "cpp/jpl-c/basic-int-types",
+      "ruleIndex" : 12,
+      "message" : {
+        "text" : "numBytes uses the basic integral type unsigned long rather than a typedef with size and signedness."
+      },
+      "locations" : [ {
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "testcasesupport/io.c",
+            "uriBaseId" : "%SRCROOT%",
+            "index" : 5
+          },
+          "region" : {
+            "startLine" : 127,
+            "startColumn" : 55,
+            "endLine" : 127,
+            "endColumn" : 63,
+            "charOffset" : 3155,
+            "charLength" : 8
+          }
+        }
+      } ],
+      "partialFingerprints" : {
+        "primaryLocationLineHash" : "9262a4378ad834a1:1",
+        "primaryLocationStartColumnFingerprint" : "53"
+      }
+    }, {
+      "ruleId" : "cpp/jpl-c/basic-int-types",
+      "ruleIndex" : 12,
+      "message" : {
+        "text" : "hex uses the basic integral type int rather than a typedef with size and signedness.\nhex uses the basic integral type wchar_t rather than a typedef with size and signedness."
+      },
+      "locations" : [ {
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "testcasesupport/io.c",
+            "uriBaseId" : "%SRCROOT%",
+            "index" : 5
+          },
+          "region" : {
+            "startLine" : 127,
+            "startColumn" : 81,
+            "endLine" : 127,
+            "endColumn" : 84,
+            "charOffset" : 3181,
+            "charLength" : 3
+          }
+        }
+      } ],
+      "partialFingerprints" : {
+        "primaryLocationLineHash" : "9262a4378ad834a1:1",
+        "primaryLocationStartColumnFingerprint" : "79"
+      }
+    }, {
+      "ruleId" : "cpp/jpl-c/basic-int-types",
+      "ruleIndex" : 12,
+      "message" : {
+        "text" : "decodeHexChars uses the basic integral type unsigned long rather than a typedef with size and signedness."
+      },
+      "locations" : [ {
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "testcasesupport/io.c",
+            "uriBaseId" : "%SRCROOT%",
+            "index" : 5
+          },
+          "region" : {
+            "startLine" : 105,
+            "startColumn" : 8,
+            "endLine" : 105,
+            "endColumn" : 22,
+            "charOffset" : 2147,
+            "charLength" : 14
+          }
+        }
+      } ],
+      "partialFingerprints" : {
+        "primaryLocationLineHash" : "28e0711bac4256ff:1",
+        "primaryLocationStartColumnFingerprint" : "7"
+      }
+    }, {
+      "ruleId" : "cpp/jpl-c/basic-int-types",
+      "ruleIndex" : 12,
+      "message" : {
+        "text" : "bytes uses the basic integral type unsigned char rather than a typedef with size and signedness."
+      },
+      "locations" : [ {
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "testcasesupport/io.c",
+            "uriBaseId" : "%SRCROOT%",
+            "index" : 5
+          },
+          "region" : {
+            "startLine" : 105,
+            "startColumn" : 39,
+            "endLine" : 105,
+            "endColumn" : 44,
+            "charOffset" : 2178,
+            "charLength" : 5
+          }
+        }
+      } ],
+      "partialFingerprints" : {
+        "primaryLocationLineHash" : "28e0711bac4256ff:1",
+        "primaryLocationStartColumnFingerprint" : "38"
+      }
+    }, {
+      "ruleId" : "cpp/jpl-c/basic-int-types",
+      "ruleIndex" : 12,
+      "message" : {
+        "text" : "numBytes uses the basic integral type unsigned long rather than a typedef with size and signedness."
+      },
+      "locations" : [ {
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "testcasesupport/io.c",
+            "uriBaseId" : "%SRCROOT%",
+            "index" : 5
+          },
+          "region" : {
+            "startLine" : 105,
+            "startColumn" : 53,
+            "endLine" : 105,
+            "endColumn" : 61,
+            "charOffset" : 2192,
+            "charLength" : 8
+          }
+        }
+      } ],
+      "partialFingerprints" : {
+        "primaryLocationLineHash" : "28e0711bac4256ff:1",
+        "primaryLocationStartColumnFingerprint" : "52"
+      }
+    }, {
+      "ruleId" : "cpp/jpl-c/basic-int-types",
+      "ruleIndex" : 12,
+      "message" : {
+        "text" : "hex uses the basic integral type char rather than a typedef with size and signedness."
+      },
+      "locations" : [ {
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "testcasesupport/io.c",
+            "uriBaseId" : "%SRCROOT%",
+            "index" : 5
+          },
+          "region" : {
+            "startLine" : 105,
+            "startColumn" : 76,
+            "endLine" : 105,
+            "endColumn" : 79,
+            "charOffset" : 2215,
+            "charLength" : 3
+          }
+        }
+      } ],
+      "partialFingerprints" : {
+        "primaryLocationLineHash" : "28e0711bac4256ff:1",
+        "primaryLocationStartColumnFingerprint" : "75"
+      }
+    }, {
+      "ruleId" : "cpp/jpl-c/basic-int-types",
+      "ruleIndex" : 12,
+      "message" : {
+        "text" : "bytes uses the basic integral type unsigned char rather than a typedef with size and signedness."
+      },
+      "locations" : [ {
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "testcasesupport/io.c",
+            "uriBaseId" : "%SRCROOT%",
+            "index" : 5
+          },
+          "region" : {
+            "startLine" : 92,
+            "startColumn" : 43,
+            "endLine" : 92,
+            "endColumn" : 48,
+            "charOffset" : 1754,
+            "charLength" : 5
+          }
+        }
+      } ],
+      "partialFingerprints" : {
+        "primaryLocationLineHash" : "db84c4a45b1e16b9:1",
+        "primaryLocationStartColumnFingerprint" : "42"
+      }
+    }, {
+      "ruleId" : "cpp/jpl-c/basic-int-types",
+      "ruleIndex" : 12,
+      "message" : {
+        "text" : "numBytes uses the basic integral type unsigned long rather than a typedef with size and signedness."
+      },
+      "locations" : [ {
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "testcasesupport/io.c",
+            "uriBaseId" : "%SRCROOT%",
+            "index" : 5
+          },
+          "region" : {
+            "startLine" : 92,
+            "startColumn" : 57,
+            "endLine" : 92,
+            "endColumn" : 65,
+            "charOffset" : 1768,
+            "charLength" : 8
+          }
+        }
+      } ],
+      "partialFingerprints" : {
+        "primaryLocationLineHash" : "db84c4a45b1e16b9:1",
+        "primaryLocationStartColumnFingerprint" : "56"
+      }
+    }, {
+      "ruleId" : "cpp/jpl-c/basic-int-types",
+      "ruleIndex" : 12,
+      "message" : {
+        "text" : "unsignedCharacter uses the basic integral type unsigned char rather than a typedef with size and signedness."
+      },
+      "locations" : [ {
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "testcasesupport/io.c",
+            "uriBaseId" : "%SRCROOT%",
+            "index" : 5
+          },
+          "region" : {
+            "startLine" : 77,
+            "startColumn" : 45,
+            "endLine" : 77,
+            "endColumn" : 62,
+            "charOffset" : 1395,
+            "charLength" : 17
+          }
+        }
+      } ],
+      "partialFingerprints" : {
+        "primaryLocationLineHash" : "aec07ebe4a28adf:1",
+        "primaryLocationStartColumnFingerprint" : "44"
+      }
+    }, {
+      "ruleId" : "cpp/jpl-c/basic-int-types",
+      "ruleIndex" : 12,
+      "message" : {
+        "text" : "unsignedNumber uses the basic integral type unsigned int rather than a typedef with size and signedness."
+      },
+      "locations" : [ {
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "testcasesupport/io.c",
+            "uriBaseId" : "%SRCROOT%",
+            "index" : 5
+          },
+          "region" : {
+            "startLine" : 72,
+            "startColumn" : 33,
+            "endLine" : 72,
+            "endColumn" : 47,
+            "charOffset" : 1288,
+            "charLength" : 14
+          }
+        }
+      } ],
+      "partialFingerprints" : {
+        "primaryLocationLineHash" : "ee22272c564d1e93:1",
+        "primaryLocationStartColumnFingerprint" : "32"
+      }
+    }, {
+      "ruleId" : "cpp/jpl-c/basic-int-types",
+      "ruleIndex" : 12,
+      "message" : {
+        "text" : "wideChar uses the basic integral type wchar_t rather than a typedef with size and signedness.\nwideChar uses the basic integral type int rather than a typedef with size and signedness."
+      },
+      "locations" : [ {
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "testcasesupport/io.c",
+            "uriBaseId" : "%SRCROOT%",
+            "index" : 5
+          },
+          "region" : {
+            "startLine" : 62,
+            "startColumn" : 29,
+            "endLine" : 62,
+            "endColumn" : 37,
+            "charOffset" : 1013,
+            "charLength" : 8
+          }
+        }
+      } ],
+      "partialFingerprints" : {
+        "primaryLocationLineHash" : "360fdc28825bc91:1",
+        "primaryLocationStartColumnFingerprint" : "28"
+      }
+    }, {
+      "ruleId" : "cpp/jpl-c/basic-int-types",
+      "ruleIndex" : 12,
+      "message" : {
+        "text" : "charHex uses the basic integral type char rather than a typedef with size and signedness."
+      },
+      "locations" : [ {
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "testcasesupport/io.c",
+            "uriBaseId" : "%SRCROOT%",
+            "index" : 5
+          },
+          "region" : {
+            "startLine" : 57,
+            "startColumn" : 29,
+            "endLine" : 57,
+            "endColumn" : 36,
+            "charOffset" : 935,
+            "charLength" : 7
+          }
+        }
+      } ],
+      "partialFingerprints" : {
+        "primaryLocationLineHash" : "5eb2d91e56526511:1",
+        "primaryLocationStartColumnFingerprint" : "28"
+      }
+    }, {
+      "ruleId" : "cpp/jpl-c/basic-int-types",
+      "ruleIndex" : 12,
+      "message" : {
+        "text" : "sizeTNumber uses the basic integral type unsigned long rather than a typedef with size and signedness."
+      },
+      "locations" : [ {
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "testcasesupport/io.c",
+            "uriBaseId" : "%SRCROOT%",
+            "index" : 5
+          },
+          "region" : {
+            "startLine" : 52,
+            "startColumn" : 29,
+            "endLine" : 52,
+            "endColumn" : 40,
+            "charOffset" : 850,
+            "charLength" : 11
+          }
+        }
+      } ],
+      "partialFingerprints" : {
+        "primaryLocationLineHash" : "e67aa5ede6888654:1",
+        "primaryLocationStartColumnFingerprint" : "28"
+      }
+    }, {
+      "ruleId" : "cpp/jpl-c/basic-int-types",
+      "ruleIndex" : 12,
+      "message" : {
+        "text" : "longLongIntNumber uses the basic integral type long rather than a typedef with size and signedness."
+      },
+      "locations" : [ {
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "testcasesupport/io.c",
+            "uriBaseId" : "%SRCROOT%",
+            "index" : 5
+          },
+          "region" : {
+            "startLine" : 47,
+            "startColumn" : 33,
+            "endLine" : 47,
+            "endColumn" : 50,
+            "charOffset" : 745,
+            "charLength" : 17
+          }
+        }
+      } ],
+      "partialFingerprints" : {
+        "primaryLocationLineHash" : "21305814222825d9:1",
+        "primaryLocationStartColumnFingerprint" : "32"
+      }
+    }, {
+      "ruleId" : "cpp/jpl-c/basic-int-types",
+      "ruleIndex" : 12,
+      "message" : {
+        "text" : "longNumber uses the basic integral type long rather than a typedef with size and signedness."
+      },
+      "locations" : [ {
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "testcasesupport/io.c",
+            "uriBaseId" : "%SRCROOT%",
+            "index" : 5
+          },
+          "region" : {
+            "startLine" : 42,
+            "startColumn" : 26,
+            "endLine" : 42,
+            "endColumn" : 36,
+            "charOffset" : 658,
+            "charLength" : 10
+          }
+        }
+      } ],
+      "partialFingerprints" : {
+        "primaryLocationLineHash" : "80e8f1d0ac23d0bd:1",
+        "primaryLocationStartColumnFingerprint" : "25"
+      }
+    }, {
+      "ruleId" : "cpp/jpl-c/basic-int-types",
+      "ruleIndex" : 12,
+      "message" : {
+        "text" : "shortNumber uses the basic integral type short rather than a typedef with size and signedness."
+      },
+      "locations" : [ {
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "testcasesupport/io.c",
+            "uriBaseId" : "%SRCROOT%",
+            "index" : 5
+          },
+          "region" : {
+            "startLine" : 32,
+            "startColumn" : 28,
+            "endLine" : 32,
+            "endColumn" : 39,
+            "charOffset" : 493,
+            "charLength" : 11
+          }
+        }
+      } ],
+      "partialFingerprints" : {
+        "primaryLocationLineHash" : "e6cb260f370dab3f:1",
+        "primaryLocationStartColumnFingerprint" : "27"
+      }
+    }, {
+      "ruleId" : "cpp/jpl-c/basic-int-types",
+      "ruleIndex" : 12,
+      "message" : {
+        "text" : "intNumber uses the basic integral type int rather than a typedef with size and signedness."
+      },
+      "locations" : [ {
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "testcasesupport/io.c",
+            "uriBaseId" : "%SRCROOT%",
+            "index" : 5
+          },
+          "region" : {
+            "startLine" : 27,
+            "startColumn" : 24,
+            "endLine" : 27,
+            "endColumn" : 33,
+            "charOffset" : 414,
+            "charLength" : 9
+          }
+        }
+      } ],
+      "partialFingerprints" : {
+        "primaryLocationLineHash" : "baf1435bd5137810:1",
+        "primaryLocationStartColumnFingerprint" : "23"
+      }
+    }, {
+      "ruleId" : "cpp/jpl-c/basic-int-types",
+      "ruleIndex" : 12,
+      "message" : {
+        "text" : "line uses the basic integral type int rather than a typedef with size and signedness.\nline uses the basic integral type wchar_t rather than a typedef with size and signedness."
+      },
+      "locations" : [ {
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "testcasesupport/io.c",
+            "uriBaseId" : "%SRCROOT%",
+            "index" : 5
+          },
+          "region" : {
+            "startLine" : 19,
+            "startColumn" : 34,
+            "endLine" : 19,
+            "endColumn" : 38,
+            "charOffset" : 305,
+            "charLength" : 4
+          }
+        }
+      } ],
+      "partialFingerprints" : {
+        "primaryLocationLineHash" : "eccb22afe9698c8c:1",
+        "primaryLocationStartColumnFingerprint" : "33"
+      }
+    }, {
+      "ruleId" : "cpp/jpl-c/basic-int-types",
+      "ruleIndex" : 12,
+      "message" : {
+        "text" : "line uses the basic integral type char rather than a typedef with size and signedness."
+      },
+      "locations" : [ {
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "testcasesupport/io.c",
+            "uriBaseId" : "%SRCROOT%",
+            "index" : 5
+          },
+          "region" : {
+            "startLine" : 11,
+            "startColumn" : 30,
+            "endLine" : 11,
+            "endColumn" : 34,
+            "charOffset" : 189,
+            "charLength" : 4
+          }
+        }
+      } ],
+      "partialFingerprints" : {
+        "primaryLocationLineHash" : "27330c324f1c86af:1",
+        "primaryLocationStartColumnFingerprint" : "29"
+      }
+    }, {
+      "ruleId" : "cpp/jpl-c/basic-int-types",
+      "ruleIndex" : 12,
+      "message" : {
+        "text" : "globalArgv uses the basic integral type char rather than a typedef with size and signedness."
+      },
+      "locations" : [ {
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "testcasesupport/io.c",
+            "uriBaseId" : "%SRCROOT%",
+            "index" : 5
+          },
+          "region" : {
+            "startLine" : 207,
+            "startColumn" : 8,
+            "endLine" : 207,
+            "endColumn" : 18,
+            "charOffset" : 5373,
+            "charLength" : 10
+          }
+        }
+      } ],
+      "partialFingerprints" : {
+        "primaryLocationLineHash" : "b1fdba9a70c548b7:1",
+        "primaryLocationStartColumnFingerprint" : "7"
+      }
+    }, {
+      "ruleId" : "cpp/jpl-c/basic-int-types",
+      "ruleIndex" : 12,
+      "message" : {
+        "text" : "globalArgc uses the basic integral type int rather than a typedef with size and signedness."
+      },
+      "locations" : [ {
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "testcasesupport/io.c",
+            "uriBaseId" : "%SRCROOT%",
+            "index" : 5
+          },
+          "region" : {
+            "startLine" : 206,
+            "startColumn" : 5,
+            "endLine" : 206,
+            "endColumn" : 15,
+            "charOffset" : 5349,
+            "charLength" : 10
+          }
+        }
+      } ],
+      "partialFingerprints" : {
+        "primaryLocationLineHash" : "29d1d7de04588df6:1",
+        "primaryLocationStartColumnFingerprint" : "4"
+      }
+    }, {
+      "ruleId" : "cpp/jpl-c/basic-int-types",
+      "ruleIndex" : 12,
+      "message" : {
+        "text" : "intTwo uses the basic integral type int rather than a typedef with size and signedness."
+      },
+      "locations" : [ {
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "testcasesupport/std_testcase.h",
+            "uriBaseId" : "%SRCROOT%",
+            "index" : 0
+          },
+          "region" : {
+            "startLine" : 95,
+            "startColumn" : 9,
+            "endLine" : 95,
+            "endColumn" : 15,
+            "charOffset" : 2839,
+            "charLength" : 6
+          }
+        }
+      } ],
+      "partialFingerprints" : {
+        "primaryLocationLineHash" : "513b8db71743942a:1",
+        "primaryLocationStartColumnFingerprint" : "4"
+      }
+    }, {
+      "ruleId" : "cpp/jpl-c/basic-int-types",
+      "ruleIndex" : 12,
+      "message" : {
+        "text" : "intOne uses the basic integral type int rather than a typedef with size and signedness."
+      },
+      "locations" : [ {
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "testcasesupport/std_testcase.h",
+            "uriBaseId" : "%SRCROOT%",
+            "index" : 0
+          },
+          "region" : {
+            "startLine" : 94,
+            "startColumn" : 9,
+            "endLine" : 94,
+            "endColumn" : 15,
+            "charOffset" : 2822,
+            "charLength" : 6
+          }
+        }
+      } ],
+      "partialFingerprints" : {
+        "primaryLocationLineHash" : "c8cec4f864dc1aef:1",
+        "primaryLocationStartColumnFingerprint" : "4"
+      }
+    }, {
+      "ruleId" : "cpp/jpl-c/basic-int-types",
+      "ruleIndex" : 12,
+      "message" : {
+        "text" : "globalFive uses the basic integral type int rather than a typedef with size and signedness."
+      },
+      "locations" : [ {
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "testcasesupport/io.c",
+            "uriBaseId" : "%SRCROOT%",
+            "index" : 5
+          },
+          "region" : {
+            "startLine" : 175,
+            "startColumn" : 5,
+            "endLine" : 175,
+            "endColumn" : 15,
+            "charOffset" : 4737,
+            "charLength" : 10
+          }
+        }
+      } ],
+      "partialFingerprints" : {
+        "primaryLocationLineHash" : "c983c0cde3d4afb1:1",
+        "primaryLocationStartColumnFingerprint" : "4"
+      }
+    }, {
+      "ruleId" : "cpp/jpl-c/basic-int-types",
+      "ruleIndex" : 12,
+      "message" : {
+        "text" : "globalFalse uses the basic integral type int rather than a typedef with size and signedness."
+      },
+      "locations" : [ {
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "testcasesupport/io.c",
+            "uriBaseId" : "%SRCROOT%",
+            "index" : 5
+          },
+          "region" : {
+            "startLine" : 174,
+            "startColumn" : 5,
+            "endLine" : 174,
+            "endColumn" : 16,
+            "charOffset" : 4703,
+            "charLength" : 11
+          }
+        }
+      } ],
+      "partialFingerprints" : {
+        "primaryLocationLineHash" : "d3de66a83058dcfd:1",
+        "primaryLocationStartColumnFingerprint" : "4"
+      }
+    }, {
+      "ruleId" : "cpp/jpl-c/basic-int-types",
+      "ruleIndex" : 12,
+      "message" : {
+        "text" : "globalTrue uses the basic integral type int rather than a typedef with size and signedness."
+      },
+      "locations" : [ {
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "testcasesupport/io.c",
+            "uriBaseId" : "%SRCROOT%",
+            "index" : 5
+          },
+          "region" : {
+            "startLine" : 173,
+            "startColumn" : 5,
+            "endLine" : 173,
+            "endColumn" : 15,
+            "charOffset" : 4671,
+            "charLength" : 10
+          }
+        }
+      } ],
+      "partialFingerprints" : {
+        "primaryLocationLineHash" : "7b694869a4d2cc13:1",
+        "primaryLocationStartColumnFingerprint" : "4"
+      }
+    }, {
+      "ruleId" : "cpp/jpl-c/basic-int-types",
+      "ruleIndex" : 12,
+      "message" : {
+        "text" : "GLOBAL_CONST_FIVE uses the basic integral type int rather than a typedef with size and signedness."
+      },
+      "locations" : [ {
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "testcasesupport/io.c",
+            "uriBaseId" : "%SRCROOT%",
+            "index" : 5
+          },
+          "region" : {
+            "startLine" : 168,
+            "startColumn" : 11,
+            "endLine" : 168,
+            "endColumn" : 28,
+            "charOffset" : 4435,
+            "charLength" : 17
+          }
+        }
+      } ],
+      "partialFingerprints" : {
+        "primaryLocationLineHash" : "bb06515ff8c4f6f:1",
+        "primaryLocationStartColumnFingerprint" : "10"
+      }
+    }, {
+      "ruleId" : "cpp/jpl-c/basic-int-types",
+      "ruleIndex" : 12,
+      "message" : {
+        "text" : "GLOBAL_CONST_FALSE uses the basic integral type int rather than a typedef with size and signedness."
+      },
+      "locations" : [ {
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "testcasesupport/io.c",
+            "uriBaseId" : "%SRCROOT%",
+            "index" : 5
+          },
+          "region" : {
+            "startLine" : 167,
+            "startColumn" : 11,
+            "endLine" : 167,
+            "endColumn" : 29,
+            "charOffset" : 4388,
+            "charLength" : 18
+          }
+        }
+      } ],
+      "partialFingerprints" : {
+        "primaryLocationLineHash" : "d1787863e9008939:1",
+        "primaryLocationStartColumnFingerprint" : "10"
+      }
+    }, {
+      "ruleId" : "cpp/jpl-c/basic-int-types",
+      "ruleIndex" : 12,
+      "message" : {
+        "text" : "GLOBAL_CONST_TRUE uses the basic integral type int rather than a typedef with size and signedness."
+      },
+      "locations" : [ {
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "testcasesupport/io.c",
+            "uriBaseId" : "%SRCROOT%",
+            "index" : 5
+          },
+          "region" : {
+            "startLine" : 166,
+            "startColumn" : 11,
+            "endLine" : 166,
+            "endColumn" : 28,
+            "charOffset" : 4343,
+            "charLength" : 17
+          }
+        }
+      } ],
+      "partialFingerprints" : {
+        "primaryLocationLineHash" : "3fb45cb260c06a8:1",
+        "primaryLocationStartColumnFingerprint" : "10"
+      }
+    }, {
+      "ruleId" : "cpp/jpl-c/basic-int-types",
+      "ruleIndex" : 12,
+      "message" : {
+        "text" : "i uses the basic integral type int rather than a typedef with size and signedness."
+      },
+      "locations" : [ {
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "src/CWE835_Infinite_Loop__for_empty_01.c",
+            "uriBaseId" : "%SRCROOT%",
+            "index" : 6
+          },
+          "region" : {
+            "startLine" : 29,
+            "startColumn" : 9,
+            "endLine" : 29,
+            "endColumn" : 10,
+            "charOffset" : 388,
+            "charLength" : 1
+          }
+        }
+      } ],
+      "partialFingerprints" : {
+        "primaryLocationLineHash" : "89e99521a4c613c8:1",
+        "primaryLocationStartColumnFingerprint" : "4"
+      }
+    }, {
+      "ruleId" : "cpp/jpl-c/basic-int-types",
+      "ruleIndex" : 12,
+      "message" : {
+        "text" : "i uses the basic integral type int rather than a typedef with size and signedness."
+      },
+      "locations" : [ {
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "src/CWE835_Infinite_Loop__for_empty_01.c",
+            "uriBaseId" : "%SRCROOT%",
+            "index" : 6
+          },
+          "region" : {
+            "startLine" : 12,
+            "startColumn" : 9,
+            "endLine" : 12,
+            "endColumn" : 10,
+            "charOffset" : 164,
+            "charLength" : 1
+          }
+        }
+      } ],
+      "partialFingerprints" : {
+        "primaryLocationLineHash" : "4de52afa534d2907:1",
+        "primaryLocationStartColumnFingerprint" : "4"
+      }
+    }, {
+      "ruleId" : "cpp/jpl-c/basic-int-types",
+      "ruleIndex" : 12,
+      "message" : {
+        "text" : "i uses the basic integral type int rather than a typedef with size and signedness."
+      },
+      "locations" : [ {
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "src/CWE835_Infinite_Loop__while_01.c",
+            "uriBaseId" : "%SRCROOT%",
+            "index" : 7
+          },
+          "region" : {
+            "startLine" : 28,
+            "startColumn" : 9,
+            "endLine" : 28,
+            "endColumn" : 10,
+            "charOffset" : 406,
+            "charLength" : 1
+          }
+        }
+      } ],
+      "partialFingerprints" : {
+        "primaryLocationLineHash" : "99c454335092faee:1",
+        "primaryLocationStartColumnFingerprint" : "4"
+      }
+    }, {
+      "ruleId" : "cpp/jpl-c/basic-int-types",
+      "ruleIndex" : 12,
+      "message" : {
+        "text" : "i uses the basic integral type int rather than a typedef with size and signedness."
+      },
+      "locations" : [ {
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "src/CWE835_Infinite_Loop__while_01.c",
+            "uriBaseId" : "%SRCROOT%",
+            "index" : 7
+          },
+          "region" : {
+            "startLine" : 12,
+            "startColumn" : 9,
+            "endLine" : 12,
+            "endColumn" : 10,
+            "charOffset" : 162,
+            "charLength" : 1
+          }
+        }
+      } ],
+      "partialFingerprints" : {
+        "primaryLocationLineHash" : "10f6d6f2e5c63dc7:1",
+        "primaryLocationStartColumnFingerprint" : "4"
+      }
+    }, {
+      "ruleId" : "cpp/jpl-c/basic-int-types",
+      "ruleIndex" : 12,
+      "message" : {
+        "text" : "i uses the basic integral type int rather than a typedef with size and signedness."
+      },
+      "locations" : [ {
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "src/CWE835_Infinite_Loop__while_true_01.c",
+            "uriBaseId" : "%SRCROOT%",
+            "index" : 8
+          },
+          "region" : {
+            "startLine" : 28,
+            "startColumn" : 9,
+            "endLine" : 28,
+            "endColumn" : 10,
+            "charOffset" : 400,
+            "charLength" : 1
+          }
+        }
+      } ],
+      "partialFingerprints" : {
+        "primaryLocationLineHash" : "fc92b748013d765a:1",
+        "primaryLocationStartColumnFingerprint" : "4"
+      }
+    }, {
+      "ruleId" : "cpp/jpl-c/basic-int-types",
+      "ruleIndex" : 12,
+      "message" : {
+        "text" : "i uses the basic integral type int rather than a typedef with size and signedness."
+      },
+      "locations" : [ {
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "src/CWE835_Infinite_Loop__while_true_01.c",
+            "uriBaseId" : "%SRCROOT%",
+            "index" : 8
+          },
+          "region" : {
+            "startLine" : 12,
+            "startColumn" : 9,
+            "endLine" : 12,
+            "endColumn" : 10,
+            "charOffset" : 171,
+            "charLength" : 1
+          }
+        }
+      } ],
+      "partialFingerprints" : {
+        "primaryLocationLineHash" : "1e4b6a39fd162ae6:1",
+        "primaryLocationStartColumnFingerprint" : "4"
+      }
+    }, {
+      "ruleId" : "cpp/jpl-c/basic-int-types",
+      "ruleIndex" : 12,
+      "message" : {
+        "text" : "intOne uses the basic integral type int rather than a typedef with size and signedness."
+      },
+      "locations" : [ {
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "testcasesupport/std_testcase.h",
+            "uriBaseId" : "%SRCROOT%",
+            "index" : 0
+          },
+          "region" : {
+            "startLine" : 71,
+            "startColumn" : 13,
+            "endLine" : 71,
+            "endColumn" : 19,
+            "charOffset" : 1945,
+            "charLength" : 6
+          }
+        }
+      } ],
+      "partialFingerprints" : {
+        "primaryLocationLineHash" : "f26a8d0b283044fe:1",
+        "primaryLocationStartColumnFingerprint" : "4"
+      }
+    }, {
+      "ruleId" : "cpp/jpl-c/basic-int-types",
+      "ruleIndex" : 12,
+      "message" : {
+        "text" : "intTwo uses the basic integral type int rather than a typedef with size and signedness."
+      },
+      "locations" : [ {
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "testcasesupport/std_testcase.h",
+            "uriBaseId" : "%SRCROOT%",
+            "index" : 0
+          },
+          "region" : {
+            "startLine" : 65,
+            "startColumn" : 13,
+            "endLine" : 65,
+            "endColumn" : 19,
+            "charOffset" : 1882,
+            "charLength" : 6
+          }
+        }
+      } ],
+      "partialFingerprints" : {
+        "primaryLocationLineHash" : "88ee8e8bd98a9355:1",
+        "primaryLocationStartColumnFingerprint" : "4"
+      }
+    }, {
+      "ruleId" : "cpp/jpl-c/basic-int-types",
+      "ruleIndex" : 12,
+      "message" : {
+        "text" : "intOne uses the basic integral type int rather than a typedef with size and signedness."
+      },
+      "locations" : [ {
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "testcasesupport/std_testcase.h",
+            "uriBaseId" : "%SRCROOT%",
+            "index" : 0
+          },
+          "region" : {
+            "startLine" : 64,
+            "startColumn" : 13,
+            "endLine" : 64,
+            "endColumn" : 19,
+            "charOffset" : 1861,
+            "charLength" : 6
+          }
+        }
+      } ],
+      "partialFingerprints" : {
+        "primaryLocationLineHash" : "bbf910e3f6bf93a9:1",
+        "primaryLocationStartColumnFingerprint" : "4"
+      }
+    }, {
+      "ruleId" : "cpp/jpl-c/basic-int-types",
+      "ruleIndex" : 12,
+      "message" : {
+        "text" : "main uses the basic integral type int rather than a typedef with size and signedness."
+      },
+      "locations" : [ {
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "src/main_linux.cpp",
+            "uriBaseId" : "%SRCROOT%",
+            "index" : 1
+          },
+          "region" : {
+            "startLine" : 11,
+            "startColumn" : 5,
+            "endLine" : 11,
+            "endColumn" : 9,
+            "charOffset" : 303,
+            "charLength" : 4
+          }
+        }
+      } ],
+      "partialFingerprints" : {
+        "primaryLocationLineHash" : "32e77cbca61875c6:1",
+        "primaryLocationStartColumnFingerprint" : "4"
+      }
+    }, {
+      "ruleId" : "cpp/jpl-c/basic-int-types",
+      "ruleIndex" : 12,
+      "message" : {
+        "text" : "argc uses the basic integral type int rather than a typedef with size and signedness."
+      },
+      "locations" : [ {
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "src/main_linux.cpp",
+            "uriBaseId" : "%SRCROOT%",
+            "index" : 1
+          },
+          "region" : {
+            "startLine" : 11,
+            "startColumn" : 14,
+            "endLine" : 11,
+            "endColumn" : 18,
+            "charOffset" : 312,
+            "charLength" : 4
+          }
+        }
+      } ],
+      "partialFingerprints" : {
+        "primaryLocationLineHash" : "32e77cbca61875c6:1",
+        "primaryLocationStartColumnFingerprint" : "13"
+      }
+    }, {
+      "ruleId" : "cpp/jpl-c/basic-int-types",
+      "ruleIndex" : 12,
+      "message" : {
+        "text" : "argv uses the basic integral type char rather than a typedef with size and signedness."
+      },
+      "locations" : [ {
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "src/main_linux.cpp",
+            "uriBaseId" : "%SRCROOT%",
+            "index" : 1
+          },
+          "region" : {
+            "startLine" : 11,
+            "startColumn" : 27,
+            "endLine" : 11,
+            "endColumn" : 31,
+            "charOffset" : 325,
+            "charLength" : 4
+          }
+        }
+      } ],
+      "partialFingerprints" : {
+        "primaryLocationLineHash" : "32e77cbca61875c6:1",
+        "primaryLocationStartColumnFingerprint" : "26"
+      }
+    }, {
+      "ruleId" : "cpp/jpl-c/basic-int-types",
+      "ruleIndex" : 12,
+      "message" : {
+        "text" : "numWritten uses the basic integral type unsigned long rather than a typedef with size and signedness."
+      },
+      "locations" : [ {
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "testcasesupport/io.c",
+            "uriBaseId" : "%SRCROOT%",
+            "index" : 5
+          },
+          "region" : {
+            "startLine" : 129,
+            "startColumn" : 12,
+            "endLine" : 129,
+            "endColumn" : 22,
+            "charOffset" : 3202,
+            "charLength" : 10
+          }
+        }
+      } ],
+      "partialFingerprints" : {
+        "primaryLocationLineHash" : "500811b38d9b05a7:1",
+        "primaryLocationStartColumnFingerprint" : "7"
+      }
+    }, {
+      "ruleId" : "cpp/jpl-c/basic-int-types",
+      "ruleIndex" : 12,
+      "message" : {
+        "text" : "byte uses the basic integral type int rather than a typedef with size and signedness."
+      },
+      "locations" : [ {
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "testcasesupport/io.c",
+            "uriBaseId" : "%SRCROOT%",
+            "index" : 5
+          },
+          "region" : {
+            "startLine" : 137,
+            "startColumn" : 13,
+            "endLine" : 137,
+            "endColumn" : 17,
+            "charOffset" : 3682,
+            "charLength" : 4
+          }
+        }
+      } ],
+      "partialFingerprints" : {
+        "primaryLocationLineHash" : "c197080d84dd67a:1",
+        "primaryLocationStartColumnFingerprint" : "4"
+      }
+    }, {
+      "ruleId" : "cpp/jpl-c/basic-int-types",
+      "ruleIndex" : 12,
+      "message" : {
+        "text" : "numWritten uses the basic integral type unsigned long rather than a typedef with size and signedness."
+      },
+      "locations" : [ {
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "testcasesupport/io.c",
+            "uriBaseId" : "%SRCROOT%",
+            "index" : 5
+          },
+          "region" : {
+            "startLine" : 107,
+            "startColumn" : 12,
+            "endLine" : 107,
+            "endColumn" : 22,
+            "charOffset" : 2235,
+            "charLength" : 10
+          }
+        }
+      } ],
+      "partialFingerprints" : {
+        "primaryLocationLineHash" : "20a69b518de8b57e:1",
+        "primaryLocationStartColumnFingerprint" : "7"
+      }
+    }, {
+      "ruleId" : "cpp/jpl-c/basic-int-types",
+      "ruleIndex" : 12,
+      "message" : {
+        "text" : "byte uses the basic integral type int rather than a typedef with size and signedness."
+      },
+      "locations" : [ {
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "testcasesupport/io.c",
+            "uriBaseId" : "%SRCROOT%",
+            "index" : 5
+          },
+          "region" : {
+            "startLine" : 115,
+            "startColumn" : 13,
+            "endLine" : 115,
+            "endColumn" : 17,
+            "charOffset" : 2711,
+            "charLength" : 4
+          }
+        }
+      } ],
+      "partialFingerprints" : {
+        "primaryLocationLineHash" : "4b9ffc3c3571ca36:1",
+        "primaryLocationStartColumnFingerprint" : "4"
+      }
+    }, {
+      "ruleId" : "cpp/jpl-c/basic-int-types",
+      "ruleIndex" : 12,
+      "message" : {
+        "text" : "i uses the basic integral type unsigned long rather than a typedef with size and signedness."
+      },
+      "locations" : [ {
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "testcasesupport/io.c",
+            "uriBaseId" : "%SRCROOT%",
+            "index" : 5
+          },
+          "region" : {
+            "startLine" : 94,
+            "startColumn" : 12,
+            "endLine" : 94,
+            "endColumn" : 13,
+            "charOffset" : 1793,
+            "charLength" : 1
+          }
+        }
+      } ],
+      "partialFingerprints" : {
+        "primaryLocationLineHash" : "b126171ffda7ba56:1",
+        "primaryLocationStartColumnFingerprint" : "7"
+      }
+    }, {
+      "ruleId" : "cpp/jpl-c/basic-int-types",
+      "ruleIndex" : 12,
+      "message" : {
+        "text" : "s uses the basic integral type int rather than a typedef with size and signedness."
+      },
+      "locations" : [ {
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "testcasesupport/io.c",
+            "uriBaseId" : "%SRCROOT%",
+            "index" : 5
+          },
+          "region" : {
+            "startLine" : 66,
+            "startColumn" : 13,
+            "endLine" : 66,
+            "endColumn" : 14,
+            "charOffset" : 1159,
+            "charLength" : 1
+          }
+        }
+      } ],
+      "partialFingerprints" : {
+        "primaryLocationLineHash" : "f9f0d76e10a825df:1",
+        "primaryLocationStartColumnFingerprint" : "8"
+      }
+    }, {
+      "ruleId" : "cpp/jpl-c/basic-int-types",
+      "ruleIndex" : 12,
+      "message" : {
+        "text" : "stdThreadLockCreate uses the basic integral type int rather than a typedef with size and signedness."
+      },
+      "locations" : [ {
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "testcasesupport/std_thread.c",
+            "uriBaseId" : "%SRCROOT%",
+            "index" : 9
+          },
+          "region" : {
+            "startLine" : 133,
+            "startColumn" : 5,
+            "endLine" : 133,
+            "endColumn" : 24,
+            "charOffset" : 2505,
+            "charLength" : 19
+          }
+        }
+      } ],
+      "partialFingerprints" : {
+        "primaryLocationLineHash" : "ab7b280a2a319e23:1",
+        "primaryLocationStartColumnFingerprint" : "4"
+      }
+    }, {
+      "ruleId" : "cpp/jpl-c/basic-int-types",
+      "ruleIndex" : 12,
+      "message" : {
+        "text" : "stdThreadDestroy uses the basic integral type int rather than a typedef with size and signedness."
+      },
+      "locations" : [ {
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "testcasesupport/std_thread.c",
+            "uriBaseId" : "%SRCROOT%",
+            "index" : 9
+          },
+          "region" : {
+            "startLine" : 106,
+            "startColumn" : 5,
+            "endLine" : 106,
+            "endColumn" : 21,
+            "charOffset" : 2123,
+            "charLength" : 16
+          }
+        }
+      } ],
+      "partialFingerprints" : {
+        "primaryLocationLineHash" : "e42629fd6aa6d50d:1",
+        "primaryLocationStartColumnFingerprint" : "4"
+      }
+    }, {
+      "ruleId" : "cpp/jpl-c/basic-int-types",
+      "ruleIndex" : 12,
+      "message" : {
+        "text" : "stdThreadJoin uses the basic integral type int rather than a typedef with size and signedness."
+      },
+      "locations" : [ {
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "testcasesupport/std_thread.c",
+            "uriBaseId" : "%SRCROOT%",
+            "index" : 9
+          },
+          "region" : {
+            "startLine" : 91,
+            "startColumn" : 5,
+            "endLine" : 91,
+            "endColumn" : 18,
+            "charOffset" : 1820,
+            "charLength" : 13
+          }
+        }
+      } ],
+      "partialFingerprints" : {
+        "primaryLocationLineHash" : "1b1258b0e606fc15:1",
+        "primaryLocationStartColumnFingerprint" : "4"
+      }
+    }, {
+      "ruleId" : "cpp/jpl-c/basic-int-types",
+      "ruleIndex" : 12,
+      "message" : {
+        "text" : "stdThreadCreate uses the basic integral type int rather than a typedef with size and signedness."
+      },
+      "locations" : [ {
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "testcasesupport/std_thread.c",
+            "uriBaseId" : "%SRCROOT%",
+            "index" : 9
+          },
+          "region" : {
+            "startLine" : 48,
+            "startColumn" : 5,
+            "endLine" : 48,
+            "endColumn" : 20,
+            "charOffset" : 856,
+            "charLength" : 15
+          }
+        }
+      } ],
+      "partialFingerprints" : {
+        "primaryLocationLineHash" : "e3703137526cfb04:1",
+        "primaryLocationStartColumnFingerprint" : "4"
+      }
+    }, {
+      "ruleId" : "cpp/jpl-c/basic-int-types",
+      "ruleIndex" : 12,
+      "message" : {
+        "text" : "handle uses the basic integral type unsigned long rather than a typedef with size and signedness."
+      },
+      "locations" : [ {
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "testcasesupport/std_thread.c",
+            "uriBaseId" : "%SRCROOT%",
+            "index" : 9
+          },
+          "region" : {
+            "startLine" : 17,
+            "startColumn" : 15,
+            "endLine" : 17,
+            "endColumn" : 21,
+            "charOffset" : 315,
+            "charLength" : 6
+          }
+        }
+      } ],
+      "partialFingerprints" : {
+        "primaryLocationLineHash" : "b809a157d3d09383:1",
+        "primaryLocationStartColumnFingerprint" : "10"
+      }
+    }, {
+      "ruleId" : "cpp/jpl-c/basic-int-types",
+      "ruleIndex" : 12,
+      "message" : {
+        "text" : "handle uses the basic integral type unsigned long rather than a typedef with size and signedness."
+      },
+      "locations" : [ {
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "testcasesupport/std_thread.c",
+            "uriBaseId" : "%SRCROOT%",
+            "index" : 9
+          },
+          "region" : {
+            "startLine" : 53,
+            "startColumn" : 15,
+            "endLine" : 53,
+            "endColumn" : 21,
+            "charOffset" : 990,
+            "charLength" : 6
+          }
+        }
+      } ],
+      "partialFingerprints" : {
+        "primaryLocationLineHash" : "d4335a87952f1f04:1",
+        "primaryLocationStartColumnFingerprint" : "10"
+      }
+    } ],
+    "columnKind" : "utf16CodeUnits",
+    "properties" : {
+      "semmle.formatSpecifier" : "sarifv2.1.0",
+      "semmle.sourceLanguage" : "cpp"
+    }
+  } ]
+}

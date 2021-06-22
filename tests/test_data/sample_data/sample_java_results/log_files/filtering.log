@@ -1,0 +1,48 @@
+2021-04-02 16:23:04,462 INFO     
+2021-04-02 16:23:04,464 INFO     Perform filtering and distribution...
+2021-04-02 16:23:04,502 INFO     
+2021-04-02 16:23:04,504 INFO     	Creating analysis filtering list...
+2021-04-02 16:23:04,505 INFO     	>> Executing command: create_file_list.create_file_list(/opt/project/test/integration_tests/java_testcase, /opt/project/test/integration_tests/java_testcase/.scrub/SCRUBAnalysisFilteringList, /opt/project/test/integration_tests/java_testcase/SCRUBFilters, )
+2021-04-02 16:23:04,507 INFO     	>> From directory: /opt/project/test/integration_tests/java_testcase
+2021-04-02 16:23:04,987 INFO     
+2021-04-02 16:23:04,988 INFO     	No filtering file was found or no filtering file was provided. Using default values.
+2021-04-02 16:23:06,479 INFO     
+2021-04-02 16:23:06,481 INFO     	Filtering results...
+2021-04-02 16:23:06,482 INFO     	>> Executing command: filter_results.filter_results(<warning_list>, /opt/project/test/integration_tests/java_testcase/.scrub/compiler.scrub, /opt/project/test/integration_tests/java_testcase/.scrub/SCRUBAnalysisFilteringList, /opt/project/test/integration_tests/java_testcase/SCRUBExcludeQueries, /opt/project/test/integration_tests/java_testcase, True, False)
+2021-04-02 16:23:06,484 INFO     	>> From directory: /opt/project/test/integration_tests/java_testcase
+2021-04-02 16:23:06,499 INFO     
+2021-04-02 16:23:06,500 INFO     	Filtering results...
+2021-04-02 16:23:06,502 INFO     	>> Executing command: filter_results.filter_results(<warning_list>, /opt/project/test/integration_tests/java_testcase/.scrub/codeql.scrub, /opt/project/test/integration_tests/java_testcase/.scrub/SCRUBAnalysisFilteringList, /opt/project/test/integration_tests/java_testcase/SCRUBExcludeQueries, /opt/project/test/integration_tests/java_testcase, True, False)
+2021-04-02 16:23:06,503 INFO     	>> From directory: /opt/project/test/integration_tests/java_testcase
+2021-04-02 16:23:06,761 INFO     
+2021-04-02 16:23:06,763 INFO     	Filtering results...
+2021-04-02 16:23:06,764 INFO     	>> Executing command: filter_results.filter_results(<warning_list>, /opt/project/test/integration_tests/java_testcase/.scrub/codesonar.scrub, /opt/project/test/integration_tests/java_testcase/.scrub/SCRUBAnalysisFilteringList, /opt/project/test/integration_tests/java_testcase/SCRUBExcludeQueries, /opt/project/test/integration_tests/java_testcase, True, False)
+2021-04-02 16:23:06,765 INFO     	>> From directory: /opt/project/test/integration_tests/java_testcase
+2021-04-02 16:23:06,782 INFO     
+2021-04-02 16:23:06,783 INFO     	Filtering results...
+2021-04-02 16:23:06,785 INFO     	>> Executing command: filter_results.filter_results(<warning_list>, /opt/project/test/integration_tests/java_testcase/.scrub/coverity.scrub, /opt/project/test/integration_tests/java_testcase/.scrub/SCRUBAnalysisFilteringList, /opt/project/test/integration_tests/java_testcase/SCRUBExcludeQueries, /opt/project/test/integration_tests/java_testcase, True, False)
+2021-04-02 16:23:06,786 INFO     	>> From directory: /opt/project/test/integration_tests/java_testcase
+2021-04-02 16:23:06,819 INFO     
+2021-04-02 16:23:06,820 INFO     	Filtering results...
+2021-04-02 16:23:06,822 INFO     	>> Executing command: filter_results.filter_results(<warning_list>, /opt/project/test/integration_tests/java_testcase/.scrub/semmle.scrub, /opt/project/test/integration_tests/java_testcase/.scrub/SCRUBAnalysisFilteringList, /opt/project/test/integration_tests/java_testcase/SCRUBExcludeQueries, /opt/project/test/integration_tests/java_testcase, True, False)
+2021-04-02 16:23:06,823 INFO     	>> From directory: /opt/project/test/integration_tests/java_testcase
+2021-04-02 16:23:06,921 INFO     
+2021-04-02 16:23:06,922 INFO     	Moving results...
+2021-04-02 16:23:06,924 INFO     	>> Executing command: move_warnings.move_warnings(/opt/project/test/integration_tests/java_testcase/.scrub/codeql.scrub, /opt/project/test/integration_tests/java_testcase)
+2021-04-02 16:23:06,925 INFO     	>> From directory: /opt/project/test/integration_tests/java_testcase
+2021-04-02 16:23:07,113 INFO     
+2021-04-02 16:23:07,115 INFO     	Moving results...
+2021-04-02 16:23:07,116 INFO     	>> Executing command: move_warnings.move_warnings(/opt/project/test/integration_tests/java_testcase/.scrub/codesonar.scrub, /opt/project/test/integration_tests/java_testcase)
+2021-04-02 16:23:07,117 INFO     	>> From directory: /opt/project/test/integration_tests/java_testcase
+2021-04-02 16:23:07,124 INFO     
+2021-04-02 16:23:07,125 INFO     	Moving results...
+2021-04-02 16:23:07,126 INFO     	>> Executing command: move_warnings.move_warnings(/opt/project/test/integration_tests/java_testcase/.scrub/compiler.scrub, /opt/project/test/integration_tests/java_testcase)
+2021-04-02 16:23:07,127 INFO     	>> From directory: /opt/project/test/integration_tests/java_testcase
+2021-04-02 16:23:07,135 INFO     
+2021-04-02 16:23:07,136 INFO     	Moving results...
+2021-04-02 16:23:07,137 INFO     	>> Executing command: move_warnings.move_warnings(/opt/project/test/integration_tests/java_testcase/.scrub/coverity.scrub, /opt/project/test/integration_tests/java_testcase)
+2021-04-02 16:23:07,138 INFO     	>> From directory: /opt/project/test/integration_tests/java_testcase
+2021-04-02 16:23:07,160 INFO     
+2021-04-02 16:23:07,161 INFO     	Moving results...
+2021-04-02 16:23:07,162 INFO     	>> Executing command: move_warnings.move_warnings(/opt/project/test/integration_tests/java_testcase/.scrub/semmle.scrub, /opt/project/test/integration_tests/java_testcase)
+2021-04-02 16:23:07,164 INFO     	>> From directory: /opt/project/test/integration_tests/java_testcase

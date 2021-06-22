@@ -1,0 +1,853 @@
+2021-03-25 19:21:25,201 INFO     
+2021-03-25 19:21:25,203 INFO     Perform CodeQL analysis...
+2021-03-25 19:21:25,205 INFO     	Perform CodeQL baseline analysis: True
+2021-03-25 19:21:25,206 INFO     	Perform CodeQL P10 analysis: True
+2021-03-25 19:21:26,597 INFO     	CodeQL Version: 2.4.1.
+2021-03-25 19:21:26,600 INFO     	Changing directory: /opt/project/test/integration_tests/c_testcase/src
+2021-03-25 19:21:26,602 INFO     
+2021-03-25 19:21:26,603 INFO     	>> Executing command: make clean
+2021-03-25 19:21:26,605 INFO     	>> From directory: /opt/project/test/integration_tests/c_testcase/src
+2021-03-25 19:21:26,606 DEBUG    	Console output:
+2021-03-25 19:21:26,633 DEBUG    		rm -rf *.o *.out CWE835
+2021-03-25 19:21:26,640 INFO     	Changing directory to: /opt/project/test/integration_tests/c_testcase
+2021-03-25 19:21:26,643 INFO     
+2021-03-25 19:21:26,644 INFO     	>> Executing command: /opt/local/codeql/codeql-cli/codeql database create --language cpp --source-root /opt/project/test/integration_tests/c_testcase --working-dir /opt/project/test/integration_tests/c_testcase/src --command "make all"  /root/scrub_working_dir/codeql_analysis/db
+2021-03-25 19:21:26,645 INFO     	>> From directory: /opt/project/test/integration_tests/c_testcase
+2021-03-25 19:21:26,646 DEBUG    	Console output:
+2021-03-25 19:21:27,491 DEBUG    		Initializing database at /root/scrub_working_dir/codeql_analysis/db.
+2021-03-25 19:21:27,984 DEBUG    		Running command [make, all] in /opt/project/test/integration_tests/c_testcase/src.
+2021-03-25 19:21:28,091 DEBUG    		[2021-03-25 19:21:28] [build] /usr/bin/gcc -c -Wall -Wextra -Wpedantic -I ../testcasesupport main_linux.cpp -o main_linux.o
+2021-03-25 19:21:32,806 DEBUG    		[2021-03-25 19:21:32] [build] /usr/bin/gcc -c -Wall -Wextra -Wpedantic -I ../testcasesupport CWE835_Infinite_Loop__for_empty_01.c -o CWE835_Infinite_Loop__for_empty_01.o
+2021-03-25 19:21:32,840 DEBUG    		[2021-03-25 19:21:32] [build-err] In file included from CWE835_Infinite_Loop__for_empty_01.c:6:0:
+2021-03-25 19:21:32,843 DEBUG    		[2021-03-25 19:21:32] [build-err] ../testcasesupport/std_testcase.h:33:32: warning: C++ style comments are not allowed in ISO C90 [enabled by default]
+2021-03-25 19:21:32,844 DEBUG    		[2021-03-25 19:21:32] [build-err]  # define __STDC_LIMIT_MACROS 1 //SCRUB_IGNORE_WARNING_DUMMY
+2021-03-25 19:21:32,846 DEBUG    		[2021-03-25 19:21:32] [build-err]                                 ^
+2021-03-25 19:21:32,847 DEBUG    		[2021-03-25 19:21:32] [build-err] ../testcasesupport/std_testcase.h:33:32: warning: (this will be reported only once per input file) [enabled by default]
+2021-03-25 19:21:32,896 DEBUG    		[2021-03-25 19:21:32] [build-err] In file included from ../testcasesupport/std_testcase_io.h:8:0,
+2021-03-25 19:21:32,898 DEBUG    		[2021-03-25 19:21:32] [build-err]                  from ../testcasesupport/std_testcase.h:120,
+2021-03-25 19:21:32,899 DEBUG    		[2021-03-25 19:21:32] [build-err]                  from CWE835_Infinite_Loop__for_empty_01.c:6:
+2021-03-25 19:21:32,900 DEBUG    		[2021-03-25 19:21:32] [build-err] ../testcasesupport/std_testcase.h:33:32: warning: C++ style comments are not allowed in ISO C90 [enabled by default]
+2021-03-25 19:21:32,901 DEBUG    		[2021-03-25 19:21:32] [build-err]  # define __STDC_LIMIT_MACROS 1 //SCRUB_IGNORE_WARNING_DUMMY
+2021-03-25 19:21:32,904 DEBUG    		[2021-03-25 19:21:32] [build-err]                                 ^
+2021-03-25 19:21:32,906 DEBUG    		[2021-03-25 19:21:32] [build-err] ../testcasesupport/std_testcase.h:33:32: warning: (this will be reported only once per input file) [enabled by default]
+2021-03-25 19:21:37,678 DEBUG    		[2021-03-25 19:21:37] [build] /usr/bin/gcc -c -Wall -Wextra -Wpedantic -I ../testcasesupport CWE835_Infinite_Loop__while_true_01.c -o CWE835_Infinite_Loop__while_true_01.o
+2021-03-25 19:21:37,715 DEBUG    		[2021-03-25 19:21:37] [build-err] In file included from CWE835_Infinite_Loop__while_true_01.c:6:0:
+2021-03-25 19:21:37,716 DEBUG    		[2021-03-25 19:21:37] [build-err] ../testcasesupport/std_testcase.h:33:32: warning: C++ style comments are not allowed in ISO C90 [enabled by default]
+2021-03-25 19:21:37,718 DEBUG    		[2021-03-25 19:21:37] [build-err]  # define __STDC_LIMIT_MACROS 1 //SCRUB_IGNORE_WARNING_DUMMY
+2021-03-25 19:21:37,720 DEBUG    		[2021-03-25 19:21:37] [build-err]                                 ^
+2021-03-25 19:21:37,721 DEBUG    		[2021-03-25 19:21:37] [build-err] ../testcasesupport/std_testcase.h:33:32: warning: (this will be reported only once per input file) [enabled by default]
+2021-03-25 19:21:37,788 DEBUG    		[2021-03-25 19:21:37] [build-err] In file included from ../testcasesupport/std_testcase_io.h:8:0,
+2021-03-25 19:21:37,790 DEBUG    		[2021-03-25 19:21:37] [build-err]                  from ../testcasesupport/std_testcase.h:120,
+2021-03-25 19:21:37,792 DEBUG    		[2021-03-25 19:21:37] [build-err]                  from CWE835_Infinite_Loop__while_true_01.c:6:
+2021-03-25 19:21:37,793 DEBUG    		[2021-03-25 19:21:37] [build-err] ../testcasesupport/std_testcase.h:33:32: warning: C++ style comments are not allowed in ISO C90 [enabled by default]
+2021-03-25 19:21:37,794 DEBUG    		[2021-03-25 19:21:37] [build-err]  # define __STDC_LIMIT_MACROS 1 //SCRUB_IGNORE_WARNING_DUMMY
+2021-03-25 19:21:37,796 DEBUG    		[2021-03-25 19:21:37] [build-err]                                 ^
+2021-03-25 19:21:37,797 DEBUG    		[2021-03-25 19:21:37] [build-err] ../testcasesupport/std_testcase.h:33:32: warning: (this will be reported only once per input file) [enabled by default]
+2021-03-25 19:21:37,954 DEBUG    		[2021-03-25 19:21:37] [build] /usr/bin/gcc -c -Wall -Wextra -Wpedantic -I ../testcasesupport CWE835_Infinite_Loop__do_true_01.c -o CWE835_Infinite_Loop__do_true_01.o
+2021-03-25 19:21:37,980 DEBUG    		[2021-03-25 19:21:37] [build-err] In file included from CWE835_Infinite_Loop__do_true_01.c:6:0:
+2021-03-25 19:21:37,981 DEBUG    		[2021-03-25 19:21:37] [build-err] ../testcasesupport/std_testcase.h:33:32: warning: C++ style comments are not allowed in ISO C90 [enabled by default]
+2021-03-25 19:21:37,982 DEBUG    		[2021-03-25 19:21:37] [build-err]  # define __STDC_LIMIT_MACROS 1 //SCRUB_IGNORE_WARNING_DUMMY
+2021-03-25 19:21:37,983 DEBUG    		[2021-03-25 19:21:37] [build-err]                                 ^
+2021-03-25 19:21:37,984 DEBUG    		[2021-03-25 19:21:37] [build-err] ../testcasesupport/std_testcase.h:33:32: warning: (this will be reported only once per input file) [enabled by default]
+2021-03-25 19:21:38,040 DEBUG    		[2021-03-25 19:21:38] [build-err] In file included from ../testcasesupport/std_testcase_io.h:8:0,
+2021-03-25 19:21:38,041 DEBUG    		[2021-03-25 19:21:38] [build-err]                  from ../testcasesupport/std_testcase.h:120,
+2021-03-25 19:21:38,042 DEBUG    		[2021-03-25 19:21:38] [build-err]                  from CWE835_Infinite_Loop__do_true_01.c:6:
+2021-03-25 19:21:38,042 DEBUG    		[2021-03-25 19:21:38] [build-err] ../testcasesupport/std_testcase.h:33:32: warning: C++ style comments are not allowed in ISO C90 [enabled by default]
+2021-03-25 19:21:38,043 DEBUG    		[2021-03-25 19:21:38] [build-err]  # define __STDC_LIMIT_MACROS 1 //SCRUB_IGNORE_WARNING_DUMMY
+2021-03-25 19:21:38,045 DEBUG    		[2021-03-25 19:21:38] [build-err]                                 ^
+2021-03-25 19:21:38,046 DEBUG    		[2021-03-25 19:21:38] [build-err] ../testcasesupport/std_testcase.h:33:32: warning: (this will be reported only once per input file) [enabled by default]
+2021-03-25 19:21:38,218 DEBUG    		[2021-03-25 19:21:38] [build] /usr/bin/gcc -c -Wall -Wextra -Wpedantic -I ../testcasesupport CWE835_Infinite_Loop__while_01.c -o CWE835_Infinite_Loop__while_01.o
+2021-03-25 19:21:38,248 DEBUG    		[2021-03-25 19:21:38] [build-err] In file included from CWE835_Infinite_Loop__while_01.c:6:0:
+2021-03-25 19:21:38,249 DEBUG    		[2021-03-25 19:21:38] [build-err] ../testcasesupport/std_testcase.h:33:32: warning: C++ style comments are not allowed in ISO C90 [enabled by default]
+2021-03-25 19:21:38,250 DEBUG    		[2021-03-25 19:21:38] [build-err]  # define __STDC_LIMIT_MACROS 1 //SCRUB_IGNORE_WARNING_DUMMY
+2021-03-25 19:21:38,251 DEBUG    		[2021-03-25 19:21:38] [build-err]                                 ^
+2021-03-25 19:21:38,253 DEBUG    		[2021-03-25 19:21:38] [build-err] ../testcasesupport/std_testcase.h:33:32: warning: (this will be reported only once per input file) [enabled by default]
+2021-03-25 19:21:38,310 DEBUG    		[2021-03-25 19:21:38] [build-err] In file included from ../testcasesupport/std_testcase_io.h:8:0,
+2021-03-25 19:21:38,312 DEBUG    		[2021-03-25 19:21:38] [build-err]                  from ../testcasesupport/std_testcase.h:120,
+2021-03-25 19:21:38,313 DEBUG    		[2021-03-25 19:21:38] [build-err]                  from CWE835_Infinite_Loop__while_01.c:6:
+2021-03-25 19:21:38,315 DEBUG    		[2021-03-25 19:21:38] [build-err] ../testcasesupport/std_testcase.h:33:32: warning: C++ style comments are not allowed in ISO C90 [enabled by default]
+2021-03-25 19:21:38,316 DEBUG    		[2021-03-25 19:21:38] [build-err]  # define __STDC_LIMIT_MACROS 1 //SCRUB_IGNORE_WARNING_DUMMY
+2021-03-25 19:21:38,320 DEBUG    		[2021-03-25 19:21:38] [build-err]                                 ^
+2021-03-25 19:21:38,322 DEBUG    		[2021-03-25 19:21:38] [build-err] ../testcasesupport/std_testcase.h:33:32: warning: (this will be reported only once per input file) [enabled by default]
+2021-03-25 19:21:38,515 DEBUG    		[2021-03-25 19:21:38] [build] /usr/bin/gcc -c -Wall -Wextra -Wpedantic -I ../testcasesupport CWE835_Infinite_Loop__for_01.c -o CWE835_Infinite_Loop__for_01.o
+2021-03-25 19:21:38,536 DEBUG    		[2021-03-25 19:21:38] [build-err] In file included from CWE835_Infinite_Loop__for_01.c:6:0:
+2021-03-25 19:21:38,538 DEBUG    		[2021-03-25 19:21:38] [build-err] ../testcasesupport/std_testcase.h:33:32: warning: C++ style comments are not allowed in ISO C90 [enabled by default]
+2021-03-25 19:21:38,539 DEBUG    		[2021-03-25 19:21:38] [build-err]  # define __STDC_LIMIT_MACROS 1 //SCRUB_IGNORE_WARNING_DUMMY
+2021-03-25 19:21:38,540 DEBUG    		[2021-03-25 19:21:38] [build-err]                                 ^
+2021-03-25 19:21:38,541 DEBUG    		[2021-03-25 19:21:38] [build-err] ../testcasesupport/std_testcase.h:33:32: warning: (this will be reported only once per input file) [enabled by default]
+2021-03-25 19:21:38,598 DEBUG    		[2021-03-25 19:21:38] [build-err] In file included from ../testcasesupport/std_testcase_io.h:8:0,
+2021-03-25 19:21:38,604 DEBUG    		[2021-03-25 19:21:38] [build-err]                  from ../testcasesupport/std_testcase.h:120,
+2021-03-25 19:21:38,605 DEBUG    		[2021-03-25 19:21:38] [build-err]                  from CWE835_Infinite_Loop__for_01.c:6:
+2021-03-25 19:21:38,607 DEBUG    		[2021-03-25 19:21:38] [build-err] ../testcasesupport/std_testcase.h:33:32: warning: C++ style comments are not allowed in ISO C90 [enabled by default]
+2021-03-25 19:21:38,608 DEBUG    		[2021-03-25 19:21:38] [build-err]  # define __STDC_LIMIT_MACROS 1 //SCRUB_IGNORE_WARNING_DUMMY
+2021-03-25 19:21:38,609 DEBUG    		[2021-03-25 19:21:38] [build-err]                                 ^
+2021-03-25 19:21:38,611 DEBUG    		[2021-03-25 19:21:38] [build-err] ../testcasesupport/std_testcase.h:33:32: warning: (this will be reported only once per input file) [enabled by default]
+2021-03-25 19:21:38,766 DEBUG    		[2021-03-25 19:21:38] [build] /usr/bin/gcc -c -Wall -Wextra -Wpedantic -I ../testcasesupport CWE835_Infinite_Loop__do_01.c -o CWE835_Infinite_Loop__do_01.o
+2021-03-25 19:21:38,792 DEBUG    		[2021-03-25 19:21:38] [build-err] In file included from CWE835_Infinite_Loop__do_01.c:6:0:
+2021-03-25 19:21:38,794 DEBUG    		[2021-03-25 19:21:38] [build-err] ../testcasesupport/std_testcase.h:33:32: warning: C++ style comments are not allowed in ISO C90 [enabled by default]
+2021-03-25 19:21:38,796 DEBUG    		[2021-03-25 19:21:38] [build-err]  # define __STDC_LIMIT_MACROS 1 //SCRUB_IGNORE_WARNING_DUMMY
+2021-03-25 19:21:38,797 DEBUG    		[2021-03-25 19:21:38] [build-err]                                 ^
+2021-03-25 19:21:38,799 DEBUG    		[2021-03-25 19:21:38] [build-err] ../testcasesupport/std_testcase.h:33:32: warning: (this will be reported only once per input file) [enabled by default]
+2021-03-25 19:21:38,860 DEBUG    		[2021-03-25 19:21:38] [build-err] In file included from ../testcasesupport/std_testcase_io.h:8:0,
+2021-03-25 19:21:38,861 DEBUG    		[2021-03-25 19:21:38] [build-err]                  from ../testcasesupport/std_testcase.h:120,
+2021-03-25 19:21:38,863 DEBUG    		[2021-03-25 19:21:38] [build-err]                  from CWE835_Infinite_Loop__do_01.c:6:
+2021-03-25 19:21:38,864 DEBUG    		[2021-03-25 19:21:38] [build-err] ../testcasesupport/std_testcase.h:33:32: warning: C++ style comments are not allowed in ISO C90 [enabled by default]
+2021-03-25 19:21:38,865 DEBUG    		[2021-03-25 19:21:38] [build-err]  # define __STDC_LIMIT_MACROS 1 //SCRUB_IGNORE_WARNING_DUMMY
+2021-03-25 19:21:38,866 DEBUG    		[2021-03-25 19:21:38] [build-err]                                 ^
+2021-03-25 19:21:38,867 DEBUG    		[2021-03-25 19:21:38] [build-err] ../testcasesupport/std_testcase.h:33:32: warning: (this will be reported only once per input file) [enabled by default]
+2021-03-25 19:21:39,038 DEBUG    		[2021-03-25 19:21:39] [build] /usr/bin/gcc -c -Wall -Wextra -Wpedantic -I ../testcasesupport ../testcasesupport/io.c -o io.o
+2021-03-25 19:21:39,106 DEBUG    		[2021-03-25 19:21:39] [build-err] In file included from ../testcasesupport/io.c:5:0:
+2021-03-25 19:21:39,107 DEBUG    		[2021-03-25 19:21:39] [build-err] ../testcasesupport/std_testcase.h:33:32: warning: C++ style comments are not allowed in ISO C90 [enabled by default]
+2021-03-25 19:21:39,108 DEBUG    		[2021-03-25 19:21:39] [build-err]  # define __STDC_LIMIT_MACROS 1 //SCRUB_IGNORE_WARNING_DUMMY
+2021-03-25 19:21:39,109 DEBUG    		[2021-03-25 19:21:39] [build-err]                                 ^
+2021-03-25 19:21:39,110 DEBUG    		[2021-03-25 19:21:39] [build-err] ../testcasesupport/std_testcase.h:33:32: warning: (this will be reported only once per input file) [enabled by default]
+2021-03-25 19:21:39,127 DEBUG    		[2021-03-25 19:21:39] [build-err] In file included from ../testcasesupport/std_testcase_io.h:8:0,
+2021-03-25 19:21:39,128 DEBUG    		[2021-03-25 19:21:39] [build-err]                  from ../testcasesupport/std_testcase.h:120,
+2021-03-25 19:21:39,130 DEBUG    		[2021-03-25 19:21:39] [build-err]                  from ../testcasesupport/io.c:5:
+2021-03-25 19:21:39,131 DEBUG    		[2021-03-25 19:21:39] [build-err] ../testcasesupport/std_testcase.h:33:32: warning: C++ style comments are not allowed in ISO C90 [enabled by default]
+2021-03-25 19:21:39,133 DEBUG    		[2021-03-25 19:21:39] [build-err]  # define __STDC_LIMIT_MACROS 1 //SCRUB_IGNORE_WARNING_DUMMY
+2021-03-25 19:21:39,134 DEBUG    		[2021-03-25 19:21:39] [build-err]                                 ^
+2021-03-25 19:21:39,135 DEBUG    		[2021-03-25 19:21:39] [build-err] ../testcasesupport/std_testcase.h:33:32: warning: (this will be reported only once per input file) [enabled by default]
+2021-03-25 19:21:39,137 DEBUG    		[2021-03-25 19:21:39] [build-err] ../testcasesupport/io.c: In function 'printSizeTLine':
+2021-03-25 19:21:39,138 DEBUG    		[2021-03-25 19:21:39] [build-err] ../testcasesupport/io.c:54:5: warning: ISO C90 does not support the 'z' gnu_printf length modifier [-Wformat=]
+2021-03-25 19:21:39,139 DEBUG    		[2021-03-25 19:21:39] [build-err]      printf("%zu\n", sizeTNumber);
+2021-03-25 19:21:39,141 DEBUG    		[2021-03-25 19:21:39] [build-err]      ^
+2021-03-25 19:21:39,142 DEBUG    		[2021-03-25 19:21:39] [build-err] ../testcasesupport/io.c: In function 'printWcharLine':
+2021-03-25 19:21:39,143 DEBUG    		[2021-03-25 19:21:39] [build-err] ../testcasesupport/io.c:67:29: warning: C++ style comments are not allowed in ISO C90 [enabled by default]
+2021-03-25 19:21:39,144 DEBUG    		[2021-03-25 19:21:39] [build-err]          s[0] = wideChar;    // lgtm
+2021-03-25 19:21:39,146 DEBUG    		[2021-03-25 19:21:39] [build-err]                              ^
+2021-03-25 19:21:39,147 DEBUG    		[2021-03-25 19:21:39] [build-err] ../testcasesupport/io.c:67:29: warning: (this will be reported only once per input file) [enabled by default]
+2021-03-25 19:21:39,149 DEBUG    		[2021-03-25 19:21:39] [build-err] ../testcasesupport/io.c:69:5: warning: ISO C90 does not support the '%ls' gnu_printf format [-Wformat=]
+2021-03-25 19:21:39,150 DEBUG    		[2021-03-25 19:21:39] [build-err]      printf("%ls\n", s);
+2021-03-25 19:21:39,151 DEBUG    		[2021-03-25 19:21:39] [build-err]      ^
+2021-03-25 19:21:39,152 DEBUG    		[2021-03-25 19:21:39] [build-err] ../testcasesupport/io.c: In function 'decodeHexChars':
+2021-03-25 19:21:39,153 DEBUG    		[2021-03-25 19:21:39] [build-err] ../testcasesupport/io.c:116:9: warning: format '%x' expects argument of type 'unsigned int *', but argument 3 has type 'int *' [-Wformat=]
+2021-03-25 19:21:39,154 DEBUG    		[2021-03-25 19:21:39] [build-err]          sscanf(&hex[2 * numWritten], "%02x", &byte);
+2021-03-25 19:21:39,155 DEBUG    		[2021-03-25 19:21:39] [build-err]          ^
+2021-03-25 19:21:39,437 DEBUG    		[2021-03-25 19:21:39] [build] /usr/bin/gcc -c -Wall -Wextra -Wpedantic -I ../testcasesupport ../testcasesupport/std_thread.c -o std_thread.o
+2021-03-25 19:21:39,463 DEBUG    		[2021-03-25 19:21:39] [build-err] In file included from ../testcasesupport/std_thread.c:5:0:
+2021-03-25 19:21:39,464 DEBUG    		[2021-03-25 19:21:39] [build-err] ../testcasesupport/std_testcase.h:33:32: warning: C++ style comments are not allowed in ISO C90 [enabled by default]
+2021-03-25 19:21:39,465 DEBUG    		[2021-03-25 19:21:39] [build-err]  # define __STDC_LIMIT_MACROS 1 //SCRUB_IGNORE_WARNING_DUMMY
+2021-03-25 19:21:39,466 DEBUG    		[2021-03-25 19:21:39] [build-err]                                 ^
+2021-03-25 19:21:39,467 DEBUG    		[2021-03-25 19:21:39] [build-err] ../testcasesupport/std_testcase.h:33:32: warning: (this will be reported only once per input file) [enabled by default]
+2021-03-25 19:21:39,518 DEBUG    		[2021-03-25 19:21:39] [build-err] In file included from ../testcasesupport/std_testcase_io.h:8:0,
+2021-03-25 19:21:39,520 DEBUG    		[2021-03-25 19:21:39] [build-err]                  from ../testcasesupport/std_testcase.h:120,
+2021-03-25 19:21:39,522 DEBUG    		[2021-03-25 19:21:39] [build-err]                  from ../testcasesupport/std_thread.c:5:
+2021-03-25 19:21:39,523 DEBUG    		[2021-03-25 19:21:39] [build-err] ../testcasesupport/std_testcase.h:33:32: warning: C++ style comments are not allowed in ISO C90 [enabled by default]
+2021-03-25 19:21:39,524 DEBUG    		[2021-03-25 19:21:39] [build-err]  # define __STDC_LIMIT_MACROS 1 //SCRUB_IGNORE_WARNING_DUMMY
+2021-03-25 19:21:39,525 DEBUG    		[2021-03-25 19:21:39] [build-err]                                 ^
+2021-03-25 19:21:39,526 DEBUG    		[2021-03-25 19:21:39] [build-err] ../testcasesupport/std_testcase.h:33:32: warning: (this will be reported only once per input file) [enabled by default]
+2021-03-25 19:21:39,720 DEBUG    		[2021-03-25 19:21:39] [build] /usr/bin/g++ -lpthread -lm main_linux.o CWE835_Infinite_Loop__for_empty_01.o CWE835_Infinite_Loop__while_true_01.o CWE835_Infinite_Loop__do_true_01.o CWE835_Infinite_Loop__while_01.o CWE835_Infinite_Loop__for_01.o CWE835_Infinite_Loop__do_01.o  io.o std_thread.o -o CWE835
+2021-03-25 19:21:40,043 DEBUG    		Finalizing database at /root/scrub_working_dir/codeql_analysis/db.
+2021-03-25 19:21:43,238 DEBUG    		Successfully created database at /root/scrub_working_dir/codeql_analysis/db.
+2021-03-25 19:21:43,305 INFO     
+2021-03-25 19:21:43,306 INFO     	>> Executing command: /opt/local/codeql/codeql-cli/codeql database upgrade --search-path /opt/local/codeql/queries /root/scrub_working_dir/codeql_analysis/db
+2021-03-25 19:21:43,308 INFO     	>> From directory: /opt/project/test/integration_tests/c_testcase
+2021-03-25 19:21:43,309 DEBUG    	Console output:
+2021-03-25 19:21:45,626 DEBUG    		Will apply 1 upgrade scripts.
+2021-03-25 19:21:46,548 INFO     
+2021-03-25 19:21:46,550 INFO     	>> Executing command: /opt/local/codeql/codeql-cli/codeql database analyze /root/scrub_working_dir/codeql_analysis/db /opt/local/codeql/queries/cpp/ql/src/codeql-suites/cpp-lgtm-full.qls --format sarif-latest --output /root/scrub_working_dir/codeql_analysis/codeql_raw.sarif 
+2021-03-25 19:21:46,553 INFO     	>> From directory: /opt/project/test/integration_tests/c_testcase
+2021-03-25 19:21:46,554 DEBUG    	Console output:
+2021-03-25 19:21:47,731 DEBUG    		Running queries.
+2021-03-25 19:21:50,057 DEBUG    		Compiling query plan for /opt/local/codeql/queries/cpp/ql/src/Best Practices/Hiding/LocalVariableHidesGlobalVariable.ql.
+2021-03-25 19:21:51,075 DEBUG    		[1/150] Found in cache: /opt/local/codeql/queries/cpp/ql/src/Best Practices/Hiding/LocalVariableHidesGlobalVariable.ql.
+2021-03-25 19:21:51,132 DEBUG    		Compiling query plan for /opt/local/codeql/queries/cpp/ql/src/Best Practices/Hiding/DeclarationHidesParameter.ql.
+2021-03-25 19:21:51,572 DEBUG    		[2/150] Found in cache: /opt/local/codeql/queries/cpp/ql/src/Best Practices/Hiding/DeclarationHidesParameter.ql.
+2021-03-25 19:21:51,610 DEBUG    		Compiling query plan for /opt/local/codeql/queries/cpp/ql/src/Best Practices/Hiding/DeclarationHidesVariable.ql.
+2021-03-25 19:21:51,874 DEBUG    		[3/150] Found in cache: /opt/local/codeql/queries/cpp/ql/src/Best Practices/Hiding/DeclarationHidesVariable.ql.
+2021-03-25 19:21:51,910 DEBUG    		Compiling query plan for /opt/local/codeql/queries/cpp/ql/src/Best Practices/ComplexCondition.ql.
+2021-03-25 19:21:52,161 DEBUG    		[4/150] Found in cache: /opt/local/codeql/queries/cpp/ql/src/Best Practices/ComplexCondition.ql.
+2021-03-25 19:21:52,185 DEBUG    		Compiling query plan for /opt/local/codeql/queries/cpp/ql/src/Best Practices/Unused Entities/UnusedLocals.ql.
+2021-03-25 19:21:52,456 DEBUG    		[5/150] Found in cache: /opt/local/codeql/queries/cpp/ql/src/Best Practices/Unused Entities/UnusedLocals.ql.
+2021-03-25 19:21:52,480 DEBUG    		Compiling query plan for /opt/local/codeql/queries/cpp/ql/src/Best Practices/Unused Entities/UnusedStaticFunctions.ql.
+2021-03-25 19:21:52,701 DEBUG    		[6/150] Found in cache: /opt/local/codeql/queries/cpp/ql/src/Best Practices/Unused Entities/UnusedStaticFunctions.ql.
+2021-03-25 19:21:52,730 DEBUG    		Compiling query plan for /opt/local/codeql/queries/cpp/ql/src/Best Practices/Unused Entities/UnusedStaticVariables.ql.
+2021-03-25 19:21:52,924 DEBUG    		[7/150] Found in cache: /opt/local/codeql/queries/cpp/ql/src/Best Practices/Unused Entities/UnusedStaticVariables.ql.
+2021-03-25 19:21:52,950 DEBUG    		Compiling query plan for /opt/local/codeql/queries/cpp/ql/src/Best Practices/RuleOfTwo.ql.
+2021-03-25 19:21:53,189 DEBUG    		[8/150] Found in cache: /opt/local/codeql/queries/cpp/ql/src/Best Practices/RuleOfTwo.ql.
+2021-03-25 19:21:53,212 DEBUG    		Compiling query plan for /opt/local/codeql/queries/cpp/ql/src/Best Practices/SloppyGlobal.ql.
+2021-03-25 19:21:53,421 DEBUG    		[9/150] Found in cache: /opt/local/codeql/queries/cpp/ql/src/Best Practices/SloppyGlobal.ql.
+2021-03-25 19:21:53,445 DEBUG    		Compiling query plan for /opt/local/codeql/queries/cpp/ql/src/Best Practices/Exceptions/CatchingByValue.ql.
+2021-03-25 19:21:53,656 DEBUG    		[10/150] Found in cache: /opt/local/codeql/queries/cpp/ql/src/Best Practices/Exceptions/CatchingByValue.ql.
+2021-03-25 19:21:53,676 DEBUG    		Compiling query plan for /opt/local/codeql/queries/cpp/ql/src/Best Practices/Exceptions/AccidentalRethrow.ql.
+2021-03-25 19:21:53,857 DEBUG    		[11/150] Found in cache: /opt/local/codeql/queries/cpp/ql/src/Best Practices/Exceptions/AccidentalRethrow.ql.
+2021-03-25 19:21:53,873 DEBUG    		Compiling query plan for /opt/local/codeql/queries/cpp/ql/src/Best Practices/Exceptions/LeakyCatch.ql.
+2021-03-25 19:21:54,029 DEBUG    		[12/150] Found in cache: /opt/local/codeql/queries/cpp/ql/src/Best Practices/Exceptions/LeakyCatch.ql.
+2021-03-25 19:21:54,043 DEBUG    		Compiling query plan for /opt/local/codeql/queries/cpp/ql/src/Best Practices/Exceptions/ThrowingPointers.ql.
+2021-03-25 19:21:54,257 DEBUG    		[13/150] Found in cache: /opt/local/codeql/queries/cpp/ql/src/Best Practices/Exceptions/ThrowingPointers.ql.
+2021-03-25 19:21:54,282 DEBUG    		Compiling query plan for /opt/local/codeql/queries/cpp/ql/src/Best Practices/BlockWithTooManyStatements.ql.
+2021-03-25 19:21:54,498 DEBUG    		[14/150] Found in cache: /opt/local/codeql/queries/cpp/ql/src/Best Practices/BlockWithTooManyStatements.ql.
+2021-03-25 19:21:54,512 DEBUG    		Compiling query plan for /opt/local/codeql/queries/cpp/ql/src/Best Practices/UseOfGoto.ql.
+2021-03-25 19:21:54,711 DEBUG    		[15/150] Found in cache: /opt/local/codeql/queries/cpp/ql/src/Best Practices/UseOfGoto.ql.
+2021-03-25 19:21:54,727 DEBUG    		Compiling query plan for /opt/local/codeql/queries/cpp/ql/src/Best Practices/Likely Errors/Slicing.ql.
+2021-03-25 19:21:54,903 DEBUG    		[16/150] Found in cache: /opt/local/codeql/queries/cpp/ql/src/Best Practices/Likely Errors/Slicing.ql.
+2021-03-25 19:21:54,924 DEBUG    		Compiling query plan for /opt/local/codeql/queries/cpp/ql/src/Best Practices/Likely Errors/EmptyBlock.ql.
+2021-03-25 19:21:55,081 DEBUG    		[17/150] Found in cache: /opt/local/codeql/queries/cpp/ql/src/Best Practices/Likely Errors/EmptyBlock.ql.
+2021-03-25 19:21:55,098 DEBUG    		Compiling query plan for /opt/local/codeql/queries/cpp/ql/src/Best Practices/SwitchLongCase.ql.
+2021-03-25 19:21:55,290 DEBUG    		[18/150] Found in cache: /opt/local/codeql/queries/cpp/ql/src/Best Practices/SwitchLongCase.ql.
+2021-03-25 19:21:55,308 DEBUG    		Compiling query plan for /opt/local/codeql/queries/cpp/ql/src/Likely Bugs/AmbiguouslySignedBitField.ql.
+2021-03-25 19:21:55,492 DEBUG    		[19/150] Found in cache: /opt/local/codeql/queries/cpp/ql/src/Likely Bugs/AmbiguouslySignedBitField.ql.
+2021-03-25 19:21:55,511 DEBUG    		Compiling query plan for /opt/local/codeql/queries/cpp/ql/src/Likely Bugs/Format/WrongNumberOfFormatArguments.ql.
+2021-03-25 19:21:55,681 DEBUG    		[20/150] Found in cache: /opt/local/codeql/queries/cpp/ql/src/Likely Bugs/Format/WrongNumberOfFormatArguments.ql.
+2021-03-25 19:21:55,700 DEBUG    		Compiling query plan for /opt/local/codeql/queries/cpp/ql/src/Likely Bugs/Format/WrongTypeFormatArguments.ql.
+2021-03-25 19:21:55,907 DEBUG    		[21/150] Found in cache: /opt/local/codeql/queries/cpp/ql/src/Likely Bugs/Format/WrongTypeFormatArguments.ql.
+2021-03-25 19:21:55,928 DEBUG    		Compiling query plan for /opt/local/codeql/queries/cpp/ql/src/Likely Bugs/Format/NonConstantFormat.ql.
+2021-03-25 19:21:56,372 DEBUG    		[22/150] Found in cache: /opt/local/codeql/queries/cpp/ql/src/Likely Bugs/Format/NonConstantFormat.ql.
+2021-03-25 19:21:56,448 DEBUG    		Compiling query plan for /opt/local/codeql/queries/cpp/ql/src/Likely Bugs/Format/SnprintfOverflow.ql.
+2021-03-25 19:21:56,791 DEBUG    		[23/150] Found in cache: /opt/local/codeql/queries/cpp/ql/src/Likely Bugs/Format/SnprintfOverflow.ql.
+2021-03-25 19:21:56,816 DEBUG    		Compiling query plan for /opt/local/codeql/queries/cpp/ql/src/Likely Bugs/Format/TooManyFormatArguments.ql.
+2021-03-25 19:21:56,995 DEBUG    		[24/150] Found in cache: /opt/local/codeql/queries/cpp/ql/src/Likely Bugs/Format/TooManyFormatArguments.ql.
+2021-03-25 19:21:57,009 DEBUG    		Compiling query plan for /opt/local/codeql/queries/cpp/ql/src/Likely Bugs/Conversion/ArrayArgSizeMismatch.ql.
+2021-03-25 19:21:57,220 DEBUG    		[25/150] Found in cache: /opt/local/codeql/queries/cpp/ql/src/Likely Bugs/Conversion/ArrayArgSizeMismatch.ql.
+2021-03-25 19:21:57,234 DEBUG    		Compiling query plan for /opt/local/codeql/queries/cpp/ql/src/Likely Bugs/Conversion/LossyPointerCast.ql.
+2021-03-25 19:21:57,412 DEBUG    		[26/150] Found in cache: /opt/local/codeql/queries/cpp/ql/src/Likely Bugs/Conversion/LossyPointerCast.ql.
+2021-03-25 19:21:57,429 DEBUG    		Compiling query plan for /opt/local/codeql/queries/cpp/ql/src/Likely Bugs/Conversion/ImplicitDowncastFromBitfield.ql.
+2021-03-25 19:21:57,594 DEBUG    		[27/150] Found in cache: /opt/local/codeql/queries/cpp/ql/src/Likely Bugs/Conversion/ImplicitDowncastFromBitfield.ql.
+2021-03-25 19:21:57,611 DEBUG    		Compiling query plan for /opt/local/codeql/queries/cpp/ql/src/Likely Bugs/Conversion/CastArrayPointerArithmetic.ql.
+2021-03-25 19:21:57,921 DEBUG    		[28/150] Found in cache: /opt/local/codeql/queries/cpp/ql/src/Likely Bugs/Conversion/CastArrayPointerArithmetic.ql.
+2021-03-25 19:21:57,957 DEBUG    		Compiling query plan for /opt/local/codeql/queries/cpp/ql/src/Likely Bugs/ContinueInFalseLoop.ql.
+2021-03-25 19:21:58,131 DEBUG    		[29/150] Found in cache: /opt/local/codeql/queries/cpp/ql/src/Likely Bugs/ContinueInFalseLoop.ql.
+2021-03-25 19:21:58,143 DEBUG    		Compiling query plan for /opt/local/codeql/queries/cpp/ql/src/Likely Bugs/Memory Management/AllocaInLoop.ql.
+2021-03-25 19:21:58,492 DEBUG    		[30/150] Found in cache: /opt/local/codeql/queries/cpp/ql/src/Likely Bugs/Memory Management/AllocaInLoop.ql.
+2021-03-25 19:21:58,531 DEBUG    		Compiling query plan for /opt/local/codeql/queries/cpp/ql/src/Likely Bugs/Memory Management/PointerOverflow.ql.
+2021-03-25 19:21:59,003 DEBUG    		[31/150] Found in cache: /opt/local/codeql/queries/cpp/ql/src/Likely Bugs/Memory Management/PointerOverflow.ql.
+2021-03-25 19:21:59,028 DEBUG    		Compiling query plan for /opt/local/codeql/queries/cpp/ql/src/Likely Bugs/Memory Management/ReturnStackAllocatedMemory.ql.
+2021-03-25 19:21:59,338 DEBUG    		[32/150] Found in cache: /opt/local/codeql/queries/cpp/ql/src/Likely Bugs/Memory Management/ReturnStackAllocatedMemory.ql.
+2021-03-25 19:21:59,371 DEBUG    		Compiling query plan for /opt/local/codeql/queries/cpp/ql/src/Likely Bugs/Memory Management/ReturnCstrOfLocalStdString.ql.
+2021-03-25 19:21:59,702 DEBUG    		[33/150] Found in cache: /opt/local/codeql/queries/cpp/ql/src/Likely Bugs/Memory Management/ReturnCstrOfLocalStdString.ql.
+2021-03-25 19:21:59,726 DEBUG    		Compiling query plan for /opt/local/codeql/queries/cpp/ql/src/Likely Bugs/UseInOwnInitializer.ql.
+2021-03-25 19:21:59,877 DEBUG    		[34/150] Found in cache: /opt/local/codeql/queries/cpp/ql/src/Likely Bugs/UseInOwnInitializer.ql.
+2021-03-25 19:21:59,887 DEBUG    		Compiling query plan for /opt/local/codeql/queries/cpp/ql/src/Likely Bugs/Arithmetic/PointlessSelfComparison.ql.
+2021-03-25 19:22:00,085 DEBUG    		[35/150] Found in cache: /opt/local/codeql/queries/cpp/ql/src/Likely Bugs/Arithmetic/PointlessSelfComparison.ql.
+2021-03-25 19:22:00,105 DEBUG    		Compiling query plan for /opt/local/codeql/queries/cpp/ql/src/Likely Bugs/Arithmetic/ComparisonPrecedence.ql.
+2021-03-25 19:22:00,262 DEBUG    		[36/150] Found in cache: /opt/local/codeql/queries/cpp/ql/src/Likely Bugs/Arithmetic/ComparisonPrecedence.ql.
+2021-03-25 19:22:00,273 DEBUG    		Compiling query plan for /opt/local/codeql/queries/cpp/ql/src/Likely Bugs/Arithmetic/FloatComparison.ql.
+2021-03-25 19:22:00,439 DEBUG    		[37/150] Found in cache: /opt/local/codeql/queries/cpp/ql/src/Likely Bugs/Arithmetic/FloatComparison.ql.
+2021-03-25 19:22:00,449 DEBUG    		Compiling query plan for /opt/local/codeql/queries/cpp/ql/src/Likely Bugs/Arithmetic/BitwiseSignCheck.ql.
+2021-03-25 19:22:00,607 DEBUG    		[38/150] Found in cache: /opt/local/codeql/queries/cpp/ql/src/Likely Bugs/Arithmetic/BitwiseSignCheck.ql.
+2021-03-25 19:22:00,617 DEBUG    		Compiling query plan for /opt/local/codeql/queries/cpp/ql/src/Likely Bugs/Arithmetic/IntMultToLong.ql.
+2021-03-25 19:22:00,873 DEBUG    		[39/150] Found in cache: /opt/local/codeql/queries/cpp/ql/src/Likely Bugs/Arithmetic/IntMultToLong.ql.
+2021-03-25 19:22:00,899 DEBUG    		Compiling query plan for /opt/local/codeql/queries/cpp/ql/src/Likely Bugs/Arithmetic/BadAdditionOverflowCheck.ql.
+2021-03-25 19:22:01,074 DEBUG    		[40/150] Found in cache: /opt/local/codeql/queries/cpp/ql/src/Likely Bugs/Arithmetic/BadAdditionOverflowCheck.ql.
+2021-03-25 19:22:01,084 DEBUG    		Compiling query plan for /opt/local/codeql/queries/cpp/ql/src/Likely Bugs/Arithmetic/PointlessComparison.ql.
+2021-03-25 19:22:01,329 DEBUG    		[41/150] Found in cache: /opt/local/codeql/queries/cpp/ql/src/Likely Bugs/Arithmetic/PointlessComparison.ql.
+2021-03-25 19:22:01,353 DEBUG    		Compiling query plan for /opt/local/codeql/queries/cpp/ql/src/Likely Bugs/Arithmetic/SignedOverflowCheck.ql.
+2021-03-25 19:22:01,855 DEBUG    		[42/150] Found in cache: /opt/local/codeql/queries/cpp/ql/src/Likely Bugs/Arithmetic/SignedOverflowCheck.ql.
+2021-03-25 19:22:01,889 DEBUG    		Compiling query plan for /opt/local/codeql/queries/cpp/ql/src/Likely Bugs/Arithmetic/UnsignedGEZero.ql.
+2021-03-25 19:22:02,031 DEBUG    		[43/150] Found in cache: /opt/local/codeql/queries/cpp/ql/src/Likely Bugs/Arithmetic/UnsignedGEZero.ql.
+2021-03-25 19:22:02,042 DEBUG    		Compiling query plan for /opt/local/codeql/queries/cpp/ql/src/Likely Bugs/OO/NonVirtualDestructorInBaseClass.ql.
+2021-03-25 19:22:02,196 DEBUG    		[44/150] Found in cache: /opt/local/codeql/queries/cpp/ql/src/Likely Bugs/OO/NonVirtualDestructorInBaseClass.ql.
+2021-03-25 19:22:02,205 DEBUG    		Compiling query plan for /opt/local/codeql/queries/cpp/ql/src/Likely Bugs/OO/IncorrectConstructorDelegation.ql.
+2021-03-25 19:22:02,358 DEBUG    		[45/150] Found in cache: /opt/local/codeql/queries/cpp/ql/src/Likely Bugs/OO/IncorrectConstructorDelegation.ql.
+2021-03-25 19:22:02,370 DEBUG    		Compiling query plan for /opt/local/codeql/queries/cpp/ql/src/Likely Bugs/OO/ThrowInDestructor.ql.
+2021-03-25 19:22:02,543 DEBUG    		[46/150] Found in cache: /opt/local/codeql/queries/cpp/ql/src/Likely Bugs/OO/ThrowInDestructor.ql.
+2021-03-25 19:22:02,558 DEBUG    		Compiling query plan for /opt/local/codeql/queries/cpp/ql/src/Likely Bugs/OO/UnsafeUseOfThis.ql.
+2021-03-25 19:22:02,904 DEBUG    		[47/150] Found in cache: /opt/local/codeql/queries/cpp/ql/src/Likely Bugs/OO/UnsafeUseOfThis.ql.
+2021-03-25 19:22:02,933 DEBUG    		Compiling query plan for /opt/local/codeql/queries/cpp/ql/src/Likely Bugs/Likely Typos/ExprHasNoEffect.ql.
+2021-03-25 19:22:03,113 DEBUG    		[48/150] Found in cache: /opt/local/codeql/queries/cpp/ql/src/Likely Bugs/Likely Typos/ExprHasNoEffect.ql.
+2021-03-25 19:22:03,125 DEBUG    		Compiling query plan for /opt/local/codeql/queries/cpp/ql/src/Likely Bugs/Likely Typos/UsingStrcpyAsBoolean.ql.
+2021-03-25 19:22:03,405 DEBUG    		[49/150] Found in cache: /opt/local/codeql/queries/cpp/ql/src/Likely Bugs/Likely Typos/UsingStrcpyAsBoolean.ql.
+2021-03-25 19:22:03,432 DEBUG    		Compiling query plan for /opt/local/codeql/queries/cpp/ql/src/Likely Bugs/Likely Typos/inconsistentLoopDirection.ql.
+2021-03-25 19:22:03,702 DEBUG    		[50/150] Found in cache: /opt/local/codeql/queries/cpp/ql/src/Likely Bugs/Likely Typos/inconsistentLoopDirection.ql.
+2021-03-25 19:22:03,727 DEBUG    		Compiling query plan for /opt/local/codeql/queries/cpp/ql/src/Likely Bugs/Likely Typos/FutileConditional.ql.
+2021-03-25 19:22:03,848 DEBUG    		[51/150] Found in cache: /opt/local/codeql/queries/cpp/ql/src/Likely Bugs/Likely Typos/FutileConditional.ql.
+2021-03-25 19:22:03,857 DEBUG    		Compiling query plan for /opt/local/codeql/queries/cpp/ql/src/Likely Bugs/Likely Typos/DubiousNullCheck.ql.
+2021-03-25 19:22:03,988 DEBUG    		[52/150] Found in cache: /opt/local/codeql/queries/cpp/ql/src/Likely Bugs/Likely Typos/DubiousNullCheck.ql.
+2021-03-25 19:22:03,996 DEBUG    		Compiling query plan for /opt/local/codeql/queries/cpp/ql/src/Likely Bugs/Likely Typos/CompareWhereAssignMeant.ql.
+2021-03-25 19:22:04,117 DEBUG    		[53/150] Found in cache: /opt/local/codeql/queries/cpp/ql/src/Likely Bugs/Likely Typos/CompareWhereAssignMeant.ql.
+2021-03-25 19:22:04,126 DEBUG    		Compiling query plan for /opt/local/codeql/queries/cpp/ql/src/Likely Bugs/Likely Typos/ShortCircuitBitMask.ql.
+2021-03-25 19:22:04,265 DEBUG    		[54/150] Found in cache: /opt/local/codeql/queries/cpp/ql/src/Likely Bugs/Likely Typos/ShortCircuitBitMask.ql.
+2021-03-25 19:22:04,276 DEBUG    		Compiling query plan for /opt/local/codeql/queries/cpp/ql/src/Likely Bugs/Likely Typos/AssignWhereCompareMeant.ql.
+2021-03-25 19:22:04,444 DEBUG    		[55/150] Found in cache: /opt/local/codeql/queries/cpp/ql/src/Likely Bugs/Likely Typos/AssignWhereCompareMeant.ql.
+2021-03-25 19:22:04,459 DEBUG    		Compiling query plan for /opt/local/codeql/queries/cpp/ql/src/Likely Bugs/ReturnConstType.ql.
+2021-03-25 19:22:04,622 DEBUG    		[56/150] Found in cache: /opt/local/codeql/queries/cpp/ql/src/Likely Bugs/ReturnConstType.ql.
+2021-03-25 19:22:04,630 DEBUG    		Compiling query plan for /opt/local/codeql/queries/cpp/ql/src/Likely Bugs/Underspecified Functions/ImplicitFunctionDeclaration.ql.
+2021-03-25 19:22:04,754 DEBUG    		[57/150] Found in cache: /opt/local/codeql/queries/cpp/ql/src/Likely Bugs/Underspecified Functions/ImplicitFunctionDeclaration.ql.
+2021-03-25 19:22:04,762 DEBUG    		Compiling query plan for /opt/local/codeql/queries/cpp/ql/src/Likely Bugs/Underspecified Functions/TooFewArguments.ql.
+2021-03-25 19:22:04,882 DEBUG    		[58/150] Found in cache: /opt/local/codeql/queries/cpp/ql/src/Likely Bugs/Underspecified Functions/TooFewArguments.ql.
+2021-03-25 19:22:04,890 DEBUG    		Compiling query plan for /opt/local/codeql/queries/cpp/ql/src/Likely Bugs/Underspecified Functions/TooManyArguments.ql.
+2021-03-25 19:22:05,006 DEBUG    		[59/150] Found in cache: /opt/local/codeql/queries/cpp/ql/src/Likely Bugs/Underspecified Functions/TooManyArguments.ql.
+2021-03-25 19:22:05,016 DEBUG    		Compiling query plan for /opt/local/codeql/queries/cpp/ql/src/Likely Bugs/ReturnConstTypeMember.ql.
+2021-03-25 19:22:05,161 DEBUG    		[60/150] Found in cache: /opt/local/codeql/queries/cpp/ql/src/Likely Bugs/ReturnConstTypeMember.ql.
+2021-03-25 19:22:05,169 DEBUG    		Compiling query plan for /opt/local/codeql/queries/cpp/ql/src/jsf/4.24 Control Flow Structures/AV Rule 201.ql.
+2021-03-25 19:22:05,338 DEBUG    		[61/150] Found in cache: /opt/local/codeql/queries/cpp/ql/src/jsf/4.24 Control Flow Structures/AV Rule 201.ql.
+2021-03-25 19:22:05,354 DEBUG    		Compiling query plan for /opt/local/codeql/queries/cpp/ql/src/jsf/4.24 Control Flow Structures/AV Rule 196.ql.
+2021-03-25 19:22:05,477 DEBUG    		[62/150] Found in cache: /opt/local/codeql/queries/cpp/ql/src/jsf/4.24 Control Flow Structures/AV Rule 196.ql.
+2021-03-25 19:22:05,486 DEBUG    		Compiling query plan for /opt/local/codeql/queries/cpp/ql/src/jsf/4.24 Control Flow Structures/AV Rule 197.ql.
+2021-03-25 19:22:05,635 DEBUG    		[63/150] Found in cache: /opt/local/codeql/queries/cpp/ql/src/jsf/4.24 Control Flow Structures/AV Rule 197.ql.
+2021-03-25 19:22:05,643 DEBUG    		Compiling query plan for /opt/local/codeql/queries/cpp/ql/src/jsf/4.10 Classes/AV Rule 79.ql.
+2021-03-25 19:22:05,806 DEBUG    		[64/150] Found in cache: /opt/local/codeql/queries/cpp/ql/src/jsf/4.10 Classes/AV Rule 79.ql.
+2021-03-25 19:22:05,816 DEBUG    		Compiling query plan for /opt/local/codeql/queries/cpp/ql/src/jsf/4.10 Classes/AV Rule 71.1.ql.
+2021-03-25 19:22:05,946 DEBUG    		[65/150] Found in cache: /opt/local/codeql/queries/cpp/ql/src/jsf/4.10 Classes/AV Rule 71.1.ql.
+2021-03-25 19:22:05,953 DEBUG    		Compiling query plan for /opt/local/codeql/queries/cpp/ql/src/jsf/4.10 Classes/AV Rule 89.ql.
+2021-03-25 19:22:06,071 DEBUG    		[66/150] Found in cache: /opt/local/codeql/queries/cpp/ql/src/jsf/4.10 Classes/AV Rule 89.ql.
+2021-03-25 19:22:06,079 DEBUG    		Compiling query plan for /opt/local/codeql/queries/cpp/ql/src/jsf/4.10 Classes/AV Rule 97.ql.
+2021-03-25 19:22:06,215 DEBUG    		[67/150] Found in cache: /opt/local/codeql/queries/cpp/ql/src/jsf/4.10 Classes/AV Rule 97.ql.
+2021-03-25 19:22:06,224 DEBUG    		Compiling query plan for /opt/local/codeql/queries/cpp/ql/src/jsf/4.10 Classes/AV Rule 82.ql.
+2021-03-25 19:22:06,377 DEBUG    		[68/150] Found in cache: /opt/local/codeql/queries/cpp/ql/src/jsf/4.10 Classes/AV Rule 82.ql.
+2021-03-25 19:22:06,391 DEBUG    		Compiling query plan for /opt/local/codeql/queries/cpp/ql/src/jsf/4.10 Classes/AV Rule 88.ql.
+2021-03-25 19:22:06,520 DEBUG    		[69/150] Found in cache: /opt/local/codeql/queries/cpp/ql/src/jsf/4.10 Classes/AV Rule 88.ql.
+2021-03-25 19:22:06,529 DEBUG    		Compiling query plan for /opt/local/codeql/queries/cpp/ql/src/jsf/4.10 Classes/AV Rule 95.ql.
+2021-03-25 19:22:06,660 DEBUG    		[70/150] Found in cache: /opt/local/codeql/queries/cpp/ql/src/jsf/4.10 Classes/AV Rule 95.ql.
+2021-03-25 19:22:06,667 DEBUG    		Compiling query plan for /opt/local/codeql/queries/cpp/ql/src/jsf/4.07 Header Files/AV Rule 35.ql.
+2021-03-25 19:22:06,798 DEBUG    		[71/150] Found in cache: /opt/local/codeql/queries/cpp/ql/src/jsf/4.07 Header Files/AV Rule 35.ql.
+2021-03-25 19:22:06,807 DEBUG    		Compiling query plan for /opt/local/codeql/queries/cpp/ql/src/jsf/4.13 Functions/AV Rule 107.ql.
+2021-03-25 19:22:06,934 DEBUG    		[72/150] Found in cache: /opt/local/codeql/queries/cpp/ql/src/jsf/4.13 Functions/AV Rule 107.ql.
+2021-03-25 19:22:06,945 DEBUG    		Compiling query plan for /opt/local/codeql/queries/cpp/ql/src/jsf/4.13 Functions/AV Rule 114.ql.
+2021-03-25 19:22:07,106 DEBUG    		[73/150] Found in cache: /opt/local/codeql/queries/cpp/ql/src/jsf/4.13 Functions/AV Rule 114.ql.
+2021-03-25 19:22:07,123 DEBUG    		Compiling query plan for /opt/local/codeql/queries/cpp/ql/src/jsf/4.06 Pre-Processing Directives/AV Rule 32.ql.
+2021-03-25 19:22:07,306 DEBUG    		[74/150] Found in cache: /opt/local/codeql/queries/cpp/ql/src/jsf/4.06 Pre-Processing Directives/AV Rule 32.ql.
+2021-03-25 19:22:07,319 DEBUG    		Compiling query plan for /opt/local/codeql/queries/cpp/ql/src/jsf/4.16 Initialization/AV Rule 145.ql.
+2021-03-25 19:22:07,467 DEBUG    		[75/150] Found in cache: /opt/local/codeql/queries/cpp/ql/src/jsf/4.16 Initialization/AV Rule 145.ql.
+2021-03-25 19:22:07,477 DEBUG    		Compiling query plan for /opt/local/codeql/queries/cpp/ql/src/jsf/4.21 Operators/AV Rule 166.ql.
+2021-03-25 19:22:07,620 DEBUG    		[76/150] Found in cache: /opt/local/codeql/queries/cpp/ql/src/jsf/4.21 Operators/AV Rule 166.ql.
+2021-03-25 19:22:07,630 DEBUG    		Compiling query plan for /opt/local/codeql/queries/cpp/ql/src/Header Cleanup/Cleanup-DuplicateIncludeGuard.ql.
+2021-03-25 19:22:07,754 DEBUG    		[77/150] Found in cache: /opt/local/codeql/queries/cpp/ql/src/Header Cleanup/Cleanup-DuplicateIncludeGuard.ql.
+2021-03-25 19:22:07,761 DEBUG    		Compiling query plan for /opt/local/codeql/queries/cpp/ql/src/Security/CWE/CWE-120/BadlyBoundedWrite.ql.
+2021-03-25 19:22:07,997 DEBUG    		[78/150] Found in cache: /opt/local/codeql/queries/cpp/ql/src/Security/CWE/CWE-120/BadlyBoundedWrite.ql.
+2021-03-25 19:22:08,023 DEBUG    		Compiling query plan for /opt/local/codeql/queries/cpp/ql/src/Security/CWE/CWE-134/UncontrolledFormatStringThroughGlobalVar.ql.
+2021-03-25 19:22:08,532 DEBUG    		[79/150] Found in cache: /opt/local/codeql/queries/cpp/ql/src/Security/CWE/CWE-134/UncontrolledFormatStringThroughGlobalVar.ql.
+2021-03-25 19:22:08,574 DEBUG    		Compiling query plan for /opt/local/codeql/queries/cpp/ql/src/Security/CWE/CWE-134/UncontrolledFormatString.ql.
+2021-03-25 19:22:09,003 DEBUG    		[80/150] Found in cache: /opt/local/codeql/queries/cpp/ql/src/Security/CWE/CWE-134/UncontrolledFormatString.ql.
+2021-03-25 19:22:09,030 DEBUG    		Compiling query plan for /opt/local/codeql/queries/cpp/ql/src/Security/CWE/CWE-327/OpenSslHeartbleed.ql.
+2021-03-25 19:22:09,154 DEBUG    		[81/150] Found in cache: /opt/local/codeql/queries/cpp/ql/src/Security/CWE/CWE-327/OpenSslHeartbleed.ql.
+2021-03-25 19:22:09,164 DEBUG    		Compiling query plan for /opt/local/codeql/queries/cpp/ql/src/Security/CWE/CWE-468/SuspiciousAddWithSizeof.ql.
+2021-03-25 19:22:09,290 DEBUG    		[82/150] Found in cache: /opt/local/codeql/queries/cpp/ql/src/Security/CWE/CWE-468/SuspiciousAddWithSizeof.ql.
+2021-03-25 19:22:09,298 DEBUG    		Compiling query plan for /opt/local/codeql/queries/cpp/ql/src/Security/CWE/CWE-676/PotentiallyDangerousFunction.ql.
+2021-03-25 19:22:09,444 DEBUG    		[83/150] Found in cache: /opt/local/codeql/queries/cpp/ql/src/Security/CWE/CWE-676/PotentiallyDangerousFunction.ql.
+2021-03-25 19:22:09,452 DEBUG    		Compiling query plan for /opt/local/codeql/queries/cpp/ql/src/Security/CWE/CWE-676/DangerousUseOfCin.ql.
+2021-03-25 19:22:09,614 DEBUG    		[84/150] Found in cache: /opt/local/codeql/queries/cpp/ql/src/Security/CWE/CWE-676/DangerousUseOfCin.ql.
+2021-03-25 19:22:09,626 DEBUG    		Compiling query plan for /opt/local/codeql/queries/cpp/ql/src/Security/CWE/CWE-676/DangerousFunctionOverflow.ql.
+2021-03-25 19:22:09,744 DEBUG    		[85/150] Found in cache: /opt/local/codeql/queries/cpp/ql/src/Security/CWE/CWE-676/DangerousFunctionOverflow.ql.
+2021-03-25 19:22:09,752 DEBUG    		Compiling query plan for /opt/local/codeql/queries/cpp/ql/src/Security/CWE/CWE-704/WcharCharConversion.ql.
+2021-03-25 19:22:09,872 DEBUG    		[86/150] Found in cache: /opt/local/codeql/queries/cpp/ql/src/Security/CWE/CWE-704/WcharCharConversion.ql.
+2021-03-25 19:22:09,887 DEBUG    		Compiling query plan for /opt/local/codeql/queries/cpp/ql/src/Security/CWE/CWE-079/CgiXss.ql.
+2021-03-25 19:22:10,311 DEBUG    		[87/150] Found in cache: /opt/local/codeql/queries/cpp/ql/src/Security/CWE/CWE-079/CgiXss.ql.
+2021-03-25 19:22:10,347 DEBUG    		Compiling query plan for /opt/local/codeql/queries/cpp/ql/src/Security/CWE/CWE-131/NoSpaceForZeroTerminator.ql.
+2021-03-25 19:22:10,594 DEBUG    		[88/150] Found in cache: /opt/local/codeql/queries/cpp/ql/src/Security/CWE/CWE-131/NoSpaceForZeroTerminator.ql.
+2021-03-25 19:22:10,620 DEBUG    		Compiling query plan for /opt/local/codeql/queries/cpp/ql/src/Security/CWE/CWE-089/SqlTainted.ql.
+2021-03-25 19:22:11,046 DEBUG    		[89/150] Found in cache: /opt/local/codeql/queries/cpp/ql/src/Security/CWE/CWE-089/SqlTainted.ql.
+2021-03-25 19:22:11,080 DEBUG    		Compiling query plan for /opt/local/codeql/queries/cpp/ql/src/Security/CWE/CWE-014/MemsetMayBeDeleted.ql.
+2021-03-25 19:22:11,250 DEBUG    		[90/150] Found in cache: /opt/local/codeql/queries/cpp/ql/src/Security/CWE/CWE-014/MemsetMayBeDeleted.ql.
+2021-03-25 19:22:11,264 DEBUG    		Compiling query plan for /opt/local/codeql/queries/cpp/ql/src/Security/CWE/CWE-732/UnsafeDaclSecurityDescriptor.ql.
+2021-03-25 19:22:11,545 DEBUG    		[91/150] Found in cache: /opt/local/codeql/queries/cpp/ql/src/Security/CWE/CWE-732/UnsafeDaclSecurityDescriptor.ql.
+2021-03-25 19:22:11,571 DEBUG    		Compiling query plan for /opt/local/codeql/queries/cpp/ql/src/Security/CWE/CWE-253/HResultBooleanConversion.ql.
+2021-03-25 19:22:11,681 DEBUG    		[92/150] Found in cache: /opt/local/codeql/queries/cpp/ql/src/Security/CWE/CWE-253/HResultBooleanConversion.ql.
+2021-03-25 19:22:11,686 DEBUG    		Compiling query plan for /opt/local/codeql/queries/cpp/ql/src/Security/CWE/CWE-190/ComparisonWithWiderType.ql.
+2021-03-25 19:22:11,820 DEBUG    		[93/150] Found in cache: /opt/local/codeql/queries/cpp/ql/src/Security/CWE/CWE-190/ComparisonWithWiderType.ql.
+2021-03-25 19:22:11,837 DEBUG    		Compiling query plan for /opt/local/codeql/queries/cpp/ql/src/Critical/LargeParameter.ql.
+2021-03-25 19:22:11,970 DEBUG    		[94/150] Found in cache: /opt/local/codeql/queries/cpp/ql/src/Critical/LargeParameter.ql.
+2021-03-25 19:22:11,980 DEBUG    		Compiling query plan for /opt/local/codeql/queries/cpp/ql/src/Critical/NewArrayDeleteMismatch.ql.
+2021-03-25 19:22:12,219 DEBUG    		[95/150] Found in cache: /opt/local/codeql/queries/cpp/ql/src/Critical/NewArrayDeleteMismatch.ql.
+2021-03-25 19:22:12,243 DEBUG    		Compiling query plan for /opt/local/codeql/queries/cpp/ql/src/Critical/DeadCodeGoto.ql.
+2021-03-25 19:22:12,366 DEBUG    		[96/150] Found in cache: /opt/local/codeql/queries/cpp/ql/src/Critical/DeadCodeGoto.ql.
+2021-03-25 19:22:12,375 DEBUG    		Compiling query plan for /opt/local/codeql/queries/cpp/ql/src/Critical/NewDeleteArrayMismatch.ql.
+2021-03-25 19:22:12,628 DEBUG    		[97/150] Found in cache: /opt/local/codeql/queries/cpp/ql/src/Critical/NewDeleteArrayMismatch.ql.
+2021-03-25 19:22:12,648 DEBUG    		Compiling query plan for /opt/local/codeql/queries/cpp/ql/src/Critical/NewFreeMismatch.ql.
+2021-03-25 19:22:12,835 DEBUG    		[98/150] Found in cache: /opt/local/codeql/queries/cpp/ql/src/Critical/NewFreeMismatch.ql.
+2021-03-25 19:22:12,858 DEBUG    		Compiling query plan for /opt/local/codeql/queries/cpp/ql/src/Documentation/CommentedOutCode.ql.
+2021-03-25 19:22:12,982 DEBUG    		[99/150] Found in cache: /opt/local/codeql/queries/cpp/ql/src/Documentation/CommentedOutCode.ql.
+2021-03-25 19:22:12,990 DEBUG    		Compiling query plan for /opt/local/codeql/queries/cpp/ql/src/Documentation/FixmeComments.ql.
+2021-03-25 19:22:13,124 DEBUG    		[100/150] Found in cache: /opt/local/codeql/queries/cpp/ql/src/Documentation/FixmeComments.ql.
+2021-03-25 19:22:13,132 DEBUG    		Compiling query plan for /opt/local/codeql/queries/cpp/ql/src/Best Practices/Likely Errors/OffsetUseBeforeRangeCheck.ql.
+2021-03-25 19:22:13,254 DEBUG    		[101/150] Found in cache: /opt/local/codeql/queries/cpp/ql/src/Best Practices/Likely Errors/OffsetUseBeforeRangeCheck.ql.
+2021-03-25 19:22:13,263 DEBUG    		Compiling query plan for /opt/local/codeql/queries/cpp/ql/src/Likely Bugs/Conversion/LossyFunctionResultCast.ql.
+2021-03-25 19:22:13,495 DEBUG    		[102/150] Found in cache: /opt/local/codeql/queries/cpp/ql/src/Likely Bugs/Conversion/LossyFunctionResultCast.ql.
+2021-03-25 19:22:13,515 DEBUG    		Compiling query plan for /opt/local/codeql/queries/cpp/ql/src/Likely Bugs/InconsistentCheckReturnNull.ql.
+2021-03-25 19:22:13,675 DEBUG    		[103/150] Found in cache: /opt/local/codeql/queries/cpp/ql/src/Likely Bugs/InconsistentCheckReturnNull.ql.
+2021-03-25 19:22:13,683 DEBUG    		Compiling query plan for /opt/local/codeql/queries/cpp/ql/src/Likely Bugs/InconsistentCallOnResult.ql.
+2021-03-25 19:22:13,781 DEBUG    		[104/150] Found in cache: /opt/local/codeql/queries/cpp/ql/src/Likely Bugs/InconsistentCallOnResult.ql.
+2021-03-25 19:22:13,788 DEBUG    		Compiling query plan for /opt/local/codeql/queries/cpp/ql/src/Likely Bugs/Memory Management/SuspiciousCallToStrncat.ql.
+2021-03-25 19:22:13,885 DEBUG    		[105/150] Found in cache: /opt/local/codeql/queries/cpp/ql/src/Likely Bugs/Memory Management/SuspiciousCallToStrncat.ql.
+2021-03-25 19:22:13,893 DEBUG    		Compiling query plan for /opt/local/codeql/queries/cpp/ql/src/Likely Bugs/Memory Management/SuspiciousSizeof.ql.
+2021-03-25 19:22:14,024 DEBUG    		[106/150] Found in cache: /opt/local/codeql/queries/cpp/ql/src/Likely Bugs/Memory Management/SuspiciousSizeof.ql.
+2021-03-25 19:22:14,031 DEBUG    		Compiling query plan for /opt/local/codeql/queries/cpp/ql/src/Likely Bugs/Memory Management/UnsafeUseOfStrcat.ql.
+2021-03-25 19:22:14,163 DEBUG    		[107/150] Found in cache: /opt/local/codeql/queries/cpp/ql/src/Likely Bugs/Memory Management/UnsafeUseOfStrcat.ql.
+2021-03-25 19:22:14,172 DEBUG    		Compiling query plan for /opt/local/codeql/queries/cpp/ql/src/Likely Bugs/Memory Management/UninitializedLocal.ql.
+2021-03-25 19:22:14,339 DEBUG    		[108/150] Found in cache: /opt/local/codeql/queries/cpp/ql/src/Likely Bugs/Memory Management/UninitializedLocal.ql.
+2021-03-25 19:22:14,352 DEBUG    		Compiling query plan for /opt/local/codeql/queries/cpp/ql/src/Likely Bugs/Memory Management/StrncpyFlippedArgs.ql.
+2021-03-25 19:22:14,686 DEBUG    		[109/150] Found in cache: /opt/local/codeql/queries/cpp/ql/src/Likely Bugs/Memory Management/StrncpyFlippedArgs.ql.
+2021-03-25 19:22:14,713 DEBUG    		Compiling query plan for /opt/local/codeql/queries/cpp/ql/src/Likely Bugs/Memory Management/StackAddressEscapes.ql.
+2021-03-25 19:22:14,878 DEBUG    		[110/150] Found in cache: /opt/local/codeql/queries/cpp/ql/src/Likely Bugs/Memory Management/StackAddressEscapes.ql.
+2021-03-25 19:22:14,893 DEBUG    		Compiling query plan for /opt/local/codeql/queries/cpp/ql/src/Likely Bugs/Arithmetic/BadCheckOdd.ql.
+2021-03-25 19:22:15,012 DEBUG    		[111/150] Found in cache: /opt/local/codeql/queries/cpp/ql/src/Likely Bugs/Arithmetic/BadCheckOdd.ql.
+2021-03-25 19:22:15,020 DEBUG    		Compiling query plan for /opt/local/codeql/queries/cpp/ql/src/Likely Bugs/NestedLoopSameVar.ql.
+2021-03-25 19:22:15,177 DEBUG    		[112/150] Found in cache: /opt/local/codeql/queries/cpp/ql/src/Likely Bugs/NestedLoopSameVar.ql.
+2021-03-25 19:22:15,190 DEBUG    		Compiling query plan for /opt/local/codeql/queries/cpp/ql/src/Likely Bugs/Likely Typos/MissingEnumCaseInSwitch.ql.
+2021-03-25 19:22:15,322 DEBUG    		[113/150] Found in cache: /opt/local/codeql/queries/cpp/ql/src/Likely Bugs/Likely Typos/MissingEnumCaseInSwitch.ql.
+2021-03-25 19:22:15,329 DEBUG    		Compiling query plan for /opt/local/codeql/queries/cpp/ql/src/Likely Bugs/Likely Typos/IncorrectNotOperatorUsage.ql.
+2021-03-25 19:22:15,454 DEBUG    		[114/150] Found in cache: /opt/local/codeql/queries/cpp/ql/src/Likely Bugs/Likely Typos/IncorrectNotOperatorUsage.ql.
+2021-03-25 19:22:15,462 DEBUG    		Compiling query plan for /opt/local/codeql/queries/cpp/ql/src/Likely Bugs/Underspecified Functions/MistypedFunctionArguments.ql.
+2021-03-25 19:22:15,587 DEBUG    		[115/150] Found in cache: /opt/local/codeql/queries/cpp/ql/src/Likely Bugs/Underspecified Functions/MistypedFunctionArguments.ql.
+2021-03-25 19:22:15,594 DEBUG    		Compiling query plan for /opt/local/codeql/queries/cpp/ql/src/Likely Bugs/Leap Year/Adding365DaysPerYear.ql.
+2021-03-25 19:22:15,849 DEBUG    		[116/150] Found in cache: /opt/local/codeql/queries/cpp/ql/src/Likely Bugs/Leap Year/Adding365DaysPerYear.ql.
+2021-03-25 19:22:15,871 DEBUG    		Compiling query plan for /opt/local/codeql/queries/cpp/ql/src/Likely Bugs/Leap Year/UncheckedLeapYearAfterYearModification.ql.
+2021-03-25 19:22:16,068 DEBUG    		[117/150] Found in cache: /opt/local/codeql/queries/cpp/ql/src/Likely Bugs/Leap Year/UncheckedLeapYearAfterYearModification.ql.
+2021-03-25 19:22:16,090 DEBUG    		Compiling query plan for /opt/local/codeql/queries/cpp/ql/src/Likely Bugs/Leap Year/UncheckedReturnValueForTimeFunctions.ql.
+2021-03-25 19:22:16,275 DEBUG    		[118/150] Found in cache: /opt/local/codeql/queries/cpp/ql/src/Likely Bugs/Leap Year/UncheckedReturnValueForTimeFunctions.ql.
+2021-03-25 19:22:16,288 DEBUG    		Compiling query plan for /opt/local/codeql/queries/cpp/ql/src/jsf/4.17 Types/AV Rule 148.ql.
+2021-03-25 19:22:16,415 DEBUG    		[119/150] Found in cache: /opt/local/codeql/queries/cpp/ql/src/jsf/4.17 Types/AV Rule 148.ql.
+2021-03-25 19:22:16,428 DEBUG    		Compiling query plan for /opt/local/codeql/queries/cpp/ql/src/Security/CWE/CWE-120/OverrunWrite.ql.
+2021-03-25 19:22:16,669 DEBUG    		[120/150] Found in cache: /opt/local/codeql/queries/cpp/ql/src/Security/CWE/CWE-120/OverrunWrite.ql.
+2021-03-25 19:22:16,691 DEBUG    		Compiling query plan for /opt/local/codeql/queries/cpp/ql/src/Security/CWE/CWE-120/UnboundedWrite.ql.
+2021-03-25 19:22:17,155 DEBUG    		[121/150] Found in cache: /opt/local/codeql/queries/cpp/ql/src/Security/CWE/CWE-120/UnboundedWrite.ql.
+2021-03-25 19:22:17,194 DEBUG    		Compiling query plan for /opt/local/codeql/queries/cpp/ql/src/Security/CWE/CWE-120/OverrunWriteFloat.ql.
+2021-03-25 19:22:17,448 DEBUG    		[122/150] Found in cache: /opt/local/codeql/queries/cpp/ql/src/Security/CWE/CWE-120/OverrunWriteFloat.ql.
+2021-03-25 19:22:17,468 DEBUG    		Compiling query plan for /opt/local/codeql/queries/cpp/ql/src/Security/CWE/CWE-022/TaintedPath.ql.
+2021-03-25 19:22:17,809 DEBUG    		[123/150] Found in cache: /opt/local/codeql/queries/cpp/ql/src/Security/CWE/CWE-022/TaintedPath.ql.
+2021-03-25 19:22:17,839 DEBUG    		Compiling query plan for /opt/local/codeql/queries/cpp/ql/src/Security/CWE/CWE-313/CleartextSqliteDatabase.ql.
+2021-03-25 19:22:18,261 DEBUG    		[124/150] Found in cache: /opt/local/codeql/queries/cpp/ql/src/Security/CWE/CWE-313/CleartextSqliteDatabase.ql.
+2021-03-25 19:22:18,289 DEBUG    		Compiling query plan for /opt/local/codeql/queries/cpp/ql/src/Security/CWE/CWE-428/UnsafeCreateProcessCall.ql.
+2021-03-25 19:22:18,537 DEBUG    		[125/150] Found in cache: /opt/local/codeql/queries/cpp/ql/src/Security/CWE/CWE-428/UnsafeCreateProcessCall.ql.
+2021-03-25 19:22:18,571 DEBUG    		Compiling query plan for /opt/local/codeql/queries/cpp/ql/src/Security/CWE/CWE-114/UncontrolledProcessOperation.ql.
+2021-03-25 19:22:18,950 DEBUG    		[126/150] Found in cache: /opt/local/codeql/queries/cpp/ql/src/Security/CWE/CWE-114/UncontrolledProcessOperation.ql.
+2021-03-25 19:22:18,980 DEBUG    		Compiling query plan for /opt/local/codeql/queries/cpp/ql/src/Security/CWE/CWE-121/UnterminatedVarargsCall.ql.
+2021-03-25 19:22:19,108 DEBUG    		[127/150] Found in cache: /opt/local/codeql/queries/cpp/ql/src/Security/CWE/CWE-121/UnterminatedVarargsCall.ql.
+2021-03-25 19:22:19,117 DEBUG    		Compiling query plan for /opt/local/codeql/queries/cpp/ql/src/Security/CWE/CWE-807/TaintedCondition.ql.
+2021-03-25 19:22:19,558 DEBUG    		[128/150] Found in cache: /opt/local/codeql/queries/cpp/ql/src/Security/CWE/CWE-807/TaintedCondition.ql.
+2021-03-25 19:22:19,591 DEBUG    		Compiling query plan for /opt/local/codeql/queries/cpp/ql/src/Security/CWE/CWE-191/UnsignedDifferenceExpressionComparedZero.ql.
+2021-03-25 19:22:19,958 DEBUG    		[129/150] Found in cache: /opt/local/codeql/queries/cpp/ql/src/Security/CWE/CWE-191/UnsignedDifferenceExpressionComparedZero.ql.
+2021-03-25 19:22:19,989 DEBUG    		Compiling query plan for /opt/local/codeql/queries/cpp/ql/src/Security/CWE/CWE-327/BrokenCryptoAlgorithm.ql.
+2021-03-25 19:22:20,148 DEBUG    		[130/150] Found in cache: /opt/local/codeql/queries/cpp/ql/src/Security/CWE/CWE-327/BrokenCryptoAlgorithm.ql.
+2021-03-25 19:22:20,156 DEBUG    		Compiling query plan for /opt/local/codeql/queries/cpp/ql/src/Security/CWE/CWE-468/IncorrectPointerScaling.ql.
+2021-03-25 19:22:20,305 DEBUG    		[131/150] Found in cache: /opt/local/codeql/queries/cpp/ql/src/Security/CWE/CWE-468/IncorrectPointerScaling.ql.
+2021-03-25 19:22:20,318 DEBUG    		Compiling query plan for /opt/local/codeql/queries/cpp/ql/src/Security/CWE/CWE-468/IncorrectPointerScalingVoid.ql.
+2021-03-25 19:22:20,474 DEBUG    		[132/150] Found in cache: /opt/local/codeql/queries/cpp/ql/src/Security/CWE/CWE-468/IncorrectPointerScalingVoid.ql.
+2021-03-25 19:22:20,487 DEBUG    		Compiling query plan for /opt/local/codeql/queries/cpp/ql/src/Security/CWE/CWE-367/TOCTOUFilesystemRace.ql.
+2021-03-25 19:22:20,642 DEBUG    		[133/150] Found in cache: /opt/local/codeql/queries/cpp/ql/src/Security/CWE/CWE-367/TOCTOUFilesystemRace.ql.
+2021-03-25 19:22:20,663 DEBUG    		Compiling query plan for /opt/local/codeql/queries/cpp/ql/src/Security/CWE/CWE-290/AuthenticationBypass.ql.
+2021-03-25 19:22:21,073 DEBUG    		[134/150] Found in cache: /opt/local/codeql/queries/cpp/ql/src/Security/CWE/CWE-290/AuthenticationBypass.ql.
+2021-03-25 19:22:21,111 DEBUG    		Compiling query plan for /opt/local/codeql/queries/cpp/ql/src/Security/CWE/CWE-732/DoNotCreateWorldWritable.ql.
+2021-03-25 19:22:21,272 DEBUG    		[135/150] Found in cache: /opt/local/codeql/queries/cpp/ql/src/Security/CWE/CWE-732/DoNotCreateWorldWritable.ql.
+2021-03-25 19:22:21,285 DEBUG    		Compiling query plan for /opt/local/codeql/queries/cpp/ql/src/Security/CWE/CWE-311/CleartextFileWrite.ql.
+2021-03-25 19:22:21,410 DEBUG    		[136/150] Found in cache: /opt/local/codeql/queries/cpp/ql/src/Security/CWE/CWE-311/CleartextFileWrite.ql.
+2021-03-25 19:22:21,418 DEBUG    		Compiling query plan for /opt/local/codeql/queries/cpp/ql/src/Security/CWE/CWE-311/CleartextBufferWrite.ql.
+2021-03-25 19:22:21,861 DEBUG    		[137/150] Found in cache: /opt/local/codeql/queries/cpp/ql/src/Security/CWE/CWE-311/CleartextBufferWrite.ql.
+2021-03-25 19:22:21,895 DEBUG    		Compiling query plan for /opt/local/codeql/queries/cpp/ql/src/Security/CWE/CWE-190/TaintedAllocationSize.ql.
+2021-03-25 19:22:22,333 DEBUG    		[138/150] Found in cache: /opt/local/codeql/queries/cpp/ql/src/Security/CWE/CWE-190/TaintedAllocationSize.ql.
+2021-03-25 19:22:22,366 DEBUG    		Compiling query plan for /opt/local/codeql/queries/cpp/ql/src/Security/CWE/CWE-190/ArithmeticUncontrolled.ql.
+2021-03-25 19:22:22,752 DEBUG    		[139/150] Found in cache: /opt/local/codeql/queries/cpp/ql/src/Security/CWE/CWE-190/ArithmeticUncontrolled.ql.
+2021-03-25 19:22:22,812 DEBUG    		Compiling query plan for /opt/local/codeql/queries/cpp/ql/src/Critical/SizeCheck.ql.
+2021-03-25 19:22:22,934 DEBUG    		[140/150] Found in cache: /opt/local/codeql/queries/cpp/ql/src/Critical/SizeCheck.ql.
+2021-03-25 19:22:22,944 DEBUG    		Compiling query plan for /opt/local/codeql/queries/cpp/ql/src/Critical/OverflowStatic.ql.
+2021-03-25 19:22:23,192 DEBUG    		[141/150] Found in cache: /opt/local/codeql/queries/cpp/ql/src/Critical/OverflowStatic.ql.
+2021-03-25 19:22:23,216 DEBUG    		Compiling query plan for /opt/local/codeql/queries/cpp/ql/src/Critical/SizeCheck2.ql.
+2021-03-25 19:22:23,352 DEBUG    		[142/150] Found in cache: /opt/local/codeql/queries/cpp/ql/src/Critical/SizeCheck2.ql.
+2021-03-25 19:22:23,362 DEBUG    		Compiling query plan for /opt/local/codeql/queries/cpp/ql/src/Documentation/UncommentedFunction.ql.
+2021-03-25 19:22:23,483 DEBUG    		[143/150] Found in cache: /opt/local/codeql/queries/cpp/ql/src/Documentation/UncommentedFunction.ql.
+2021-03-25 19:22:23,492 DEBUG    		Compiling query plan for /opt/local/codeql/queries/cpp/ql/src/filters/ClassifyFiles.ql.
+2021-03-25 19:22:23,616 DEBUG    		[144/150] Found in cache: /opt/local/codeql/queries/cpp/ql/src/filters/ClassifyFiles.ql.
+2021-03-25 19:22:23,622 DEBUG    		Compiling query plan for /opt/local/codeql/queries/cpp/ql/src/AlertSuppression.ql.
+2021-03-25 19:22:23,716 DEBUG    		[145/150] Found in cache: /opt/local/codeql/queries/cpp/ql/src/AlertSuppression.ql.
+2021-03-25 19:22:23,722 DEBUG    		Compiling query plan for /opt/local/codeql/queries/cpp/ql/src/definitions.ql.
+2021-03-25 19:22:23,823 DEBUG    		[146/150] Found in cache: /opt/local/codeql/queries/cpp/ql/src/definitions.ql.
+2021-03-25 19:22:23,830 DEBUG    		Compiling query plan for /opt/local/codeql/queries/cpp/ql/src/Metrics/Files/FLinesOfCode.ql.
+2021-03-25 19:22:23,946 DEBUG    		[147/150] Found in cache: /opt/local/codeql/queries/cpp/ql/src/Metrics/Files/FLinesOfCode.ql.
+2021-03-25 19:22:23,955 DEBUG    		Compiling query plan for /opt/local/codeql/queries/cpp/ql/src/Metrics/Files/FLinesOfCommentedOutCode.ql.
+2021-03-25 19:22:24,073 DEBUG    		[148/150] Found in cache: /opt/local/codeql/queries/cpp/ql/src/Metrics/Files/FLinesOfCommentedOutCode.ql.
+2021-03-25 19:22:24,080 DEBUG    		Compiling query plan for /opt/local/codeql/queries/cpp/ql/src/Metrics/Files/FLinesOfComments.ql.
+2021-03-25 19:22:24,196 DEBUG    		[149/150] Found in cache: /opt/local/codeql/queries/cpp/ql/src/Metrics/Files/FLinesOfComments.ql.
+2021-03-25 19:22:24,203 DEBUG    		Compiling query plan for /opt/local/codeql/queries/cpp/ql/src/Metrics/Files/FNumberOfTests.ql.
+2021-03-25 19:22:24,336 DEBUG    		[150/150] Found in cache: /opt/local/codeql/queries/cpp/ql/src/Metrics/Files/FNumberOfTests.ql.
+2021-03-25 19:22:24,343 DEBUG    		Starting evaluation of codeql-cpp/Best Practices/Hiding/LocalVariableHidesGlobalVariable.ql.
+2021-03-25 19:22:25,623 DEBUG    		[1/150 eval 1.3s] Evaluation done; writing results to codeql-cpp/Best Practices/Hiding/LocalVariableHidesGlobalVariable.bqrs.
+2021-03-25 19:22:25,628 DEBUG    		Starting evaluation of codeql-cpp/Best Practices/Hiding/DeclarationHidesParameter.ql.
+2021-03-25 19:22:25,765 DEBUG    		[2/150 eval 138ms] Evaluation done; writing results to codeql-cpp/Best Practices/Hiding/DeclarationHidesParameter.bqrs.
+2021-03-25 19:22:25,767 DEBUG    		Starting evaluation of codeql-cpp/Best Practices/Hiding/DeclarationHidesVariable.ql.
+2021-03-25 19:22:25,872 DEBUG    		[3/150 eval 105ms] Evaluation done; writing results to codeql-cpp/Best Practices/Hiding/DeclarationHidesVariable.bqrs.
+2021-03-25 19:22:25,873 DEBUG    		Starting evaluation of codeql-cpp/Best Practices/ComplexCondition.ql.
+2021-03-25 19:22:25,948 DEBUG    		[4/150 eval 75ms] Evaluation done; writing results to codeql-cpp/Best Practices/ComplexCondition.bqrs.
+2021-03-25 19:22:25,949 DEBUG    		Starting evaluation of codeql-cpp/Best Practices/Unused Entities/UnusedLocals.ql.
+2021-03-25 19:22:26,002 DEBUG    		[5/150 eval 54ms] Evaluation done; writing results to codeql-cpp/Best Practices/Unused Entities/UnusedLocals.bqrs.
+2021-03-25 19:22:26,004 DEBUG    		Starting evaluation of codeql-cpp/Best Practices/Unused Entities/UnusedStaticFunctions.ql.
+2021-03-25 19:22:26,255 DEBUG    		[6/150 eval 253ms] Evaluation done; writing results to codeql-cpp/Best Practices/Unused Entities/UnusedStaticFunctions.bqrs.
+2021-03-25 19:22:26,257 DEBUG    		Starting evaluation of codeql-cpp/Best Practices/Unused Entities/UnusedStaticVariables.ql.
+2021-03-25 19:22:26,304 DEBUG    		[7/150 eval 47ms] Evaluation done; writing results to codeql-cpp/Best Practices/Unused Entities/UnusedStaticVariables.bqrs.
+2021-03-25 19:22:26,306 DEBUG    		Starting evaluation of codeql-cpp/Best Practices/RuleOfTwo.ql.
+2021-03-25 19:22:26,444 DEBUG    		[8/150 eval 139ms] Evaluation done; writing results to codeql-cpp/Best Practices/RuleOfTwo.bqrs.
+2021-03-25 19:22:26,446 DEBUG    		Starting evaluation of codeql-cpp/Best Practices/SloppyGlobal.ql.
+2021-03-25 19:22:26,495 DEBUG    		[9/150 eval 50ms] Evaluation done; writing results to codeql-cpp/Best Practices/SloppyGlobal.bqrs.
+2021-03-25 19:22:26,497 DEBUG    		Starting evaluation of codeql-cpp/Best Practices/Exceptions/CatchingByValue.ql.
+2021-03-25 19:22:26,530 DEBUG    		[10/150 eval 34ms] Evaluation done; writing results to codeql-cpp/Best Practices/Exceptions/CatchingByValue.bqrs.
+2021-03-25 19:22:26,532 DEBUG    		Starting evaluation of codeql-cpp/Best Practices/Exceptions/AccidentalRethrow.ql.
+2021-03-25 19:22:26,564 DEBUG    		[11/150 eval 34ms] Evaluation done; writing results to codeql-cpp/Best Practices/Exceptions/AccidentalRethrow.bqrs.
+2021-03-25 19:22:26,566 DEBUG    		Starting evaluation of codeql-cpp/Best Practices/Exceptions/LeakyCatch.ql.
+2021-03-25 19:22:26,625 DEBUG    		[12/150 eval 53ms] Evaluation done; writing results to codeql-cpp/Best Practices/Exceptions/LeakyCatch.bqrs.
+2021-03-25 19:22:26,626 DEBUG    		Starting evaluation of codeql-cpp/Best Practices/Exceptions/ThrowingPointers.ql.
+2021-03-25 19:22:26,653 DEBUG    		[13/150 eval 34ms] Evaluation done; writing results to codeql-cpp/Best Practices/Exceptions/ThrowingPointers.bqrs.
+2021-03-25 19:22:26,655 DEBUG    		Starting evaluation of codeql-cpp/Best Practices/BlockWithTooManyStatements.ql.
+2021-03-25 19:22:26,696 DEBUG    		[14/150 eval 43ms] Evaluation done; writing results to codeql-cpp/Best Practices/BlockWithTooManyStatements.bqrs.
+2021-03-25 19:22:26,698 DEBUG    		Starting evaluation of codeql-cpp/Best Practices/UseOfGoto.ql.
+2021-03-25 19:22:26,724 DEBUG    		[15/150 eval 28ms] Evaluation done; writing results to codeql-cpp/Best Practices/UseOfGoto.bqrs.
+2021-03-25 19:22:26,726 DEBUG    		Starting evaluation of codeql-cpp/Best Practices/Likely Errors/Slicing.ql.
+2021-03-25 19:22:26,755 DEBUG    		[16/150 eval 30ms] Evaluation done; writing results to codeql-cpp/Best Practices/Likely Errors/Slicing.bqrs.
+2021-03-25 19:22:26,757 DEBUG    		Starting evaluation of codeql-cpp/Best Practices/Likely Errors/EmptyBlock.ql.
+2021-03-25 19:22:26,790 DEBUG    		[17/150 eval 35ms] Evaluation done; writing results to codeql-cpp/Best Practices/Likely Errors/EmptyBlock.bqrs.
+2021-03-25 19:22:26,792 DEBUG    		Starting evaluation of codeql-cpp/Best Practices/SwitchLongCase.ql.
+2021-03-25 19:22:26,814 DEBUG    		[18/150 eval 24ms] Evaluation done; writing results to codeql-cpp/Best Practices/SwitchLongCase.bqrs.
+2021-03-25 19:22:26,815 DEBUG    		Starting evaluation of codeql-cpp/Likely Bugs/AmbiguouslySignedBitField.ql.
+2021-03-25 19:22:26,883 DEBUG    		[19/150 eval 69ms] Evaluation done; writing results to codeql-cpp/Likely Bugs/AmbiguouslySignedBitField.bqrs.
+2021-03-25 19:22:26,885 DEBUG    		Starting evaluation of codeql-cpp/Likely Bugs/Format/WrongNumberOfFormatArguments.ql.
+2021-03-25 19:22:27,109 DEBUG    		[20/150 eval 224ms] Evaluation done; writing results to codeql-cpp/Likely Bugs/Format/WrongNumberOfFormatArguments.bqrs.
+2021-03-25 19:22:27,111 DEBUG    		Starting evaluation of codeql-cpp/Likely Bugs/Format/WrongTypeFormatArguments.ql.
+2021-03-25 19:22:27,373 DEBUG    		[21/150 eval 263ms] Evaluation done; writing results to codeql-cpp/Likely Bugs/Format/WrongTypeFormatArguments.bqrs.
+2021-03-25 19:22:27,374 DEBUG    		Starting evaluation of codeql-cpp/Likely Bugs/Format/NonConstantFormat.ql.
+2021-03-25 19:22:29,004 DEBUG    		[22/150 eval 1.6s] Evaluation done; writing results to codeql-cpp/Likely Bugs/Format/NonConstantFormat.bqrs.
+2021-03-25 19:22:29,006 DEBUG    		Starting evaluation of codeql-cpp/Likely Bugs/Format/SnprintfOverflow.ql.
+2021-03-25 19:22:30,516 DEBUG    		[23/150 eval 1.5s] Evaluation done; writing results to codeql-cpp/Likely Bugs/Format/SnprintfOverflow.bqrs.
+2021-03-25 19:22:30,517 DEBUG    		Starting evaluation of codeql-cpp/Likely Bugs/Format/TooManyFormatArguments.ql.
+2021-03-25 19:22:30,563 DEBUG    		[24/150 eval 46ms] Evaluation done; writing results to codeql-cpp/Likely Bugs/Format/TooManyFormatArguments.bqrs.
+2021-03-25 19:22:30,564 DEBUG    		Starting evaluation of codeql-cpp/Likely Bugs/Conversion/ArrayArgSizeMismatch.ql.
+2021-03-25 19:22:30,610 DEBUG    		[25/150 eval 47ms] Evaluation done; writing results to codeql-cpp/Likely Bugs/Conversion/ArrayArgSizeMismatch.bqrs.
+2021-03-25 19:22:30,611 DEBUG    		Starting evaluation of codeql-cpp/Likely Bugs/Conversion/LossyPointerCast.ql.
+2021-03-25 19:22:30,652 DEBUG    		[26/150 eval 42ms] Evaluation done; writing results to codeql-cpp/Likely Bugs/Conversion/LossyPointerCast.bqrs.
+2021-03-25 19:22:30,653 DEBUG    		Starting evaluation of codeql-cpp/Likely Bugs/Conversion/ImplicitDowncastFromBitfield.ql.
+2021-03-25 19:22:30,688 DEBUG    		[27/150 eval 36ms] Evaluation done; writing results to codeql-cpp/Likely Bugs/Conversion/ImplicitDowncastFromBitfield.bqrs.
+2021-03-25 19:22:30,690 DEBUG    		Starting evaluation of codeql-cpp/Likely Bugs/Conversion/CastArrayPointerArithmetic.ql.
+2021-03-25 19:22:31,023 DEBUG    		[28/150 eval 334ms] Evaluation done; writing results to codeql-cpp/Likely Bugs/Conversion/CastArrayPointerArithmetic.bqrs.
+2021-03-25 19:22:31,025 DEBUG    		Starting evaluation of codeql-cpp/Likely Bugs/ContinueInFalseLoop.ql.
+2021-03-25 19:22:31,052 DEBUG    		[29/150 eval 27ms] Evaluation done; writing results to codeql-cpp/Likely Bugs/ContinueInFalseLoop.bqrs.
+2021-03-25 19:22:31,054 DEBUG    		Starting evaluation of codeql-cpp/Likely Bugs/Memory Management/AllocaInLoop.ql.
+2021-03-25 19:22:31,348 DEBUG    		[30/150 eval 295ms] Evaluation done; writing results to codeql-cpp/Likely Bugs/Memory Management/AllocaInLoop.bqrs.
+2021-03-25 19:22:31,350 DEBUG    		Starting evaluation of codeql-cpp/Likely Bugs/Memory Management/PointerOverflow.ql.
+2021-03-25 19:22:33,097 DEBUG    		[31/150 eval 1.7s] Evaluation done; writing results to codeql-cpp/Likely Bugs/Memory Management/PointerOverflow.bqrs.
+2021-03-25 19:22:33,099 DEBUG    		Starting evaluation of codeql-cpp/Likely Bugs/Memory Management/ReturnStackAllocatedMemory.ql.
+2021-03-25 19:22:33,382 DEBUG    		[32/150 eval 282ms] Evaluation done; writing results to codeql-cpp/Likely Bugs/Memory Management/ReturnStackAllocatedMemory.bqrs.
+2021-03-25 19:22:33,383 DEBUG    		Starting evaluation of codeql-cpp/Likely Bugs/Memory Management/ReturnCstrOfLocalStdString.ql.
+2021-03-25 19:22:33,662 DEBUG    		[33/150 eval 279ms] Evaluation done; writing results to codeql-cpp/Likely Bugs/Memory Management/ReturnCstrOfLocalStdString.bqrs.
+2021-03-25 19:22:33,664 DEBUG    		Starting evaluation of codeql-cpp/Likely Bugs/UseInOwnInitializer.ql.
+2021-03-25 19:22:33,709 DEBUG    		[34/150 eval 47ms] Evaluation done; writing results to codeql-cpp/Likely Bugs/UseInOwnInitializer.bqrs.
+2021-03-25 19:22:33,711 DEBUG    		Starting evaluation of codeql-cpp/Likely Bugs/Arithmetic/PointlessSelfComparison.ql.
+2021-03-25 19:22:33,864 DEBUG    		[35/150 eval 155ms] Evaluation done; writing results to codeql-cpp/Likely Bugs/Arithmetic/PointlessSelfComparison.bqrs.
+2021-03-25 19:22:33,865 DEBUG    		Starting evaluation of codeql-cpp/Likely Bugs/Arithmetic/ComparisonPrecedence.ql.
+2021-03-25 19:22:33,892 DEBUG    		[36/150 eval 28ms] Evaluation done; writing results to codeql-cpp/Likely Bugs/Arithmetic/ComparisonPrecedence.bqrs.
+2021-03-25 19:22:33,893 DEBUG    		Starting evaluation of codeql-cpp/Likely Bugs/Arithmetic/FloatComparison.ql.
+2021-03-25 19:22:33,935 DEBUG    		[37/150 eval 43ms] Evaluation done; writing results to codeql-cpp/Likely Bugs/Arithmetic/FloatComparison.bqrs.
+2021-03-25 19:22:33,937 DEBUG    		Starting evaluation of codeql-cpp/Likely Bugs/Arithmetic/BitwiseSignCheck.ql.
+2021-03-25 19:22:33,973 DEBUG    		[38/150 eval 37ms] Evaluation done; writing results to codeql-cpp/Likely Bugs/Arithmetic/BitwiseSignCheck.bqrs.
+2021-03-25 19:22:33,974 DEBUG    		Starting evaluation of codeql-cpp/Likely Bugs/Arithmetic/IntMultToLong.ql.
+2021-03-25 19:22:34,165 DEBUG    		[39/150 eval 192ms] Evaluation done; writing results to codeql-cpp/Likely Bugs/Arithmetic/IntMultToLong.bqrs.
+2021-03-25 19:22:34,167 DEBUG    		Starting evaluation of codeql-cpp/Likely Bugs/Arithmetic/BadAdditionOverflowCheck.ql.
+2021-03-25 19:22:34,208 DEBUG    		[40/150 eval 43ms] Evaluation done; writing results to codeql-cpp/Likely Bugs/Arithmetic/BadAdditionOverflowCheck.bqrs.
+2021-03-25 19:22:34,210 DEBUG    		Starting evaluation of codeql-cpp/Likely Bugs/Arithmetic/PointlessComparison.ql.
+2021-03-25 19:22:34,371 DEBUG    		[41/150 eval 162ms] Evaluation done; writing results to codeql-cpp/Likely Bugs/Arithmetic/PointlessComparison.bqrs.
+2021-03-25 19:22:34,373 DEBUG    		Starting evaluation of codeql-cpp/Likely Bugs/Arithmetic/SignedOverflowCheck.ql.
+2021-03-25 19:22:34,643 DEBUG    		[42/150 eval 270ms] Evaluation done; writing results to codeql-cpp/Likely Bugs/Arithmetic/SignedOverflowCheck.bqrs.
+2021-03-25 19:22:34,644 DEBUG    		Starting evaluation of codeql-cpp/Likely Bugs/Arithmetic/UnsignedGEZero.ql.
+2021-03-25 19:22:34,693 DEBUG    		[43/150 eval 48ms] Evaluation done; writing results to codeql-cpp/Likely Bugs/Arithmetic/UnsignedGEZero.bqrs.
+2021-03-25 19:22:34,694 DEBUG    		Starting evaluation of codeql-cpp/Likely Bugs/OO/NonVirtualDestructorInBaseClass.ql.
+2021-03-25 19:22:34,719 DEBUG    		[44/150 eval 26ms] Evaluation done; writing results to codeql-cpp/Likely Bugs/OO/NonVirtualDestructorInBaseClass.bqrs.
+2021-03-25 19:22:34,721 DEBUG    		Starting evaluation of codeql-cpp/Likely Bugs/OO/IncorrectConstructorDelegation.ql.
+2021-03-25 19:22:34,749 DEBUG    		[45/150 eval 29ms] Evaluation done; writing results to codeql-cpp/Likely Bugs/OO/IncorrectConstructorDelegation.bqrs.
+2021-03-25 19:22:34,750 DEBUG    		Starting evaluation of codeql-cpp/Likely Bugs/OO/ThrowInDestructor.ql.
+2021-03-25 19:22:34,860 DEBUG    		[46/150 eval 111ms] Evaluation done; writing results to codeql-cpp/Likely Bugs/OO/ThrowInDestructor.bqrs.
+2021-03-25 19:22:34,861 DEBUG    		Starting evaluation of codeql-cpp/Likely Bugs/OO/UnsafeUseOfThis.ql.
+2021-03-25 19:22:35,127 DEBUG    		[47/150 eval 267ms] Evaluation done; writing results to codeql-cpp/Likely Bugs/OO/UnsafeUseOfThis.bqrs.
+2021-03-25 19:22:35,129 DEBUG    		Starting evaluation of codeql-cpp/Likely Bugs/Likely Typos/ExprHasNoEffect.ql.
+2021-03-25 19:22:35,278 DEBUG    		[48/150 eval 150ms] Evaluation done; writing results to codeql-cpp/Likely Bugs/Likely Typos/ExprHasNoEffect.bqrs.
+2021-03-25 19:22:35,279 DEBUG    		Starting evaluation of codeql-cpp/Likely Bugs/Likely Typos/UsingStrcpyAsBoolean.ql.
+2021-03-25 19:22:35,503 DEBUG    		[49/150 eval 225ms] Evaluation done; writing results to codeql-cpp/Likely Bugs/Likely Typos/UsingStrcpyAsBoolean.bqrs.
+2021-03-25 19:22:35,507 DEBUG    		Starting evaluation of codeql-cpp/Likely Bugs/Likely Typos/inconsistentLoopDirection.ql.
+2021-03-25 19:22:35,739 DEBUG    		[50/150 eval 236ms] Evaluation done; writing results to codeql-cpp/Likely Bugs/Likely Typos/inconsistentLoopDirection.bqrs.
+2021-03-25 19:22:35,740 DEBUG    		Starting evaluation of codeql-cpp/Likely Bugs/Likely Typos/FutileConditional.ql.
+2021-03-25 19:22:35,776 DEBUG    		[51/150 eval 37ms] Evaluation done; writing results to codeql-cpp/Likely Bugs/Likely Typos/FutileConditional.bqrs.
+2021-03-25 19:22:35,777 DEBUG    		Starting evaluation of codeql-cpp/Likely Bugs/Likely Typos/DubiousNullCheck.ql.
+2021-03-25 19:22:35,809 DEBUG    		[52/150 eval 33ms] Evaluation done; writing results to codeql-cpp/Likely Bugs/Likely Typos/DubiousNullCheck.bqrs.
+2021-03-25 19:22:35,811 DEBUG    		Starting evaluation of codeql-cpp/Likely Bugs/Likely Typos/CompareWhereAssignMeant.ql.
+2021-03-25 19:22:35,842 DEBUG    		[53/150 eval 32ms] Evaluation done; writing results to codeql-cpp/Likely Bugs/Likely Typos/CompareWhereAssignMeant.bqrs.
+2021-03-25 19:22:35,843 DEBUG    		Starting evaluation of codeql-cpp/Likely Bugs/Likely Typos/ShortCircuitBitMask.ql.
+2021-03-25 19:22:35,883 DEBUG    		[54/150 eval 40ms] Evaluation done; writing results to codeql-cpp/Likely Bugs/Likely Typos/ShortCircuitBitMask.bqrs.
+2021-03-25 19:22:35,885 DEBUG    		Starting evaluation of codeql-cpp/Likely Bugs/Likely Typos/AssignWhereCompareMeant.ql.
+2021-03-25 19:22:35,974 DEBUG    		[55/150 eval 89ms] Evaluation done; writing results to codeql-cpp/Likely Bugs/Likely Typos/AssignWhereCompareMeant.bqrs.
+2021-03-25 19:22:35,975 DEBUG    		Starting evaluation of codeql-cpp/Likely Bugs/ReturnConstType.ql.
+2021-03-25 19:22:36,003 DEBUG    		[56/150 eval 29ms] Evaluation done; writing results to codeql-cpp/Likely Bugs/ReturnConstType.bqrs.
+2021-03-25 19:22:36,005 DEBUG    		Starting evaluation of codeql-cpp/Likely Bugs/Underspecified Functions/ImplicitFunctionDeclaration.ql.
+2021-03-25 19:22:36,029 DEBUG    		[57/150 eval 26ms] Evaluation done; writing results to codeql-cpp/Likely Bugs/Underspecified Functions/ImplicitFunctionDeclaration.bqrs.
+2021-03-25 19:22:36,031 DEBUG    		Starting evaluation of codeql-cpp/Likely Bugs/Underspecified Functions/TooFewArguments.ql.
+2021-03-25 19:22:36,066 DEBUG    		[58/150 eval 37ms] Evaluation done; writing results to codeql-cpp/Likely Bugs/Underspecified Functions/TooFewArguments.bqrs.
+2021-03-25 19:22:36,068 DEBUG    		Starting evaluation of codeql-cpp/Likely Bugs/Underspecified Functions/TooManyArguments.ql.
+2021-03-25 19:22:36,110 DEBUG    		[59/150 eval 43ms] Evaluation done; writing results to codeql-cpp/Likely Bugs/Underspecified Functions/TooManyArguments.bqrs.
+2021-03-25 19:22:36,112 DEBUG    		Starting evaluation of codeql-cpp/Likely Bugs/ReturnConstTypeMember.ql.
+2021-03-25 19:22:36,150 DEBUG    		[60/150 eval 39ms] Evaluation done; writing results to codeql-cpp/Likely Bugs/ReturnConstTypeMember.bqrs.
+2021-03-25 19:22:36,151 DEBUG    		Starting evaluation of codeql-cpp/jsf/4.24 Control Flow Structures/AV Rule 201.ql.
+2021-03-25 19:22:36,248 DEBUG    		[61/150 eval 97ms] Evaluation done; writing results to codeql-cpp/jsf/4.24 Control Flow Structures/AV Rule 201.bqrs.
+2021-03-25 19:22:36,249 DEBUG    		Starting evaluation of codeql-cpp/jsf/4.24 Control Flow Structures/AV Rule 196.ql.
+2021-03-25 19:22:36,272 DEBUG    		[62/150 eval 22ms] Evaluation done; writing results to codeql-cpp/jsf/4.24 Control Flow Structures/AV Rule 196.bqrs.
+2021-03-25 19:22:36,273 DEBUG    		Starting evaluation of codeql-cpp/jsf/4.24 Control Flow Structures/AV Rule 197.ql.
+2021-03-25 19:22:36,299 DEBUG    		[63/150 eval 26ms] Evaluation done; writing results to codeql-cpp/jsf/4.24 Control Flow Structures/AV Rule 197.bqrs.
+2021-03-25 19:22:36,300 DEBUG    		Starting evaluation of codeql-cpp/jsf/4.10 Classes/AV Rule 79.ql.
+2021-03-25 19:22:36,343 DEBUG    		[64/150 eval 44ms] Evaluation done; writing results to codeql-cpp/jsf/4.10 Classes/AV Rule 79.bqrs.
+2021-03-25 19:22:36,345 DEBUG    		Starting evaluation of codeql-cpp/jsf/4.10 Classes/AV Rule 71.1.ql.
+2021-03-25 19:22:36,378 DEBUG    		[65/150 eval 34ms] Evaluation done; writing results to codeql-cpp/jsf/4.10 Classes/AV Rule 71.1.bqrs.
+2021-03-25 19:22:36,379 DEBUG    		Starting evaluation of codeql-cpp/jsf/4.10 Classes/AV Rule 89.ql.
+2021-03-25 19:22:36,404 DEBUG    		[66/150 eval 26ms] Evaluation done; writing results to codeql-cpp/jsf/4.10 Classes/AV Rule 89.bqrs.
+2021-03-25 19:22:36,406 DEBUG    		Starting evaluation of codeql-cpp/jsf/4.10 Classes/AV Rule 97.ql.
+2021-03-25 19:22:36,433 DEBUG    		[67/150 eval 29ms] Evaluation done; writing results to codeql-cpp/jsf/4.10 Classes/AV Rule 97.bqrs.
+2021-03-25 19:22:36,435 DEBUG    		Starting evaluation of codeql-cpp/jsf/4.10 Classes/AV Rule 82.ql.
+2021-03-25 19:22:36,534 DEBUG    		[68/150 eval 99ms] Evaluation done; writing results to codeql-cpp/jsf/4.10 Classes/AV Rule 82.bqrs.
+2021-03-25 19:22:36,536 DEBUG    		Starting evaluation of codeql-cpp/jsf/4.10 Classes/AV Rule 88.ql.
+2021-03-25 19:22:36,561 DEBUG    		[69/150 eval 27ms] Evaluation done; writing results to codeql-cpp/jsf/4.10 Classes/AV Rule 88.bqrs.
+2021-03-25 19:22:36,563 DEBUG    		Starting evaluation of codeql-cpp/jsf/4.10 Classes/AV Rule 95.ql.
+2021-03-25 19:22:36,585 DEBUG    		[70/150 eval 23ms] Evaluation done; writing results to codeql-cpp/jsf/4.10 Classes/AV Rule 95.bqrs.
+2021-03-25 19:22:36,587 DEBUG    		Starting evaluation of codeql-cpp/jsf/4.07 Header Files/AV Rule 35.ql.
+2021-03-25 19:22:36,727 DEBUG    		[71/150 eval 142ms] Evaluation done; writing results to codeql-cpp/jsf/4.07 Header Files/AV Rule 35.bqrs.
+2021-03-25 19:22:36,729 DEBUG    		Starting evaluation of codeql-cpp/jsf/4.13 Functions/AV Rule 107.ql.
+2021-03-25 19:22:36,754 DEBUG    		[72/150 eval 25ms] Evaluation done; writing results to codeql-cpp/jsf/4.13 Functions/AV Rule 107.bqrs.
+2021-03-25 19:22:36,755 DEBUG    		Starting evaluation of codeql-cpp/jsf/4.13 Functions/AV Rule 114.ql.
+2021-03-25 19:22:36,837 DEBUG    		[73/150 eval 83ms] Evaluation done; writing results to codeql-cpp/jsf/4.13 Functions/AV Rule 114.bqrs.
+2021-03-25 19:22:36,838 DEBUG    		Starting evaluation of codeql-cpp/jsf/4.06 Pre-Processing Directives/AV Rule 32.ql.
+2021-03-25 19:22:36,950 DEBUG    		[74/150 eval 112ms] Evaluation done; writing results to codeql-cpp/jsf/4.06 Pre-Processing Directives/AV Rule 32.bqrs.
+2021-03-25 19:22:36,951 DEBUG    		Starting evaluation of codeql-cpp/jsf/4.16 Initialization/AV Rule 145.ql.
+2021-03-25 19:22:36,973 DEBUG    		[75/150 eval 23ms] Evaluation done; writing results to codeql-cpp/jsf/4.16 Initialization/AV Rule 145.bqrs.
+2021-03-25 19:22:36,974 DEBUG    		Starting evaluation of codeql-cpp/jsf/4.21 Operators/AV Rule 166.ql.
+2021-03-25 19:22:37,128 DEBUG    		[76/150 eval 154ms] Evaluation done; writing results to codeql-cpp/jsf/4.21 Operators/AV Rule 166.bqrs.
+2021-03-25 19:22:37,129 DEBUG    		Starting evaluation of codeql-cpp/Header Cleanup/Cleanup-DuplicateIncludeGuard.ql.
+2021-03-25 19:22:37,234 DEBUG    		[77/150 eval 105ms] Evaluation done; writing results to codeql-cpp/Header Cleanup/Cleanup-DuplicateIncludeGuard.bqrs.
+2021-03-25 19:22:37,235 DEBUG    		Starting evaluation of codeql-cpp/Security/CWE/CWE-120/BadlyBoundedWrite.ql.
+2021-03-25 19:22:37,464 DEBUG    		[78/150 eval 230ms] Evaluation done; writing results to codeql-cpp/Security/CWE/CWE-120/BadlyBoundedWrite.bqrs.
+2021-03-25 19:22:37,466 DEBUG    		Starting evaluation of codeql-cpp/Security/CWE/CWE-134/UncontrolledFormatStringThroughGlobalVar.ql.
+2021-03-25 19:22:38,236 DEBUG    		[79/150 eval 771ms] Evaluation done; writing results to codeql-cpp/Security/CWE/CWE-134/UncontrolledFormatStringThroughGlobalVar.bqrs.
+2021-03-25 19:22:38,238 DEBUG    		Starting evaluation of codeql-cpp/Security/CWE/CWE-134/UncontrolledFormatString.ql.
+2021-03-25 19:22:38,691 DEBUG    		[80/150 eval 453ms] Evaluation done; writing results to codeql-cpp/Security/CWE/CWE-134/UncontrolledFormatString.bqrs.
+2021-03-25 19:22:38,692 DEBUG    		Starting evaluation of codeql-cpp/Security/CWE/CWE-327/OpenSslHeartbleed.ql.
+2021-03-25 19:22:38,727 DEBUG    		[81/150 eval 35ms] Evaluation done; writing results to codeql-cpp/Security/CWE/CWE-327/OpenSslHeartbleed.bqrs.
+2021-03-25 19:22:38,728 DEBUG    		Starting evaluation of codeql-cpp/Security/CWE/CWE-468/SuspiciousAddWithSizeof.ql.
+2021-03-25 19:22:38,755 DEBUG    		[82/150 eval 28ms] Evaluation done; writing results to codeql-cpp/Security/CWE/CWE-468/SuspiciousAddWithSizeof.bqrs.
+2021-03-25 19:22:38,757 DEBUG    		Starting evaluation of codeql-cpp/Security/CWE/CWE-676/PotentiallyDangerousFunction.ql.
+2021-03-25 19:22:38,783 DEBUG    		[83/150 eval 27ms] Evaluation done; writing results to codeql-cpp/Security/CWE/CWE-676/PotentiallyDangerousFunction.bqrs.
+2021-03-25 19:22:38,785 DEBUG    		Starting evaluation of codeql-cpp/Security/CWE/CWE-676/DangerousUseOfCin.ql.
+2021-03-25 19:22:38,883 DEBUG    		[84/150 eval 99ms] Evaluation done; writing results to codeql-cpp/Security/CWE/CWE-676/DangerousUseOfCin.bqrs.
+2021-03-25 19:22:38,885 DEBUG    		Starting evaluation of codeql-cpp/Security/CWE/CWE-676/DangerousFunctionOverflow.ql.
+2021-03-25 19:22:38,912 DEBUG    		[85/150 eval 27ms] Evaluation done; writing results to codeql-cpp/Security/CWE/CWE-676/DangerousFunctionOverflow.bqrs.
+2021-03-25 19:22:38,913 DEBUG    		Starting evaluation of codeql-cpp/Security/CWE/CWE-704/WcharCharConversion.ql.
+2021-03-25 19:22:38,943 DEBUG    		[86/150 eval 31ms] Evaluation done; writing results to codeql-cpp/Security/CWE/CWE-704/WcharCharConversion.bqrs.
+2021-03-25 19:22:38,944 DEBUG    		Starting evaluation of codeql-cpp/Security/CWE/CWE-079/CgiXss.ql.
+2021-03-25 19:22:39,431 DEBUG    		[87/150 eval 487ms] Evaluation done; writing results to codeql-cpp/Security/CWE/CWE-079/CgiXss.bqrs.
+2021-03-25 19:22:39,432 DEBUG    		Starting evaluation of codeql-cpp/Security/CWE/CWE-131/NoSpaceForZeroTerminator.ql.
+2021-03-25 19:22:39,636 DEBUG    		[88/150 eval 205ms] Evaluation done; writing results to codeql-cpp/Security/CWE/CWE-131/NoSpaceForZeroTerminator.bqrs.
+2021-03-25 19:22:39,637 DEBUG    		Starting evaluation of codeql-cpp/Security/CWE/CWE-089/SqlTainted.ql.
+2021-03-25 19:22:39,976 DEBUG    		[89/150 eval 340ms] Evaluation done; writing results to codeql-cpp/Security/CWE/CWE-089/SqlTainted.bqrs.
+2021-03-25 19:22:39,978 DEBUG    		Starting evaluation of codeql-cpp/Security/CWE/CWE-014/MemsetMayBeDeleted.ql.
+2021-03-25 19:22:40,084 DEBUG    		[90/150 eval 106ms] Evaluation done; writing results to codeql-cpp/Security/CWE/CWE-014/MemsetMayBeDeleted.bqrs.
+2021-03-25 19:22:40,085 DEBUG    		Starting evaluation of codeql-cpp/Security/CWE/CWE-732/UnsafeDaclSecurityDescriptor.ql.
+2021-03-25 19:22:40,305 DEBUG    		[91/150 eval 221ms] Evaluation done; writing results to codeql-cpp/Security/CWE/CWE-732/UnsafeDaclSecurityDescriptor.bqrs.
+2021-03-25 19:22:40,307 DEBUG    		Starting evaluation of codeql-cpp/Security/CWE/CWE-253/HResultBooleanConversion.ql.
+2021-03-25 19:22:40,329 DEBUG    		[92/150 eval 23ms] Evaluation done; writing results to codeql-cpp/Security/CWE/CWE-253/HResultBooleanConversion.bqrs.
+2021-03-25 19:22:40,330 DEBUG    		Starting evaluation of codeql-cpp/Security/CWE/CWE-190/ComparisonWithWiderType.ql.
+2021-03-25 19:22:40,479 DEBUG    		[93/150 eval 149ms] Evaluation done; writing results to codeql-cpp/Security/CWE/CWE-190/ComparisonWithWiderType.bqrs.
+2021-03-25 19:22:40,480 DEBUG    		Starting evaluation of codeql-cpp/Critical/LargeParameter.ql.
+2021-03-25 19:22:40,525 DEBUG    		[94/150 eval 45ms] Evaluation done; writing results to codeql-cpp/Critical/LargeParameter.bqrs.
+2021-03-25 19:22:40,526 DEBUG    		Starting evaluation of codeql-cpp/Critical/NewArrayDeleteMismatch.ql.
+2021-03-25 19:22:40,709 DEBUG    		[95/150 eval 183ms] Evaluation done; writing results to codeql-cpp/Critical/NewArrayDeleteMismatch.bqrs.
+2021-03-25 19:22:40,710 DEBUG    		Starting evaluation of codeql-cpp/Critical/DeadCodeGoto.ql.
+2021-03-25 19:22:40,742 DEBUG    		[96/150 eval 33ms] Evaluation done; writing results to codeql-cpp/Critical/DeadCodeGoto.bqrs.
+2021-03-25 19:22:40,743 DEBUG    		Starting evaluation of codeql-cpp/Critical/NewDeleteArrayMismatch.ql.
+2021-03-25 19:22:40,925 DEBUG    		[97/150 eval 183ms] Evaluation done; writing results to codeql-cpp/Critical/NewDeleteArrayMismatch.bqrs.
+2021-03-25 19:22:40,926 DEBUG    		Starting evaluation of codeql-cpp/Critical/NewFreeMismatch.ql.
+2021-03-25 19:22:41,110 DEBUG    		[98/150 eval 185ms] Evaluation done; writing results to codeql-cpp/Critical/NewFreeMismatch.bqrs.
+2021-03-25 19:22:41,111 DEBUG    		Starting evaluation of codeql-cpp/Documentation/CommentedOutCode.ql.
+2021-03-25 19:22:41,580 DEBUG    		[99/150 eval 470ms] Evaluation done; writing results to codeql-cpp/Documentation/CommentedOutCode.bqrs.
+2021-03-25 19:22:41,581 DEBUG    		Starting evaluation of codeql-cpp/Documentation/FixmeComments.ql.
+2021-03-25 19:22:41,624 DEBUG    		[100/150 eval 43ms] Evaluation done; writing results to codeql-cpp/Documentation/FixmeComments.bqrs.
+2021-03-25 19:22:41,625 DEBUG    		Starting evaluation of codeql-cpp/Best Practices/Likely Errors/OffsetUseBeforeRangeCheck.ql.
+2021-03-25 19:22:41,652 DEBUG    		[101/150 eval 28ms] Evaluation done; writing results to codeql-cpp/Best Practices/Likely Errors/OffsetUseBeforeRangeCheck.bqrs.
+2021-03-25 19:22:41,654 DEBUG    		Starting evaluation of codeql-cpp/Likely Bugs/Conversion/LossyFunctionResultCast.ql.
+2021-03-25 19:22:41,838 DEBUG    		[102/150 eval 185ms] Evaluation done; writing results to codeql-cpp/Likely Bugs/Conversion/LossyFunctionResultCast.bqrs.
+2021-03-25 19:22:41,839 DEBUG    		Starting evaluation of codeql-cpp/Likely Bugs/InconsistentCheckReturnNull.ql.
+2021-03-25 19:22:41,883 DEBUG    		[103/150 eval 44ms] Evaluation done; writing results to codeql-cpp/Likely Bugs/InconsistentCheckReturnNull.bqrs.
+2021-03-25 19:22:41,885 DEBUG    		Starting evaluation of codeql-cpp/Likely Bugs/InconsistentCallOnResult.ql.
+2021-03-25 19:22:41,912 DEBUG    		[104/150 eval 29ms] Evaluation done; writing results to codeql-cpp/Likely Bugs/InconsistentCallOnResult.bqrs.
+2021-03-25 19:22:41,913 DEBUG    		Starting evaluation of codeql-cpp/Likely Bugs/Memory Management/SuspiciousCallToStrncat.ql.
+2021-03-25 19:22:41,938 DEBUG    		[105/150 eval 26ms] Evaluation done; writing results to codeql-cpp/Likely Bugs/Memory Management/SuspiciousCallToStrncat.bqrs.
+2021-03-25 19:22:41,940 DEBUG    		Starting evaluation of codeql-cpp/Likely Bugs/Memory Management/SuspiciousSizeof.ql.
+2021-03-25 19:22:41,964 DEBUG    		[106/150 eval 25ms] Evaluation done; writing results to codeql-cpp/Likely Bugs/Memory Management/SuspiciousSizeof.bqrs.
+2021-03-25 19:22:41,966 DEBUG    		Starting evaluation of codeql-cpp/Likely Bugs/Memory Management/UnsafeUseOfStrcat.ql.
+2021-03-25 19:22:41,997 DEBUG    		[107/150 eval 32ms] Evaluation done; writing results to codeql-cpp/Likely Bugs/Memory Management/UnsafeUseOfStrcat.bqrs.
+2021-03-25 19:22:41,999 DEBUG    		Starting evaluation of codeql-cpp/Likely Bugs/Memory Management/UninitializedLocal.ql.
+2021-03-25 19:22:42,122 DEBUG    		[108/150 eval 125ms] Evaluation done; writing results to codeql-cpp/Likely Bugs/Memory Management/UninitializedLocal.bqrs.
+2021-03-25 19:22:42,124 DEBUG    		Starting evaluation of codeql-cpp/Likely Bugs/Memory Management/StrncpyFlippedArgs.ql.
+2021-03-25 19:22:42,343 DEBUG    		[109/150 eval 220ms] Evaluation done; writing results to codeql-cpp/Likely Bugs/Memory Management/StrncpyFlippedArgs.bqrs.
+2021-03-25 19:22:42,344 DEBUG    		Starting evaluation of codeql-cpp/Likely Bugs/Memory Management/StackAddressEscapes.ql.
+2021-03-25 19:22:42,462 DEBUG    		[110/150 eval 117ms] Evaluation done; writing results to codeql-cpp/Likely Bugs/Memory Management/StackAddressEscapes.bqrs.
+2021-03-25 19:22:42,464 DEBUG    		Starting evaluation of codeql-cpp/Likely Bugs/Arithmetic/BadCheckOdd.ql.
+2021-03-25 19:22:42,485 DEBUG    		[111/150 eval 23ms] Evaluation done; writing results to codeql-cpp/Likely Bugs/Arithmetic/BadCheckOdd.bqrs.
+2021-03-25 19:22:42,487 DEBUG    		Starting evaluation of codeql-cpp/Likely Bugs/NestedLoopSameVar.ql.
+2021-03-25 19:22:42,574 DEBUG    		[112/150 eval 88ms] Evaluation done; writing results to codeql-cpp/Likely Bugs/NestedLoopSameVar.bqrs.
+2021-03-25 19:22:42,575 DEBUG    		Starting evaluation of codeql-cpp/Likely Bugs/Likely Typos/MissingEnumCaseInSwitch.ql.
+2021-03-25 19:22:42,595 DEBUG    		[113/150 eval 20ms] Evaluation done; writing results to codeql-cpp/Likely Bugs/Likely Typos/MissingEnumCaseInSwitch.bqrs.
+2021-03-25 19:22:42,596 DEBUG    		Starting evaluation of codeql-cpp/Likely Bugs/Likely Typos/IncorrectNotOperatorUsage.ql.
+2021-03-25 19:22:42,615 DEBUG    		[114/150 eval 19ms] Evaluation done; writing results to codeql-cpp/Likely Bugs/Likely Typos/IncorrectNotOperatorUsage.bqrs.
+2021-03-25 19:22:42,616 DEBUG    		Starting evaluation of codeql-cpp/Likely Bugs/Underspecified Functions/MistypedFunctionArguments.ql.
+2021-03-25 19:22:42,666 DEBUG    		[115/150 eval 51ms] Evaluation done; writing results to codeql-cpp/Likely Bugs/Underspecified Functions/MistypedFunctionArguments.bqrs.
+2021-03-25 19:22:42,668 DEBUG    		Starting evaluation of codeql-cpp/Likely Bugs/Leap Year/Adding365DaysPerYear.ql.
+2021-03-25 19:22:42,876 DEBUG    		[116/150 eval 210ms] Evaluation done; writing results to codeql-cpp/Likely Bugs/Leap Year/Adding365DaysPerYear.bqrs.
+2021-03-25 19:22:42,878 DEBUG    		Starting evaluation of codeql-cpp/Likely Bugs/Leap Year/UncheckedLeapYearAfterYearModification.ql.
+2021-03-25 19:22:43,075 DEBUG    		[117/150 eval 196ms] Evaluation done; writing results to codeql-cpp/Likely Bugs/Leap Year/UncheckedLeapYearAfterYearModification.bqrs.
+2021-03-25 19:22:43,077 DEBUG    		Starting evaluation of codeql-cpp/Likely Bugs/Leap Year/UncheckedReturnValueForTimeFunctions.ql.
+2021-03-25 19:22:43,184 DEBUG    		[118/150 eval 107ms] Evaluation done; writing results to codeql-cpp/Likely Bugs/Leap Year/UncheckedReturnValueForTimeFunctions.bqrs.
+2021-03-25 19:22:43,186 DEBUG    		Starting evaluation of codeql-cpp/jsf/4.17 Types/AV Rule 148.ql.
+2021-03-25 19:22:43,207 DEBUG    		[119/150 eval 21ms] Evaluation done; writing results to codeql-cpp/jsf/4.17 Types/AV Rule 148.bqrs.
+2021-03-25 19:22:43,214 DEBUG    		Starting evaluation of codeql-cpp/Security/CWE/CWE-120/OverrunWrite.ql.
+2021-03-25 19:22:43,551 DEBUG    		[120/150 eval 337ms] Evaluation done; writing results to codeql-cpp/Security/CWE/CWE-120/OverrunWrite.bqrs.
+2021-03-25 19:22:43,553 DEBUG    		Starting evaluation of codeql-cpp/Security/CWE/CWE-120/UnboundedWrite.ql.
+2021-03-25 19:22:44,104 DEBUG    		[121/150 eval 552ms] Evaluation done; writing results to codeql-cpp/Security/CWE/CWE-120/UnboundedWrite.bqrs.
+2021-03-25 19:22:44,105 DEBUG    		Starting evaluation of codeql-cpp/Security/CWE/CWE-120/OverrunWriteFloat.ql.
+2021-03-25 19:22:44,369 DEBUG    		[122/150 eval 264ms] Evaluation done; writing results to codeql-cpp/Security/CWE/CWE-120/OverrunWriteFloat.bqrs.
+2021-03-25 19:22:44,371 DEBUG    		Starting evaluation of codeql-cpp/Security/CWE/CWE-022/TaintedPath.ql.
+2021-03-25 19:22:44,807 DEBUG    		[123/150 eval 438ms] Evaluation done; writing results to codeql-cpp/Security/CWE/CWE-022/TaintedPath.bqrs.
+2021-03-25 19:22:44,809 DEBUG    		Starting evaluation of codeql-cpp/Security/CWE/CWE-313/CleartextSqliteDatabase.ql.
+2021-03-25 19:22:45,246 DEBUG    		[124/150 eval 439ms] Evaluation done; writing results to codeql-cpp/Security/CWE/CWE-313/CleartextSqliteDatabase.bqrs.
+2021-03-25 19:22:45,248 DEBUG    		Starting evaluation of codeql-cpp/Security/CWE/CWE-428/UnsafeCreateProcessCall.ql.
+2021-03-25 19:22:45,469 DEBUG    		[125/150 eval 222ms] Evaluation done; writing results to codeql-cpp/Security/CWE/CWE-428/UnsafeCreateProcessCall.bqrs.
+2021-03-25 19:22:45,470 DEBUG    		Starting evaluation of codeql-cpp/Security/CWE/CWE-114/UncontrolledProcessOperation.ql.
+2021-03-25 19:22:45,916 DEBUG    		[126/150 eval 447ms] Evaluation done; writing results to codeql-cpp/Security/CWE/CWE-114/UncontrolledProcessOperation.bqrs.
+2021-03-25 19:22:45,918 DEBUG    		Starting evaluation of codeql-cpp/Security/CWE/CWE-121/UnterminatedVarargsCall.ql.
+2021-03-25 19:22:45,976 DEBUG    		[127/150 eval 59ms] Evaluation done; writing results to codeql-cpp/Security/CWE/CWE-121/UnterminatedVarargsCall.bqrs.
+2021-03-25 19:22:45,978 DEBUG    		Starting evaluation of codeql-cpp/Security/CWE/CWE-807/TaintedCondition.ql.
+2021-03-25 19:22:46,342 DEBUG    		[128/150 eval 365ms] Evaluation done; writing results to codeql-cpp/Security/CWE/CWE-807/TaintedCondition.bqrs.
+2021-03-25 19:22:46,344 DEBUG    		Starting evaluation of codeql-cpp/Security/CWE/CWE-191/UnsignedDifferenceExpressionComparedZero.ql.
+2021-03-25 19:22:46,633 DEBUG    		[129/150 eval 291ms] Evaluation done; writing results to codeql-cpp/Security/CWE/CWE-191/UnsignedDifferenceExpressionComparedZero.bqrs.
+2021-03-25 19:22:46,635 DEBUG    		Starting evaluation of codeql-cpp/Security/CWE/CWE-327/BrokenCryptoAlgorithm.ql.
+2021-03-25 19:22:46,715 DEBUG    		[130/150 eval 80ms] Evaluation done; writing results to codeql-cpp/Security/CWE/CWE-327/BrokenCryptoAlgorithm.bqrs.
+2021-03-25 19:22:46,716 DEBUG    		Starting evaluation of codeql-cpp/Security/CWE/CWE-468/IncorrectPointerScaling.ql.
+2021-03-25 19:22:46,820 DEBUG    		[131/150 eval 105ms] Evaluation done; writing results to codeql-cpp/Security/CWE/CWE-468/IncorrectPointerScaling.bqrs.
+2021-03-25 19:22:46,822 DEBUG    		Starting evaluation of codeql-cpp/Security/CWE/CWE-468/IncorrectPointerScalingVoid.ql.
+2021-03-25 19:22:46,906 DEBUG    		[132/150 eval 85ms] Evaluation done; writing results to codeql-cpp/Security/CWE/CWE-468/IncorrectPointerScalingVoid.bqrs.
+2021-03-25 19:22:46,907 DEBUG    		Starting evaluation of codeql-cpp/Security/CWE/CWE-367/TOCTOUFilesystemRace.ql.
+2021-03-25 19:22:46,995 DEBUG    		[133/150 eval 89ms] Evaluation done; writing results to codeql-cpp/Security/CWE/CWE-367/TOCTOUFilesystemRace.bqrs.
+2021-03-25 19:22:46,996 DEBUG    		Starting evaluation of codeql-cpp/Security/CWE/CWE-290/AuthenticationBypass.ql.
+2021-03-25 19:22:47,494 DEBUG    		[134/150 eval 499ms] Evaluation done; writing results to codeql-cpp/Security/CWE/CWE-290/AuthenticationBypass.bqrs.
+2021-03-25 19:22:47,496 DEBUG    		Starting evaluation of codeql-cpp/Security/CWE/CWE-732/DoNotCreateWorldWritable.ql.
+2021-03-25 19:22:47,590 DEBUG    		[135/150 eval 95ms] Evaluation done; writing results to codeql-cpp/Security/CWE/CWE-732/DoNotCreateWorldWritable.bqrs.
+2021-03-25 19:22:47,592 DEBUG    		Starting evaluation of codeql-cpp/Security/CWE/CWE-311/CleartextFileWrite.ql.
+2021-03-25 19:22:47,646 DEBUG    		[136/150 eval 56ms] Evaluation done; writing results to codeql-cpp/Security/CWE/CWE-311/CleartextFileWrite.bqrs.
+2021-03-25 19:22:47,648 DEBUG    		Starting evaluation of codeql-cpp/Security/CWE/CWE-311/CleartextBufferWrite.ql.
+2021-03-25 19:22:48,053 DEBUG    		[137/150 eval 406ms] Evaluation done; writing results to codeql-cpp/Security/CWE/CWE-311/CleartextBufferWrite.bqrs.
+2021-03-25 19:22:48,054 DEBUG    		Starting evaluation of codeql-cpp/Security/CWE/CWE-190/TaintedAllocationSize.ql.
+2021-03-25 19:22:48,352 DEBUG    		[138/150 eval 299ms] Evaluation done; writing results to codeql-cpp/Security/CWE/CWE-190/TaintedAllocationSize.bqrs.
+2021-03-25 19:22:48,354 DEBUG    		Starting evaluation of codeql-cpp/Security/CWE/CWE-190/ArithmeticUncontrolled.ql.
+2021-03-25 19:22:48,705 DEBUG    		[139/150 eval 353ms] Evaluation done; writing results to codeql-cpp/Security/CWE/CWE-190/ArithmeticUncontrolled.bqrs.
+2021-03-25 19:22:48,706 DEBUG    		Starting evaluation of codeql-cpp/Critical/SizeCheck.ql.
+2021-03-25 19:22:48,735 DEBUG    		[140/150 eval 30ms] Evaluation done; writing results to codeql-cpp/Critical/SizeCheck.bqrs.
+2021-03-25 19:22:48,736 DEBUG    		Starting evaluation of codeql-cpp/Critical/OverflowStatic.ql.
+2021-03-25 19:22:48,930 DEBUG    		[141/150 eval 195ms] Evaluation done; writing results to codeql-cpp/Critical/OverflowStatic.bqrs.
+2021-03-25 19:22:48,931 DEBUG    		Starting evaluation of codeql-cpp/Critical/SizeCheck2.ql.
+2021-03-25 19:22:48,960 DEBUG    		[142/150 eval 29ms] Evaluation done; writing results to codeql-cpp/Critical/SizeCheck2.bqrs.
+2021-03-25 19:22:48,962 DEBUG    		Starting evaluation of codeql-cpp/Documentation/UncommentedFunction.ql.
+2021-03-25 19:22:48,988 DEBUG    		[143/150 eval 25ms] Evaluation done; writing results to codeql-cpp/Documentation/UncommentedFunction.bqrs.
+2021-03-25 19:22:48,989 DEBUG    		Starting evaluation of codeql-cpp/filters/ClassifyFiles.ql.
+2021-03-25 19:22:49,035 DEBUG    		[144/150 eval 47ms] Evaluation done; writing results to codeql-cpp/filters/ClassifyFiles.bqrs.
+2021-03-25 19:22:49,036 DEBUG    		Starting evaluation of codeql-cpp/AlertSuppression.ql.
+2021-03-25 19:22:49,126 DEBUG    		[145/150 eval 90ms] Evaluation done; writing results to codeql-cpp/AlertSuppression.bqrs.
+2021-03-25 19:22:49,127 DEBUG    		Starting evaluation of codeql-cpp/definitions.ql.
+2021-03-25 19:22:49,307 DEBUG    		[146/150 eval 180ms] Evaluation done; writing results to codeql-cpp/definitions.bqrs.
+2021-03-25 19:22:49,308 DEBUG    		Starting evaluation of codeql-cpp/Metrics/Files/FLinesOfCode.ql.
+2021-03-25 19:22:49,340 DEBUG    		[147/150 eval 33ms] Evaluation done; writing results to codeql-cpp/Metrics/Files/FLinesOfCode.bqrs.
+2021-03-25 19:22:49,345 DEBUG    		Starting evaluation of codeql-cpp/Metrics/Files/FLinesOfCommentedOutCode.ql.
+2021-03-25 19:22:49,630 DEBUG    		[148/150 eval 289ms] Evaluation done; writing results to codeql-cpp/Metrics/Files/FLinesOfCommentedOutCode.bqrs.
+2021-03-25 19:22:49,631 DEBUG    		Starting evaluation of codeql-cpp/Metrics/Files/FLinesOfComments.ql.
+2021-03-25 19:22:49,670 DEBUG    		[149/150 eval 40ms] Evaluation done; writing results to codeql-cpp/Metrics/Files/FLinesOfComments.bqrs.
+2021-03-25 19:22:49,671 DEBUG    		Starting evaluation of codeql-cpp/Metrics/Files/FNumberOfTests.ql.
+2021-03-25 19:22:49,697 DEBUG    		[150/150 eval 26ms] Evaluation done; writing results to codeql-cpp/Metrics/Files/FNumberOfTests.bqrs.
+2021-03-25 19:22:49,698 DEBUG    		Shutting down query evaluator.
+2021-03-25 19:22:50,024 DEBUG    		Interpreting results.
+2021-03-25 19:22:52,381 INFO     
+2021-03-25 19:22:52,382 INFO     	>> Executing command: /opt/local/codeql/codeql-cli/codeql database analyze /root/scrub_working_dir/codeql_analysis/db /opt/local/codeql/queries/cpp/ql/src/"Power of 10" --format sarif-latest --output /root/scrub_working_dir/codeql_analysis/codeql_p10_raw.sarif 
+2021-03-25 19:22:52,385 INFO     	>> From directory: /opt/project/test/integration_tests/c_testcase
+2021-03-25 19:22:52,387 DEBUG    	Console output:
+2021-03-25 19:22:53,343 DEBUG    		Running queries.
+2021-03-25 19:22:54,911 DEBUG    		Compiling query plan for /opt/local/codeql/queries/cpp/ql/src/Power of 10/Rule 5/AssertionDensity.ql.
+2021-03-25 19:22:56,074 DEBUG    		[1/23] Found in cache: /opt/local/codeql/queries/cpp/ql/src/Power of 10/Rule 5/AssertionDensity.ql.
+2021-03-25 19:22:56,132 DEBUG    		Compiling query plan for /opt/local/codeql/queries/cpp/ql/src/Power of 10/Rule 5/NonBooleanAssertion.ql.
+2021-03-25 19:22:56,591 DEBUG    		[2/23] Found in cache: /opt/local/codeql/queries/cpp/ql/src/Power of 10/Rule 5/NonBooleanAssertion.ql.
+2021-03-25 19:22:56,628 DEBUG    		Compiling query plan for /opt/local/codeql/queries/cpp/ql/src/Power of 10/Rule 5/AssertionSideEffect.ql.
+2021-03-25 19:22:57,017 DEBUG    		[3/23] Found in cache: /opt/local/codeql/queries/cpp/ql/src/Power of 10/Rule 5/AssertionSideEffect.ql.
+2021-03-25 19:22:57,064 DEBUG    		Compiling query plan for /opt/local/codeql/queries/cpp/ql/src/Power of 10/Rule 5/ConstantAssertion.ql.
+2021-03-25 19:22:57,340 DEBUG    		[4/23] Found in cache: /opt/local/codeql/queries/cpp/ql/src/Power of 10/Rule 5/ConstantAssertion.ql.
+2021-03-25 19:22:57,363 DEBUG    		Compiling query plan for /opt/local/codeql/queries/cpp/ql/src/Power of 10/Rule 1/UseOfRecursion.ql.
+2021-03-25 19:22:57,620 DEBUG    		[5/23] Found in cache: /opt/local/codeql/queries/cpp/ql/src/Power of 10/Rule 1/UseOfRecursion.ql.
+2021-03-25 19:22:57,641 DEBUG    		Compiling query plan for /opt/local/codeql/queries/cpp/ql/src/Power of 10/Rule 1/UseOfGoto.ql.
+2021-03-25 19:22:57,841 DEBUG    		[6/23] Found in cache: /opt/local/codeql/queries/cpp/ql/src/Power of 10/Rule 1/UseOfGoto.ql.
+2021-03-25 19:22:57,859 DEBUG    		Compiling query plan for /opt/local/codeql/queries/cpp/ql/src/Power of 10/Rule 1/UseOfJmp.ql.
+2021-03-25 19:22:58,033 DEBUG    		[7/23] Found in cache: /opt/local/codeql/queries/cpp/ql/src/Power of 10/Rule 1/UseOfJmp.ql.
+2021-03-25 19:22:58,052 DEBUG    		Compiling query plan for /opt/local/codeql/queries/cpp/ql/src/Power of 10/Rule 9/HiddenPointerIndirection.ql.
+2021-03-25 19:22:58,256 DEBUG    		[8/23] Found in cache: /opt/local/codeql/queries/cpp/ql/src/Power of 10/Rule 9/HiddenPointerIndirection.ql.
+2021-03-25 19:22:58,277 DEBUG    		Compiling query plan for /opt/local/codeql/queries/cpp/ql/src/Power of 10/Rule 9/PointerNesting.ql.
+2021-03-25 19:22:58,457 DEBUG    		[9/23] Found in cache: /opt/local/codeql/queries/cpp/ql/src/Power of 10/Rule 9/PointerNesting.ql.
+2021-03-25 19:22:58,474 DEBUG    		Compiling query plan for /opt/local/codeql/queries/cpp/ql/src/Power of 10/Rule 9/FunctionPointer.ql.
+2021-03-25 19:22:58,694 DEBUG    		[10/23] Found in cache: /opt/local/codeql/queries/cpp/ql/src/Power of 10/Rule 9/FunctionPointer.ql.
+2021-03-25 19:22:58,708 DEBUG    		Compiling query plan for /opt/local/codeql/queries/cpp/ql/src/Power of 10/Rule 2/ExitPermanentLoop.ql.
+2021-03-25 19:22:58,874 DEBUG    		[11/23] Found in cache: /opt/local/codeql/queries/cpp/ql/src/Power of 10/Rule 2/ExitPermanentLoop.ql.
+2021-03-25 19:22:58,887 DEBUG    		Compiling query plan for /opt/local/codeql/queries/cpp/ql/src/Power of 10/Rule 2/BoundedLoopIterations.ql.
+2021-03-25 19:22:59,126 DEBUG    		[12/23] Found in cache: /opt/local/codeql/queries/cpp/ql/src/Power of 10/Rule 2/BoundedLoopIterations.ql.
+2021-03-25 19:22:59,155 DEBUG    		Compiling query plan for /opt/local/codeql/queries/cpp/ql/src/Power of 10/Rule 8/RestrictPreprocessor.ql.
+2021-03-25 19:22:59,344 DEBUG    		[13/23] Found in cache: /opt/local/codeql/queries/cpp/ql/src/Power of 10/Rule 8/RestrictPreprocessor.ql.
+2021-03-25 19:22:59,359 DEBUG    		Compiling query plan for /opt/local/codeql/queries/cpp/ql/src/Power of 10/Rule 8/AvoidConditionalCompilation.ql.
+2021-03-25 19:22:59,532 DEBUG    		[14/23] Found in cache: /opt/local/codeql/queries/cpp/ql/src/Power of 10/Rule 8/AvoidConditionalCompilation.ql.
+2021-03-25 19:22:59,545 DEBUG    		Compiling query plan for /opt/local/codeql/queries/cpp/ql/src/Power of 10/Rule 8/PartialMacro.ql.
+2021-03-25 19:22:59,694 DEBUG    		[15/23] Found in cache: /opt/local/codeql/queries/cpp/ql/src/Power of 10/Rule 8/PartialMacro.ql.
+2021-03-25 19:22:59,711 DEBUG    		Compiling query plan for /opt/local/codeql/queries/cpp/ql/src/Power of 10/Rule 8/UndisciplinedMacro.ql.
+2021-03-25 19:22:59,865 DEBUG    		[16/23] Found in cache: /opt/local/codeql/queries/cpp/ql/src/Power of 10/Rule 8/UndisciplinedMacro.ql.
+2021-03-25 19:22:59,877 DEBUG    		Compiling query plan for /opt/local/codeql/queries/cpp/ql/src/Power of 10/Rule 3/DynamicAllocAfterInit.ql.
+2021-03-25 19:23:00,046 DEBUG    		[17/23] Found in cache: /opt/local/codeql/queries/cpp/ql/src/Power of 10/Rule 3/DynamicAllocAfterInit.ql.
+2021-03-25 19:23:00,058 DEBUG    		Compiling query plan for /opt/local/codeql/queries/cpp/ql/src/Power of 10/Rule 4/FunctionTooLong.ql.
+2021-03-25 19:23:00,245 DEBUG    		[18/23] Found in cache: /opt/local/codeql/queries/cpp/ql/src/Power of 10/Rule 4/FunctionTooLong.ql.
+2021-03-25 19:23:00,260 DEBUG    		Compiling query plan for /opt/local/codeql/queries/cpp/ql/src/Power of 10/Rule 4/OneStmtPerLine.ql.
+2021-03-25 19:23:00,435 DEBUG    		[19/23] Found in cache: /opt/local/codeql/queries/cpp/ql/src/Power of 10/Rule 4/OneStmtPerLine.ql.
+2021-03-25 19:23:00,449 DEBUG    		Compiling query plan for /opt/local/codeql/queries/cpp/ql/src/Power of 10/Rule 6/VariableScopeTooLarge.ql.
+2021-03-25 19:23:00,614 DEBUG    		[20/23] Found in cache: /opt/local/codeql/queries/cpp/ql/src/Power of 10/Rule 6/VariableScopeTooLarge.ql.
+2021-03-25 19:23:00,624 DEBUG    		Compiling query plan for /opt/local/codeql/queries/cpp/ql/src/Power of 10/Rule 6/GlobalCouldBeStatic.ql.
+2021-03-25 19:23:00,780 DEBUG    		[21/23] Found in cache: /opt/local/codeql/queries/cpp/ql/src/Power of 10/Rule 6/GlobalCouldBeStatic.ql.
+2021-03-25 19:23:00,806 DEBUG    		Compiling query plan for /opt/local/codeql/queries/cpp/ql/src/Power of 10/Rule 7/CheckReturnValues.ql.
+2021-03-25 19:23:00,999 DEBUG    		[22/23] Found in cache: /opt/local/codeql/queries/cpp/ql/src/Power of 10/Rule 7/CheckReturnValues.ql.
+2021-03-25 19:23:01,031 DEBUG    		Compiling query plan for /opt/local/codeql/queries/cpp/ql/src/Power of 10/Rule 7/CheckArguments.ql.
+2021-03-25 19:23:01,229 DEBUG    		[23/23] Found in cache: /opt/local/codeql/queries/cpp/ql/src/Power of 10/Rule 7/CheckArguments.ql.
+2021-03-25 19:23:01,243 DEBUG    		Starting evaluation of codeql-cpp/Power of 10/Rule 5/AssertionDensity.ql.
+2021-03-25 19:23:02,216 DEBUG    		[1/23 eval 973ms] Evaluation done; writing results to codeql-cpp/Power of 10/Rule 5/AssertionDensity.bqrs.
+2021-03-25 19:23:02,220 DEBUG    		Starting evaluation of codeql-cpp/Power of 10/Rule 5/NonBooleanAssertion.ql.
+2021-03-25 19:23:02,282 DEBUG    		[2/23 eval 61ms] Evaluation done; writing results to codeql-cpp/Power of 10/Rule 5/NonBooleanAssertion.bqrs.
+2021-03-25 19:23:02,284 DEBUG    		Starting evaluation of codeql-cpp/Power of 10/Rule 5/AssertionSideEffect.ql.
+2021-03-25 19:23:02,399 DEBUG    		[3/23 eval 115ms] Evaluation done; writing results to codeql-cpp/Power of 10/Rule 5/AssertionSideEffect.bqrs.
+2021-03-25 19:23:02,400 DEBUG    		Starting evaluation of codeql-cpp/Power of 10/Rule 5/ConstantAssertion.ql.
+2021-03-25 19:23:02,462 DEBUG    		[4/23 eval 61ms] Evaluation done; writing results to codeql-cpp/Power of 10/Rule 5/ConstantAssertion.bqrs.
+2021-03-25 19:23:02,464 DEBUG    		Starting evaluation of codeql-cpp/Power of 10/Rule 1/UseOfRecursion.ql.
+2021-03-25 19:23:02,534 DEBUG    		[5/23 eval 70ms] Evaluation done; writing results to codeql-cpp/Power of 10/Rule 1/UseOfRecursion.bqrs.
+2021-03-25 19:23:02,536 DEBUG    		Starting evaluation of codeql-cpp/Power of 10/Rule 1/UseOfGoto.ql.
+2021-03-25 19:23:02,566 DEBUG    		[6/23 eval 29ms] Evaluation done; writing results to codeql-cpp/Power of 10/Rule 1/UseOfGoto.bqrs.
+2021-03-25 19:23:02,567 DEBUG    		Starting evaluation of codeql-cpp/Power of 10/Rule 1/UseOfJmp.ql.
+2021-03-25 19:23:02,610 DEBUG    		[7/23 eval 44ms] Evaluation done; writing results to codeql-cpp/Power of 10/Rule 1/UseOfJmp.bqrs.
+2021-03-25 19:23:02,612 DEBUG    		Starting evaluation of codeql-cpp/Power of 10/Rule 9/HiddenPointerIndirection.ql.
+2021-03-25 19:23:02,712 DEBUG    		[8/23 eval 99ms] Evaluation done; writing results to codeql-cpp/Power of 10/Rule 9/HiddenPointerIndirection.bqrs.
+2021-03-25 19:23:02,713 DEBUG    		Starting evaluation of codeql-cpp/Power of 10/Rule 9/PointerNesting.ql.
+2021-03-25 19:23:02,783 DEBUG    		[9/23 eval 70ms] Evaluation done; writing results to codeql-cpp/Power of 10/Rule 9/PointerNesting.bqrs.
+2021-03-25 19:23:02,785 DEBUG    		Starting evaluation of codeql-cpp/Power of 10/Rule 9/FunctionPointer.ql.
+2021-03-25 19:23:02,832 DEBUG    		[10/23 eval 45ms] Evaluation done; writing results to codeql-cpp/Power of 10/Rule 9/FunctionPointer.bqrs.
+2021-03-25 19:23:02,834 DEBUG    		Starting evaluation of codeql-cpp/Power of 10/Rule 2/ExitPermanentLoop.ql.
+2021-03-25 19:23:02,896 DEBUG    		[11/23 eval 62ms] Evaluation done; writing results to codeql-cpp/Power of 10/Rule 2/ExitPermanentLoop.bqrs.
+2021-03-25 19:23:02,898 DEBUG    		Starting evaluation of codeql-cpp/Power of 10/Rule 2/BoundedLoopIterations.ql.
+2021-03-25 19:23:03,182 DEBUG    		[12/23 eval 284ms] Evaluation done; writing results to codeql-cpp/Power of 10/Rule 2/BoundedLoopIterations.bqrs.
+2021-03-25 19:23:03,183 DEBUG    		Starting evaluation of codeql-cpp/Power of 10/Rule 8/RestrictPreprocessor.ql.
+2021-03-25 19:23:03,221 DEBUG    		[13/23 eval 39ms] Evaluation done; writing results to codeql-cpp/Power of 10/Rule 8/RestrictPreprocessor.bqrs.
+2021-03-25 19:23:03,225 DEBUG    		Starting evaluation of codeql-cpp/Power of 10/Rule 8/AvoidConditionalCompilation.ql.
+2021-03-25 19:23:03,300 DEBUG    		[14/23 eval 74ms] Evaluation done; writing results to codeql-cpp/Power of 10/Rule 8/AvoidConditionalCompilation.bqrs.
+2021-03-25 19:23:03,302 DEBUG    		Starting evaluation of codeql-cpp/Power of 10/Rule 8/PartialMacro.ql.
+2021-03-25 19:23:03,388 DEBUG    		[15/23 eval 87ms] Evaluation done; writing results to codeql-cpp/Power of 10/Rule 8/PartialMacro.bqrs.
+2021-03-25 19:23:03,390 DEBUG    		Starting evaluation of codeql-cpp/Power of 10/Rule 8/UndisciplinedMacro.ql.
+2021-03-25 19:23:03,417 DEBUG    		[16/23 eval 29ms] Evaluation done; writing results to codeql-cpp/Power of 10/Rule 8/UndisciplinedMacro.bqrs.
+2021-03-25 19:23:03,419 DEBUG    		Starting evaluation of codeql-cpp/Power of 10/Rule 3/DynamicAllocAfterInit.ql.
+2021-03-25 19:23:03,455 DEBUG    		[17/23 eval 35ms] Evaluation done; writing results to codeql-cpp/Power of 10/Rule 3/DynamicAllocAfterInit.bqrs.
+2021-03-25 19:23:03,456 DEBUG    		Starting evaluation of codeql-cpp/Power of 10/Rule 4/FunctionTooLong.ql.
+2021-03-25 19:23:03,531 DEBUG    		[18/23 eval 75ms] Evaluation done; writing results to codeql-cpp/Power of 10/Rule 4/FunctionTooLong.bqrs.
+2021-03-25 19:23:03,532 DEBUG    		Starting evaluation of codeql-cpp/Power of 10/Rule 4/OneStmtPerLine.ql.
+2021-03-25 19:23:03,588 DEBUG    		[19/23 eval 56ms] Evaluation done; writing results to codeql-cpp/Power of 10/Rule 4/OneStmtPerLine.bqrs.
+2021-03-25 19:23:03,589 DEBUG    		Starting evaluation of codeql-cpp/Power of 10/Rule 6/VariableScopeTooLarge.ql.
+2021-03-25 19:23:03,630 DEBUG    		[20/23 eval 41ms] Evaluation done; writing results to codeql-cpp/Power of 10/Rule 6/VariableScopeTooLarge.bqrs.
+2021-03-25 19:23:03,631 DEBUG    		Starting evaluation of codeql-cpp/Power of 10/Rule 6/GlobalCouldBeStatic.ql.
+2021-03-25 19:23:03,717 DEBUG    		[21/23 eval 87ms] Evaluation done; writing results to codeql-cpp/Power of 10/Rule 6/GlobalCouldBeStatic.bqrs.
+2021-03-25 19:23:03,719 DEBUG    		Starting evaluation of codeql-cpp/Power of 10/Rule 7/CheckReturnValues.ql.
+2021-03-25 19:23:03,962 DEBUG    		[22/23 eval 244ms] Evaluation done; writing results to codeql-cpp/Power of 10/Rule 7/CheckReturnValues.bqrs.
+2021-03-25 19:23:03,964 DEBUG    		Starting evaluation of codeql-cpp/Power of 10/Rule 7/CheckArguments.ql.
+2021-03-25 19:23:04,161 DEBUG    		[23/23 eval 197ms] Evaluation done; writing results to codeql-cpp/Power of 10/Rule 7/CheckArguments.bqrs.
+2021-03-25 19:23:04,163 DEBUG    		Shutting down query evaluator.
+2021-03-25 19:23:04,277 DEBUG    		Interpreting results.

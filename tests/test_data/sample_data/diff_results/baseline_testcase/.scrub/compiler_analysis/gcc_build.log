@@ -1,0 +1,122 @@
+/usr/bin/gcc -c -Wall -Wextra -Wpedantic -I ../testcasesupport main_linux.cpp -o main_linux.o
+/usr/bin/gcc -c -Wall -Wextra -Wpedantic -I ../testcasesupport CWE835_Infinite_Loop__for_empty_01.c -o CWE835_Infinite_Loop__for_empty_01.o
+In file included from CWE835_Infinite_Loop__for_empty_01.c:6:0:
+../testcasesupport/std_testcase.h:33:32: warning: C++ style comments are not allowed in ISO C90 [enabled by default]
+ # define __STDC_LIMIT_MACROS 1 //SCRUB_IGNORE_WARNING_DUMMY
+                                ^
+../testcasesupport/std_testcase.h:33:32: warning: (this will be reported only once per input file) [enabled by default]
+In file included from ../testcasesupport/std_testcase_io.h:8:0,
+                 from ../testcasesupport/std_testcase.h:120,
+                 from CWE835_Infinite_Loop__for_empty_01.c:6:
+../testcasesupport/std_testcase.h:33:32: warning: C++ style comments are not allowed in ISO C90 [enabled by default]
+ # define __STDC_LIMIT_MACROS 1 //SCRUB_IGNORE_WARNING_DUMMY
+                                ^
+../testcasesupport/std_testcase.h:33:32: warning: (this will be reported only once per input file) [enabled by default]
+/usr/bin/gcc -c -Wall -Wextra -Wpedantic -I ../testcasesupport CWE835_Infinite_Loop__while_true_01.c -o CWE835_Infinite_Loop__while_true_01.o
+In file included from CWE835_Infinite_Loop__while_true_01.c:6:0:
+../testcasesupport/std_testcase.h:33:32: warning: C++ style comments are not allowed in ISO C90 [enabled by default]
+ # define __STDC_LIMIT_MACROS 1 //SCRUB_IGNORE_WARNING_DUMMY
+                                ^
+../testcasesupport/std_testcase.h:33:32: warning: (this will be reported only once per input file) [enabled by default]
+In file included from ../testcasesupport/std_testcase_io.h:8:0,
+                 from ../testcasesupport/std_testcase.h:120,
+                 from CWE835_Infinite_Loop__while_true_01.c:6:
+../testcasesupport/std_testcase.h:33:32: warning: C++ style comments are not allowed in ISO C90 [enabled by default]
+ # define __STDC_LIMIT_MACROS 1 //SCRUB_IGNORE_WARNING_DUMMY
+                                ^
+../testcasesupport/std_testcase.h:33:32: warning: (this will be reported only once per input file) [enabled by default]
+/usr/bin/gcc -c -Wall -Wextra -Wpedantic -I ../testcasesupport CWE835_Infinite_Loop__do_true_01.c -o CWE835_Infinite_Loop__do_true_01.o
+In file included from CWE835_Infinite_Loop__do_true_01.c:6:0:
+../testcasesupport/std_testcase.h:33:32: warning: C++ style comments are not allowed in ISO C90 [enabled by default]
+ # define __STDC_LIMIT_MACROS 1 //SCRUB_IGNORE_WARNING_DUMMY
+                                ^
+../testcasesupport/std_testcase.h:33:32: warning: (this will be reported only once per input file) [enabled by default]
+In file included from ../testcasesupport/std_testcase_io.h:8:0,
+                 from ../testcasesupport/std_testcase.h:120,
+                 from CWE835_Infinite_Loop__do_true_01.c:6:
+../testcasesupport/std_testcase.h:33:32: warning: C++ style comments are not allowed in ISO C90 [enabled by default]
+ # define __STDC_LIMIT_MACROS 1 //SCRUB_IGNORE_WARNING_DUMMY
+                                ^
+../testcasesupport/std_testcase.h:33:32: warning: (this will be reported only once per input file) [enabled by default]
+/usr/bin/gcc -c -Wall -Wextra -Wpedantic -I ../testcasesupport CWE835_Infinite_Loop__while_01.c -o CWE835_Infinite_Loop__while_01.o
+In file included from CWE835_Infinite_Loop__while_01.c:6:0:
+../testcasesupport/std_testcase.h:33:32: warning: C++ style comments are not allowed in ISO C90 [enabled by default]
+ # define __STDC_LIMIT_MACROS 1 //SCRUB_IGNORE_WARNING_DUMMY
+                                ^
+../testcasesupport/std_testcase.h:33:32: warning: (this will be reported only once per input file) [enabled by default]
+In file included from ../testcasesupport/std_testcase_io.h:8:0,
+                 from ../testcasesupport/std_testcase.h:120,
+                 from CWE835_Infinite_Loop__while_01.c:6:
+../testcasesupport/std_testcase.h:33:32: warning: C++ style comments are not allowed in ISO C90 [enabled by default]
+ # define __STDC_LIMIT_MACROS 1 //SCRUB_IGNORE_WARNING_DUMMY
+                                ^
+../testcasesupport/std_testcase.h:33:32: warning: (this will be reported only once per input file) [enabled by default]
+/usr/bin/gcc -c -Wall -Wextra -Wpedantic -I ../testcasesupport CWE835_Infinite_Loop__for_01.c -o CWE835_Infinite_Loop__for_01.o
+In file included from CWE835_Infinite_Loop__for_01.c:6:0:
+../testcasesupport/std_testcase.h:33:32: warning: C++ style comments are not allowed in ISO C90 [enabled by default]
+ # define __STDC_LIMIT_MACROS 1 //SCRUB_IGNORE_WARNING_DUMMY
+                                ^
+../testcasesupport/std_testcase.h:33:32: warning: (this will be reported only once per input file) [enabled by default]
+In file included from ../testcasesupport/std_testcase_io.h:8:0,
+                 from ../testcasesupport/std_testcase.h:120,
+                 from CWE835_Infinite_Loop__for_01.c:6:
+../testcasesupport/std_testcase.h:33:32: warning: C++ style comments are not allowed in ISO C90 [enabled by default]
+ # define __STDC_LIMIT_MACROS 1 //SCRUB_IGNORE_WARNING_DUMMY
+                                ^
+../testcasesupport/std_testcase.h:33:32: warning: (this will be reported only once per input file) [enabled by default]
+/usr/bin/gcc -c -Wall -Wextra -Wpedantic -I ../testcasesupport CWE835_Infinite_Loop__do_01.c -o CWE835_Infinite_Loop__do_01.o
+In file included from CWE835_Infinite_Loop__do_01.c:6:0:
+../testcasesupport/std_testcase.h:33:32: warning: C++ style comments are not allowed in ISO C90 [enabled by default]
+ # define __STDC_LIMIT_MACROS 1 //SCRUB_IGNORE_WARNING_DUMMY
+                                ^
+../testcasesupport/std_testcase.h:33:32: warning: (this will be reported only once per input file) [enabled by default]
+In file included from ../testcasesupport/std_testcase_io.h:8:0,
+                 from ../testcasesupport/std_testcase.h:120,
+                 from CWE835_Infinite_Loop__do_01.c:6:
+../testcasesupport/std_testcase.h:33:32: warning: C++ style comments are not allowed in ISO C90 [enabled by default]
+ # define __STDC_LIMIT_MACROS 1 //SCRUB_IGNORE_WARNING_DUMMY
+                                ^
+../testcasesupport/std_testcase.h:33:32: warning: (this will be reported only once per input file) [enabled by default]
+/usr/bin/gcc -c -Wall -Wextra -Wpedantic -I ../testcasesupport ../testcasesupport/io.c -o io.o
+In file included from ../testcasesupport/io.c:5:0:
+../testcasesupport/std_testcase.h:33:32: warning: C++ style comments are not allowed in ISO C90 [enabled by default]
+ # define __STDC_LIMIT_MACROS 1 //SCRUB_IGNORE_WARNING_DUMMY
+                                ^
+../testcasesupport/std_testcase.h:33:32: warning: (this will be reported only once per input file) [enabled by default]
+In file included from ../testcasesupport/std_testcase_io.h:8:0,
+                 from ../testcasesupport/std_testcase.h:120,
+                 from ../testcasesupport/io.c:5:
+../testcasesupport/std_testcase.h:33:32: warning: C++ style comments are not allowed in ISO C90 [enabled by default]
+ # define __STDC_LIMIT_MACROS 1 //SCRUB_IGNORE_WARNING_DUMMY
+                                ^
+../testcasesupport/std_testcase.h:33:32: warning: (this will be reported only once per input file) [enabled by default]
+../testcasesupport/io.c: In function 'printSizeTLine':
+../testcasesupport/io.c:54:5: warning: ISO C90 does not support the 'z' gnu_printf length modifier [-Wformat=]
+     printf("%zu\n", sizeTNumber);
+     ^
+../testcasesupport/io.c: In function 'printWcharLine':
+../testcasesupport/io.c:67:29: warning: C++ style comments are not allowed in ISO C90 [enabled by default]
+         s[0] = wideChar;    // lgtm
+                             ^
+../testcasesupport/io.c:67:29: warning: (this will be reported only once per input file) [enabled by default]
+../testcasesupport/io.c:69:5: warning: ISO C90 does not support the '%ls' gnu_printf format [-Wformat=]
+     printf("%ls\n", s);
+     ^
+../testcasesupport/io.c: In function 'decodeHexChars':
+../testcasesupport/io.c:116:9: warning: format '%x' expects argument of type 'unsigned int *', but argument 3 has type 'int *' [-Wformat=]
+         sscanf(&hex[2 * numWritten], "%02x", &byte);
+         ^
+/usr/bin/gcc -c -Wall -Wextra -Wpedantic -I ../testcasesupport ../testcasesupport/std_thread.c -o std_thread.o
+In file included from ../testcasesupport/std_thread.c:5:0:
+../testcasesupport/std_testcase.h:33:32: warning: C++ style comments are not allowed in ISO C90 [enabled by default]
+ # define __STDC_LIMIT_MACROS 1 //SCRUB_IGNORE_WARNING_DUMMY
+                                ^
+../testcasesupport/std_testcase.h:33:32: warning: (this will be reported only once per input file) [enabled by default]
+In file included from ../testcasesupport/std_testcase_io.h:8:0,
+                 from ../testcasesupport/std_testcase.h:120,
+                 from ../testcasesupport/std_thread.c:5:
+../testcasesupport/std_testcase.h:33:32: warning: C++ style comments are not allowed in ISO C90 [enabled by default]
+ # define __STDC_LIMIT_MACROS 1 //SCRUB_IGNORE_WARNING_DUMMY
+                                ^
+../testcasesupport/std_testcase.h:33:32: warning: (this will be reported only once per input file) [enabled by default]
+/usr/bin/g++ -lpthread -lm main_linux.o CWE835_Infinite_Loop__for_empty_01.o CWE835_Infinite_Loop__while_true_01.o CWE835_Infinite_Loop__do_true_01.o CWE835_Infinite_Loop__while_01.o CWE835_Infinite_Loop__for_01.o CWE835_Infinite_Loop__do_01.o  io.o std_thread.o -o CWE835

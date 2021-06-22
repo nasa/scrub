@@ -1,0 +1,14 @@
+name: scrub
+channels:
+  - defaults
+  - conda-forge
+dependencies:
+  - python=3
+  - bump2version
+  - pylint
+  - pytest
+  - coverage3
+  - pytest-cov
+  - pytest-html
+  - sphinx
+  - watchdog

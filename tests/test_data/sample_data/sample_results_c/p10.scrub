@@ -1,0 +1,1482 @@
+codeql001 <Low> :src/main_linux.cpp:11: cpp/power-of-10/assertion-density
+    Function main has 27 logical lines, but only 0 assertion(s) -- minimum is 2 (for functions over 20 logical lines).
+    Each function over 20 logical lines should have at least two assertions.
+
+codeql002 <Low> :testcasesupport/std_thread.h:5: cpp/power-of-10/hidden-pointer-indirection
+    The typedef stdThreadLock hides pointer indirection.
+    Pointer indirection may not be hidden by typedefs -- "typedef int* IntPtr;" is not allowed.
+
+codeql003 <Low> :testcasesupport/std_thread.h:4: cpp/power-of-10/hidden-pointer-indirection
+    The typedef stdThread hides pointer indirection.
+    Pointer indirection may not be hidden by typedefs -- "typedef int* IntPtr;" is not allowed.
+
+codeql004 <Low> :testcasesupport/std_thread.h:11: cpp/power-of-10/hidden-pointer-indirection
+    The typedef stdThreadRoutine hides pointer indirection.
+    Pointer indirection may not be hidden by typedefs -- "typedef int* IntPtr;" is not allowed.
+
+codeql005 <Low> :testcasesupport/io.c:207: cpp/power-of-10/pointer-nesting
+    The variable globalArgv uses 2 levels of pointer indirection.
+    No more than one level of pointer nesting/dereferencing should be used.
+
+codeql006 <Low> :testcasesupport/std_thread.c:133: cpp/power-of-10/pointer-nesting
+    The variable lock uses 2 levels of pointer indirection.
+    No more than one level of pointer nesting/dereferencing should be used.
+
+codeql007 <Low> :testcasesupport/std_thread.c:48: cpp/power-of-10/pointer-nesting
+    The variable thread uses 2 levels of pointer indirection.
+    No more than one level of pointer nesting/dereferencing should be used.
+
+codeql008 <Low> :testcasesupport/std_thread.c:35: cpp/power-of-10/function-pointer
+    Calls through function pointers are not permitted.
+    Function pointers are not permitted -- they make it impossible for a tool to prove the absence of recursion.
+
+codeql009 <Low> :src/CWE835_Infinite_Loop__do_true_01.c:36: cpp/power-of-10/exit-permanent-loop
+    [This permanent loop](1) should not be exited.
+    Permanent loops (like "while(1) {..}") are typically meant to be non-terminating and should not be terminated by other means.
+
+codeql010 <Low> :src/CWE835_Infinite_Loop__while_true_01.c:35: cpp/power-of-10/exit-permanent-loop
+    [This permanent loop](1) should not be exited.
+    Permanent loops (like "while(1) {..}") are typically meant to be non-terminating and should not be terminated by other means.
+
+codeql011 <Low> :src/CWE835_Infinite_Loop__do_01.c:31: cpp/power-of-10/bounded-loop-iterations
+    The loop counter i is not always decremented in the loop body.
+    All loops should have a fixed upper bound; the counter should also be incremented along all paths within the loop. This check excludes loops that are meant to be nonterminating (like schedulers).
+
+codeql012 <Low> :src/CWE835_Infinite_Loop__do_01.c:15: cpp/power-of-10/bounded-loop-iterations
+    The loop counter i is not always decremented in the loop body.
+    All loops should have a fixed upper bound; the counter should also be incremented along all paths within the loop. This check excludes loops that are meant to be nonterminating (like schedulers).
+
+codeql013 <Low> :src/CWE835_Infinite_Loop__for_01.c:46: cpp/power-of-10/bounded-loop-iterations
+    The loop counter i is not always incremented in the loop body.
+    All loops should have a fixed upper bound; the counter should also be incremented along all paths within the loop. This check excludes loops that are meant to be nonterminating (like schedulers).
+
+codeql014 <Low> :src/CWE835_Infinite_Loop__for_01.c:30: cpp/power-of-10/bounded-loop-iterations
+    The loop counter i is not always decremented in the loop body.
+    All loops should have a fixed upper bound; the counter should also be incremented along all paths within the loop. This check excludes loops that are meant to be nonterminating (like schedulers).
+
+codeql015 <Low> :src/CWE835_Infinite_Loop__for_01.c:15: cpp/power-of-10/bounded-loop-iterations
+    The loop counter i is not always decremented in the loop body.
+    All loops should have a fixed upper bound; the counter should also be incremented along all paths within the loop. This check excludes loops that are meant to be nonterminating (like schedulers).
+
+codeql016 <Low> :src/CWE835_Infinite_Loop__for_empty_01.c:31: cpp/power-of-10/bounded-loop-iterations
+    This loop does not have a fixed bound.
+    All loops should have a fixed upper bound; the counter should also be incremented along all paths within the loop. This check excludes loops that are meant to be nonterminating (like schedulers).
+
+codeql017 <Low> :src/CWE835_Infinite_Loop__for_empty_01.c:15: cpp/power-of-10/bounded-loop-iterations
+    This loop does not have a fixed bound.
+    All loops should have a fixed upper bound; the counter should also be incremented along all paths within the loop. This check excludes loops that are meant to be nonterminating (like schedulers).
+
+codeql018 <Low> :src/CWE835_Infinite_Loop__while_01.c:30: cpp/power-of-10/bounded-loop-iterations
+    The loop counter i is not always decremented in the loop body.
+    All loops should have a fixed upper bound; the counter should also be incremented along all paths within the loop. This check excludes loops that are meant to be nonterminating (like schedulers).
+
+codeql019 <Low> :src/CWE835_Infinite_Loop__while_01.c:15: cpp/power-of-10/bounded-loop-iterations
+    The loop counter i is not always decremented in the loop body.
+    All loops should have a fixed upper bound; the counter should also be incremented along all paths within the loop. This check excludes loops that are meant to be nonterminating (like schedulers).
+
+codeql020 <Low> :src/CWE835_Infinite_Loop__do_01.c:8: cpp/power-of-10/avoid-conditional-compilation
+    Use of conditional compilation must be kept to a minimum.
+    The use of conditional compilation directives must be kept to a minimum -- e.g. for header guards only.
+
+codeql021 <Low> :src/CWE835_Infinite_Loop__do_01.c:25: cpp/power-of-10/avoid-conditional-compilation
+    Use of conditional compilation must be kept to a minimum.
+    The use of conditional compilation directives must be kept to a minimum -- e.g. for header guards only.
+
+codeql022 <Low> :src/CWE835_Infinite_Loop__do_01.c:56: cpp/power-of-10/avoid-conditional-compilation
+    Use of conditional compilation must be kept to a minimum.
+    The use of conditional compilation directives must be kept to a minimum -- e.g. for header guards only.
+
+codeql023 <Low> :src/CWE835_Infinite_Loop__do_01.c:63: cpp/power-of-10/avoid-conditional-compilation
+    Use of conditional compilation must be kept to a minimum.
+    The use of conditional compilation directives must be kept to a minimum -- e.g. for header guards only.
+
+codeql024 <Low> :src/CWE835_Infinite_Loop__do_01.c:69: cpp/power-of-10/avoid-conditional-compilation
+    Use of conditional compilation must be kept to a minimum.
+    The use of conditional compilation directives must be kept to a minimum -- e.g. for header guards only.
+
+codeql025 <Low> :src/CWE835_Infinite_Loop__do_true_01.c:8: cpp/power-of-10/avoid-conditional-compilation
+    Use of conditional compilation must be kept to a minimum.
+    The use of conditional compilation directives must be kept to a minimum -- e.g. for header guards only.
+
+codeql026 <Low> :src/CWE835_Infinite_Loop__do_true_01.c:25: cpp/power-of-10/avoid-conditional-compilation
+    Use of conditional compilation must be kept to a minimum.
+    The use of conditional compilation directives must be kept to a minimum -- e.g. for header guards only.
+
+codeql027 <Low> :src/CWE835_Infinite_Loop__do_true_01.c:56: cpp/power-of-10/avoid-conditional-compilation
+    Use of conditional compilation must be kept to a minimum.
+    The use of conditional compilation directives must be kept to a minimum -- e.g. for header guards only.
+
+codeql028 <Low> :src/CWE835_Infinite_Loop__do_true_01.c:63: cpp/power-of-10/avoid-conditional-compilation
+    Use of conditional compilation must be kept to a minimum.
+    The use of conditional compilation directives must be kept to a minimum -- e.g. for header guards only.
+
+codeql029 <Low> :src/CWE835_Infinite_Loop__do_true_01.c:69: cpp/power-of-10/avoid-conditional-compilation
+    Use of conditional compilation must be kept to a minimum.
+    The use of conditional compilation directives must be kept to a minimum -- e.g. for header guards only.
+
+codeql030 <Low> :src/CWE835_Infinite_Loop__for_01.c:8: cpp/power-of-10/avoid-conditional-compilation
+    Use of conditional compilation must be kept to a minimum.
+    The use of conditional compilation directives must be kept to a minimum -- e.g. for header guards only.
+
+codeql031 <Low> :src/CWE835_Infinite_Loop__for_01.c:24: cpp/power-of-10/avoid-conditional-compilation
+    Use of conditional compilation must be kept to a minimum.
+    The use of conditional compilation directives must be kept to a minimum -- e.g. for header guards only.
+
+codeql032 <Low> :src/CWE835_Infinite_Loop__for_01.c:66: cpp/power-of-10/avoid-conditional-compilation
+    Use of conditional compilation must be kept to a minimum.
+    The use of conditional compilation directives must be kept to a minimum -- e.g. for header guards only.
+
+codeql033 <Low> :src/CWE835_Infinite_Loop__for_01.c:73: cpp/power-of-10/avoid-conditional-compilation
+    Use of conditional compilation must be kept to a minimum.
+    The use of conditional compilation directives must be kept to a minimum -- e.g. for header guards only.
+
+codeql034 <Low> :src/CWE835_Infinite_Loop__for_01.c:79: cpp/power-of-10/avoid-conditional-compilation
+    Use of conditional compilation must be kept to a minimum.
+    The use of conditional compilation directives must be kept to a minimum -- e.g. for header guards only.
+
+codeql035 <Low> :src/CWE835_Infinite_Loop__for_empty_01.c:8: cpp/power-of-10/avoid-conditional-compilation
+    Use of conditional compilation must be kept to a minimum.
+    The use of conditional compilation directives must be kept to a minimum -- e.g. for header guards only.
+
+codeql036 <Low> :src/CWE835_Infinite_Loop__for_empty_01.c:25: cpp/power-of-10/avoid-conditional-compilation
+    Use of conditional compilation must be kept to a minimum.
+    The use of conditional compilation directives must be kept to a minimum -- e.g. for header guards only.
+
+codeql037 <Low> :src/CWE835_Infinite_Loop__for_empty_01.c:56: cpp/power-of-10/avoid-conditional-compilation
+    Use of conditional compilation must be kept to a minimum.
+    The use of conditional compilation directives must be kept to a minimum -- e.g. for header guards only.
+
+codeql038 <Low> :src/CWE835_Infinite_Loop__for_empty_01.c:63: cpp/power-of-10/avoid-conditional-compilation
+    Use of conditional compilation must be kept to a minimum.
+    The use of conditional compilation directives must be kept to a minimum -- e.g. for header guards only.
+
+codeql039 <Low> :src/CWE835_Infinite_Loop__for_empty_01.c:69: cpp/power-of-10/avoid-conditional-compilation
+    Use of conditional compilation must be kept to a minimum.
+    The use of conditional compilation directives must be kept to a minimum -- e.g. for header guards only.
+
+codeql040 <Low> :src/CWE835_Infinite_Loop__while_01.c:8: cpp/power-of-10/avoid-conditional-compilation
+    Use of conditional compilation must be kept to a minimum.
+    The use of conditional compilation directives must be kept to a minimum -- e.g. for header guards only.
+
+codeql041 <Low> :src/CWE835_Infinite_Loop__while_01.c:24: cpp/power-of-10/avoid-conditional-compilation
+    Use of conditional compilation must be kept to a minimum.
+    The use of conditional compilation directives must be kept to a minimum -- e.g. for header guards only.
+
+codeql042 <Low> :src/CWE835_Infinite_Loop__while_01.c:55: cpp/power-of-10/avoid-conditional-compilation
+    Use of conditional compilation must be kept to a minimum.
+    The use of conditional compilation directives must be kept to a minimum -- e.g. for header guards only.
+
+codeql043 <Low> :src/CWE835_Infinite_Loop__while_01.c:62: cpp/power-of-10/avoid-conditional-compilation
+    Use of conditional compilation must be kept to a minimum.
+    The use of conditional compilation directives must be kept to a minimum -- e.g. for header guards only.
+
+codeql044 <Low> :src/CWE835_Infinite_Loop__while_01.c:68: cpp/power-of-10/avoid-conditional-compilation
+    Use of conditional compilation must be kept to a minimum.
+    The use of conditional compilation directives must be kept to a minimum -- e.g. for header guards only.
+
+codeql045 <Low> :src/CWE835_Infinite_Loop__while_true_01.c:8: cpp/power-of-10/avoid-conditional-compilation
+    Use of conditional compilation must be kept to a minimum.
+    The use of conditional compilation directives must be kept to a minimum -- e.g. for header guards only.
+
+codeql046 <Low> :src/CWE835_Infinite_Loop__while_true_01.c:24: cpp/power-of-10/avoid-conditional-compilation
+    Use of conditional compilation must be kept to a minimum.
+    The use of conditional compilation directives must be kept to a minimum -- e.g. for header guards only.
+
+codeql047 <Low> :src/CWE835_Infinite_Loop__while_true_01.c:55: cpp/power-of-10/avoid-conditional-compilation
+    Use of conditional compilation must be kept to a minimum.
+    The use of conditional compilation directives must be kept to a minimum -- e.g. for header guards only.
+
+codeql048 <Low> :src/CWE835_Infinite_Loop__while_true_01.c:62: cpp/power-of-10/avoid-conditional-compilation
+    Use of conditional compilation must be kept to a minimum.
+    The use of conditional compilation directives must be kept to a minimum -- e.g. for header guards only.
+
+codeql049 <Low> :src/CWE835_Infinite_Loop__while_true_01.c:68: cpp/power-of-10/avoid-conditional-compilation
+    Use of conditional compilation must be kept to a minimum.
+    The use of conditional compilation directives must be kept to a minimum -- e.g. for header guards only.
+
+codeql050 <Low> :src/main_linux.cpp:20: cpp/power-of-10/avoid-conditional-compilation
+    Use of conditional compilation must be kept to a minimum.
+    The use of conditional compilation directives must be kept to a minimum -- e.g. for header guards only.
+
+codeql051 <Low> :src/main_linux.cpp:48: cpp/power-of-10/avoid-conditional-compilation
+    Use of conditional compilation must be kept to a minimum.
+    The use of conditional compilation directives must be kept to a minimum -- e.g. for header guards only.
+
+codeql052 <Low> :src/main_linux.cpp:58: cpp/power-of-10/avoid-conditional-compilation
+    Use of conditional compilation must be kept to a minimum.
+    The use of conditional compilation directives must be kept to a minimum -- e.g. for header guards only.
+
+codeql053 <Low> :src/main_linux.cpp:86: cpp/power-of-10/avoid-conditional-compilation
+    Use of conditional compilation must be kept to a minimum.
+    The use of conditional compilation directives must be kept to a minimum -- e.g. for header guards only.
+
+codeql054 <Low> :testcasesupport/io.c:7: cpp/power-of-10/avoid-conditional-compilation
+    Use of conditional compilation must be kept to a minimum.
+    The use of conditional compilation directives must be kept to a minimum -- e.g. for header guards only.
+
+codeql055 <Low> :testcasesupport/io.c:202: cpp/power-of-10/avoid-conditional-compilation
+    Use of conditional compilation must be kept to a minimum.
+    The use of conditional compilation directives must be kept to a minimum -- e.g. for header guards only.
+
+codeql056 <Low> :testcasesupport/io.c:209: cpp/power-of-10/avoid-conditional-compilation
+    Use of conditional compilation must be kept to a minimum.
+    The use of conditional compilation directives must be kept to a minimum -- e.g. for header guards only.
+
+codeql057 <Low> :testcasesupport/std_thread.c:1: cpp/power-of-10/avoid-conditional-compilation
+    Use of conditional compilation must be kept to a minimum.
+    The use of conditional compilation directives must be kept to a minimum -- e.g. for header guards only.
+
+codeql058 <Low> :testcasesupport/std_thread.c:6: cpp/power-of-10/avoid-conditional-compilation
+    Use of conditional compilation must be kept to a minimum.
+    The use of conditional compilation directives must be kept to a minimum -- e.g. for header guards only.
+
+codeql059 <Low> :testcasesupport/std_thread.c:14: cpp/power-of-10/avoid-conditional-compilation
+    Use of conditional compilation must be kept to a minimum.
+    The use of conditional compilation directives must be kept to a minimum -- e.g. for header guards only.
+
+codeql060 <Low> :testcasesupport/std_thread.c:23: cpp/power-of-10/avoid-conditional-compilation
+    Use of conditional compilation must be kept to a minimum.
+    The use of conditional compilation directives must be kept to a minimum -- e.g. for header guards only.
+
+codeql061 <Low> :testcasesupport/std_thread.c:27: cpp/power-of-10/avoid-conditional-compilation
+    Use of conditional compilation must be kept to a minimum.
+    The use of conditional compilation directives must be kept to a minimum -- e.g. for header guards only.
+
+codeql062 <Low> :testcasesupport/std_thread.c:37: cpp/power-of-10/avoid-conditional-compilation
+    Use of conditional compilation must be kept to a minimum.
+    The use of conditional compilation directives must be kept to a minimum -- e.g. for header guards only.
+
+codeql063 <Low> :testcasesupport/std_thread.c:50: cpp/power-of-10/avoid-conditional-compilation
+    Use of conditional compilation must be kept to a minimum.
+    The use of conditional compilation directives must be kept to a minimum -- e.g. for header guards only.
+
+codeql064 <Low> :testcasesupport/std_thread.c:67: cpp/power-of-10/avoid-conditional-compilation
+    Use of conditional compilation must be kept to a minimum.
+    The use of conditional compilation directives must be kept to a minimum -- e.g. for header guards only.
+
+codeql065 <Low> :testcasesupport/std_thread.c:93: cpp/power-of-10/avoid-conditional-compilation
+    Use of conditional compilation must be kept to a minimum.
+    The use of conditional compilation directives must be kept to a minimum -- e.g. for header guards only.
+
+codeql066 <Low> :testcasesupport/std_thread.c:108: cpp/power-of-10/avoid-conditional-compilation
+    Use of conditional compilation must be kept to a minimum.
+    The use of conditional compilation directives must be kept to a minimum -- e.g. for header guards only.
+
+codeql067 <Low> :testcasesupport/std_thread.c:117: cpp/power-of-10/avoid-conditional-compilation
+    Use of conditional compilation must be kept to a minimum.
+    The use of conditional compilation directives must be kept to a minimum -- e.g. for header guards only.
+
+codeql068 <Low> :testcasesupport/std_thread.c:122: cpp/power-of-10/avoid-conditional-compilation
+    Use of conditional compilation must be kept to a minimum.
+    The use of conditional compilation directives must be kept to a minimum -- e.g. for header guards only.
+
+codeql069 <Low> :testcasesupport/std_thread.c:129: cpp/power-of-10/avoid-conditional-compilation
+    Use of conditional compilation must be kept to a minimum.
+    The use of conditional compilation directives must be kept to a minimum -- e.g. for header guards only.
+
+codeql070 <Low> :testcasesupport/std_thread.c:142: cpp/power-of-10/avoid-conditional-compilation
+    Use of conditional compilation must be kept to a minimum.
+    The use of conditional compilation directives must be kept to a minimum -- e.g. for header guards only.
+
+codeql071 <Low> :testcasesupport/std_thread.c:178: cpp/power-of-10/avoid-conditional-compilation
+    Use of conditional compilation must be kept to a minimum.
+    The use of conditional compilation directives must be kept to a minimum -- e.g. for header guards only.
+
+codeql072 <Low> :testcasesupport/std_thread.c:193: cpp/power-of-10/avoid-conditional-compilation
+    Use of conditional compilation must be kept to a minimum.
+    The use of conditional compilation directives must be kept to a minimum -- e.g. for header guards only.
+
+codeql073 <Low> :testcasesupport/std_thread.c:202: cpp/power-of-10/avoid-conditional-compilation
+    Use of conditional compilation must be kept to a minimum.
+    The use of conditional compilation directives must be kept to a minimum -- e.g. for header guards only.
+
+codeql074 <Low> :testcasesupport/std_thread.c:210: cpp/power-of-10/avoid-conditional-compilation
+    Use of conditional compilation must be kept to a minimum.
+    The use of conditional compilation directives must be kept to a minimum -- e.g. for header guards only.
+
+codeql075 <Low> :testcasesupport/std_thread.c:139: cpp/power-of-10/dynamic-alloc-after-init
+    Dynamic memory allocation is only allowed during initialization.
+    Dynamic memory allocation (using malloc() or calloc()) should be confined to the initialization routines of a program.
+
+codeql076 <Low> :testcasesupport/std_thread.c:59: cpp/power-of-10/dynamic-alloc-after-init
+    Dynamic memory allocation is only allowed during initialization.
+    Dynamic memory allocation (using malloc() or calloc()) should be confined to the initialization routines of a program.
+
+codeql077 <Low> :testcasesupport/std_thread.c:100: cpp/power-of-10/one-stmt-per-line
+    This line contains 2 statements; only one is allowed.
+    Putting more than one statement on a single line hinders program understanding.
+
+codeql078 <Low> :testcasesupport/io.c:138: cpp/power-of-10/check-return-values
+    The return value of non-void function [swscanf](1) is not checked.
+    The return value of non-void function [swscanf](2) is not checked.
+    The return value of each non-void function call should be checked for error conditions.
+
+codeql079 <Low> :testcasesupport/io.c:116: cpp/power-of-10/check-return-values
+    The return value of non-void function [sscanf](1) is not checked.
+    The return value of non-void function [sscanf](2) is not checked.
+    The return value of each non-void function call should be checked for error conditions.
+
+codeql080 <Low> :testcasesupport/io.c:97: cpp/power-of-10/check-return-values
+    The return value of non-void function [printf](1) is not checked.
+    The return value of each non-void function call should be checked for error conditions.
+
+codeql081 <Low> :testcasesupport/io.c:99: cpp/power-of-10/check-return-values
+    The return value of non-void function [puts](1) is not checked.
+    The return value of each non-void function call should be checked for error conditions.
+
+codeql082 <Low> :testcasesupport/io.c:89: cpp/power-of-10/check-return-values
+    The return value of non-void function [printf](1) is not checked.
+    The return value of each non-void function call should be checked for error conditions.
+
+codeql083 <Low> :testcasesupport/io.c:84: cpp/power-of-10/check-return-values
+    The return value of non-void function [printf](1) is not checked.
+    The return value of each non-void function call should be checked for error conditions.
+
+codeql084 <Low> :testcasesupport/io.c:79: cpp/power-of-10/check-return-values
+    The return value of non-void function [printf](1) is not checked.
+    The return value of each non-void function call should be checked for error conditions.
+
+codeql085 <Low> :testcasesupport/io.c:74: cpp/power-of-10/check-return-values
+    The return value of non-void function [printf](1) is not checked.
+    The return value of each non-void function call should be checked for error conditions.
+
+codeql086 <Low> :testcasesupport/io.c:69: cpp/power-of-10/check-return-values
+    The return value of non-void function [printf](1) is not checked.
+    The return value of each non-void function call should be checked for error conditions.
+
+codeql087 <Low> :testcasesupport/io.c:59: cpp/power-of-10/check-return-values
+    The return value of non-void function [printf](1) is not checked.
+    The return value of each non-void function call should be checked for error conditions.
+
+codeql088 <Low> :testcasesupport/io.c:54: cpp/power-of-10/check-return-values
+    The return value of non-void function [printf](1) is not checked.
+    The return value of each non-void function call should be checked for error conditions.
+
+codeql089 <Low> :testcasesupport/io.c:49: cpp/power-of-10/check-return-values
+    The return value of non-void function [printf](1) is not checked.
+    The return value of each non-void function call should be checked for error conditions.
+
+codeql090 <Low> :testcasesupport/io.c:44: cpp/power-of-10/check-return-values
+    The return value of non-void function [printf](1) is not checked.
+    The return value of each non-void function call should be checked for error conditions.
+
+codeql091 <Low> :testcasesupport/io.c:39: cpp/power-of-10/check-return-values
+    The return value of non-void function [printf](1) is not checked.
+    The return value of each non-void function call should be checked for error conditions.
+
+codeql092 <Low> :testcasesupport/io.c:34: cpp/power-of-10/check-return-values
+    The return value of non-void function [printf](1) is not checked.
+    The return value of each non-void function call should be checked for error conditions.
+
+codeql093 <Low> :testcasesupport/io.c:29: cpp/power-of-10/check-return-values
+    The return value of non-void function [printf](1) is not checked.
+    The return value of each non-void function call should be checked for error conditions.
+
+codeql094 <Low> :testcasesupport/io.c:23: cpp/power-of-10/check-return-values
+    The return value of non-void function [wprintf](1) is not checked.
+    The return value of each non-void function call should be checked for error conditions.
+
+codeql095 <Low> :testcasesupport/io.c:15: cpp/power-of-10/check-return-values
+    The return value of non-void function [printf](1) is not checked.
+    The return value of each non-void function call should be checked for error conditions.
+
+codeql096 <Low> :testcasesupport/std_thread.c:205: cpp/power-of-10/check-return-values
+    The return value of non-void function [pthread_mutex_destroy](1) is not checked.
+    The return value of each non-void function call should be checked for error conditions.
+
+codeql097 <Low> :testcasesupport/std_thread.c:196: cpp/power-of-10/check-return-values
+    The return value of non-void function [pthread_mutex_unlock](1) is not checked.
+    The return value of each non-void function call should be checked for error conditions.
+
+codeql098 <Low> :testcasesupport/std_thread.c:184: cpp/power-of-10/check-return-values
+    The return value of non-void function [pthread_mutex_lock](1) is not checked.
+    The return value of each non-void function call should be checked for error conditions.
+
+codeql099 <Low> :src/main_linux.cpp:17: cpp/power-of-10/check-arguments
+    This use of parameter argc has not been checked.
+    Functions should check their arguments before their first use.
+
+codeql100 <Low> :src/main_linux.cpp:18: cpp/power-of-10/check-arguments
+    This use of parameter argv has not been checked.
+    Functions should check their arguments before their first use.
+
+codeql101 <Low> :testcasesupport/io.c:139: cpp/power-of-10/check-arguments
+    This use of parameter bytes has not been checked.
+    Functions should check their arguments before their first use.
+
+codeql102 <Low> :testcasesupport/io.c:117: cpp/power-of-10/check-arguments
+    This use of parameter bytes has not been checked.
+    Functions should check their arguments before their first use.
+
+codeql103 <Low> :testcasesupport/io.c:97: cpp/power-of-10/check-arguments
+    This use of parameter bytes has not been checked.
+    Functions should check their arguments before their first use.
+
+codeql104 <Low> :testcasesupport/io.c:89: cpp/power-of-10/check-arguments
+    This use of parameter structTwoIntsStruct has not been checked.
+    Functions should check their arguments before their first use.
+
+codeql105 <Low> :testcasesupport/io.c:84: cpp/power-of-10/check-arguments
+    This use of parameter doubleNumber has not been checked.
+    Functions should check their arguments before their first use.
+
+codeql106 <Low> :testcasesupport/io.c:79: cpp/power-of-10/check-arguments
+    This use of parameter unsignedCharacter has not been checked.
+    Functions should check their arguments before their first use.
+
+codeql107 <Low> :testcasesupport/io.c:74: cpp/power-of-10/check-arguments
+    This use of parameter unsignedNumber has not been checked.
+    Functions should check their arguments before their first use.
+
+codeql108 <Low> :testcasesupport/io.c:67: cpp/power-of-10/check-arguments
+    This use of parameter wideChar has not been checked.
+    Functions should check their arguments before their first use.
+
+codeql109 <Low> :testcasesupport/io.c:59: cpp/power-of-10/check-arguments
+    This use of parameter charHex has not been checked.
+    Functions should check their arguments before their first use.
+
+codeql110 <Low> :testcasesupport/io.c:54: cpp/power-of-10/check-arguments
+    This use of parameter sizeTNumber has not been checked.
+    Functions should check their arguments before their first use.
+
+codeql111 <Low> :testcasesupport/io.c:49: cpp/power-of-10/check-arguments
+    This use of parameter longLongIntNumber has not been checked.
+    Functions should check their arguments before their first use.
+
+codeql112 <Low> :testcasesupport/io.c:44: cpp/power-of-10/check-arguments
+    This use of parameter longNumber has not been checked.
+    Functions should check their arguments before their first use.
+
+codeql113 <Low> :testcasesupport/io.c:39: cpp/power-of-10/check-arguments
+    This use of parameter floatNumber has not been checked.
+    Functions should check their arguments before their first use.
+
+codeql114 <Low> :testcasesupport/io.c:34: cpp/power-of-10/check-arguments
+    This use of parameter shortNumber has not been checked.
+    Functions should check their arguments before their first use.
+
+codeql115 <Low> :testcasesupport/io.c:29: cpp/power-of-10/check-arguments
+    This use of parameter intNumber has not been checked.
+    Functions should check their arguments before their first use.
+
+codeql116 <Low> :testcasesupport/std_thread.c:205: cpp/power-of-10/check-arguments
+    This use of parameter lock has not been checked.
+    Functions should check their arguments before their first use.
+
+codeql117 <Low> :testcasesupport/std_thread.c:196: cpp/power-of-10/check-arguments
+    This use of parameter lock has not been checked.
+    Functions should check their arguments before their first use.
+
+codeql118 <Low> :testcasesupport/std_thread.c:184: cpp/power-of-10/check-arguments
+    This use of parameter lock has not been checked.
+    Functions should check their arguments before their first use.
+
+codeql119 <Low> :testcasesupport/std_thread.c:137: cpp/power-of-10/check-arguments
+    This use of parameter lock has not been checked.
+    Functions should check their arguments before their first use.
+
+codeql120 <Low> :testcasesupport/std_thread.c:112: cpp/power-of-10/check-arguments
+    This use of parameter thread has not been checked.
+    Functions should check their arguments before their first use.
+
+codeql121 <Low> :testcasesupport/std_thread.c:57: cpp/power-of-10/check-arguments
+    This use of parameter thread has not been checked.
+    Functions should check their arguments before their first use.
+
+codeql122 <Low> :testcasesupport/std_thread.c:64: cpp/power-of-10/check-arguments
+    This use of parameter start has not been checked.
+    Functions should check their arguments before their first use.
+
+codeql123 <Low> :testcasesupport/std_thread.c:65: cpp/power-of-10/check-arguments
+    This use of parameter args has not been checked.
+    Functions should check their arguments before their first use.
+
+codeql124 <Low> :testcasesupport/std_thread.c:33: cpp/power-of-10/check-arguments
+    This use of parameter args has not been checked.
+    Functions should check their arguments before their first use.
+
+codesonar001 <Low> :src/CWE835_Infinite_Loop__while_true_01.c:10: Not Enough Assertions
+    CWE835_Infinite_Loop__while_true_01_bad() does not contain any assertions.  - CodeSonar is configured to issue a warning whenever a function does not contain at least 2 assertions.      -  To configure this behavior, use configuration parameters MIN_ASSERTS and MIN_ASSERTS_FUNCTION_LENGTH.  - Assertions ensure that assumptions made in the code are valid and enforced.  - Power of Ten Rule 5 and JPL Rule 16 require that a minimum acceptable proportion of assertions be defined and enforced.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763273.html
+
+codesonar002 <Low> :testcasesupport/std_thread.h:11: Pointer Type Inside Typedef
+    The pointer type void (*)(void *) is used to define the type stdThreadRoutine.  - Hiding pointer types inside typedef declarations can make it hard for human readers to follow the flow of data in a program.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763274.html
+
+codesonar003 <Low> :testcasesupport/std_testcase.h:45: Conditional Compilation
+    There are multiple conditional compilation constructs in this file.  - Power of Ten Rule 8 and JPL Rule 20 forbid multiple conditional compliation constructs in the same file.  - There is an #ifndef directive here.  - There is already a conditional compilation construct at line 1.  - CodeSonar will issue a Conditional Compilation warning whenever a file contains conditional compilation constructs, unless there is exactly one such construct and it has a specific form.  Find out more.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763275.html
+
+codesonar004 <Low> :testcasesupport/std_testcase.h:14: Conditional Compilation
+    There are multiple conditional compilation constructs in this file.  - Power of Ten Rule 8 and JPL Rule 20 forbid multiple conditional compliation constructs in the same file.  - There is an #ifdef directive here.  - There is already a conditional compilation construct at line 1.  - CodeSonar will issue a Conditional Compilation warning whenever a file contains conditional compilation constructs, unless there is exactly one such construct and it has a specific form.  Find out more.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763277.html
+
+codesonar005 <Low> :testcasesupport/std_thread.c:188: Not Enough Assertions
+    stdThreadLockRelease() does not contain any assertions.  - CodeSonar is configured to issue a warning whenever a function does not contain at least 2 assertions.      -  To configure this behavior, use configuration parameters MIN_ASSERTS and MIN_ASSERTS_FUNCTION_LENGTH.  - Assertions ensure that assumptions made in the code are valid and enforced.  - Power of Ten Rule 5 and JPL Rule 16 require that a minimum acceptable proportion of assertions be defined and enforced.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763293.html
+
+codesonar006 <Low> :testcasesupport/std_thread.c:48: Not Enough Assertions
+    stdThreadCreate() does not contain any assertions.  - CodeSonar is configured to issue a warning whenever a function does not contain at least 2 assertions.      -  To configure this behavior, use configuration parameters MIN_ASSERTS and MIN_ASSERTS_FUNCTION_LENGTH.  - Assertions ensure that assumptions made in the code are valid and enforced.  - Power of Ten Rule 5 and JPL Rule 16 require that a minimum acceptable proportion of assertions be defined and enforced.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763294.html
+
+codesonar007 <Low> :src/CWE835_Infinite_Loop__do_true_01.c:43: Not Enough Assertions
+    CWE835_Infinite_Loop__do_true_01_good() does not contain any assertions.  - CodeSonar is configured to issue a warning whenever a function does not contain at least 2 assertions.      -  To configure this behavior, use configuration parameters MIN_ASSERTS and MIN_ASSERTS_FUNCTION_LENGTH.  - Assertions ensure that assumptions made in the code are valid and enforced.  - Power of Ten Rule 5 and JPL Rule 16 require that a minimum acceptable proportion of assertions be defined and enforced.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763295.html
+
+codesonar008 <Low> :testcasesupport/io.c:127: Not Enough Assertions
+    decodeHexWChars() does not contain any assertions.  - CodeSonar is configured to issue a warning whenever a function does not contain at least 2 assertions.      -  To configure this behavior, use configuration parameters MIN_ASSERTS and MIN_ASSERTS_FUNCTION_LENGTH.  - Assertions ensure that assumptions made in the code are valid and enforced.  - Power of Ten Rule 5 and JPL Rule 16 require that a minimum acceptable proportion of assertions be defined and enforced.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763296.html
+
+codesonar009 <Low> :testcasesupport/io.c:47: Not Enough Assertions
+    printLongLongLine() does not contain any assertions.  - CodeSonar is configured to issue a warning whenever a function does not contain at least 2 assertions.      -  To configure this behavior, use configuration parameters MIN_ASSERTS and MIN_ASSERTS_FUNCTION_LENGTH.  - Assertions ensure that assumptions made in the code are valid and enforced.  - Power of Ten Rule 5 and JPL Rule 16 require that a minimum acceptable proportion of assertions be defined and enforced.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763297.html
+
+codesonar010 <Low> :testcasesupport/std_testcase.h:18: Macro Does Not Start With { or (
+    The definition of _CRT_SECURE_NO_DEPRECATE is not fully parenthesized.  - Unparenthesized macro definitions are legal, but can lead to unexpected behavior when the macro is used.  In particular, operator precedence may cause problems.  - Power of Ten Rule 8 and JPL Rule 20 require that macro definitions be "complete syntactic units".
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763298.html
+
+codesonar011 <Low> :testcasesupport/io.c:19: Not Enough Assertions
+    printWLine() does not contain any assertions.  - CodeSonar is configured to issue a warning whenever a function does not contain at least 2 assertions.      -  To configure this behavior, use configuration parameters MIN_ASSERTS and MIN_ASSERTS_FUNCTION_LENGTH.  - Assertions ensure that assumptions made in the code are valid and enforced.  - Power of Ten Rule 5 and JPL Rule 16 require that a minimum acceptable proportion of assertions be defined and enforced.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763299.html
+
+codesonar012 <Low> :testcasesupport/std_testcase.h:85: Function-Like Macro
+    Violation of MISRA C++:2008 16-0-4: Function-like macros shall not be defined.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763300.html
+
+codesonar013 <Low> :src/CWE835_Infinite_Loop__do_01.c:43: Not Enough Assertions
+    CWE835_Infinite_Loop__do_01_good() does not contain any assertions.  - CodeSonar is configured to issue a warning whenever a function does not contain at least 2 assertions.      -  To configure this behavior, use configuration parameters MIN_ASSERTS and MIN_ASSERTS_FUNCTION_LENGTH.  - Assertions ensure that assumptions made in the code are valid and enforced.  - Power of Ten Rule 5 and JPL Rule 16 require that a minimum acceptable proportion of assertions be defined and enforced.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763301.html
+
+codesonar014 <Low> :testcasesupport/std_thread.c:139: Use of <stdlib.h> Allocator/Deallocator
+    Use of malloc() is not recommended because it is a violation of some coding standards including MISRA C:2012 21.3: The memory allocation and deallocation functions of <stdlib.h> shall not be used.  See here for more information.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763302.html
+
+codesonar015 <Low> :src/CWE835_Infinite_Loop__while_01.c:42: Not Enough Assertions
+    CWE835_Infinite_Loop__while_01_good() does not contain any assertions.  - CodeSonar is configured to issue a warning whenever a function does not contain at least 2 assertions.      -  To configure this behavior, use configuration parameters MIN_ASSERTS and MIN_ASSERTS_FUNCTION_LENGTH.  - Assertions ensure that assumptions made in the code are valid and enforced.  - Power of Ten Rule 5 and JPL Rule 16 require that a minimum acceptable proportion of assertions be defined and enforced.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763303.html
+
+codesonar016 <Low> :testcasesupport/io.c:105: Not Enough Assertions
+    decodeHexChars() does not contain any assertions.  - CodeSonar is configured to issue a warning whenever a function does not contain at least 2 assertions.      -  To configure this behavior, use configuration parameters MIN_ASSERTS and MIN_ASSERTS_FUNCTION_LENGTH.  - Assertions ensure that assumptions made in the code are valid and enforced.  - Power of Ten Rule 5 and JPL Rule 16 require that a minimum acceptable proportion of assertions be defined and enforced.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763304.html
+
+codesonar017 <Low> :src/CWE835_Infinite_Loop__while_true_01.c:1: Warnings Not Treated As Errors
+    File CWE835_Infinite_Loop__while_true_01.c was compiled without the -Werror option, so compiler warnings were not treated as errors. The compilation command was:
+    /usr/bin/gcc -Wall -Wextra -Wpedantic -I ../testcasesupport
+    See the parse details log for further information about this compilation.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763305.html
+
+codesonar018 <Low> :testcasesupport/std_testcase.h:35: Macro Does Not Start With { or (
+    The definition of ALLOCA is not fully parenthesized.  - Unparenthesized macro definitions are legal, but can lead to unexpected behavior when the macro is used.  In particular, operator precedence may cause problems.  - Power of Ten Rule 8 and JPL Rule 20 require that macro definitions be "complete syntactic units".
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763306.html
+
+codesonar019 <Low> :testcasesupport/std_testcase.h:25: Macro Does Not Start With { or (
+    The definition of ALLOCA is not fully parenthesized.  - Unparenthesized macro definitions are legal, but can lead to unexpected behavior when the macro is used.  In particular, operator precedence may cause problems.  - Power of Ten Rule 8 and JPL Rule 20 require that macro definitions be "complete syntactic units".
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763307.html
+
+codesonar020 <Low> :testcasesupport/io.c:92: Not Enough Assertions
+    printBytesLine() does not contain any assertions.  - CodeSonar is configured to issue a warning whenever a function does not contain at least 2 assertions.      -  To configure this behavior, use configuration parameters MIN_ASSERTS and MIN_ASSERTS_FUNCTION_LENGTH.  - Assertions ensure that assumptions made in the code are valid and enforced.  - Power of Ten Rule 5 and JPL Rule 16 require that a minimum acceptable proportion of assertions be defined and enforced.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763308.html
+
+codesonar021 <Low> :testcasesupport/std_testcase.h:89: Function-Like Macro
+    Violation of MISRA C++:2008 16-0-4: Function-like macros shall not be defined.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763309.html
+
+codesonar022 <Low> :testcasesupport/io.c:1: Warnings Not Treated As Errors
+    File io.c was compiled without the -Werror option, so compiler warnings were not treated as errors. The compilation command was:
+    /usr/bin/gcc -Wall -Wextra -Wpedantic -I ../testcasesupport
+    See the parse details log for further information about this compilation.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763310.html
+
+codesonar023 <Low> :testcasesupport/io.c:57: Not Enough Assertions
+    printHexCharLine() does not contain any assertions.  - CodeSonar is configured to issue a warning whenever a function does not contain at least 2 assertions.      -  To configure this behavior, use configuration parameters MIN_ASSERTS and MIN_ASSERTS_FUNCTION_LENGTH.  - Assertions ensure that assumptions made in the code are valid and enforced.  - Power of Ten Rule 5 and JPL Rule 16 require that a minimum acceptable proportion of assertions be defined and enforced.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763311.html
+
+codesonar024 <Low> :testcasesupport/io.c:32: Not Enough Assertions
+    printShortLine() does not contain any assertions.  - CodeSonar is configured to issue a warning whenever a function does not contain at least 2 assertions.      -  To configure this behavior, use configuration parameters MIN_ASSERTS and MIN_ASSERTS_FUNCTION_LENGTH.  - Assertions ensure that assumptions made in the code are valid and enforced.  - Power of Ten Rule 5 and JPL Rule 16 require that a minimum acceptable proportion of assertions be defined and enforced.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763312.html
+
+codesonar025 <Low> :testcasesupport/io.c:52: Not Enough Assertions
+    printSizeTLine() does not contain any assertions.  - CodeSonar is configured to issue a warning whenever a function does not contain at least 2 assertions.      -  To configure this behavior, use configuration parameters MIN_ASSERTS and MIN_ASSERTS_FUNCTION_LENGTH.  - Assertions ensure that assumptions made in the code are valid and enforced.  - Power of Ten Rule 5 and JPL Rule 16 require that a minimum acceptable proportion of assertions be defined and enforced.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763313.html
+
+codesonar026 <Low> :testcasesupport/std_thread.h:5: Pointer Type Inside Typedef
+    The pointer type struct _stdThreadLock * is used to define the type stdThreadLock.  - Hiding pointer types inside typedef declarations can make it hard for human readers to follow the flow of data in a program.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763314.html
+
+codesonar027 <Low> :src/CWE835_Infinite_Loop__for_01.c:10: Not Enough Assertions
+    CWE835_Infinite_Loop__for_01_bad() does not contain any assertions.  - CodeSonar is configured to issue a warning whenever a function does not contain at least 2 assertions.      -  To configure this behavior, use configuration parameters MIN_ASSERTS and MIN_ASSERTS_FUNCTION_LENGTH.  - Assertions ensure that assumptions made in the code are valid and enforced.  - Power of Ten Rule 5 and JPL Rule 16 require that a minimum acceptable proportion of assertions be defined and enforced.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763315.html
+
+codesonar028 <Low> :testcasesupport/std_thread.c:1: Warnings Not Treated As Errors
+    File std_thread.c was compiled without the -Werror option, so compiler warnings were not treated as errors. The compilation command was:
+    /usr/bin/gcc -Wall -Wextra -Wpedantic -I ../testcasesupport
+    See the parse details log for further information about this compilation.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763316.html
+
+codesonar029 <Low> :testcasesupport/std_thread.c:35: Function Pointer
+    Call through function pointer thread->start.  - The presence of function pointers makes programs harder for both humans and tools to understand.  - Power of Ten Rule 9 and JPL Rule 29 require that the use of function pointers be restricted.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763317.html
+
+codesonar030 <Low> :testcasesupport/io.c:153: Not Enough Assertions
+    globalReturnsFalse() does not contain any assertions.  - CodeSonar is configured to issue a warning whenever a function does not contain at least 2 assertions.      -  To configure this behavior, use configuration parameters MIN_ASSERTS and MIN_ASSERTS_FUNCTION_LENGTH.  - Assertions ensure that assumptions made in the code are valid and enforced.  - Power of Ten Rule 5 and JPL Rule 16 require that a minimum acceptable proportion of assertions be defined and enforced.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763318.html
+
+codesonar031 <Low> :src/CWE835_Infinite_Loop__for_01.c:41: Not Enough Assertions
+    good2() does not contain any assertions.  - CodeSonar is configured to issue a warning whenever a function does not contain at least 2 assertions.      -  To configure this behavior, use configuration parameters MIN_ASSERTS and MIN_ASSERTS_FUNCTION_LENGTH.  - Assertions ensure that assumptions made in the code are valid and enforced.  - Power of Ten Rule 5 and JPL Rule 16 require that a minimum acceptable proportion of assertions be defined and enforced.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763319.html
+
+codesonar032 <Low> :src/CWE835_Infinite_Loop__while_01.c:8: Conditional Compilation
+    This form of conditional compilation is forbidden by Power of Ten Rule 8.When the Conditional Compilation warning class is enabled, warnings will be issued for all #ifndef directives, except in the case where:  - an #ifndef !defined(ID)directive is immediately followed by #define ID and this is the only conditional compilation construct in the source file.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763320.html
+
+codesonar033 <Low> :testcasesupport/std_testcase.h:84: Function-Like Macro
+    Violation of MISRA C++:2008 16-0-4: Function-like macros shall not be defined.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763332.html
+
+codesonar034 <Low> :testcasesupport/std_testcase.h:19: Macro Does Not End With } or )
+    The definition of _CRT_SECURE_NO_WARNING is not fully parenthesized.  - Unparenthesized macro definitions are legal, but can lead to unexpected behavior when the macro is used.  In particular, operator precedence may cause problems.  - Power of Ten Rule 8 and JPL Rule 20 require that macro definitions be "complete syntactic units".
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763333.html
+
+codesonar035 <Low> :src/CWE835_Infinite_Loop__do_true_01.c:10: Not Enough Assertions
+    CWE835_Infinite_Loop__do_true_01_bad() does not contain any assertions.  - CodeSonar is configured to issue a warning whenever a function does not contain at least 2 assertions.      -  To configure this behavior, use configuration parameters MIN_ASSERTS and MIN_ASSERTS_FUNCTION_LENGTH.  - Assertions ensure that assumptions made in the code are valid and enforced.  - Power of Ten Rule 5 and JPL Rule 16 require that a minimum acceptable proportion of assertions be defined and enforced.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763334.html
+
+codesonar036 <Low> :testcasesupport/std_testcase.h:18: Macro Does Not End With } or )
+    The definition of _CRT_SECURE_NO_DEPRECATE is not fully parenthesized.  - Unparenthesized macro definitions are legal, but can lead to unexpected behavior when the macro is used.  In particular, operator precedence may cause problems.  - Power of Ten Rule 8 and JPL Rule 20 require that macro definitions be "complete syntactic units".
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763335.html
+
+codesonar037 <Low> :src/CWE835_Infinite_Loop__do_true_01.c:1: Warnings Not Treated As Errors
+    File CWE835_Infinite_Loop__do_true_01.c was compiled without the -Werror option, so compiler warnings were not treated as errors. The compilation command was:
+    /usr/bin/gcc -Wall -Wextra -Wpedantic -I ../testcasesupport
+    See the parse details log for further information about this compilation.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763336.html
+
+codesonar038 <Low> :testcasesupport/io.c:11: Not Enough Assertions
+    printLine() does not contain any assertions.  - CodeSonar is configured to issue a warning whenever a function does not contain at least 2 assertions.      -  To configure this behavior, use configuration parameters MIN_ASSERTS and MIN_ASSERTS_FUNCTION_LENGTH.  - Assertions ensure that assumptions made in the code are valid and enforced.  - Power of Ten Rule 5 and JPL Rule 16 require that a minimum acceptable proportion of assertions be defined and enforced.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763337.html
+
+codesonar039 <Low> :testcasesupport/std_testcase.h:79: Macro Does Not End With } or )
+    The definition of false is not fully parenthesized.  - Unparenthesized macro definitions are legal, but can lead to unexpected behavior when the macro is used.  In particular, operator precedence may cause problems.  - Power of Ten Rule 8 and JPL Rule 20 require that macro definitions be "complete syntactic units".
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763338.html
+
+codesonar040 <Low> :testcasesupport/std_testcase.h:35: Macro Does Not End With } or )
+    The definition of ALLOCA is not fully parenthesized.  - Unparenthesized macro definitions are legal, but can lead to unexpected behavior when the macro is used.  In particular, operator precedence may cause problems.  - Power of Ten Rule 8 and JPL Rule 20 require that macro definitions be "complete syntactic units".
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763339.html
+
+codesonar041 <Low> :testcasesupport/std_thread.c:30: Not Enough Assertions
+    internal_start() does not contain any assertions.  - CodeSonar is configured to issue a warning whenever a function does not contain at least 2 assertions.      -  To configure this behavior, use configuration parameters MIN_ASSERTS and MIN_ASSERTS_FUNCTION_LENGTH.  - Assertions ensure that assumptions made in the code are valid and enforced.  - Power of Ten Rule 5 and JPL Rule 16 require that a minimum acceptable proportion of assertions be defined and enforced.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763340.html
+
+codesonar042 <Low> :testcasesupport/std_testcase.h:33: Macro Does Not Start With { or (
+    The definition of __STDC_LIMIT_MACROS is not fully parenthesized.  - Unparenthesized macro definitions are legal, but can lead to unexpected behavior when the macro is used.  In particular, operator precedence may cause problems.  - Power of Ten Rule 8 and JPL Rule 20 require that macro definitions be "complete syntactic units".
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763341.html
+
+codesonar043 <Low> :testcasesupport/io.c:82: Not Enough Assertions
+    printDoubleLine() does not contain any assertions.  - CodeSonar is configured to issue a warning whenever a function does not contain at least 2 assertions.      -  To configure this behavior, use configuration parameters MIN_ASSERTS and MIN_ASSERTS_FUNCTION_LENGTH.  - Assertions ensure that assumptions made in the code are valid and enforced.  - Power of Ten Rule 5 and JPL Rule 16 require that a minimum acceptable proportion of assertions be defined and enforced.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763342.html
+
+codesonar044 <Low> :src/CWE835_Infinite_Loop__for_01.c:52: Not Enough Assertions
+    CWE835_Infinite_Loop__for_01_good() does not contain any assertions.  - CodeSonar is configured to issue a warning whenever a function does not contain at least 2 assertions.      -  To configure this behavior, use configuration parameters MIN_ASSERTS and MIN_ASSERTS_FUNCTION_LENGTH.  - Assertions ensure that assumptions made in the code are valid and enforced.  - Power of Ten Rule 5 and JPL Rule 16 require that a minimum acceptable proportion of assertions be defined and enforced.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763343.html
+
+codesonar045 <Low> :testcasesupport/std_thread.c:91: Not Enough Assertions
+    stdThreadJoin() does not contain any assertions.  - CodeSonar is configured to issue a warning whenever a function does not contain at least 2 assertions.      -  To configure this behavior, use configuration parameters MIN_ASSERTS and MIN_ASSERTS_FUNCTION_LENGTH.  - Assertions ensure that assumptions made in the code are valid and enforced.  - Power of Ten Rule 5 and JPL Rule 16 require that a minimum acceptable proportion of assertions be defined and enforced.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763344.html
+
+codesonar046 <Low> :testcasesupport/io.c:148: Not Enough Assertions
+    globalReturnsTrue() does not contain any assertions.  - CodeSonar is configured to issue a warning whenever a function does not contain at least 2 assertions.      -  To configure this behavior, use configuration parameters MIN_ASSERTS and MIN_ASSERTS_FUNCTION_LENGTH.  - Assertions ensure that assumptions made in the code are valid and enforced.  - Power of Ten Rule 5 and JPL Rule 16 require that a minimum acceptable proportion of assertions be defined and enforced.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763345.html
+
+codesonar047 <Low> :testcasesupport/io.c:158: Not Enough Assertions
+    globalReturnsTrueOrFalse() does not contain any assertions.  - CodeSonar is configured to issue a warning whenever a function does not contain at least 2 assertions.      -  To configure this behavior, use configuration parameters MIN_ASSERTS and MIN_ASSERTS_FUNCTION_LENGTH.  - Assertions ensure that assumptions made in the code are valid and enforced.  - Power of Ten Rule 5 and JPL Rule 16 require that a minimum acceptable proportion of assertions be defined and enforced.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763346.html
+
+codesonar048 <Low> :testcasesupport/std_thread.h:4: Pointer Type Inside Typedef
+    The pointer type struct _stdThread * is used to define the type stdThread.  - Hiding pointer types inside typedef declarations can make it hard for human readers to follow the flow of data in a program.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763347.html
+
+codesonar049 <Low> :src/CWE835_Infinite_Loop__do_01.c:1: Warnings Not Treated As Errors
+    File CWE835_Infinite_Loop__do_01.c was compiled without the -Werror option, so compiler warnings were not treated as errors. The compilation command was:
+    /usr/bin/gcc -Wall -Wextra -Wpedantic -I ../testcasesupport
+    See the parse details log for further information about this compilation.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763348.html
+
+codesonar050 <Low> :testcasesupport/std_thread.c:59: Use of <stdlib.h> Allocator/Deallocator
+    Use of malloc() is not recommended because it is a violation of some coding standards including MISRA C:2012 21.3: The memory allocation and deallocation functions of <stdlib.h> shall not be used.  See here for more information.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763349.html
+
+codesonar051 <Low> :testcasesupport/std_thread.c:75: Use of <stdlib.h> Allocator/Deallocator
+    Use of free() is not recommended because it is a violation of some coding standards including MISRA C:2012 21.3: The memory allocation and deallocation functions of <stdlib.h> shall not be used.  See here for more information.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763350.html
+
+codesonar052 <Low> :testcasesupport/io.c:42: Not Enough Assertions
+    printLongLine() does not contain any assertions.  - CodeSonar is configured to issue a warning whenever a function does not contain at least 2 assertions.      -  To configure this behavior, use configuration parameters MIN_ASSERTS and MIN_ASSERTS_FUNCTION_LENGTH.  - Assertions ensure that assumptions made in the code are valid and enforced.  - Power of Ten Rule 5 and JPL Rule 16 require that a minimum acceptable proportion of assertions be defined and enforced.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763351.html
+
+codesonar053 <Low> :testcasesupport/io.c:87: Not Enough Assertions
+    printStructLine() does not contain any assertions.  - CodeSonar is configured to issue a warning whenever a function does not contain at least 2 assertions.      -  To configure this behavior, use configuration parameters MIN_ASSERTS and MIN_ASSERTS_FUNCTION_LENGTH.  - Assertions ensure that assumptions made in the code are valid and enforced.  - Power of Ten Rule 5 and JPL Rule 16 require that a minimum acceptable proportion of assertions be defined and enforced.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763352.html
+
+codesonar054 <Low> :src/CWE835_Infinite_Loop__for_empty_01.c:1: Warnings Not Treated As Errors
+    File CWE835_Infinite_Loop__for_empty_01.c was compiled without the -Werror option, so compiler warnings were not treated as errors. The compilation command was:
+    /usr/bin/gcc -Wall -Wextra -Wpedantic -I ../testcasesupport
+    See the parse details log for further information about this compilation.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763353.html
+
+codesonar055 <Low> :testcasesupport/std_testcase.h:57: Conditional Compilation
+    There are multiple conditional compilation constructs in this file.  - Power of Ten Rule 8 and JPL Rule 20 forbid multiple conditional compliation constructs in the same file.  - There is an #ifdef directive here.  - There is already a conditional compilation construct at line 1.  - CodeSonar will issue a Conditional Compilation warning whenever a file contains conditional compilation constructs, unless there is exactly one such construct and it has a specific form.  Find out more.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763354.html
+
+codesonar056 <Low> :testcasesupport/std_testcase.h:76: Conditional Compilation
+    There are multiple conditional compilation constructs in this file.  - Power of Ten Rule 8 and JPL Rule 20 forbid multiple conditional compliation constructs in the same file.  - There is an #ifndef directive here.  - There is already a conditional compilation construct at line 1.  - CodeSonar will issue a Conditional Compilation warning whenever a file contains conditional compilation constructs, unless there is exactly one such construct and it has a specific form.  Find out more.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763367.html
+
+codesonar057 <Low> :testcasesupport/std_testcase.h:19: Macro Does Not Start With { or (
+    The definition of _CRT_SECURE_NO_WARNING is not fully parenthesized.  - Unparenthesized macro definitions are legal, but can lead to unexpected behavior when the macro is used.  In particular, operator precedence may cause problems.  - Power of Ten Rule 8 and JPL Rule 20 require that macro definitions be "complete syntactic units".
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763368.html
+
+codesonar058 <Low> :src/CWE835_Infinite_Loop__while_01.c:10: Not Enough Assertions
+    CWE835_Infinite_Loop__while_01_bad() does not contain any assertions.  - CodeSonar is configured to issue a warning whenever a function does not contain at least 2 assertions.      -  To configure this behavior, use configuration parameters MIN_ASSERTS and MIN_ASSERTS_FUNCTION_LENGTH.  - Assertions ensure that assumptions made in the code are valid and enforced.  - Power of Ten Rule 5 and JPL Rule 16 require that a minimum acceptable proportion of assertions be defined and enforced.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763369.html
+
+codesonar059 <Low> :testcasesupport/std_testcase.h:88: Function-Like Macro
+    Violation of MISRA C++:2008 16-0-4: Function-like macros shall not be defined.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763370.html
+
+codesonar060 <Low> :testcasesupport/std_thread.c:106: Not Enough Assertions
+    stdThreadDestroy() does not contain any assertions.  - CodeSonar is configured to issue a warning whenever a function does not contain at least 2 assertions.      -  To configure this behavior, use configuration parameters MIN_ASSERTS and MIN_ASSERTS_FUNCTION_LENGTH.  - Assertions ensure that assumptions made in the code are valid and enforced.  - Power of Ten Rule 5 and JPL Rule 16 require that a minimum acceptable proportion of assertions be defined and enforced.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763371.html
+
+codesonar061 <Low> :testcasesupport/std_thread.c:133: Not Enough Assertions
+    stdThreadLockCreate() does not contain any assertions.  - CodeSonar is configured to issue a warning whenever a function does not contain at least 2 assertions.      -  To configure this behavior, use configuration parameters MIN_ASSERTS and MIN_ASSERTS_FUNCTION_LENGTH.  - Assertions ensure that assumptions made in the code are valid and enforced.  - Power of Ten Rule 5 and JPL Rule 16 require that a minimum acceptable proportion of assertions be defined and enforced.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763372.html
+
+codesonar062 <Low> :testcasesupport/std_thread.c:151: Use of <stdlib.h> Allocator/Deallocator
+    Use of free() is not recommended because it is a violation of some coding standards including MISRA C:2012 21.3: The memory allocation and deallocation functions of <stdlib.h> shall not be used.  See here for more information.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763373.html
+
+codesonar063 <Low> :src/CWE835_Infinite_Loop__do_01.c:10: Not Enough Assertions
+    CWE835_Infinite_Loop__do_01_bad() does not contain any assertions.  - CodeSonar is configured to issue a warning whenever a function does not contain at least 2 assertions.      -  To configure this behavior, use configuration parameters MIN_ASSERTS and MIN_ASSERTS_FUNCTION_LENGTH.  - Assertions ensure that assumptions made in the code are valid and enforced.  - Power of Ten Rule 5 and JPL Rule 16 require that a minimum acceptable proportion of assertions be defined and enforced.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763374.html
+
+codesonar064 <Low> :src/CWE835_Infinite_Loop__while_01.c:24: Conditional Compilation
+    This form of conditional compilation is forbidden by Power of Ten Rule 8.When the Conditional Compilation warning class is enabled, warnings will be issued for all #ifndef directives, except in the case where:  - an #ifndef !defined(ID)directive is immediately followed by #define ID and this is the only conditional compilation construct in the source file.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763375.html
+
+codesonar065 <Low> :testcasesupport/io.c:37: Not Enough Assertions
+    printFloatLine() does not contain any assertions.  - CodeSonar is configured to issue a warning whenever a function does not contain at least 2 assertions.      -  To configure this behavior, use configuration parameters MIN_ASSERTS and MIN_ASSERTS_FUNCTION_LENGTH.  - Assertions ensure that assumptions made in the code are valid and enforced.  - Power of Ten Rule 5 and JPL Rule 16 require that a minimum acceptable proportion of assertions be defined and enforced.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763387.html
+
+codesonar066 <Low> :testcasesupport/io.c:192: Not Enough Assertions
+    bad3() does not contain any assertions.  - CodeSonar is configured to issue a warning whenever a function does not contain at least 2 assertions.      -  To configure this behavior, use configuration parameters MIN_ASSERTS and MIN_ASSERTS_FUNCTION_LENGTH.  - Assertions ensure that assumptions made in the code are valid and enforced.  - Power of Ten Rule 5 and JPL Rule 16 require that a minimum acceptable proportion of assertions be defined and enforced.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763388.html
+
+codesonar067 <Low> :testcasesupport/io.c:191: Not Enough Assertions
+    bad2() does not contain any assertions.  - CodeSonar is configured to issue a warning whenever a function does not contain at least 2 assertions.      -  To configure this behavior, use configuration parameters MIN_ASSERTS and MIN_ASSERTS_FUNCTION_LENGTH.  - Assertions ensure that assumptions made in the code are valid and enforced.  - Power of Ten Rule 5 and JPL Rule 16 require that a minimum acceptable proportion of assertions be defined and enforced.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763389.html
+
+codesonar068 <Low> :testcasesupport/io.c:194: Not Enough Assertions
+    bad5() does not contain any assertions.  - CodeSonar is configured to issue a warning whenever a function does not contain at least 2 assertions.      -  To configure this behavior, use configuration parameters MIN_ASSERTS and MIN_ASSERTS_FUNCTION_LENGTH.  - Assertions ensure that assumptions made in the code are valid and enforced.  - Power of Ten Rule 5 and JPL Rule 16 require that a minimum acceptable proportion of assertions be defined and enforced.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763390.html
+
+codesonar069 <Low> :testcasesupport/io.c:193: Not Enough Assertions
+    bad4() does not contain any assertions.  - CodeSonar is configured to issue a warning whenever a function does not contain at least 2 assertions.      -  To configure this behavior, use configuration parameters MIN_ASSERTS and MIN_ASSERTS_FUNCTION_LENGTH.  - Assertions ensure that assumptions made in the code are valid and enforced.  - Power of Ten Rule 5 and JPL Rule 16 require that a minimum acceptable proportion of assertions be defined and enforced.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763391.html
+
+codesonar070 <Low> :testcasesupport/io.c:190: Not Enough Assertions
+    bad1() does not contain any assertions.  - CodeSonar is configured to issue a warning whenever a function does not contain at least 2 assertions.      -  To configure this behavior, use configuration parameters MIN_ASSERTS and MIN_ASSERTS_FUNCTION_LENGTH.  - Assertions ensure that assumptions made in the code are valid and enforced.  - Power of Ten Rule 5 and JPL Rule 16 require that a minimum acceptable proportion of assertions be defined and enforced.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763392.html
+
+codesonar071 <Low> :testcasesupport/std_testcase.h:78: Macro Does Not Start With { or (
+    The definition of true is not fully parenthesized.  - Unparenthesized macro definitions are legal, but can lead to unexpected behavior when the macro is used.  In particular, operator precedence may cause problems.  - Power of Ten Rule 8 and JPL Rule 20 require that macro definitions be "complete syntactic units".
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763393.html
+
+codesonar072 <Low> :testcasesupport/std_testcase.h:33: Macro Does Not End With } or )
+    The definition of __STDC_LIMIT_MACROS is not fully parenthesized.  - Unparenthesized macro definitions are legal, but can lead to unexpected behavior when the macro is used.  In particular, operator precedence may cause problems.  - Power of Ten Rule 8 and JPL Rule 20 require that macro definitions be "complete syntactic units".
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763394.html
+
+codesonar073 <Low> :src/CWE835_Infinite_Loop__for_empty_01.c:43: Not Enough Assertions
+    CWE835_Infinite_Loop__for_empty_01_good() does not contain any assertions.  - CodeSonar is configured to issue a warning whenever a function does not contain at least 2 assertions.      -  To configure this behavior, use configuration parameters MIN_ASSERTS and MIN_ASSERTS_FUNCTION_LENGTH.  - Assertions ensure that assumptions made in the code are valid and enforced.  - Power of Ten Rule 5 and JPL Rule 16 require that a minimum acceptable proportion of assertions be defined and enforced.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763395.html
+
+codesonar074 <Low> :testcasesupport/io.c:27: Not Enough Assertions
+    printIntLine() does not contain any assertions.  - CodeSonar is configured to issue a warning whenever a function does not contain at least 2 assertions.      -  To configure this behavior, use configuration parameters MIN_ASSERTS and MIN_ASSERTS_FUNCTION_LENGTH.  - Assertions ensure that assumptions made in the code are valid and enforced.  - Power of Ten Rule 5 and JPL Rule 16 require that a minimum acceptable proportion of assertions be defined and enforced.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763396.html
+
+codesonar075 <Low> :testcasesupport/std_testcase.h:25: Macro Does Not End With } or )
+    The definition of ALLOCA is not fully parenthesized.  - Unparenthesized macro definitions are legal, but can lead to unexpected behavior when the macro is used.  In particular, operator precedence may cause problems.  - Power of Ten Rule 8 and JPL Rule 20 require that macro definitions be "complete syntactic units".
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763397.html
+
+codesonar076 <Low> :src/CWE835_Infinite_Loop__for_01.c:1: Warnings Not Treated As Errors
+    File CWE835_Infinite_Loop__for_01.c was compiled without the -Werror option, so compiler warnings were not treated as errors. The compilation command was:
+    /usr/bin/gcc -Wall -Wextra -Wpedantic -I ../testcasesupport
+    See the parse details log for further information about this compilation.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763398.html
+
+codesonar077 <Low> :testcasesupport/io.c:77: Not Enough Assertions
+    printHexUnsignedCharLine() does not contain any assertions.  - CodeSonar is configured to issue a warning whenever a function does not contain at least 2 assertions.      -  To configure this behavior, use configuration parameters MIN_ASSERTS and MIN_ASSERTS_FUNCTION_LENGTH.  - Assertions ensure that assumptions made in the code are valid and enforced.  - Power of Ten Rule 5 and JPL Rule 16 require that a minimum acceptable proportion of assertions be defined and enforced.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763399.html
+
+codesonar079 <Low> :src/CWE835_Infinite_Loop__while_01.c:1: Warnings Not Treated As Errors
+    File CWE835_Infinite_Loop__while_01.c was compiled without the -Werror option, so compiler warnings were not treated as errors. The compilation command was:
+    /usr/bin/gcc -Wall -Wextra -Wpedantic -I ../testcasesupport
+    See the parse details log for further information about this compilation.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763402.html
+
+codesonar080 <Low> :testcasesupport/std_testcase.h:79: Macro Does Not Start With { or (
+    The definition of false is not fully parenthesized.  - Unparenthesized macro definitions are legal, but can lead to unexpected behavior when the macro is used.  In particular, operator precedence may cause problems.  - Power of Ten Rule 8 and JPL Rule 20 require that macro definitions be "complete syntactic units".
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763403.html
+
+codesonar081 <Low> :testcasesupport/io.c:62: Not Enough Assertions
+    printWcharLine() does not contain any assertions.  - CodeSonar is configured to issue a warning whenever a function does not contain at least 2 assertions.      -  To configure this behavior, use configuration parameters MIN_ASSERTS and MIN_ASSERTS_FUNCTION_LENGTH.  - Assertions ensure that assumptions made in the code are valid and enforced.  - Power of Ten Rule 5 and JPL Rule 16 require that a minimum acceptable proportion of assertions be defined and enforced.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763404.html
+
+codesonar082 <Low> :src/CWE835_Infinite_Loop__while_01.c:55: Conditional Compilation
+    This form of conditional compilation is forbidden by Power of Ten Rule 8.When the Conditional Compilation warning class is enabled, warnings will be issued for all #ifdef directives  Find out more.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763405.html
+
+codesonar083 <Low> :testcasesupport/std_thread.c:200: Not Enough Assertions
+    stdThreadLockDestroy() does not contain any assertions.  - CodeSonar is configured to issue a warning whenever a function does not contain at least 2 assertions.      -  To configure this behavior, use configuration parameters MIN_ASSERTS and MIN_ASSERTS_FUNCTION_LENGTH.  - Assertions ensure that assumptions made in the code are valid and enforced.  - Power of Ten Rule 5 and JPL Rule 16 require that a minimum acceptable proportion of assertions be defined and enforced.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763411.html
+
+codesonar084 <Low> :testcasesupport/io.c:72: Not Enough Assertions
+    printUnsignedLine() does not contain any assertions.  - CodeSonar is configured to issue a warning whenever a function does not contain at least 2 assertions.      -  To configure this behavior, use configuration parameters MIN_ASSERTS and MIN_ASSERTS_FUNCTION_LENGTH.  - Assertions ensure that assumptions made in the code are valid and enforced.  - Power of Ten Rule 5 and JPL Rule 16 require that a minimum acceptable proportion of assertions be defined and enforced.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763412.html
+
+codesonar085 <Low> :src/CWE835_Infinite_Loop__for_empty_01.c:10: Not Enough Assertions
+    CWE835_Infinite_Loop__for_empty_01_bad() does not contain any assertions.  - CodeSonar is configured to issue a warning whenever a function does not contain at least 2 assertions.      -  To configure this behavior, use configuration parameters MIN_ASSERTS and MIN_ASSERTS_FUNCTION_LENGTH.  - Assertions ensure that assumptions made in the code are valid and enforced.  - Power of Ten Rule 5 and JPL Rule 16 require that a minimum acceptable proportion of assertions be defined and enforced.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763413.html
+
+codesonar086 <Low> :testcasesupport/std_thread.c:207: Use of <stdlib.h> Allocator/Deallocator
+    Use of free() is not recommended because it is a violation of some coding standards including MISRA C:2012 21.3: The memory allocation and deallocation functions of <stdlib.h> shall not be used.  See here for more information.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763414.html
+
+codesonar087 <Low> :src/CWE835_Infinite_Loop__while_true_01.c:42: Not Enough Assertions
+    CWE835_Infinite_Loop__while_true_01_good() does not contain any assertions.  - CodeSonar is configured to issue a warning whenever a function does not contain at least 2 assertions.      -  To configure this behavior, use configuration parameters MIN_ASSERTS and MIN_ASSERTS_FUNCTION_LENGTH.  - Assertions ensure that assumptions made in the code are valid and enforced.  - Power of Ten Rule 5 and JPL Rule 16 require that a minimum acceptable proportion of assertions be defined and enforced.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763415.html
+
+codesonar088 <Low> :testcasesupport/io.c:183: Not Enough Assertions
+    good5() does not contain any assertions.  - CodeSonar is configured to issue a warning whenever a function does not contain at least 2 assertions.      -  To configure this behavior, use configuration parameters MIN_ASSERTS and MIN_ASSERTS_FUNCTION_LENGTH.  - Assertions ensure that assumptions made in the code are valid and enforced.  - Power of Ten Rule 5 and JPL Rule 16 require that a minimum acceptable proportion of assertions be defined and enforced.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763416.html
+
+codesonar089 <Low> :testcasesupport/io.c:182: Not Enough Assertions
+    good4() does not contain any assertions.  - CodeSonar is configured to issue a warning whenever a function does not contain at least 2 assertions.      -  To configure this behavior, use configuration parameters MIN_ASSERTS and MIN_ASSERTS_FUNCTION_LENGTH.  - Assertions ensure that assumptions made in the code are valid and enforced.  - Power of Ten Rule 5 and JPL Rule 16 require that a minimum acceptable proportion of assertions be defined and enforced.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763417.html
+
+codesonar090 <Low> :testcasesupport/io.c:181: Not Enough Assertions
+    good3() does not contain any assertions.  - CodeSonar is configured to issue a warning whenever a function does not contain at least 2 assertions.      -  To configure this behavior, use configuration parameters MIN_ASSERTS and MIN_ASSERTS_FUNCTION_LENGTH.  - Assertions ensure that assumptions made in the code are valid and enforced.  - Power of Ten Rule 5 and JPL Rule 16 require that a minimum acceptable proportion of assertions be defined and enforced.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763418.html
+
+codesonar091 <Low> :testcasesupport/std_thread.c:161: Not Enough Assertions
+    stdThreadLockAcquire() does not contain any assertions.  - CodeSonar is configured to issue a warning whenever a function does not contain at least 2 assertions.      -  To configure this behavior, use configuration parameters MIN_ASSERTS and MIN_ASSERTS_FUNCTION_LENGTH.  - Assertions ensure that assumptions made in the code are valid and enforced.  - Power of Ten Rule 5 and JPL Rule 16 require that a minimum acceptable proportion of assertions be defined and enforced.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763419.html
+
+codesonar092 <Low> :testcasesupport/io.c:180: Not Enough Assertions
+    good2() does not contain any assertions.  - CodeSonar is configured to issue a warning whenever a function does not contain at least 2 assertions.      -  To configure this behavior, use configuration parameters MIN_ASSERTS and MIN_ASSERTS_FUNCTION_LENGTH.  - Assertions ensure that assumptions made in the code are valid and enforced.  - Power of Ten Rule 5 and JPL Rule 16 require that a minimum acceptable proportion of assertions be defined and enforced.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763420.html
+
+codesonar093 <Low> :testcasesupport/io.c:187: Not Enough Assertions
+    good9() does not contain any assertions.  - CodeSonar is configured to issue a warning whenever a function does not contain at least 2 assertions.      -  To configure this behavior, use configuration parameters MIN_ASSERTS and MIN_ASSERTS_FUNCTION_LENGTH.  - Assertions ensure that assumptions made in the code are valid and enforced.  - Power of Ten Rule 5 and JPL Rule 16 require that a minimum acceptable proportion of assertions be defined and enforced.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763421.html
+
+codesonar094 <Low> :testcasesupport/std_thread.c:112: Use of <stdlib.h> Allocator/Deallocator
+    Use of free() is not recommended because it is a violation of some coding standards including MISRA C:2012 21.3: The memory allocation and deallocation functions of <stdlib.h> shall not be used.  See here for more information.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763422.html
+
+codesonar095 <Low> :testcasesupport/io.c:186: Not Enough Assertions
+    good8() does not contain any assertions.  - CodeSonar is configured to issue a warning whenever a function does not contain at least 2 assertions.      -  To configure this behavior, use configuration parameters MIN_ASSERTS and MIN_ASSERTS_FUNCTION_LENGTH.  - Assertions ensure that assumptions made in the code are valid and enforced.  - Power of Ten Rule 5 and JPL Rule 16 require that a minimum acceptable proportion of assertions be defined and enforced.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763423.html
+
+codesonar096 <Low> :testcasesupport/io.c:185: Not Enough Assertions
+    good7() does not contain any assertions.  - CodeSonar is configured to issue a warning whenever a function does not contain at least 2 assertions.      -  To configure this behavior, use configuration parameters MIN_ASSERTS and MIN_ASSERTS_FUNCTION_LENGTH.  - Assertions ensure that assumptions made in the code are valid and enforced.  - Power of Ten Rule 5 and JPL Rule 16 require that a minimum acceptable proportion of assertions be defined and enforced.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763424.html
+
+codesonar097 <Low> :testcasesupport/std_testcase.h:78: Macro Does Not End With } or )
+    The definition of true is not fully parenthesized.  - Unparenthesized macro definitions are legal, but can lead to unexpected behavior when the macro is used.  In particular, operator precedence may cause problems.  - Power of Ten Rule 8 and JPL Rule 20 require that macro definitions be "complete syntactic units".
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763425.html
+
+codesonar098 <Low> :testcasesupport/io.c:184: Not Enough Assertions
+    good6() does not contain any assertions.  - CodeSonar is configured to issue a warning whenever a function does not contain at least 2 assertions.      -  To configure this behavior, use configuration parameters MIN_ASSERTS and MIN_ASSERTS_FUNCTION_LENGTH.  - Assertions ensure that assumptions made in the code are valid and enforced.  - Power of Ten Rule 5 and JPL Rule 16 require that a minimum acceptable proportion of assertions be defined and enforced.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763426.html
+
+codesonar099 <Low> :testcasesupport/io.c:179: Not Enough Assertions
+    good1() does not contain any assertions.  - CodeSonar is configured to issue a warning whenever a function does not contain at least 2 assertions.      -  To configure this behavior, use configuration parameters MIN_ASSERTS and MIN_ASSERTS_FUNCTION_LENGTH.  - Assertions ensure that assumptions made in the code are valid and enforced.  - Power of Ten Rule 5 and JPL Rule 16 require that a minimum acceptable proportion of assertions be defined and enforced.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763433.html
+
+codesonar100 <Low> :src/main_linux.cpp:1: Warnings Not Treated As Errors
+    File main_linux.cpp was compiled without the -Werror option, so compiler warnings were not treated as errors. The compilation command was:
+    /usr/bin/gcc -Wall -Wextra -Wpedantic -I ../testcasesupport
+    See the parse details log for further information about this compilation.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763445.html
+
+codesonar101 <Low> :testcasesupport/io.c:196: Not Enough Assertions
+    bad7() does not contain any assertions.  - CodeSonar is configured to issue a warning whenever a function does not contain at least 2 assertions.      -  To configure this behavior, use configuration parameters MIN_ASSERTS and MIN_ASSERTS_FUNCTION_LENGTH.  - Assertions ensure that assumptions made in the code are valid and enforced.  - Power of Ten Rule 5 and JPL Rule 16 require that a minimum acceptable proportion of assertions be defined and enforced.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763446.html
+
+codesonar102 <Low> :testcasesupport/io.c:195: Not Enough Assertions
+    bad6() does not contain any assertions.  - CodeSonar is configured to issue a warning whenever a function does not contain at least 2 assertions.      -  To configure this behavior, use configuration parameters MIN_ASSERTS and MIN_ASSERTS_FUNCTION_LENGTH.  - Assertions ensure that assumptions made in the code are valid and enforced.  - Power of Ten Rule 5 and JPL Rule 16 require that a minimum acceptable proportion of assertions be defined and enforced.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763447.html
+
+codesonar103 <Low> :testcasesupport/io.c:198: Not Enough Assertions
+    bad9() does not contain any assertions.  - CodeSonar is configured to issue a warning whenever a function does not contain at least 2 assertions.      -  To configure this behavior, use configuration parameters MIN_ASSERTS and MIN_ASSERTS_FUNCTION_LENGTH.  - Assertions ensure that assumptions made in the code are valid and enforced.  - Power of Ten Rule 5 and JPL Rule 16 require that a minimum acceptable proportion of assertions be defined and enforced.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763448.html
+
+codesonar104 <Low> :testcasesupport/io.c:197: Not Enough Assertions
+    bad8() does not contain any assertions.  - CodeSonar is configured to issue a warning whenever a function does not contain at least 2 assertions.      -  To configure this behavior, use configuration parameters MIN_ASSERTS and MIN_ASSERTS_FUNCTION_LENGTH.  - Assertions ensure that assumptions made in the code are valid and enforced.  - Power of Ten Rule 5 and JPL Rule 16 require that a minimum acceptable proportion of assertions be defined and enforced.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763449.html
+
+codesonar105 <Low> :src/main_linux.cpp:11: Not Enough Assertions
+    main() does not contain any assertions.  - CodeSonar is configured to issue a warning whenever a function does not contain at least 2 assertions.      -  To configure this behavior, use configuration parameters MIN_ASSERTS and MIN_ASSERTS_FUNCTION_LENGTH.  - Assertions ensure that assumptions made in the code are valid and enforced.  - Power of Ten Rule 5 and JPL Rule 16 require that a minimum acceptable proportion of assertions be defined and enforced.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763450.html
+
+codesonar106 <Low> :src/CWE835_Infinite_Loop__for_01.c:46: Potential Unbounded Loop
+    CodeSonar could not determine that the loop is bounded.  - The following were identified as candidate loop counters, but could not be used to establish boundedness (What is a loop counter?).  - iis a candidate loop counter, but CodeSonar cannot determine whether the loop is incrementing or decrementing i.      - The loop updates i in a manner that is too complex for this analysis.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763451.html
+
+codesonar107 <Low> :src/CWE835_Infinite_Loop__for_01.c:15: Potential Unbounded Loop
+    CodeSonar could not determine that the loop is bounded.  - The following were identified as candidate loop counters, but could not be used to establish boundedness (What is a loop counter?).  - iis a candidate loop counter, but CodeSonar cannot determine whether the loop is incrementing or decrementing i.      - The loop updates i in a manner that is too complex for this analysis.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763453.html
+
+codesonar108 <Low> :src/CWE835_Infinite_Loop__while_01.c:15: Potential Unbounded Loop
+    CodeSonar could not determine that the loop is bounded.  - The following were identified as candidate loop counters, but could not be used to establish boundedness (What is a loop counter?).  - iis a candidate loop counter, but CodeSonar cannot determine whether the loop is incrementing or decrementing i.      - The loop updates i in a manner that is too complex for this analysis.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763454.html
+
+codesonar109 <Low> :src/CWE835_Infinite_Loop__do_01.c:15: Potential Unbounded Loop
+    CodeSonar could not determine that the loop is bounded.  - The following were identified as candidate loop counters, but could not be used to establish boundedness (What is a loop counter?).  - iis a candidate loop counter, but CodeSonar cannot determine whether the loop is incrementing or decrementing i.      - The loop updates i in a manner that is too complex for this analysis.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763455.html
+
+codesonar110 <Low> :src/CWE835_Infinite_Loop__while_true_01.c:15: Potential Unbounded Loop
+    CodeSonar could not determine that the loop is bounded because it could not identify a candidate loop counter (What is a loop counter?).  - The loop test does not include any terms where a variable is compared against some other expression using <, <=, >, or >=.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763459.html
+
+codesonar111 <Low> :src/CWE835_Infinite_Loop__do_true_01.c:15: Potential Unbounded Loop
+    CodeSonar could not determine that the loop is bounded because it could not identify a candidate loop counter (What is a loop counter?).  - The loop test does not include any terms where a variable is compared against some other expression using <, <=, >, or >=.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763460.html
+
+codesonar112 <Low> :src/CWE835_Infinite_Loop__for_empty_01.c:15: Potential Unbounded Loop
+    CodeSonar could not determine that the loop is bounded because it could not identify a candidate loop counter (What is a loop counter?).  - The loop test does not include any terms where a variable is compared against some other expression using <, <=, >, or >=.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763461.html
+
+codesonar113 <Low> :src/CWE835_Infinite_Loop__while_true_01.c:30: Potential Unbounded Loop
+    CodeSonar could not determine that the loop is bounded because it could not identify a candidate loop counter (What is a loop counter?).  - The loop test does not include any terms where a variable is compared against some other expression using <, <=, >, or >=.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763462.html
+
+codesonar114 <Low> :src/CWE835_Infinite_Loop__for_empty_01.c:31: Potential Unbounded Loop
+    CodeSonar could not determine that the loop is bounded because it could not identify a candidate loop counter (What is a loop counter?).  - The loop test does not include any terms where a variable is compared against some other expression using <, <=, >, or >=.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763463.html
+
+codesonar115 <Low> :src/CWE835_Infinite_Loop__do_true_01.c:31: Potential Unbounded Loop
+    CodeSonar could not determine that the loop is bounded because it could not identify a candidate loop counter (What is a loop counter?).  - The loop test does not include any terms where a variable is compared against some other expression using <, <=, >, or >=.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763464.html
+
+codesonar116 <Low> :src/CWE835_Infinite_Loop__while_01.c:30: Potential Unbounded Loop
+    CodeSonar could not determine that the loop is bounded.  - The following were identified as candidate loop counters, but could not be used to establish boundedness (What is a loop counter?).  - iis a candidate loop counter, but CodeSonar cannot determine whether the loop is incrementing or decrementing i.      - The loop updates i in a manner that is too complex for this analysis.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763466.html
+
+codesonar117 <Low> :src/CWE835_Infinite_Loop__for_01.c:30: Potential Unbounded Loop
+    CodeSonar could not determine that the loop is bounded.  - The following were identified as candidate loop counters, but could not be used to establish boundedness (What is a loop counter?).  - iis a candidate loop counter, but CodeSonar cannot determine whether the loop is incrementing or decrementing i.      - The loop updates i in a manner that is too complex for this analysis.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763467.html
+
+codesonar126 <Low> :testcasesupport/io.c:207: Scope Could Be Local Static
+    globalArgv could be local static to main in main_linux.cpp.  - globalArgv is only used inside main().  - Power of Ten Rule 6 and JPL Rule 13 require that data objects be declared at "the smallest possible level of scope".
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763483.html
+
+codesonar128 <Low> :testcasesupport/io.c:206: Scope Could Be Local Static
+    globalArgc could be local static to main in main_linux.cpp.  - globalArgc is only used inside main().  - Power of Ten Rule 6 and JPL Rule 13 require that data objects be declared at "the smallest possible level of scope".
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763485.html
+
+semmle001 <Low> :src/CWE835_Infinite_Loop__do_01.c:31: cpp/power-of-10/bounded-loop-iterations
+    The loop counter i is not always decremented in the loop body.
+    All loops should have a fixed upper bound; the counter should also be incremented along all paths within the loop. This check excludes loops that are meant to be nonterminating (like schedulers).
+
+semmle002 <Low> :src/CWE835_Infinite_Loop__do_01.c:15: cpp/power-of-10/bounded-loop-iterations
+    The loop counter i is not always decremented in the loop body.
+    All loops should have a fixed upper bound; the counter should also be incremented along all paths within the loop. This check excludes loops that are meant to be nonterminating (like schedulers).
+
+semmle003 <Low> :src/CWE835_Infinite_Loop__for_01.c:46: cpp/power-of-10/bounded-loop-iterations
+    The loop counter i is not always incremented in the loop body.
+    All loops should have a fixed upper bound; the counter should also be incremented along all paths within the loop. This check excludes loops that are meant to be nonterminating (like schedulers).
+
+semmle004 <Low> :src/CWE835_Infinite_Loop__for_01.c:30: cpp/power-of-10/bounded-loop-iterations
+    The loop counter i is not always decremented in the loop body.
+    All loops should have a fixed upper bound; the counter should also be incremented along all paths within the loop. This check excludes loops that are meant to be nonterminating (like schedulers).
+
+semmle005 <Low> :src/CWE835_Infinite_Loop__for_01.c:15: cpp/power-of-10/bounded-loop-iterations
+    The loop counter i is not always decremented in the loop body.
+    All loops should have a fixed upper bound; the counter should also be incremented along all paths within the loop. This check excludes loops that are meant to be nonterminating (like schedulers).
+
+semmle006 <Low> :src/CWE835_Infinite_Loop__for_empty_01.c:31: cpp/power-of-10/bounded-loop-iterations
+    This loop does not have a fixed bound.
+    All loops should have a fixed upper bound; the counter should also be incremented along all paths within the loop. This check excludes loops that are meant to be nonterminating (like schedulers).
+
+semmle007 <Low> :src/CWE835_Infinite_Loop__for_empty_01.c:15: cpp/power-of-10/bounded-loop-iterations
+    This loop does not have a fixed bound.
+    All loops should have a fixed upper bound; the counter should also be incremented along all paths within the loop. This check excludes loops that are meant to be nonterminating (like schedulers).
+
+semmle008 <Low> :src/CWE835_Infinite_Loop__while_01.c:30: cpp/power-of-10/bounded-loop-iterations
+    The loop counter i is not always decremented in the loop body.
+    All loops should have a fixed upper bound; the counter should also be incremented along all paths within the loop. This check excludes loops that are meant to be nonterminating (like schedulers).
+
+semmle009 <Low> :src/CWE835_Infinite_Loop__while_01.c:15: cpp/power-of-10/bounded-loop-iterations
+    The loop counter i is not always decremented in the loop body.
+    All loops should have a fixed upper bound; the counter should also be incremented along all paths within the loop. This check excludes loops that are meant to be nonterminating (like schedulers).
+
+semmle010 <Low> :src/CWE835_Infinite_Loop__do_true_01.c:36: cpp/power-of-10/exit-permanent-loop
+    [This permanent loop](1) should not be exited.
+    Permanent loops (like "while(1) {..}") are typically meant to be non-terminating and should not be terminated by other means.
+
+semmle011 <Low> :src/CWE835_Infinite_Loop__while_true_01.c:35: cpp/power-of-10/exit-permanent-loop
+    [This permanent loop](1) should not be exited.
+    Permanent loops (like "while(1) {..}") are typically meant to be non-terminating and should not be terminated by other means.
+
+semmle012 <Low> :testcasesupport/std_thread.c:139: cpp/power-of-10/dynamic-alloc-after-init
+    Dynamic memory allocation is only allowed during initialization.
+    Dynamic memory allocation (using malloc() or calloc()) should be confined to the initialization routines of a program.
+
+semmle013 <Low> :testcasesupport/std_thread.c:59: cpp/power-of-10/dynamic-alloc-after-init
+    Dynamic memory allocation is only allowed during initialization.
+    Dynamic memory allocation (using malloc() or calloc()) should be confined to the initialization routines of a program.
+
+semmle014 <Low> :testcasesupport/std_thread.c:100: cpp/power-of-10/one-stmt-per-line
+    This line contains 2 statements; only one is allowed.
+    Putting more than one statement on a single line hinders program understanding.
+
+semmle015 <Low> :src/main_linux.cpp:11: cpp/power-of-10/assertion-density
+    Function main has 27 logical lines, but only 0 assertion(s) -- minimum is 2 (for functions over 20 logical lines).
+    Each function over 20 logical lines should have at least two assertions.
+
+semmle016 <Low> :src/main_linux.cpp:17: cpp/power-of-10/check-arguments
+    This use of parameter argc has not been checked.
+    Functions should check their arguments before their first use.
+
+semmle017 <Low> :src/main_linux.cpp:18: cpp/power-of-10/check-arguments
+    This use of parameter argv has not been checked.
+    Functions should check their arguments before their first use.
+
+semmle018 <Low> :testcasesupport/io.c:139: cpp/power-of-10/check-arguments
+    This use of parameter bytes has not been checked.
+    Functions should check their arguments before their first use.
+
+semmle019 <Low> :testcasesupport/io.c:117: cpp/power-of-10/check-arguments
+    This use of parameter bytes has not been checked.
+    Functions should check their arguments before their first use.
+
+semmle020 <Low> :testcasesupport/io.c:97: cpp/power-of-10/check-arguments
+    This use of parameter bytes has not been checked.
+    Functions should check their arguments before their first use.
+
+semmle021 <Low> :testcasesupport/io.c:89: cpp/power-of-10/check-arguments
+    This use of parameter structTwoIntsStruct has not been checked.
+    Functions should check their arguments before their first use.
+
+semmle022 <Low> :testcasesupport/io.c:84: cpp/power-of-10/check-arguments
+    This use of parameter doubleNumber has not been checked.
+    Functions should check their arguments before their first use.
+
+semmle023 <Low> :testcasesupport/io.c:79: cpp/power-of-10/check-arguments
+    This use of parameter unsignedCharacter has not been checked.
+    Functions should check their arguments before their first use.
+
+semmle024 <Low> :testcasesupport/io.c:74: cpp/power-of-10/check-arguments
+    This use of parameter unsignedNumber has not been checked.
+    Functions should check their arguments before their first use.
+
+semmle026 <Low> :testcasesupport/io.c:59: cpp/power-of-10/check-arguments
+    This use of parameter charHex has not been checked.
+    Functions should check their arguments before their first use.
+
+semmle027 <Low> :testcasesupport/io.c:54: cpp/power-of-10/check-arguments
+    This use of parameter sizeTNumber has not been checked.
+    Functions should check their arguments before their first use.
+
+semmle028 <Low> :testcasesupport/io.c:49: cpp/power-of-10/check-arguments
+    This use of parameter longLongIntNumber has not been checked.
+    Functions should check their arguments before their first use.
+
+semmle029 <Low> :testcasesupport/io.c:44: cpp/power-of-10/check-arguments
+    This use of parameter longNumber has not been checked.
+    Functions should check their arguments before their first use.
+
+semmle030 <Low> :testcasesupport/io.c:39: cpp/power-of-10/check-arguments
+    This use of parameter floatNumber has not been checked.
+    Functions should check their arguments before their first use.
+
+semmle031 <Low> :testcasesupport/io.c:34: cpp/power-of-10/check-arguments
+    This use of parameter shortNumber has not been checked.
+    Functions should check their arguments before their first use.
+
+semmle032 <Low> :testcasesupport/io.c:29: cpp/power-of-10/check-arguments
+    This use of parameter intNumber has not been checked.
+    Functions should check their arguments before their first use.
+
+semmle033 <Low> :testcasesupport/std_thread.c:205: cpp/power-of-10/check-arguments
+    This use of parameter lock has not been checked.
+    Functions should check their arguments before their first use.
+
+semmle034 <Low> :testcasesupport/std_thread.c:196: cpp/power-of-10/check-arguments
+    This use of parameter lock has not been checked.
+    Functions should check their arguments before their first use.
+
+semmle035 <Low> :testcasesupport/std_thread.c:184: cpp/power-of-10/check-arguments
+    This use of parameter lock has not been checked.
+    Functions should check their arguments before their first use.
+
+semmle036 <Low> :testcasesupport/std_thread.c:137: cpp/power-of-10/check-arguments
+    This use of parameter lock has not been checked.
+    Functions should check their arguments before their first use.
+
+semmle037 <Low> :testcasesupport/std_thread.c:112: cpp/power-of-10/check-arguments
+    This use of parameter thread has not been checked.
+    Functions should check their arguments before their first use.
+
+semmle038 <Low> :testcasesupport/std_thread.c:57: cpp/power-of-10/check-arguments
+    This use of parameter thread has not been checked.
+    Functions should check their arguments before their first use.
+
+semmle039 <Low> :testcasesupport/std_thread.c:64: cpp/power-of-10/check-arguments
+    This use of parameter start has not been checked.
+    Functions should check their arguments before their first use.
+
+semmle040 <Low> :testcasesupport/std_thread.c:65: cpp/power-of-10/check-arguments
+    This use of parameter args has not been checked.
+    Functions should check their arguments before their first use.
+
+semmle041 <Low> :testcasesupport/std_thread.c:33: cpp/power-of-10/check-arguments
+    This use of parameter args has not been checked.
+    Functions should check their arguments before their first use.
+
+semmle042 <Low> :testcasesupport/io.c:138: cpp/power-of-10/check-return-values
+    The return value of non-void function [swscanf](1) is not checked.
+    The return value of non-void function [swscanf](2) is not checked.
+    The return value of each non-void function call should be checked for error conditions.
+
+semmle043 <Low> :testcasesupport/io.c:116: cpp/power-of-10/check-return-values
+    The return value of non-void function [sscanf](1) is not checked.
+    The return value of non-void function [sscanf](2) is not checked.
+    The return value of each non-void function call should be checked for error conditions.
+
+semmle044 <Low> :testcasesupport/io.c:97: cpp/power-of-10/check-return-values
+    The return value of non-void function [printf](1) is not checked.
+    The return value of each non-void function call should be checked for error conditions.
+
+semmle045 <Low> :testcasesupport/io.c:99: cpp/power-of-10/check-return-values
+    The return value of non-void function [puts](1) is not checked.
+    The return value of each non-void function call should be checked for error conditions.
+
+semmle046 <Low> :testcasesupport/io.c:89: cpp/power-of-10/check-return-values
+    The return value of non-void function [printf](1) is not checked.
+    The return value of each non-void function call should be checked for error conditions.
+
+semmle047 <Low> :testcasesupport/io.c:84: cpp/power-of-10/check-return-values
+    The return value of non-void function [printf](1) is not checked.
+    The return value of each non-void function call should be checked for error conditions.
+
+semmle048 <Low> :testcasesupport/io.c:79: cpp/power-of-10/check-return-values
+    The return value of non-void function [printf](1) is not checked.
+    The return value of each non-void function call should be checked for error conditions.
+
+semmle049 <Low> :testcasesupport/io.c:74: cpp/power-of-10/check-return-values
+    The return value of non-void function [printf](1) is not checked.
+    The return value of each non-void function call should be checked for error conditions.
+
+semmle050 <Low> :testcasesupport/io.c:69: cpp/power-of-10/check-return-values
+    The return value of non-void function [printf](1) is not checked.
+    The return value of each non-void function call should be checked for error conditions.
+
+semmle051 <Low> :testcasesupport/io.c:59: cpp/power-of-10/check-return-values
+    The return value of non-void function [printf](1) is not checked.
+    The return value of each non-void function call should be checked for error conditions.
+
+semmle052 <Low> :testcasesupport/io.c:54: cpp/power-of-10/check-return-values
+    The return value of non-void function [printf](1) is not checked.
+    The return value of each non-void function call should be checked for error conditions.
+
+semmle053 <Low> :testcasesupport/io.c:49: cpp/power-of-10/check-return-values
+    The return value of non-void function [printf](1) is not checked.
+    The return value of each non-void function call should be checked for error conditions.
+
+semmle054 <Low> :testcasesupport/io.c:44: cpp/power-of-10/check-return-values
+    The return value of non-void function [printf](1) is not checked.
+    The return value of each non-void function call should be checked for error conditions.
+
+semmle055 <Low> :testcasesupport/io.c:39: cpp/power-of-10/check-return-values
+    The return value of non-void function [printf](1) is not checked.
+    The return value of each non-void function call should be checked for error conditions.
+
+semmle056 <Low> :testcasesupport/io.c:34: cpp/power-of-10/check-return-values
+    The return value of non-void function [printf](1) is not checked.
+    The return value of each non-void function call should be checked for error conditions.
+
+semmle057 <Low> :testcasesupport/io.c:29: cpp/power-of-10/check-return-values
+    The return value of non-void function [printf](1) is not checked.
+    The return value of each non-void function call should be checked for error conditions.
+
+semmle058 <Low> :testcasesupport/io.c:23: cpp/power-of-10/check-return-values
+    The return value of non-void function [wprintf](1) is not checked.
+    The return value of each non-void function call should be checked for error conditions.
+
+semmle059 <Low> :testcasesupport/io.c:15: cpp/power-of-10/check-return-values
+    The return value of non-void function [printf](1) is not checked.
+    The return value of each non-void function call should be checked for error conditions.
+
+semmle060 <Low> :testcasesupport/std_thread.c:205: cpp/power-of-10/check-return-values
+    The return value of non-void function [pthread_mutex_destroy](1) is not checked.
+    The return value of each non-void function call should be checked for error conditions.
+
+semmle061 <Low> :testcasesupport/std_thread.c:196: cpp/power-of-10/check-return-values
+    The return value of non-void function [pthread_mutex_unlock](1) is not checked.
+    The return value of each non-void function call should be checked for error conditions.
+
+semmle062 <Low> :testcasesupport/std_thread.c:184: cpp/power-of-10/check-return-values
+    The return value of non-void function [pthread_mutex_lock](1) is not checked.
+    The return value of each non-void function call should be checked for error conditions.
+
+semmle063 <Low> :src/CWE835_Infinite_Loop__do_01.c:8: cpp/power-of-10/avoid-conditional-compilation
+    Use of conditional compilation must be kept to a minimum.
+    The use of conditional compilation directives must be kept to a minimum -- e.g. for header guards only.
+
+semmle064 <Low> :src/CWE835_Infinite_Loop__do_01.c:25: cpp/power-of-10/avoid-conditional-compilation
+    Use of conditional compilation must be kept to a minimum.
+    The use of conditional compilation directives must be kept to a minimum -- e.g. for header guards only.
+
+semmle065 <Low> :src/CWE835_Infinite_Loop__do_01.c:56: cpp/power-of-10/avoid-conditional-compilation
+    Use of conditional compilation must be kept to a minimum.
+    The use of conditional compilation directives must be kept to a minimum -- e.g. for header guards only.
+
+semmle066 <Low> :src/CWE835_Infinite_Loop__do_01.c:63: cpp/power-of-10/avoid-conditional-compilation
+    Use of conditional compilation must be kept to a minimum.
+    The use of conditional compilation directives must be kept to a minimum -- e.g. for header guards only.
+
+semmle067 <Low> :src/CWE835_Infinite_Loop__do_01.c:69: cpp/power-of-10/avoid-conditional-compilation
+    Use of conditional compilation must be kept to a minimum.
+    The use of conditional compilation directives must be kept to a minimum -- e.g. for header guards only.
+
+semmle068 <Low> :src/CWE835_Infinite_Loop__do_true_01.c:8: cpp/power-of-10/avoid-conditional-compilation
+    Use of conditional compilation must be kept to a minimum.
+    The use of conditional compilation directives must be kept to a minimum -- e.g. for header guards only.
+
+semmle069 <Low> :src/CWE835_Infinite_Loop__do_true_01.c:25: cpp/power-of-10/avoid-conditional-compilation
+    Use of conditional compilation must be kept to a minimum.
+    The use of conditional compilation directives must be kept to a minimum -- e.g. for header guards only.
+
+semmle070 <Low> :src/CWE835_Infinite_Loop__do_true_01.c:56: cpp/power-of-10/avoid-conditional-compilation
+    Use of conditional compilation must be kept to a minimum.
+    The use of conditional compilation directives must be kept to a minimum -- e.g. for header guards only.
+
+semmle071 <Low> :src/CWE835_Infinite_Loop__do_true_01.c:63: cpp/power-of-10/avoid-conditional-compilation
+    Use of conditional compilation must be kept to a minimum.
+    The use of conditional compilation directives must be kept to a minimum -- e.g. for header guards only.
+
+semmle072 <Low> :src/CWE835_Infinite_Loop__do_true_01.c:69: cpp/power-of-10/avoid-conditional-compilation
+    Use of conditional compilation must be kept to a minimum.
+    The use of conditional compilation directives must be kept to a minimum -- e.g. for header guards only.
+
+semmle073 <Low> :src/CWE835_Infinite_Loop__for_01.c:8: cpp/power-of-10/avoid-conditional-compilation
+    Use of conditional compilation must be kept to a minimum.
+    The use of conditional compilation directives must be kept to a minimum -- e.g. for header guards only.
+
+semmle074 <Low> :src/CWE835_Infinite_Loop__for_01.c:24: cpp/power-of-10/avoid-conditional-compilation
+    Use of conditional compilation must be kept to a minimum.
+    The use of conditional compilation directives must be kept to a minimum -- e.g. for header guards only.
+
+semmle075 <Low> :src/CWE835_Infinite_Loop__for_01.c:66: cpp/power-of-10/avoid-conditional-compilation
+    Use of conditional compilation must be kept to a minimum.
+    The use of conditional compilation directives must be kept to a minimum -- e.g. for header guards only.
+
+semmle076 <Low> :src/CWE835_Infinite_Loop__for_01.c:73: cpp/power-of-10/avoid-conditional-compilation
+    Use of conditional compilation must be kept to a minimum.
+    The use of conditional compilation directives must be kept to a minimum -- e.g. for header guards only.
+
+semmle077 <Low> :src/CWE835_Infinite_Loop__for_01.c:79: cpp/power-of-10/avoid-conditional-compilation
+    Use of conditional compilation must be kept to a minimum.
+    The use of conditional compilation directives must be kept to a minimum -- e.g. for header guards only.
+
+semmle078 <Low> :src/CWE835_Infinite_Loop__for_empty_01.c:8: cpp/power-of-10/avoid-conditional-compilation
+    Use of conditional compilation must be kept to a minimum.
+    The use of conditional compilation directives must be kept to a minimum -- e.g. for header guards only.
+
+semmle079 <Low> :src/CWE835_Infinite_Loop__for_empty_01.c:25: cpp/power-of-10/avoid-conditional-compilation
+    Use of conditional compilation must be kept to a minimum.
+    The use of conditional compilation directives must be kept to a minimum -- e.g. for header guards only.
+
+semmle080 <Low> :src/CWE835_Infinite_Loop__for_empty_01.c:56: cpp/power-of-10/avoid-conditional-compilation
+    Use of conditional compilation must be kept to a minimum.
+    The use of conditional compilation directives must be kept to a minimum -- e.g. for header guards only.
+
+semmle081 <Low> :src/CWE835_Infinite_Loop__for_empty_01.c:63: cpp/power-of-10/avoid-conditional-compilation
+    Use of conditional compilation must be kept to a minimum.
+    The use of conditional compilation directives must be kept to a minimum -- e.g. for header guards only.
+
+semmle082 <Low> :src/CWE835_Infinite_Loop__for_empty_01.c:69: cpp/power-of-10/avoid-conditional-compilation
+    Use of conditional compilation must be kept to a minimum.
+    The use of conditional compilation directives must be kept to a minimum -- e.g. for header guards only.
+
+semmle083 <Low> :src/CWE835_Infinite_Loop__while_01.c:8: cpp/power-of-10/avoid-conditional-compilation
+    Use of conditional compilation must be kept to a minimum.
+    The use of conditional compilation directives must be kept to a minimum -- e.g. for header guards only.
+
+semmle084 <Low> :src/CWE835_Infinite_Loop__while_01.c:24: cpp/power-of-10/avoid-conditional-compilation
+    Use of conditional compilation must be kept to a minimum.
+    The use of conditional compilation directives must be kept to a minimum -- e.g. for header guards only.
+
+semmle085 <Low> :src/CWE835_Infinite_Loop__while_01.c:55: cpp/power-of-10/avoid-conditional-compilation
+    Use of conditional compilation must be kept to a minimum.
+    The use of conditional compilation directives must be kept to a minimum -- e.g. for header guards only.
+
+semmle086 <Low> :src/CWE835_Infinite_Loop__while_01.c:62: cpp/power-of-10/avoid-conditional-compilation
+    Use of conditional compilation must be kept to a minimum.
+    The use of conditional compilation directives must be kept to a minimum -- e.g. for header guards only.
+
+semmle087 <Low> :src/CWE835_Infinite_Loop__while_01.c:68: cpp/power-of-10/avoid-conditional-compilation
+    Use of conditional compilation must be kept to a minimum.
+    The use of conditional compilation directives must be kept to a minimum -- e.g. for header guards only.
+
+semmle088 <Low> :src/CWE835_Infinite_Loop__while_true_01.c:8: cpp/power-of-10/avoid-conditional-compilation
+    Use of conditional compilation must be kept to a minimum.
+    The use of conditional compilation directives must be kept to a minimum -- e.g. for header guards only.
+
+semmle089 <Low> :src/CWE835_Infinite_Loop__while_true_01.c:24: cpp/power-of-10/avoid-conditional-compilation
+    Use of conditional compilation must be kept to a minimum.
+    The use of conditional compilation directives must be kept to a minimum -- e.g. for header guards only.
+
+semmle090 <Low> :src/CWE835_Infinite_Loop__while_true_01.c:55: cpp/power-of-10/avoid-conditional-compilation
+    Use of conditional compilation must be kept to a minimum.
+    The use of conditional compilation directives must be kept to a minimum -- e.g. for header guards only.
+
+semmle091 <Low> :src/CWE835_Infinite_Loop__while_true_01.c:62: cpp/power-of-10/avoid-conditional-compilation
+    Use of conditional compilation must be kept to a minimum.
+    The use of conditional compilation directives must be kept to a minimum -- e.g. for header guards only.
+
+semmle092 <Low> :src/CWE835_Infinite_Loop__while_true_01.c:68: cpp/power-of-10/avoid-conditional-compilation
+    Use of conditional compilation must be kept to a minimum.
+    The use of conditional compilation directives must be kept to a minimum -- e.g. for header guards only.
+
+semmle093 <Low> :src/main_linux.cpp:20: cpp/power-of-10/avoid-conditional-compilation
+    Use of conditional compilation must be kept to a minimum.
+    The use of conditional compilation directives must be kept to a minimum -- e.g. for header guards only.
+
+semmle094 <Low> :src/main_linux.cpp:48: cpp/power-of-10/avoid-conditional-compilation
+    Use of conditional compilation must be kept to a minimum.
+    The use of conditional compilation directives must be kept to a minimum -- e.g. for header guards only.
+
+semmle095 <Low> :src/main_linux.cpp:58: cpp/power-of-10/avoid-conditional-compilation
+    Use of conditional compilation must be kept to a minimum.
+    The use of conditional compilation directives must be kept to a minimum -- e.g. for header guards only.
+
+semmle096 <Low> :src/main_linux.cpp:86: cpp/power-of-10/avoid-conditional-compilation
+    Use of conditional compilation must be kept to a minimum.
+    The use of conditional compilation directives must be kept to a minimum -- e.g. for header guards only.
+
+semmle097 <Low> :testcasesupport/io.c:7: cpp/power-of-10/avoid-conditional-compilation
+    Use of conditional compilation must be kept to a minimum.
+    The use of conditional compilation directives must be kept to a minimum -- e.g. for header guards only.
+
+semmle098 <Low> :testcasesupport/io.c:202: cpp/power-of-10/avoid-conditional-compilation
+    Use of conditional compilation must be kept to a minimum.
+    The use of conditional compilation directives must be kept to a minimum -- e.g. for header guards only.
+
+semmle099 <Low> :testcasesupport/io.c:209: cpp/power-of-10/avoid-conditional-compilation
+    Use of conditional compilation must be kept to a minimum.
+    The use of conditional compilation directives must be kept to a minimum -- e.g. for header guards only.
+
+semmle100 <Low> :testcasesupport/std_thread.c:1: cpp/power-of-10/avoid-conditional-compilation
+    Use of conditional compilation must be kept to a minimum.
+    The use of conditional compilation directives must be kept to a minimum -- e.g. for header guards only.
+
+semmle101 <Low> :testcasesupport/std_thread.c:6: cpp/power-of-10/avoid-conditional-compilation
+    Use of conditional compilation must be kept to a minimum.
+    The use of conditional compilation directives must be kept to a minimum -- e.g. for header guards only.
+
+semmle102 <Low> :testcasesupport/std_thread.c:14: cpp/power-of-10/avoid-conditional-compilation
+    Use of conditional compilation must be kept to a minimum.
+    The use of conditional compilation directives must be kept to a minimum -- e.g. for header guards only.
+
+semmle103 <Low> :testcasesupport/std_thread.c:23: cpp/power-of-10/avoid-conditional-compilation
+    Use of conditional compilation must be kept to a minimum.
+    The use of conditional compilation directives must be kept to a minimum -- e.g. for header guards only.
+
+semmle104 <Low> :testcasesupport/std_thread.c:27: cpp/power-of-10/avoid-conditional-compilation
+    Use of conditional compilation must be kept to a minimum.
+    The use of conditional compilation directives must be kept to a minimum -- e.g. for header guards only.
+
+semmle105 <Low> :testcasesupport/std_thread.c:37: cpp/power-of-10/avoid-conditional-compilation
+    Use of conditional compilation must be kept to a minimum.
+    The use of conditional compilation directives must be kept to a minimum -- e.g. for header guards only.
+
+semmle106 <Low> :testcasesupport/std_thread.c:50: cpp/power-of-10/avoid-conditional-compilation
+    Use of conditional compilation must be kept to a minimum.
+    The use of conditional compilation directives must be kept to a minimum -- e.g. for header guards only.
+
+semmle107 <Low> :testcasesupport/std_thread.c:67: cpp/power-of-10/avoid-conditional-compilation
+    Use of conditional compilation must be kept to a minimum.
+    The use of conditional compilation directives must be kept to a minimum -- e.g. for header guards only.
+
+semmle108 <Low> :testcasesupport/std_thread.c:93: cpp/power-of-10/avoid-conditional-compilation
+    Use of conditional compilation must be kept to a minimum.
+    The use of conditional compilation directives must be kept to a minimum -- e.g. for header guards only.
+
+semmle109 <Low> :testcasesupport/std_thread.c:108: cpp/power-of-10/avoid-conditional-compilation
+    Use of conditional compilation must be kept to a minimum.
+    The use of conditional compilation directives must be kept to a minimum -- e.g. for header guards only.
+
+semmle110 <Low> :testcasesupport/std_thread.c:117: cpp/power-of-10/avoid-conditional-compilation
+    Use of conditional compilation must be kept to a minimum.
+    The use of conditional compilation directives must be kept to a minimum -- e.g. for header guards only.
+
+semmle111 <Low> :testcasesupport/std_thread.c:122: cpp/power-of-10/avoid-conditional-compilation
+    Use of conditional compilation must be kept to a minimum.
+    The use of conditional compilation directives must be kept to a minimum -- e.g. for header guards only.
+
+semmle112 <Low> :testcasesupport/std_thread.c:129: cpp/power-of-10/avoid-conditional-compilation
+    Use of conditional compilation must be kept to a minimum.
+    The use of conditional compilation directives must be kept to a minimum -- e.g. for header guards only.
+
+semmle113 <Low> :testcasesupport/std_thread.c:142: cpp/power-of-10/avoid-conditional-compilation
+    Use of conditional compilation must be kept to a minimum.
+    The use of conditional compilation directives must be kept to a minimum -- e.g. for header guards only.
+
+semmle114 <Low> :testcasesupport/std_thread.c:178: cpp/power-of-10/avoid-conditional-compilation
+    Use of conditional compilation must be kept to a minimum.
+    The use of conditional compilation directives must be kept to a minimum -- e.g. for header guards only.
+
+semmle115 <Low> :testcasesupport/std_thread.c:193: cpp/power-of-10/avoid-conditional-compilation
+    Use of conditional compilation must be kept to a minimum.
+    The use of conditional compilation directives must be kept to a minimum -- e.g. for header guards only.
+
+semmle116 <Low> :testcasesupport/std_thread.c:202: cpp/power-of-10/avoid-conditional-compilation
+    Use of conditional compilation must be kept to a minimum.
+    The use of conditional compilation directives must be kept to a minimum -- e.g. for header guards only.
+
+semmle117 <Low> :testcasesupport/std_thread.c:210: cpp/power-of-10/avoid-conditional-compilation
+    Use of conditional compilation must be kept to a minimum.
+    The use of conditional compilation directives must be kept to a minimum -- e.g. for header guards only.
+
+semmle118 <Low> :testcasesupport/std_thread.c:35: cpp/power-of-10/function-pointer
+    Calls through function pointers are not permitted.
+    Function pointers are not permitted -- they make it impossible for a tool to prove the absence of recursion.
+
+semmle119 <Low> :testcasesupport/std_thread.h:5: cpp/power-of-10/hidden-pointer-indirection
+    The typedef stdThreadLock hides pointer indirection.
+    Pointer indirection may not be hidden by typedefs -- "typedef int* IntPtr;" is not allowed.
+
+semmle120 <Low> :testcasesupport/std_thread.h:4: cpp/power-of-10/hidden-pointer-indirection
+    The typedef stdThread hides pointer indirection.
+    Pointer indirection may not be hidden by typedefs -- "typedef int* IntPtr;" is not allowed.
+
+semmle121 <Low> :testcasesupport/std_thread.h:11: cpp/power-of-10/hidden-pointer-indirection
+    The typedef stdThreadRoutine hides pointer indirection.
+    Pointer indirection may not be hidden by typedefs -- "typedef int* IntPtr;" is not allowed.
+
+semmle122 <Low> :testcasesupport/io.c:207: cpp/power-of-10/pointer-nesting
+    The variable globalArgv uses 2 levels of pointer indirection.
+    No more than one level of pointer nesting/dereferencing should be used.
+
+semmle123 <Low> :testcasesupport/std_thread.c:133: cpp/power-of-10/pointer-nesting
+    The variable lock uses 2 levels of pointer indirection.
+    No more than one level of pointer nesting/dereferencing should be used.
+
+semmle124 <Low> :testcasesupport/std_thread.c:48: cpp/power-of-10/pointer-nesting
+    The variable thread uses 2 levels of pointer indirection.
+    No more than one level of pointer nesting/dereferencing should be used.
+

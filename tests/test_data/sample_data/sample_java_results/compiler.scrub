@@ -1,0 +1,3 @@
+javac001 <Low> :src/testcases/CWE835_Infinite_Loop/CWE835_Infinite_Loop__do_01.java:16: warning
+    Javac Compiler Warning: [divzero] division by zero
+

@@ -1,0 +1,271 @@
+semmle001 <Low> :/opt/project/test/integration_tests/c_testcase/testcasesupport/std_testcase.h:120: cpp/jpl-c/includes-first
+    '#include "std_testcase_io.h"' is preceded by code -- it should be moved above line 61 in std_testcase.h.
+    #include directives in a file shall only be preceded by other preprocessor directives or comments.
+
+semmle002 <Low> :/opt/project/test/integration_tests/c_testcase/src/main_linux.cpp:11: cpp/jpl-c/function-size-limits
+    main has too many lines (88, while 60 are allowed).
+    Function length should be limited to what can be printed on a single sheet of paper (60 lines). Number of parameters is limited to 6 or fewer.
+
+semmle003 <Low> :/opt/project/test/integration_tests/c_testcase/src/CWE835_Infinite_Loop__do_01.c:29: cpp/jpl-c/basic-int-types
+    i uses the basic integral type int rather than a typedef with size and signedness.
+    Typedefs that indicate size and signedness should be used in place of the basic types.
+
+semmle004 <Low> :/opt/project/test/integration_tests/c_testcase/src/CWE835_Infinite_Loop__do_01.c:12: cpp/jpl-c/basic-int-types
+    i uses the basic integral type int rather than a typedef with size and signedness.
+    Typedefs that indicate size and signedness should be used in place of the basic types.
+
+semmle005 <Low> :/opt/project/test/integration_tests/c_testcase/src/CWE835_Infinite_Loop__do_true_01.c:29: cpp/jpl-c/basic-int-types
+    i uses the basic integral type int rather than a typedef with size and signedness.
+    Typedefs that indicate size and signedness should be used in place of the basic types.
+
+semmle006 <Low> :/opt/project/test/integration_tests/c_testcase/src/CWE835_Infinite_Loop__do_true_01.c:12: cpp/jpl-c/basic-int-types
+    i uses the basic integral type int rather than a typedef with size and signedness.
+    Typedefs that indicate size and signedness should be used in place of the basic types.
+
+semmle007 <Low> :/opt/project/test/integration_tests/c_testcase/src/CWE835_Infinite_Loop__for_01.c:43: cpp/jpl-c/basic-int-types
+    i uses the basic integral type int rather than a typedef with size and signedness.
+    Typedefs that indicate size and signedness should be used in place of the basic types.
+
+semmle008 <Low> :/opt/project/test/integration_tests/c_testcase/src/CWE835_Infinite_Loop__for_01.c:28: cpp/jpl-c/basic-int-types
+    i uses the basic integral type int rather than a typedef with size and signedness.
+    Typedefs that indicate size and signedness should be used in place of the basic types.
+
+semmle009 <Low> :/opt/project/test/integration_tests/c_testcase/src/CWE835_Infinite_Loop__for_01.c:12: cpp/jpl-c/basic-int-types
+    i uses the basic integral type int rather than a typedef with size and signedness.
+    Typedefs that indicate size and signedness should be used in place of the basic types.
+
+semmle010 <Low> :/opt/project/test/integration_tests/c_testcase/testcasesupport/io.c:158: cpp/jpl-c/basic-int-types
+    globalReturnsTrueOrFalse uses the basic integral type int rather than a typedef with size and signedness.
+    Typedefs that indicate size and signedness should be used in place of the basic types.
+
+semmle011 <Low> :/opt/project/test/integration_tests/c_testcase/testcasesupport/io.c:153: cpp/jpl-c/basic-int-types
+    globalReturnsFalse uses the basic integral type int rather than a typedef with size and signedness.
+    Typedefs that indicate size and signedness should be used in place of the basic types.
+
+semmle012 <Low> :/opt/project/test/integration_tests/c_testcase/testcasesupport/io.c:148: cpp/jpl-c/basic-int-types
+    globalReturnsTrue uses the basic integral type int rather than a typedef with size and signedness.
+    Typedefs that indicate size and signedness should be used in place of the basic types.
+
+semmle013 <Low> :/opt/project/test/integration_tests/c_testcase/testcasesupport/io.c:127: cpp/jpl-c/basic-int-types
+    decodeHexWChars uses the basic integral type unsigned long rather than a typedef with size and signedness.
+    Typedefs that indicate size and signedness should be used in place of the basic types.
+
+semmle014 <Low> :/opt/project/test/integration_tests/c_testcase/testcasesupport/io.c:127: cpp/jpl-c/basic-int-types
+    bytes uses the basic integral type unsigned char rather than a typedef with size and signedness.
+    Typedefs that indicate size and signedness should be used in place of the basic types.
+
+semmle015 <Low> :/opt/project/test/integration_tests/c_testcase/testcasesupport/io.c:127: cpp/jpl-c/basic-int-types
+    numBytes uses the basic integral type unsigned long rather than a typedef with size and signedness.
+    Typedefs that indicate size and signedness should be used in place of the basic types.
+
+semmle016 <Low> :/opt/project/test/integration_tests/c_testcase/testcasesupport/io.c:127: cpp/jpl-c/basic-int-types
+    hex uses the basic integral type int rather than a typedef with size and signedness.
+hex uses the basic integral type wchar_t rather than a typedef with size and signedness.
+    Typedefs that indicate size and signedness should be used in place of the basic types.
+
+semmle017 <Low> :/opt/project/test/integration_tests/c_testcase/testcasesupport/io.c:105: cpp/jpl-c/basic-int-types
+    decodeHexChars uses the basic integral type unsigned long rather than a typedef with size and signedness.
+    Typedefs that indicate size and signedness should be used in place of the basic types.
+
+semmle018 <Low> :/opt/project/test/integration_tests/c_testcase/testcasesupport/io.c:105: cpp/jpl-c/basic-int-types
+    bytes uses the basic integral type unsigned char rather than a typedef with size and signedness.
+    Typedefs that indicate size and signedness should be used in place of the basic types.
+
+semmle019 <Low> :/opt/project/test/integration_tests/c_testcase/testcasesupport/io.c:105: cpp/jpl-c/basic-int-types
+    numBytes uses the basic integral type unsigned long rather than a typedef with size and signedness.
+    Typedefs that indicate size and signedness should be used in place of the basic types.
+
+semmle020 <Low> :/opt/project/test/integration_tests/c_testcase/testcasesupport/io.c:105: cpp/jpl-c/basic-int-types
+    hex uses the basic integral type char rather than a typedef with size and signedness.
+    Typedefs that indicate size and signedness should be used in place of the basic types.
+
+semmle021 <Low> :/opt/project/test/integration_tests/c_testcase/testcasesupport/io.c:92: cpp/jpl-c/basic-int-types
+    bytes uses the basic integral type unsigned char rather than a typedef with size and signedness.
+    Typedefs that indicate size and signedness should be used in place of the basic types.
+
+semmle022 <Low> :/opt/project/test/integration_tests/c_testcase/testcasesupport/io.c:92: cpp/jpl-c/basic-int-types
+    numBytes uses the basic integral type unsigned long rather than a typedef with size and signedness.
+    Typedefs that indicate size and signedness should be used in place of the basic types.
+
+semmle023 <Low> :/opt/project/test/integration_tests/c_testcase/testcasesupport/io.c:77: cpp/jpl-c/basic-int-types
+    unsignedCharacter uses the basic integral type unsigned char rather than a typedef with size and signedness.
+    Typedefs that indicate size and signedness should be used in place of the basic types.
+
+semmle024 <Low> :/opt/project/test/integration_tests/c_testcase/testcasesupport/io.c:72: cpp/jpl-c/basic-int-types
+    unsignedNumber uses the basic integral type unsigned int rather than a typedef with size and signedness.
+    Typedefs that indicate size and signedness should be used in place of the basic types.
+
+semmle025 <Low> :/opt/project/test/integration_tests/c_testcase/testcasesupport/io.c:62: cpp/jpl-c/basic-int-types
+    wideChar uses the basic integral type wchar_t rather than a typedef with size and signedness.
+wideChar uses the basic integral type int rather than a typedef with size and signedness.
+    Typedefs that indicate size and signedness should be used in place of the basic types.
+
+semmle026 <Low> :/opt/project/test/integration_tests/c_testcase/testcasesupport/io.c:57: cpp/jpl-c/basic-int-types
+    charHex uses the basic integral type char rather than a typedef with size and signedness.
+    Typedefs that indicate size and signedness should be used in place of the basic types.
+
+semmle027 <Low> :/opt/project/test/integration_tests/c_testcase/testcasesupport/io.c:52: cpp/jpl-c/basic-int-types
+    sizeTNumber uses the basic integral type unsigned long rather than a typedef with size and signedness.
+    Typedefs that indicate size and signedness should be used in place of the basic types.
+
+semmle028 <Low> :/opt/project/test/integration_tests/c_testcase/testcasesupport/io.c:47: cpp/jpl-c/basic-int-types
+    longLongIntNumber uses the basic integral type long rather than a typedef with size and signedness.
+    Typedefs that indicate size and signedness should be used in place of the basic types.
+
+semmle029 <Low> :/opt/project/test/integration_tests/c_testcase/testcasesupport/io.c:42: cpp/jpl-c/basic-int-types
+    longNumber uses the basic integral type long rather than a typedef with size and signedness.
+    Typedefs that indicate size and signedness should be used in place of the basic types.
+
+semmle030 <Low> :/opt/project/test/integration_tests/c_testcase/testcasesupport/io.c:32: cpp/jpl-c/basic-int-types
+    shortNumber uses the basic integral type short rather than a typedef with size and signedness.
+    Typedefs that indicate size and signedness should be used in place of the basic types.
+
+semmle031 <Low> :/opt/project/test/integration_tests/c_testcase/testcasesupport/io.c:27: cpp/jpl-c/basic-int-types
+    intNumber uses the basic integral type int rather than a typedef with size and signedness.
+    Typedefs that indicate size and signedness should be used in place of the basic types.
+
+semmle032 <Low> :/opt/project/test/integration_tests/c_testcase/testcasesupport/io.c:19: cpp/jpl-c/basic-int-types
+    line uses the basic integral type int rather than a typedef with size and signedness.
+line uses the basic integral type wchar_t rather than a typedef with size and signedness.
+    Typedefs that indicate size and signedness should be used in place of the basic types.
+
+semmle033 <Low> :/opt/project/test/integration_tests/c_testcase/testcasesupport/io.c:11: cpp/jpl-c/basic-int-types
+    line uses the basic integral type char rather than a typedef with size and signedness.
+    Typedefs that indicate size and signedness should be used in place of the basic types.
+
+semmle034 <Low> :/opt/project/test/integration_tests/c_testcase/testcasesupport/io.c:207: cpp/jpl-c/basic-int-types
+    globalArgv uses the basic integral type char rather than a typedef with size and signedness.
+    Typedefs that indicate size and signedness should be used in place of the basic types.
+
+semmle035 <Low> :/opt/project/test/integration_tests/c_testcase/testcasesupport/io.c:206: cpp/jpl-c/basic-int-types
+    globalArgc uses the basic integral type int rather than a typedef with size and signedness.
+    Typedefs that indicate size and signedness should be used in place of the basic types.
+
+semmle036 <Low> :/opt/project/test/integration_tests/c_testcase/testcasesupport/std_testcase.h:95: cpp/jpl-c/basic-int-types
+    intTwo uses the basic integral type int rather than a typedef with size and signedness.
+    Typedefs that indicate size and signedness should be used in place of the basic types.
+
+semmle037 <Low> :/opt/project/test/integration_tests/c_testcase/testcasesupport/std_testcase.h:94: cpp/jpl-c/basic-int-types
+    intOne uses the basic integral type int rather than a typedef with size and signedness.
+    Typedefs that indicate size and signedness should be used in place of the basic types.
+
+semmle038 <Low> :/opt/project/test/integration_tests/c_testcase/testcasesupport/io.c:175: cpp/jpl-c/basic-int-types
+    globalFive uses the basic integral type int rather than a typedef with size and signedness.
+    Typedefs that indicate size and signedness should be used in place of the basic types.
+
+semmle039 <Low> :/opt/project/test/integration_tests/c_testcase/testcasesupport/io.c:174: cpp/jpl-c/basic-int-types
+    globalFalse uses the basic integral type int rather than a typedef with size and signedness.
+    Typedefs that indicate size and signedness should be used in place of the basic types.
+
+semmle040 <Low> :/opt/project/test/integration_tests/c_testcase/testcasesupport/io.c:173: cpp/jpl-c/basic-int-types
+    globalTrue uses the basic integral type int rather than a typedef with size and signedness.
+    Typedefs that indicate size and signedness should be used in place of the basic types.
+
+semmle041 <Low> :/opt/project/test/integration_tests/c_testcase/testcasesupport/io.c:168: cpp/jpl-c/basic-int-types
+    GLOBAL_CONST_FIVE uses the basic integral type int rather than a typedef with size and signedness.
+    Typedefs that indicate size and signedness should be used in place of the basic types.
+
+semmle042 <Low> :/opt/project/test/integration_tests/c_testcase/testcasesupport/io.c:167: cpp/jpl-c/basic-int-types
+    GLOBAL_CONST_FALSE uses the basic integral type int rather than a typedef with size and signedness.
+    Typedefs that indicate size and signedness should be used in place of the basic types.
+
+semmle043 <Low> :/opt/project/test/integration_tests/c_testcase/testcasesupport/io.c:166: cpp/jpl-c/basic-int-types
+    GLOBAL_CONST_TRUE uses the basic integral type int rather than a typedef with size and signedness.
+    Typedefs that indicate size and signedness should be used in place of the basic types.
+
+semmle044 <Low> :/opt/project/test/integration_tests/c_testcase/src/CWE835_Infinite_Loop__for_empty_01.c:29: cpp/jpl-c/basic-int-types
+    i uses the basic integral type int rather than a typedef with size and signedness.
+    Typedefs that indicate size and signedness should be used in place of the basic types.
+
+semmle045 <Low> :/opt/project/test/integration_tests/c_testcase/src/CWE835_Infinite_Loop__for_empty_01.c:12: cpp/jpl-c/basic-int-types
+    i uses the basic integral type int rather than a typedef with size and signedness.
+    Typedefs that indicate size and signedness should be used in place of the basic types.
+
+semmle046 <Low> :/opt/project/test/integration_tests/c_testcase/src/CWE835_Infinite_Loop__while_01.c:28: cpp/jpl-c/basic-int-types
+    i uses the basic integral type int rather than a typedef with size and signedness.
+    Typedefs that indicate size and signedness should be used in place of the basic types.
+
+semmle047 <Low> :/opt/project/test/integration_tests/c_testcase/src/CWE835_Infinite_Loop__while_01.c:12: cpp/jpl-c/basic-int-types
+    i uses the basic integral type int rather than a typedef with size and signedness.
+    Typedefs that indicate size and signedness should be used in place of the basic types.
+
+semmle048 <Low> :/opt/project/test/integration_tests/c_testcase/src/CWE835_Infinite_Loop__while_true_01.c:28: cpp/jpl-c/basic-int-types
+    i uses the basic integral type int rather than a typedef with size and signedness.
+    Typedefs that indicate size and signedness should be used in place of the basic types.
+
+semmle049 <Low> :/opt/project/test/integration_tests/c_testcase/src/CWE835_Infinite_Loop__while_true_01.c:12: cpp/jpl-c/basic-int-types
+    i uses the basic integral type int rather than a typedef with size and signedness.
+    Typedefs that indicate size and signedness should be used in place of the basic types.
+
+semmle050 <Low> :/opt/project/test/integration_tests/c_testcase/testcasesupport/std_testcase.h:71: cpp/jpl-c/basic-int-types
+    intOne uses the basic integral type int rather than a typedef with size and signedness.
+    Typedefs that indicate size and signedness should be used in place of the basic types.
+
+semmle051 <Low> :/opt/project/test/integration_tests/c_testcase/testcasesupport/std_testcase.h:65: cpp/jpl-c/basic-int-types
+    intTwo uses the basic integral type int rather than a typedef with size and signedness.
+    Typedefs that indicate size and signedness should be used in place of the basic types.
+
+semmle052 <Low> :/opt/project/test/integration_tests/c_testcase/testcasesupport/std_testcase.h:64: cpp/jpl-c/basic-int-types
+    intOne uses the basic integral type int rather than a typedef with size and signedness.
+    Typedefs that indicate size and signedness should be used in place of the basic types.
+
+semmle053 <Low> :/opt/project/test/integration_tests/c_testcase/src/main_linux.cpp:11: cpp/jpl-c/basic-int-types
+    main uses the basic integral type int rather than a typedef with size and signedness.
+    Typedefs that indicate size and signedness should be used in place of the basic types.
+
+semmle054 <Low> :/opt/project/test/integration_tests/c_testcase/src/main_linux.cpp:11: cpp/jpl-c/basic-int-types
+    argc uses the basic integral type int rather than a typedef with size and signedness.
+    Typedefs that indicate size and signedness should be used in place of the basic types.
+
+semmle055 <Low> :/opt/project/test/integration_tests/c_testcase/src/main_linux.cpp:11: cpp/jpl-c/basic-int-types
+    argv uses the basic integral type char rather than a typedef with size and signedness.
+    Typedefs that indicate size and signedness should be used in place of the basic types.
+
+semmle056 <Low> :/opt/project/test/integration_tests/c_testcase/testcasesupport/io.c:129: cpp/jpl-c/basic-int-types
+    numWritten uses the basic integral type unsigned long rather than a typedef with size and signedness.
+    Typedefs that indicate size and signedness should be used in place of the basic types.
+
+semmle057 <Low> :/opt/project/test/integration_tests/c_testcase/testcasesupport/io.c:137: cpp/jpl-c/basic-int-types
+    byte uses the basic integral type int rather than a typedef with size and signedness.
+    Typedefs that indicate size and signedness should be used in place of the basic types.
+
+semmle058 <Low> :/opt/project/test/integration_tests/c_testcase/testcasesupport/io.c:107: cpp/jpl-c/basic-int-types
+    numWritten uses the basic integral type unsigned long rather than a typedef with size and signedness.
+    Typedefs that indicate size and signedness should be used in place of the basic types.
+
+semmle059 <Low> :/opt/project/test/integration_tests/c_testcase/testcasesupport/io.c:115: cpp/jpl-c/basic-int-types
+    byte uses the basic integral type int rather than a typedef with size and signedness.
+    Typedefs that indicate size and signedness should be used in place of the basic types.
+
+semmle060 <Low> :/opt/project/test/integration_tests/c_testcase/testcasesupport/io.c:94: cpp/jpl-c/basic-int-types
+    i uses the basic integral type unsigned long rather than a typedef with size and signedness.
+    Typedefs that indicate size and signedness should be used in place of the basic types.
+
+semmle061 <Low> :/opt/project/test/integration_tests/c_testcase/testcasesupport/io.c:66: cpp/jpl-c/basic-int-types
+    s uses the basic integral type int rather than a typedef with size and signedness.
+    Typedefs that indicate size and signedness should be used in place of the basic types.
+
+semmle062 <Low> :/opt/project/test/integration_tests/c_testcase/testcasesupport/std_thread.c:133: cpp/jpl-c/basic-int-types
+    stdThreadLockCreate uses the basic integral type int rather than a typedef with size and signedness.
+    Typedefs that indicate size and signedness should be used in place of the basic types.
+
+semmle063 <Low> :/opt/project/test/integration_tests/c_testcase/testcasesupport/std_thread.c:106: cpp/jpl-c/basic-int-types
+    stdThreadDestroy uses the basic integral type int rather than a typedef with size and signedness.
+    Typedefs that indicate size and signedness should be used in place of the basic types.
+
+semmle064 <Low> :/opt/project/test/integration_tests/c_testcase/testcasesupport/std_thread.c:91: cpp/jpl-c/basic-int-types
+    stdThreadJoin uses the basic integral type int rather than a typedef with size and signedness.
+    Typedefs that indicate size and signedness should be used in place of the basic types.
+
+semmle065 <Low> :/opt/project/test/integration_tests/c_testcase/testcasesupport/std_thread.c:48: cpp/jpl-c/basic-int-types
+    stdThreadCreate uses the basic integral type int rather than a typedef with size and signedness.
+    Typedefs that indicate size and signedness should be used in place of the basic types.
+
+semmle066 <Low> :/opt/project/test/integration_tests/c_testcase/testcasesupport/std_thread.c:17: cpp/jpl-c/basic-int-types
+    handle uses the basic integral type unsigned long rather than a typedef with size and signedness.
+    Typedefs that indicate size and signedness should be used in place of the basic types.
+
+semmle067 <Low> :/opt/project/test/integration_tests/c_testcase/testcasesupport/std_thread.c:53: cpp/jpl-c/basic-int-types
+    handle uses the basic integral type unsigned long rather than a typedef with size and signedness.
+    Typedefs that indicate size and signedness should be used in place of the basic types.
+

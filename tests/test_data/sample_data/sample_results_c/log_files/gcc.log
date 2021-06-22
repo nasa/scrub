@@ -1,0 +1,139 @@
+2021-03-25 19:23:50,908 INFO     
+2021-03-25 19:23:50,909 INFO     Perform GCC compiler analysis...
+2021-03-25 19:23:50,910 INFO     	Changing directory: /opt/project/test/integration_tests/c_testcase/src
+2021-03-25 19:23:50,912 INFO     
+2021-03-25 19:23:50,913 INFO     	>> Executing command: make clean
+2021-03-25 19:23:50,914 INFO     	>> From directory: /opt/project/test/integration_tests/c_testcase/src
+2021-03-25 19:23:50,915 DEBUG    	Console output:
+2021-03-25 19:23:50,930 DEBUG    		rm -rf *.o *.out CWE835
+2021-03-25 19:23:50,945 INFO     
+2021-03-25 19:23:50,946 INFO     	>> Executing command: make all
+2021-03-25 19:23:50,947 INFO     	>> From directory: /opt/project/test/integration_tests/c_testcase/src
+2021-03-25 19:23:50,948 DEBUG    	Console output:
+2021-03-25 19:23:50,964 DEBUG    		/usr/bin/gcc -c -Wall -Wextra -Wpedantic -I ../testcasesupport main_linux.cpp -o main_linux.o
+2021-03-25 19:23:51,089 DEBUG    		/usr/bin/gcc -c -Wall -Wextra -Wpedantic -I ../testcasesupport CWE835_Infinite_Loop__for_empty_01.c -o CWE835_Infinite_Loop__for_empty_01.o
+2021-03-25 19:23:51,108 DEBUG    		In file included from CWE835_Infinite_Loop__for_empty_01.c:6:0:
+2021-03-25 19:23:51,109 DEBUG    		../testcasesupport/std_testcase.h:33:32: warning: C++ style comments are not allowed in ISO C90 [enabled by default]
+2021-03-25 19:23:51,110 DEBUG    		 # define __STDC_LIMIT_MACROS 1 //SCRUB_IGNORE_WARNING_DUMMY
+2021-03-25 19:23:51,112 DEBUG    		                                ^
+2021-03-25 19:23:51,113 DEBUG    		../testcasesupport/std_testcase.h:33:32: warning: (this will be reported only once per input file) [enabled by default]
+2021-03-25 19:23:51,172 DEBUG    		In file included from ../testcasesupport/std_testcase_io.h:8:0,
+2021-03-25 19:23:51,174 DEBUG    		                 from ../testcasesupport/std_testcase.h:120,
+2021-03-25 19:23:51,174 DEBUG    		                 from CWE835_Infinite_Loop__for_empty_01.c:6:
+2021-03-25 19:23:51,175 DEBUG    		../testcasesupport/std_testcase.h:33:32: warning: C++ style comments are not allowed in ISO C90 [enabled by default]
+2021-03-25 19:23:51,176 DEBUG    		 # define __STDC_LIMIT_MACROS 1 //SCRUB_IGNORE_WARNING_DUMMY
+2021-03-25 19:23:51,177 DEBUG    		                                ^
+2021-03-25 19:23:51,178 DEBUG    		../testcasesupport/std_testcase.h:33:32: warning: (this will be reported only once per input file) [enabled by default]
+2021-03-25 19:23:51,211 DEBUG    		/usr/bin/gcc -c -Wall -Wextra -Wpedantic -I ../testcasesupport CWE835_Infinite_Loop__while_true_01.c -o CWE835_Infinite_Loop__while_true_01.o
+2021-03-25 19:23:51,233 DEBUG    		In file included from CWE835_Infinite_Loop__while_true_01.c:6:0:
+2021-03-25 19:23:51,234 DEBUG    		../testcasesupport/std_testcase.h:33:32: warning: C++ style comments are not allowed in ISO C90 [enabled by default]
+2021-03-25 19:23:51,235 DEBUG    		 # define __STDC_LIMIT_MACROS 1 //SCRUB_IGNORE_WARNING_DUMMY
+2021-03-25 19:23:51,237 DEBUG    		                                ^
+2021-03-25 19:23:51,238 DEBUG    		../testcasesupport/std_testcase.h:33:32: warning: (this will be reported only once per input file) [enabled by default]
+2021-03-25 19:23:51,301 DEBUG    		In file included from ../testcasesupport/std_testcase_io.h:8:0,
+2021-03-25 19:23:51,303 DEBUG    		                 from ../testcasesupport/std_testcase.h:120,
+2021-03-25 19:23:51,304 DEBUG    		                 from CWE835_Infinite_Loop__while_true_01.c:6:
+2021-03-25 19:23:51,305 DEBUG    		../testcasesupport/std_testcase.h:33:32: warning: C++ style comments are not allowed in ISO C90 [enabled by default]
+2021-03-25 19:23:51,306 DEBUG    		 # define __STDC_LIMIT_MACROS 1 //SCRUB_IGNORE_WARNING_DUMMY
+2021-03-25 19:23:51,307 DEBUG    		                                ^
+2021-03-25 19:23:51,308 DEBUG    		../testcasesupport/std_testcase.h:33:32: warning: (this will be reported only once per input file) [enabled by default]
+2021-03-25 19:23:51,338 DEBUG    		/usr/bin/gcc -c -Wall -Wextra -Wpedantic -I ../testcasesupport CWE835_Infinite_Loop__do_true_01.c -o CWE835_Infinite_Loop__do_true_01.o
+2021-03-25 19:23:51,360 DEBUG    		In file included from CWE835_Infinite_Loop__do_true_01.c:6:0:
+2021-03-25 19:23:51,362 DEBUG    		../testcasesupport/std_testcase.h:33:32: warning: C++ style comments are not allowed in ISO C90 [enabled by default]
+2021-03-25 19:23:51,363 DEBUG    		 # define __STDC_LIMIT_MACROS 1 //SCRUB_IGNORE_WARNING_DUMMY
+2021-03-25 19:23:51,363 DEBUG    		                                ^
+2021-03-25 19:23:51,365 DEBUG    		../testcasesupport/std_testcase.h:33:32: warning: (this will be reported only once per input file) [enabled by default]
+2021-03-25 19:23:51,425 DEBUG    		In file included from ../testcasesupport/std_testcase_io.h:8:0,
+2021-03-25 19:23:51,426 DEBUG    		                 from ../testcasesupport/std_testcase.h:120,
+2021-03-25 19:23:51,427 DEBUG    		                 from CWE835_Infinite_Loop__do_true_01.c:6:
+2021-03-25 19:23:51,428 DEBUG    		../testcasesupport/std_testcase.h:33:32: warning: C++ style comments are not allowed in ISO C90 [enabled by default]
+2021-03-25 19:23:51,429 DEBUG    		 # define __STDC_LIMIT_MACROS 1 //SCRUB_IGNORE_WARNING_DUMMY
+2021-03-25 19:23:51,430 DEBUG    		                                ^
+2021-03-25 19:23:51,431 DEBUG    		../testcasesupport/std_testcase.h:33:32: warning: (this will be reported only once per input file) [enabled by default]
+2021-03-25 19:23:51,462 DEBUG    		/usr/bin/gcc -c -Wall -Wextra -Wpedantic -I ../testcasesupport CWE835_Infinite_Loop__while_01.c -o CWE835_Infinite_Loop__while_01.o
+2021-03-25 19:23:51,487 DEBUG    		In file included from CWE835_Infinite_Loop__while_01.c:6:0:
+2021-03-25 19:23:51,489 DEBUG    		../testcasesupport/std_testcase.h:33:32: warning: C++ style comments are not allowed in ISO C90 [enabled by default]
+2021-03-25 19:23:51,490 DEBUG    		 # define __STDC_LIMIT_MACROS 1 //SCRUB_IGNORE_WARNING_DUMMY
+2021-03-25 19:23:51,491 DEBUG    		                                ^
+2021-03-25 19:23:51,492 DEBUG    		../testcasesupport/std_testcase.h:33:32: warning: (this will be reported only once per input file) [enabled by default]
+2021-03-25 19:23:51,570 DEBUG    		In file included from ../testcasesupport/std_testcase_io.h:8:0,
+2021-03-25 19:23:51,571 DEBUG    		                 from ../testcasesupport/std_testcase.h:120,
+2021-03-25 19:23:51,572 DEBUG    		                 from CWE835_Infinite_Loop__while_01.c:6:
+2021-03-25 19:23:51,574 DEBUG    		../testcasesupport/std_testcase.h:33:32: warning: C++ style comments are not allowed in ISO C90 [enabled by default]
+2021-03-25 19:23:51,575 DEBUG    		 # define __STDC_LIMIT_MACROS 1 //SCRUB_IGNORE_WARNING_DUMMY
+2021-03-25 19:23:51,576 DEBUG    		                                ^
+2021-03-25 19:23:51,577 DEBUG    		../testcasesupport/std_testcase.h:33:32: warning: (this will be reported only once per input file) [enabled by default]
+2021-03-25 19:23:51,609 DEBUG    		/usr/bin/gcc -c -Wall -Wextra -Wpedantic -I ../testcasesupport CWE835_Infinite_Loop__for_01.c -o CWE835_Infinite_Loop__for_01.o
+2021-03-25 19:23:51,630 DEBUG    		In file included from CWE835_Infinite_Loop__for_01.c:6:0:
+2021-03-25 19:23:51,632 DEBUG    		../testcasesupport/std_testcase.h:33:32: warning: C++ style comments are not allowed in ISO C90 [enabled by default]
+2021-03-25 19:23:51,633 DEBUG    		 # define __STDC_LIMIT_MACROS 1 //SCRUB_IGNORE_WARNING_DUMMY
+2021-03-25 19:23:51,634 DEBUG    		                                ^
+2021-03-25 19:23:51,636 DEBUG    		../testcasesupport/std_testcase.h:33:32: warning: (this will be reported only once per input file) [enabled by default]
+2021-03-25 19:23:51,686 DEBUG    		In file included from ../testcasesupport/std_testcase_io.h:8:0,
+2021-03-25 19:23:51,688 DEBUG    		                 from ../testcasesupport/std_testcase.h:120,
+2021-03-25 19:23:51,689 DEBUG    		                 from CWE835_Infinite_Loop__for_01.c:6:
+2021-03-25 19:23:51,690 DEBUG    		../testcasesupport/std_testcase.h:33:32: warning: C++ style comments are not allowed in ISO C90 [enabled by default]
+2021-03-25 19:23:51,691 DEBUG    		 # define __STDC_LIMIT_MACROS 1 //SCRUB_IGNORE_WARNING_DUMMY
+2021-03-25 19:23:51,692 DEBUG    		                                ^
+2021-03-25 19:23:51,693 DEBUG    		../testcasesupport/std_testcase.h:33:32: warning: (this will be reported only once per input file) [enabled by default]
+2021-03-25 19:23:51,725 DEBUG    		/usr/bin/gcc -c -Wall -Wextra -Wpedantic -I ../testcasesupport CWE835_Infinite_Loop__do_01.c -o CWE835_Infinite_Loop__do_01.o
+2021-03-25 19:23:51,745 DEBUG    		In file included from CWE835_Infinite_Loop__do_01.c:6:0:
+2021-03-25 19:23:51,747 DEBUG    		../testcasesupport/std_testcase.h:33:32: warning: C++ style comments are not allowed in ISO C90 [enabled by default]
+2021-03-25 19:23:51,748 DEBUG    		 # define __STDC_LIMIT_MACROS 1 //SCRUB_IGNORE_WARNING_DUMMY
+2021-03-25 19:23:51,750 DEBUG    		                                ^
+2021-03-25 19:23:51,751 DEBUG    		../testcasesupport/std_testcase.h:33:32: warning: (this will be reported only once per input file) [enabled by default]
+2021-03-25 19:23:51,820 DEBUG    		In file included from ../testcasesupport/std_testcase_io.h:8:0,
+2021-03-25 19:23:51,822 DEBUG    		                 from ../testcasesupport/std_testcase.h:120,
+2021-03-25 19:23:51,823 DEBUG    		                 from CWE835_Infinite_Loop__do_01.c:6:
+2021-03-25 19:23:51,824 DEBUG    		../testcasesupport/std_testcase.h:33:32: warning: C++ style comments are not allowed in ISO C90 [enabled by default]
+2021-03-25 19:23:51,825 DEBUG    		 # define __STDC_LIMIT_MACROS 1 //SCRUB_IGNORE_WARNING_DUMMY
+2021-03-25 19:23:51,826 DEBUG    		                                ^
+2021-03-25 19:23:51,827 DEBUG    		../testcasesupport/std_testcase.h:33:32: warning: (this will be reported only once per input file) [enabled by default]
+2021-03-25 19:23:51,860 DEBUG    		/usr/bin/gcc -c -Wall -Wextra -Wpedantic -I ../testcasesupport ../testcasesupport/io.c -o io.o
+2021-03-25 19:23:51,918 DEBUG    		In file included from ../testcasesupport/io.c:5:0:
+2021-03-25 19:23:51,920 DEBUG    		../testcasesupport/std_testcase.h:33:32: warning: C++ style comments are not allowed in ISO C90 [enabled by default]
+2021-03-25 19:23:51,921 DEBUG    		 # define __STDC_LIMIT_MACROS 1 //SCRUB_IGNORE_WARNING_DUMMY
+2021-03-25 19:23:51,922 DEBUG    		                                ^
+2021-03-25 19:23:51,923 DEBUG    		../testcasesupport/std_testcase.h:33:32: warning: (this will be reported only once per input file) [enabled by default]
+2021-03-25 19:23:51,939 DEBUG    		In file included from ../testcasesupport/std_testcase_io.h:8:0,
+2021-03-25 19:23:51,940 DEBUG    		                 from ../testcasesupport/std_testcase.h:120,
+2021-03-25 19:23:51,942 DEBUG    		                 from ../testcasesupport/io.c:5:
+2021-03-25 19:23:51,943 DEBUG    		../testcasesupport/std_testcase.h:33:32: warning: C++ style comments are not allowed in ISO C90 [enabled by default]
+2021-03-25 19:23:51,943 DEBUG    		 # define __STDC_LIMIT_MACROS 1 //SCRUB_IGNORE_WARNING_DUMMY
+2021-03-25 19:23:51,944 DEBUG    		                                ^
+2021-03-25 19:23:51,945 DEBUG    		../testcasesupport/std_testcase.h:33:32: warning: (this will be reported only once per input file) [enabled by default]
+2021-03-25 19:23:51,947 DEBUG    		../testcasesupport/io.c: In function 'printSizeTLine':
+2021-03-25 19:23:51,948 DEBUG    		../testcasesupport/io.c:54:5: warning: ISO C90 does not support the 'z' gnu_printf length modifier [-Wformat=]
+2021-03-25 19:23:51,949 DEBUG    		     printf("%zu\n", sizeTNumber);
+2021-03-25 19:23:51,950 DEBUG    		     ^
+2021-03-25 19:23:51,951 DEBUG    		../testcasesupport/io.c: In function 'printWcharLine':
+2021-03-25 19:23:51,952 DEBUG    		../testcasesupport/io.c:67:29: warning: C++ style comments are not allowed in ISO C90 [enabled by default]
+2021-03-25 19:23:51,953 DEBUG    		         s[0] = wideChar;    // lgtm
+2021-03-25 19:23:51,954 DEBUG    		                             ^
+2021-03-25 19:23:51,955 DEBUG    		../testcasesupport/io.c:67:29: warning: (this will be reported only once per input file) [enabled by default]
+2021-03-25 19:23:51,956 DEBUG    		../testcasesupport/io.c:69:5: warning: ISO C90 does not support the '%ls' gnu_printf format [-Wformat=]
+2021-03-25 19:23:51,957 DEBUG    		     printf("%ls\n", s);
+2021-03-25 19:23:51,957 DEBUG    		     ^
+2021-03-25 19:23:51,958 DEBUG    		../testcasesupport/io.c: In function 'decodeHexChars':
+2021-03-25 19:23:51,959 DEBUG    		../testcasesupport/io.c:116:9: warning: format '%x' expects argument of type 'unsigned int *', but argument 3 has type 'int *' [-Wformat=]
+2021-03-25 19:23:51,960 DEBUG    		         sscanf(&hex[2 * numWritten], "%02x", &byte);
+2021-03-25 19:23:51,961 DEBUG    		         ^
+2021-03-25 19:23:52,003 DEBUG    		/usr/bin/gcc -c -Wall -Wextra -Wpedantic -I ../testcasesupport ../testcasesupport/std_thread.c -o std_thread.o
+2021-03-25 19:23:52,019 DEBUG    		In file included from ../testcasesupport/std_thread.c:5:0:
+2021-03-25 19:23:52,021 DEBUG    		../testcasesupport/std_testcase.h:33:32: warning: C++ style comments are not allowed in ISO C90 [enabled by default]
+2021-03-25 19:23:52,021 DEBUG    		 # define __STDC_LIMIT_MACROS 1 //SCRUB_IGNORE_WARNING_DUMMY
+2021-03-25 19:23:52,022 DEBUG    		                                ^
+2021-03-25 19:23:52,023 DEBUG    		../testcasesupport/std_testcase.h:33:32: warning: (this will be reported only once per input file) [enabled by default]
+2021-03-25 19:23:52,073 DEBUG    		In file included from ../testcasesupport/std_testcase_io.h:8:0,
+2021-03-25 19:23:52,075 DEBUG    		                 from ../testcasesupport/std_testcase.h:120,
+2021-03-25 19:23:52,076 DEBUG    		                 from ../testcasesupport/std_thread.c:5:
+2021-03-25 19:23:52,078 DEBUG    		../testcasesupport/std_testcase.h:33:32: warning: C++ style comments are not allowed in ISO C90 [enabled by default]
+2021-03-25 19:23:52,080 DEBUG    		 # define __STDC_LIMIT_MACROS 1 //SCRUB_IGNORE_WARNING_DUMMY
+2021-03-25 19:23:52,082 DEBUG    		                                ^
+2021-03-25 19:23:52,083 DEBUG    		../testcasesupport/std_testcase.h:33:32: warning: (this will be reported only once per input file) [enabled by default]
+2021-03-25 19:23:52,126 DEBUG    		/usr/bin/g++ -lpthread -lm main_linux.o CWE835_Infinite_Loop__for_empty_01.o CWE835_Infinite_Loop__while_true_01.o CWE835_Infinite_Loop__do_true_01.o CWE835_Infinite_Loop__while_01.o CWE835_Infinite_Loop__for_01.o CWE835_Infinite_Loop__do_01.o  io.o std_thread.o -o CWE835
+2021-03-25 19:23:52,341 INFO     
+2021-03-25 19:23:52,342 INFO     	Parsing results...
+2021-03-25 19:23:52,343 INFO     	>> Executing command: get_gcc_warnings.parse_warnings(/root/scrub_working_dir/compiler_analysis/gcc_build.log, /opt/project/test/integration_tests/c_testcase/.scrub/raw_results/gcc_compiler_raw.scrub)
+2021-03-25 19:23:52,345 INFO     	>> From directory: /opt/project/test/integration_tests/c_testcase/src
+2021-03-25 19:23:52,357 INFO     	Changing directory: /opt/project/test/integration_tests/c_testcase

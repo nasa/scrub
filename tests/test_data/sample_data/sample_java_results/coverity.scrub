@@ -1,0 +1,16 @@
+coverity001 <Low> :src/testcases/CWE835_Infinite_Loop/CWE835_Infinite_Loop__do_01.java:16: FB.DLS_DEAD_LOCAL_STORE
+    /opt/project/test/integration_tests/java_testcase/src/testcases/CWE835_Infinite_Loop/CWE835_Infinite_Loop__do_01.java:16:
+    1. defect: Dead store to j.
+
+coverity002 <Low> :src/testcasesupport/AbstractTestCaseClassIssue.java:22: FB.UWF_UNWRITTEN_PUBLIC_OR_PROTECTED_FIELD
+    /opt/project/test/integration_tests/java_testcase/src/testcasesupport/AbstractTestCaseClassIssue.java:22:
+    1. defect: Unwritten public or protected field: testcasesupport.AbstractTestCaseClassIssue.good1Object.
+
+coverity003 <Low> :src/testcasesupport/AbstractTestCaseClassIssue.java:44: FB.UWF_UNWRITTEN_PUBLIC_OR_PROTECTED_FIELD
+    /opt/project/test/integration_tests/java_testcase/src/testcasesupport/AbstractTestCaseClassIssue.java:44:
+    1. defect: Unwritten public or protected field: testcasesupport.AbstractTestCaseClassIssue.badObject.
+
+coverity004 <Low> :src/testcasesupport/IO.java:100: FB.DMI_RANDOM_USED_ONLY_ONCE
+    /opt/project/test/integration_tests/java_testcase/src/testcasesupport/IO.java:100:
+    1. defect: Random object created and used only once.
+

@@ -1,0 +1,490 @@
+codesonar001 <Low> :/opt/project/test/integration_tests/c_testcase/src/CWE835_Infinite_Loop__while_true_01.c:10: Not Enough Assertions
+    CWE835_Infinite_Loop__while_true_01_bad() does not contain any assertions.  - CodeSonar is configured to issue a warning whenever a function does not contain at least 2 assertions.      -  To configure this behavior, use configuration parameters MIN_ASSERTS and MIN_ASSERTS_FUNCTION_LENGTH.  - Assertions ensure that assumptions made in the code are valid and enforced.  - Power of Ten Rule 5 and JPL Rule 16 require that a minimum acceptable proportion of assertions be defined and enforced.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763273.html
+
+codesonar002 <Low> :/opt/project/test/integration_tests/c_testcase/testcasesupport/std_thread.h:11: Pointer Type Inside Typedef
+    The pointer type void (*)(void *) is used to define the type stdThreadRoutine.  - Hiding pointer types inside typedef declarations can make it hard for human readers to follow the flow of data in a program.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763274.html
+
+codesonar003 <Low> :/opt/project/test/integration_tests/c_testcase/testcasesupport/std_testcase.h:45: Conditional Compilation
+    There are multiple conditional compilation constructs in this file.  - Power of Ten Rule 8 and JPL Rule 20 forbid multiple conditional compliation constructs in the same file.  - There is an #ifndef directive here.  - There is already a conditional compilation construct at line 1.  - CodeSonar will issue a Conditional Compilation warning whenever a file contains conditional compilation constructs, unless there is exactly one such construct and it has a specific form.  Find out more.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763275.html
+
+codesonar004 <Low> :/opt/project/test/integration_tests/c_testcase/testcasesupport/std_testcase.h:14: Conditional Compilation
+    There are multiple conditional compilation constructs in this file.  - Power of Ten Rule 8 and JPL Rule 20 forbid multiple conditional compliation constructs in the same file.  - There is an #ifdef directive here.  - There is already a conditional compilation construct at line 1.  - CodeSonar will issue a Conditional Compilation warning whenever a file contains conditional compilation constructs, unless there is exactly one such construct and it has a specific form.  Find out more.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763277.html
+
+codesonar005 <Low> :/opt/project/test/integration_tests/c_testcase/testcasesupport/std_thread.c:188: Not Enough Assertions
+    stdThreadLockRelease() does not contain any assertions.  - CodeSonar is configured to issue a warning whenever a function does not contain at least 2 assertions.      -  To configure this behavior, use configuration parameters MIN_ASSERTS and MIN_ASSERTS_FUNCTION_LENGTH.  - Assertions ensure that assumptions made in the code are valid and enforced.  - Power of Ten Rule 5 and JPL Rule 16 require that a minimum acceptable proportion of assertions be defined and enforced.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763293.html
+
+codesonar006 <Low> :/opt/project/test/integration_tests/c_testcase/testcasesupport/std_thread.c:48: Not Enough Assertions
+    stdThreadCreate() does not contain any assertions.  - CodeSonar is configured to issue a warning whenever a function does not contain at least 2 assertions.      -  To configure this behavior, use configuration parameters MIN_ASSERTS and MIN_ASSERTS_FUNCTION_LENGTH.  - Assertions ensure that assumptions made in the code are valid and enforced.  - Power of Ten Rule 5 and JPL Rule 16 require that a minimum acceptable proportion of assertions be defined and enforced.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763294.html
+
+codesonar007 <Low> :/opt/project/test/integration_tests/c_testcase/src/CWE835_Infinite_Loop__do_true_01.c:43: Not Enough Assertions
+    CWE835_Infinite_Loop__do_true_01_good() does not contain any assertions.  - CodeSonar is configured to issue a warning whenever a function does not contain at least 2 assertions.      -  To configure this behavior, use configuration parameters MIN_ASSERTS and MIN_ASSERTS_FUNCTION_LENGTH.  - Assertions ensure that assumptions made in the code are valid and enforced.  - Power of Ten Rule 5 and JPL Rule 16 require that a minimum acceptable proportion of assertions be defined and enforced.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763295.html
+
+codesonar008 <Low> :/opt/project/test/integration_tests/c_testcase/testcasesupport/io.c:127: Not Enough Assertions
+    decodeHexWChars() does not contain any assertions.  - CodeSonar is configured to issue a warning whenever a function does not contain at least 2 assertions.      -  To configure this behavior, use configuration parameters MIN_ASSERTS and MIN_ASSERTS_FUNCTION_LENGTH.  - Assertions ensure that assumptions made in the code are valid and enforced.  - Power of Ten Rule 5 and JPL Rule 16 require that a minimum acceptable proportion of assertions be defined and enforced.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763296.html
+
+codesonar009 <Low> :/opt/project/test/integration_tests/c_testcase/testcasesupport/io.c:47: Not Enough Assertions
+    printLongLongLine() does not contain any assertions.  - CodeSonar is configured to issue a warning whenever a function does not contain at least 2 assertions.      -  To configure this behavior, use configuration parameters MIN_ASSERTS and MIN_ASSERTS_FUNCTION_LENGTH.  - Assertions ensure that assumptions made in the code are valid and enforced.  - Power of Ten Rule 5 and JPL Rule 16 require that a minimum acceptable proportion of assertions be defined and enforced.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763297.html
+
+codesonar010 <Low> :/opt/project/test/integration_tests/c_testcase/testcasesupport/std_testcase.h:18: Macro Does Not Start With { or (
+    The definition of _CRT_SECURE_NO_DEPRECATE is not fully parenthesized.  - Unparenthesized macro definitions are legal, but can lead to unexpected behavior when the macro is used.  In particular, operator precedence may cause problems.  - Power of Ten Rule 8 and JPL Rule 20 require that macro definitions be "complete syntactic units".
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763298.html
+
+codesonar011 <Low> :/opt/project/test/integration_tests/c_testcase/testcasesupport/io.c:19: Not Enough Assertions
+    printWLine() does not contain any assertions.  - CodeSonar is configured to issue a warning whenever a function does not contain at least 2 assertions.      -  To configure this behavior, use configuration parameters MIN_ASSERTS and MIN_ASSERTS_FUNCTION_LENGTH.  - Assertions ensure that assumptions made in the code are valid and enforced.  - Power of Ten Rule 5 and JPL Rule 16 require that a minimum acceptable proportion of assertions be defined and enforced.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763299.html
+
+codesonar012 <Low> :/opt/project/test/integration_tests/c_testcase/testcasesupport/std_testcase.h:85: Function-Like Macro
+    Violation of MISRA C++:2008 16-0-4: Function-like macros shall not be defined.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763300.html
+
+codesonar013 <Low> :/opt/project/test/integration_tests/c_testcase/src/CWE835_Infinite_Loop__do_01.c:43: Not Enough Assertions
+    CWE835_Infinite_Loop__do_01_good() does not contain any assertions.  - CodeSonar is configured to issue a warning whenever a function does not contain at least 2 assertions.      -  To configure this behavior, use configuration parameters MIN_ASSERTS and MIN_ASSERTS_FUNCTION_LENGTH.  - Assertions ensure that assumptions made in the code are valid and enforced.  - Power of Ten Rule 5 and JPL Rule 16 require that a minimum acceptable proportion of assertions be defined and enforced.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763301.html
+
+codesonar014 <Low> :/opt/project/test/integration_tests/c_testcase/testcasesupport/std_thread.c:139: Use of <stdlib.h> Allocator/Deallocator
+    Use of malloc() is not recommended because it is a violation of some coding standards including MISRA C:2012 21.3: The memory allocation and deallocation functions of <stdlib.h> shall not be used.  See here for more information.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763302.html
+
+codesonar015 <Low> :/opt/project/test/integration_tests/c_testcase/src/CWE835_Infinite_Loop__while_01.c:42: Not Enough Assertions
+    CWE835_Infinite_Loop__while_01_good() does not contain any assertions.  - CodeSonar is configured to issue a warning whenever a function does not contain at least 2 assertions.      -  To configure this behavior, use configuration parameters MIN_ASSERTS and MIN_ASSERTS_FUNCTION_LENGTH.  - Assertions ensure that assumptions made in the code are valid and enforced.  - Power of Ten Rule 5 and JPL Rule 16 require that a minimum acceptable proportion of assertions be defined and enforced.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763303.html
+
+codesonar016 <Low> :/opt/project/test/integration_tests/c_testcase/testcasesupport/io.c:105: Not Enough Assertions
+    decodeHexChars() does not contain any assertions.  - CodeSonar is configured to issue a warning whenever a function does not contain at least 2 assertions.      -  To configure this behavior, use configuration parameters MIN_ASSERTS and MIN_ASSERTS_FUNCTION_LENGTH.  - Assertions ensure that assumptions made in the code are valid and enforced.  - Power of Ten Rule 5 and JPL Rule 16 require that a minimum acceptable proportion of assertions be defined and enforced.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763304.html
+
+codesonar017 <Low> :/opt/project/test/integration_tests/c_testcase/src/CWE835_Infinite_Loop__while_true_01.c:1: Warnings Not Treated As Errors
+    File CWE835_Infinite_Loop__while_true_01.c was compiled without the -Werror option, so compiler warnings were not treated as errors. The compilation command was:
+/usr/bin/gcc -Wall -Wextra -Wpedantic -I ../testcasesupport 
+See the parse details log for further information about this compilation.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763305.html
+
+codesonar018 <Low> :/opt/project/test/integration_tests/c_testcase/testcasesupport/std_testcase.h:35: Macro Does Not Start With { or (
+    The definition of ALLOCA is not fully parenthesized.  - Unparenthesized macro definitions are legal, but can lead to unexpected behavior when the macro is used.  In particular, operator precedence may cause problems.  - Power of Ten Rule 8 and JPL Rule 20 require that macro definitions be "complete syntactic units".
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763306.html
+
+codesonar019 <Low> :/opt/project/test/integration_tests/c_testcase/testcasesupport/std_testcase.h:25: Macro Does Not Start With { or (
+    The definition of ALLOCA is not fully parenthesized.  - Unparenthesized macro definitions are legal, but can lead to unexpected behavior when the macro is used.  In particular, operator precedence may cause problems.  - Power of Ten Rule 8 and JPL Rule 20 require that macro definitions be "complete syntactic units".
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763307.html
+
+codesonar020 <Low> :/opt/project/test/integration_tests/c_testcase/testcasesupport/io.c:92: Not Enough Assertions
+    printBytesLine() does not contain any assertions.  - CodeSonar is configured to issue a warning whenever a function does not contain at least 2 assertions.      -  To configure this behavior, use configuration parameters MIN_ASSERTS and MIN_ASSERTS_FUNCTION_LENGTH.  - Assertions ensure that assumptions made in the code are valid and enforced.  - Power of Ten Rule 5 and JPL Rule 16 require that a minimum acceptable proportion of assertions be defined and enforced.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763308.html
+
+codesonar021 <Low> :/opt/project/test/integration_tests/c_testcase/testcasesupport/std_testcase.h:89: Function-Like Macro
+    Violation of MISRA C++:2008 16-0-4: Function-like macros shall not be defined.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763309.html
+
+codesonar022 <Low> :/opt/project/test/integration_tests/c_testcase/testcasesupport/io.c:1: Warnings Not Treated As Errors
+    File io.c was compiled without the -Werror option, so compiler warnings were not treated as errors. The compilation command was:
+/usr/bin/gcc -Wall -Wextra -Wpedantic -I ../testcasesupport 
+See the parse details log for further information about this compilation.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763310.html
+
+codesonar023 <Low> :/opt/project/test/integration_tests/c_testcase/testcasesupport/io.c:57: Not Enough Assertions
+    printHexCharLine() does not contain any assertions.  - CodeSonar is configured to issue a warning whenever a function does not contain at least 2 assertions.      -  To configure this behavior, use configuration parameters MIN_ASSERTS and MIN_ASSERTS_FUNCTION_LENGTH.  - Assertions ensure that assumptions made in the code are valid and enforced.  - Power of Ten Rule 5 and JPL Rule 16 require that a minimum acceptable proportion of assertions be defined and enforced.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763311.html
+
+codesonar024 <Low> :/opt/project/test/integration_tests/c_testcase/testcasesupport/io.c:32: Not Enough Assertions
+    printShortLine() does not contain any assertions.  - CodeSonar is configured to issue a warning whenever a function does not contain at least 2 assertions.      -  To configure this behavior, use configuration parameters MIN_ASSERTS and MIN_ASSERTS_FUNCTION_LENGTH.  - Assertions ensure that assumptions made in the code are valid and enforced.  - Power of Ten Rule 5 and JPL Rule 16 require that a minimum acceptable proportion of assertions be defined and enforced.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763312.html
+
+codesonar025 <Low> :/opt/project/test/integration_tests/c_testcase/testcasesupport/io.c:52: Not Enough Assertions
+    printSizeTLine() does not contain any assertions.  - CodeSonar is configured to issue a warning whenever a function does not contain at least 2 assertions.      -  To configure this behavior, use configuration parameters MIN_ASSERTS and MIN_ASSERTS_FUNCTION_LENGTH.  - Assertions ensure that assumptions made in the code are valid and enforced.  - Power of Ten Rule 5 and JPL Rule 16 require that a minimum acceptable proportion of assertions be defined and enforced.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763313.html
+
+codesonar026 <Low> :/opt/project/test/integration_tests/c_testcase/testcasesupport/std_thread.h:5: Pointer Type Inside Typedef
+    The pointer type struct _stdThreadLock * is used to define the type stdThreadLock.  - Hiding pointer types inside typedef declarations can make it hard for human readers to follow the flow of data in a program.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763314.html
+
+codesonar027 <Low> :/opt/project/test/integration_tests/c_testcase/src/CWE835_Infinite_Loop__for_01.c:10: Not Enough Assertions
+    CWE835_Infinite_Loop__for_01_bad() does not contain any assertions.  - CodeSonar is configured to issue a warning whenever a function does not contain at least 2 assertions.      -  To configure this behavior, use configuration parameters MIN_ASSERTS and MIN_ASSERTS_FUNCTION_LENGTH.  - Assertions ensure that assumptions made in the code are valid and enforced.  - Power of Ten Rule 5 and JPL Rule 16 require that a minimum acceptable proportion of assertions be defined and enforced.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763315.html
+
+codesonar028 <Low> :/opt/project/test/integration_tests/c_testcase/testcasesupport/std_thread.c:1: Warnings Not Treated As Errors
+    File std_thread.c was compiled without the -Werror option, so compiler warnings were not treated as errors. The compilation command was:
+/usr/bin/gcc -Wall -Wextra -Wpedantic -I ../testcasesupport 
+See the parse details log for further information about this compilation.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763316.html
+
+codesonar029 <Low> :/opt/project/test/integration_tests/c_testcase/testcasesupport/std_thread.c:35: Function Pointer
+    Call through function pointer thread->start.  - The presence of function pointers makes programs harder for both humans and tools to understand.  - Power of Ten Rule 9 and JPL Rule 29 require that the use of function pointers be restricted.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763317.html
+
+codesonar030 <Low> :/opt/project/test/integration_tests/c_testcase/testcasesupport/io.c:153: Not Enough Assertions
+    globalReturnsFalse() does not contain any assertions.  - CodeSonar is configured to issue a warning whenever a function does not contain at least 2 assertions.      -  To configure this behavior, use configuration parameters MIN_ASSERTS and MIN_ASSERTS_FUNCTION_LENGTH.  - Assertions ensure that assumptions made in the code are valid and enforced.  - Power of Ten Rule 5 and JPL Rule 16 require that a minimum acceptable proportion of assertions be defined and enforced.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763318.html
+
+codesonar031 <Low> :/opt/project/test/integration_tests/c_testcase/src/CWE835_Infinite_Loop__for_01.c:41: Not Enough Assertions
+    good2() does not contain any assertions.  - CodeSonar is configured to issue a warning whenever a function does not contain at least 2 assertions.      -  To configure this behavior, use configuration parameters MIN_ASSERTS and MIN_ASSERTS_FUNCTION_LENGTH.  - Assertions ensure that assumptions made in the code are valid and enforced.  - Power of Ten Rule 5 and JPL Rule 16 require that a minimum acceptable proportion of assertions be defined and enforced.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763319.html
+
+codesonar032 <Low> :/opt/project/test/integration_tests/c_testcase/src/CWE835_Infinite_Loop__while_01.c:8: Conditional Compilation
+    This form of conditional compilation is forbidden by Power of Ten Rule 8.When the Conditional Compilation warning class is enabled, warnings will be issued for all #ifndef directives, except in the case where:  - an #ifndef !defined(ID)directive is immediately followed by #define ID and this is the only conditional compilation construct in the source file.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763320.html
+
+codesonar033 <Low> :/opt/project/test/integration_tests/c_testcase/testcasesupport/std_testcase.h:84: Function-Like Macro
+    Violation of MISRA C++:2008 16-0-4: Function-like macros shall not be defined.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763332.html
+
+codesonar034 <Low> :/opt/project/test/integration_tests/c_testcase/testcasesupport/std_testcase.h:19: Macro Does Not End With } or )
+    The definition of _CRT_SECURE_NO_WARNING is not fully parenthesized.  - Unparenthesized macro definitions are legal, but can lead to unexpected behavior when the macro is used.  In particular, operator precedence may cause problems.  - Power of Ten Rule 8 and JPL Rule 20 require that macro definitions be "complete syntactic units".
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763333.html
+
+codesonar035 <Low> :/opt/project/test/integration_tests/c_testcase/src/CWE835_Infinite_Loop__do_true_01.c:10: Not Enough Assertions
+    CWE835_Infinite_Loop__do_true_01_bad() does not contain any assertions.  - CodeSonar is configured to issue a warning whenever a function does not contain at least 2 assertions.      -  To configure this behavior, use configuration parameters MIN_ASSERTS and MIN_ASSERTS_FUNCTION_LENGTH.  - Assertions ensure that assumptions made in the code are valid and enforced.  - Power of Ten Rule 5 and JPL Rule 16 require that a minimum acceptable proportion of assertions be defined and enforced.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763334.html
+
+codesonar036 <Low> :/opt/project/test/integration_tests/c_testcase/testcasesupport/std_testcase.h:18: Macro Does Not End With } or )
+    The definition of _CRT_SECURE_NO_DEPRECATE is not fully parenthesized.  - Unparenthesized macro definitions are legal, but can lead to unexpected behavior when the macro is used.  In particular, operator precedence may cause problems.  - Power of Ten Rule 8 and JPL Rule 20 require that macro definitions be "complete syntactic units".
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763335.html
+
+codesonar037 <Low> :/opt/project/test/integration_tests/c_testcase/src/CWE835_Infinite_Loop__do_true_01.c:1: Warnings Not Treated As Errors
+    File CWE835_Infinite_Loop__do_true_01.c was compiled without the -Werror option, so compiler warnings were not treated as errors. The compilation command was:
+/usr/bin/gcc -Wall -Wextra -Wpedantic -I ../testcasesupport 
+See the parse details log for further information about this compilation.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763336.html
+
+codesonar038 <Low> :/opt/project/test/integration_tests/c_testcase/testcasesupport/io.c:11: Not Enough Assertions
+    printLine() does not contain any assertions.  - CodeSonar is configured to issue a warning whenever a function does not contain at least 2 assertions.      -  To configure this behavior, use configuration parameters MIN_ASSERTS and MIN_ASSERTS_FUNCTION_LENGTH.  - Assertions ensure that assumptions made in the code are valid and enforced.  - Power of Ten Rule 5 and JPL Rule 16 require that a minimum acceptable proportion of assertions be defined and enforced.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763337.html
+
+codesonar039 <Low> :/opt/project/test/integration_tests/c_testcase/testcasesupport/std_testcase.h:79: Macro Does Not End With } or )
+    The definition of false is not fully parenthesized.  - Unparenthesized macro definitions are legal, but can lead to unexpected behavior when the macro is used.  In particular, operator precedence may cause problems.  - Power of Ten Rule 8 and JPL Rule 20 require that macro definitions be "complete syntactic units".
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763338.html
+
+codesonar040 <Low> :/opt/project/test/integration_tests/c_testcase/testcasesupport/std_testcase.h:35: Macro Does Not End With } or )
+    The definition of ALLOCA is not fully parenthesized.  - Unparenthesized macro definitions are legal, but can lead to unexpected behavior when the macro is used.  In particular, operator precedence may cause problems.  - Power of Ten Rule 8 and JPL Rule 20 require that macro definitions be "complete syntactic units".
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763339.html
+
+codesonar041 <Low> :/opt/project/test/integration_tests/c_testcase/testcasesupport/std_thread.c:30: Not Enough Assertions
+    internal_start() does not contain any assertions.  - CodeSonar is configured to issue a warning whenever a function does not contain at least 2 assertions.      -  To configure this behavior, use configuration parameters MIN_ASSERTS and MIN_ASSERTS_FUNCTION_LENGTH.  - Assertions ensure that assumptions made in the code are valid and enforced.  - Power of Ten Rule 5 and JPL Rule 16 require that a minimum acceptable proportion of assertions be defined and enforced.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763340.html
+
+codesonar042 <Low> :/opt/project/test/integration_tests/c_testcase/testcasesupport/std_testcase.h:33: Macro Does Not Start With { or (
+    The definition of __STDC_LIMIT_MACROS is not fully parenthesized.  - Unparenthesized macro definitions are legal, but can lead to unexpected behavior when the macro is used.  In particular, operator precedence may cause problems.  - Power of Ten Rule 8 and JPL Rule 20 require that macro definitions be "complete syntactic units".
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763341.html
+
+codesonar043 <Low> :/opt/project/test/integration_tests/c_testcase/testcasesupport/io.c:82: Not Enough Assertions
+    printDoubleLine() does not contain any assertions.  - CodeSonar is configured to issue a warning whenever a function does not contain at least 2 assertions.      -  To configure this behavior, use configuration parameters MIN_ASSERTS and MIN_ASSERTS_FUNCTION_LENGTH.  - Assertions ensure that assumptions made in the code are valid and enforced.  - Power of Ten Rule 5 and JPL Rule 16 require that a minimum acceptable proportion of assertions be defined and enforced.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763342.html
+
+codesonar044 <Low> :/opt/project/test/integration_tests/c_testcase/src/CWE835_Infinite_Loop__for_01.c:52: Not Enough Assertions
+    CWE835_Infinite_Loop__for_01_good() does not contain any assertions.  - CodeSonar is configured to issue a warning whenever a function does not contain at least 2 assertions.      -  To configure this behavior, use configuration parameters MIN_ASSERTS and MIN_ASSERTS_FUNCTION_LENGTH.  - Assertions ensure that assumptions made in the code are valid and enforced.  - Power of Ten Rule 5 and JPL Rule 16 require that a minimum acceptable proportion of assertions be defined and enforced.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763343.html
+
+codesonar045 <Low> :/opt/project/test/integration_tests/c_testcase/testcasesupport/std_thread.c:91: Not Enough Assertions
+    stdThreadJoin() does not contain any assertions.  - CodeSonar is configured to issue a warning whenever a function does not contain at least 2 assertions.      -  To configure this behavior, use configuration parameters MIN_ASSERTS and MIN_ASSERTS_FUNCTION_LENGTH.  - Assertions ensure that assumptions made in the code are valid and enforced.  - Power of Ten Rule 5 and JPL Rule 16 require that a minimum acceptable proportion of assertions be defined and enforced.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763344.html
+
+codesonar046 <Low> :/opt/project/test/integration_tests/c_testcase/testcasesupport/io.c:148: Not Enough Assertions
+    globalReturnsTrue() does not contain any assertions.  - CodeSonar is configured to issue a warning whenever a function does not contain at least 2 assertions.      -  To configure this behavior, use configuration parameters MIN_ASSERTS and MIN_ASSERTS_FUNCTION_LENGTH.  - Assertions ensure that assumptions made in the code are valid and enforced.  - Power of Ten Rule 5 and JPL Rule 16 require that a minimum acceptable proportion of assertions be defined and enforced.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763345.html
+
+codesonar047 <Low> :/opt/project/test/integration_tests/c_testcase/testcasesupport/io.c:158: Not Enough Assertions
+    globalReturnsTrueOrFalse() does not contain any assertions.  - CodeSonar is configured to issue a warning whenever a function does not contain at least 2 assertions.      -  To configure this behavior, use configuration parameters MIN_ASSERTS and MIN_ASSERTS_FUNCTION_LENGTH.  - Assertions ensure that assumptions made in the code are valid and enforced.  - Power of Ten Rule 5 and JPL Rule 16 require that a minimum acceptable proportion of assertions be defined and enforced.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763346.html
+
+codesonar048 <Low> :/opt/project/test/integration_tests/c_testcase/testcasesupport/std_thread.h:4: Pointer Type Inside Typedef
+    The pointer type struct _stdThread * is used to define the type stdThread.  - Hiding pointer types inside typedef declarations can make it hard for human readers to follow the flow of data in a program.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763347.html
+
+codesonar049 <Low> :/opt/project/test/integration_tests/c_testcase/src/CWE835_Infinite_Loop__do_01.c:1: Warnings Not Treated As Errors
+    File CWE835_Infinite_Loop__do_01.c was compiled without the -Werror option, so compiler warnings were not treated as errors. The compilation command was:
+/usr/bin/gcc -Wall -Wextra -Wpedantic -I ../testcasesupport 
+See the parse details log for further information about this compilation.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763348.html
+
+codesonar050 <Low> :/opt/project/test/integration_tests/c_testcase/testcasesupport/std_thread.c:59: Use of <stdlib.h> Allocator/Deallocator
+    Use of malloc() is not recommended because it is a violation of some coding standards including MISRA C:2012 21.3: The memory allocation and deallocation functions of <stdlib.h> shall not be used.  See here for more information.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763349.html
+
+codesonar051 <Low> :/opt/project/test/integration_tests/c_testcase/testcasesupport/std_thread.c:75: Use of <stdlib.h> Allocator/Deallocator
+    Use of free() is not recommended because it is a violation of some coding standards including MISRA C:2012 21.3: The memory allocation and deallocation functions of <stdlib.h> shall not be used.  See here for more information.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763350.html
+
+codesonar052 <Low> :/opt/project/test/integration_tests/c_testcase/testcasesupport/io.c:42: Not Enough Assertions
+    printLongLine() does not contain any assertions.  - CodeSonar is configured to issue a warning whenever a function does not contain at least 2 assertions.      -  To configure this behavior, use configuration parameters MIN_ASSERTS and MIN_ASSERTS_FUNCTION_LENGTH.  - Assertions ensure that assumptions made in the code are valid and enforced.  - Power of Ten Rule 5 and JPL Rule 16 require that a minimum acceptable proportion of assertions be defined and enforced.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763351.html
+
+codesonar053 <Low> :/opt/project/test/integration_tests/c_testcase/testcasesupport/io.c:87: Not Enough Assertions
+    printStructLine() does not contain any assertions.  - CodeSonar is configured to issue a warning whenever a function does not contain at least 2 assertions.      -  To configure this behavior, use configuration parameters MIN_ASSERTS and MIN_ASSERTS_FUNCTION_LENGTH.  - Assertions ensure that assumptions made in the code are valid and enforced.  - Power of Ten Rule 5 and JPL Rule 16 require that a minimum acceptable proportion of assertions be defined and enforced.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763352.html
+
+codesonar054 <Low> :/opt/project/test/integration_tests/c_testcase/src/CWE835_Infinite_Loop__for_empty_01.c:1: Warnings Not Treated As Errors
+    File CWE835_Infinite_Loop__for_empty_01.c was compiled without the -Werror option, so compiler warnings were not treated as errors. The compilation command was:
+/usr/bin/gcc -Wall -Wextra -Wpedantic -I ../testcasesupport 
+See the parse details log for further information about this compilation.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763353.html
+
+codesonar055 <Low> :/opt/project/test/integration_tests/c_testcase/testcasesupport/std_testcase.h:57: Conditional Compilation
+    There are multiple conditional compilation constructs in this file.  - Power of Ten Rule 8 and JPL Rule 20 forbid multiple conditional compliation constructs in the same file.  - There is an #ifdef directive here.  - There is already a conditional compilation construct at line 1.  - CodeSonar will issue a Conditional Compilation warning whenever a file contains conditional compilation constructs, unless there is exactly one such construct and it has a specific form.  Find out more.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763354.html
+
+codesonar056 <Low> :/opt/project/test/integration_tests/c_testcase/testcasesupport/std_testcase.h:76: Conditional Compilation
+    There are multiple conditional compilation constructs in this file.  - Power of Ten Rule 8 and JPL Rule 20 forbid multiple conditional compliation constructs in the same file.  - There is an #ifndef directive here.  - There is already a conditional compilation construct at line 1.  - CodeSonar will issue a Conditional Compilation warning whenever a file contains conditional compilation constructs, unless there is exactly one such construct and it has a specific form.  Find out more.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763367.html
+
+codesonar057 <Low> :/opt/project/test/integration_tests/c_testcase/testcasesupport/std_testcase.h:19: Macro Does Not Start With { or (
+    The definition of _CRT_SECURE_NO_WARNING is not fully parenthesized.  - Unparenthesized macro definitions are legal, but can lead to unexpected behavior when the macro is used.  In particular, operator precedence may cause problems.  - Power of Ten Rule 8 and JPL Rule 20 require that macro definitions be "complete syntactic units".
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763368.html
+
+codesonar058 <Low> :/opt/project/test/integration_tests/c_testcase/src/CWE835_Infinite_Loop__while_01.c:10: Not Enough Assertions
+    CWE835_Infinite_Loop__while_01_bad() does not contain any assertions.  - CodeSonar is configured to issue a warning whenever a function does not contain at least 2 assertions.      -  To configure this behavior, use configuration parameters MIN_ASSERTS and MIN_ASSERTS_FUNCTION_LENGTH.  - Assertions ensure that assumptions made in the code are valid and enforced.  - Power of Ten Rule 5 and JPL Rule 16 require that a minimum acceptable proportion of assertions be defined and enforced.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763369.html
+
+codesonar059 <Low> :/opt/project/test/integration_tests/c_testcase/testcasesupport/std_testcase.h:88: Function-Like Macro
+    Violation of MISRA C++:2008 16-0-4: Function-like macros shall not be defined.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763370.html
+
+codesonar060 <Low> :/opt/project/test/integration_tests/c_testcase/testcasesupport/std_thread.c:106: Not Enough Assertions
+    stdThreadDestroy() does not contain any assertions.  - CodeSonar is configured to issue a warning whenever a function does not contain at least 2 assertions.      -  To configure this behavior, use configuration parameters MIN_ASSERTS and MIN_ASSERTS_FUNCTION_LENGTH.  - Assertions ensure that assumptions made in the code are valid and enforced.  - Power of Ten Rule 5 and JPL Rule 16 require that a minimum acceptable proportion of assertions be defined and enforced.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763371.html
+
+codesonar061 <Low> :/opt/project/test/integration_tests/c_testcase/testcasesupport/std_thread.c:133: Not Enough Assertions
+    stdThreadLockCreate() does not contain any assertions.  - CodeSonar is configured to issue a warning whenever a function does not contain at least 2 assertions.      -  To configure this behavior, use configuration parameters MIN_ASSERTS and MIN_ASSERTS_FUNCTION_LENGTH.  - Assertions ensure that assumptions made in the code are valid and enforced.  - Power of Ten Rule 5 and JPL Rule 16 require that a minimum acceptable proportion of assertions be defined and enforced.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763372.html
+
+codesonar062 <Low> :/opt/project/test/integration_tests/c_testcase/testcasesupport/std_thread.c:151: Use of <stdlib.h> Allocator/Deallocator
+    Use of free() is not recommended because it is a violation of some coding standards including MISRA C:2012 21.3: The memory allocation and deallocation functions of <stdlib.h> shall not be used.  See here for more information.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763373.html
+
+codesonar063 <Low> :/opt/project/test/integration_tests/c_testcase/src/CWE835_Infinite_Loop__do_01.c:10: Not Enough Assertions
+    CWE835_Infinite_Loop__do_01_bad() does not contain any assertions.  - CodeSonar is configured to issue a warning whenever a function does not contain at least 2 assertions.      -  To configure this behavior, use configuration parameters MIN_ASSERTS and MIN_ASSERTS_FUNCTION_LENGTH.  - Assertions ensure that assumptions made in the code are valid and enforced.  - Power of Ten Rule 5 and JPL Rule 16 require that a minimum acceptable proportion of assertions be defined and enforced.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763374.html
+
+codesonar064 <Low> :/opt/project/test/integration_tests/c_testcase/src/CWE835_Infinite_Loop__while_01.c:24: Conditional Compilation
+    This form of conditional compilation is forbidden by Power of Ten Rule 8.When the Conditional Compilation warning class is enabled, warnings will be issued for all #ifndef directives, except in the case where:  - an #ifndef !defined(ID)directive is immediately followed by #define ID and this is the only conditional compilation construct in the source file.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763375.html
+
+codesonar065 <Low> :/opt/project/test/integration_tests/c_testcase/testcasesupport/io.c:37: Not Enough Assertions
+    printFloatLine() does not contain any assertions.  - CodeSonar is configured to issue a warning whenever a function does not contain at least 2 assertions.      -  To configure this behavior, use configuration parameters MIN_ASSERTS and MIN_ASSERTS_FUNCTION_LENGTH.  - Assertions ensure that assumptions made in the code are valid and enforced.  - Power of Ten Rule 5 and JPL Rule 16 require that a minimum acceptable proportion of assertions be defined and enforced.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763387.html
+
+codesonar066 <Low> :/opt/project/test/integration_tests/c_testcase/testcasesupport/io.c:192: Not Enough Assertions
+    bad3() does not contain any assertions.  - CodeSonar is configured to issue a warning whenever a function does not contain at least 2 assertions.      -  To configure this behavior, use configuration parameters MIN_ASSERTS and MIN_ASSERTS_FUNCTION_LENGTH.  - Assertions ensure that assumptions made in the code are valid and enforced.  - Power of Ten Rule 5 and JPL Rule 16 require that a minimum acceptable proportion of assertions be defined and enforced.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763388.html
+
+codesonar067 <Low> :/opt/project/test/integration_tests/c_testcase/testcasesupport/io.c:191: Not Enough Assertions
+    bad2() does not contain any assertions.  - CodeSonar is configured to issue a warning whenever a function does not contain at least 2 assertions.      -  To configure this behavior, use configuration parameters MIN_ASSERTS and MIN_ASSERTS_FUNCTION_LENGTH.  - Assertions ensure that assumptions made in the code are valid and enforced.  - Power of Ten Rule 5 and JPL Rule 16 require that a minimum acceptable proportion of assertions be defined and enforced.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763389.html
+
+codesonar068 <Low> :/opt/project/test/integration_tests/c_testcase/testcasesupport/io.c:194: Not Enough Assertions
+    bad5() does not contain any assertions.  - CodeSonar is configured to issue a warning whenever a function does not contain at least 2 assertions.      -  To configure this behavior, use configuration parameters MIN_ASSERTS and MIN_ASSERTS_FUNCTION_LENGTH.  - Assertions ensure that assumptions made in the code are valid and enforced.  - Power of Ten Rule 5 and JPL Rule 16 require that a minimum acceptable proportion of assertions be defined and enforced.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763390.html
+
+codesonar069 <Low> :/opt/project/test/integration_tests/c_testcase/testcasesupport/io.c:193: Not Enough Assertions
+    bad4() does not contain any assertions.  - CodeSonar is configured to issue a warning whenever a function does not contain at least 2 assertions.      -  To configure this behavior, use configuration parameters MIN_ASSERTS and MIN_ASSERTS_FUNCTION_LENGTH.  - Assertions ensure that assumptions made in the code are valid and enforced.  - Power of Ten Rule 5 and JPL Rule 16 require that a minimum acceptable proportion of assertions be defined and enforced.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763391.html
+
+codesonar070 <Low> :/opt/project/test/integration_tests/c_testcase/testcasesupport/io.c:190: Not Enough Assertions
+    bad1() does not contain any assertions.  - CodeSonar is configured to issue a warning whenever a function does not contain at least 2 assertions.      -  To configure this behavior, use configuration parameters MIN_ASSERTS and MIN_ASSERTS_FUNCTION_LENGTH.  - Assertions ensure that assumptions made in the code are valid and enforced.  - Power of Ten Rule 5 and JPL Rule 16 require that a minimum acceptable proportion of assertions be defined and enforced.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763392.html
+
+codesonar071 <Low> :/opt/project/test/integration_tests/c_testcase/testcasesupport/std_testcase.h:78: Macro Does Not Start With { or (
+    The definition of true is not fully parenthesized.  - Unparenthesized macro definitions are legal, but can lead to unexpected behavior when the macro is used.  In particular, operator precedence may cause problems.  - Power of Ten Rule 8 and JPL Rule 20 require that macro definitions be "complete syntactic units".
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763393.html
+
+codesonar072 <Low> :/opt/project/test/integration_tests/c_testcase/testcasesupport/std_testcase.h:33: Macro Does Not End With } or )
+    The definition of __STDC_LIMIT_MACROS is not fully parenthesized.  - Unparenthesized macro definitions are legal, but can lead to unexpected behavior when the macro is used.  In particular, operator precedence may cause problems.  - Power of Ten Rule 8 and JPL Rule 20 require that macro definitions be "complete syntactic units".
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763394.html
+
+codesonar073 <Low> :/opt/project/test/integration_tests/c_testcase/src/CWE835_Infinite_Loop__for_empty_01.c:43: Not Enough Assertions
+    CWE835_Infinite_Loop__for_empty_01_good() does not contain any assertions.  - CodeSonar is configured to issue a warning whenever a function does not contain at least 2 assertions.      -  To configure this behavior, use configuration parameters MIN_ASSERTS and MIN_ASSERTS_FUNCTION_LENGTH.  - Assertions ensure that assumptions made in the code are valid and enforced.  - Power of Ten Rule 5 and JPL Rule 16 require that a minimum acceptable proportion of assertions be defined and enforced.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763395.html
+
+codesonar074 <Low> :/opt/project/test/integration_tests/c_testcase/testcasesupport/io.c:27: Not Enough Assertions
+    printIntLine() does not contain any assertions.  - CodeSonar is configured to issue a warning whenever a function does not contain at least 2 assertions.      -  To configure this behavior, use configuration parameters MIN_ASSERTS and MIN_ASSERTS_FUNCTION_LENGTH.  - Assertions ensure that assumptions made in the code are valid and enforced.  - Power of Ten Rule 5 and JPL Rule 16 require that a minimum acceptable proportion of assertions be defined and enforced.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763396.html
+
+codesonar075 <Low> :/opt/project/test/integration_tests/c_testcase/testcasesupport/std_testcase.h:25: Macro Does Not End With } or )
+    The definition of ALLOCA is not fully parenthesized.  - Unparenthesized macro definitions are legal, but can lead to unexpected behavior when the macro is used.  In particular, operator precedence may cause problems.  - Power of Ten Rule 8 and JPL Rule 20 require that macro definitions be "complete syntactic units".
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763397.html
+
+codesonar076 <Low> :/opt/project/test/integration_tests/c_testcase/src/CWE835_Infinite_Loop__for_01.c:1: Warnings Not Treated As Errors
+    File CWE835_Infinite_Loop__for_01.c was compiled without the -Werror option, so compiler warnings were not treated as errors. The compilation command was:
+/usr/bin/gcc -Wall -Wextra -Wpedantic -I ../testcasesupport 
+See the parse details log for further information about this compilation.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763398.html
+
+codesonar077 <Low> :/opt/project/test/integration_tests/c_testcase/testcasesupport/io.c:77: Not Enough Assertions
+    printHexUnsignedCharLine() does not contain any assertions.  - CodeSonar is configured to issue a warning whenever a function does not contain at least 2 assertions.      -  To configure this behavior, use configuration parameters MIN_ASSERTS and MIN_ASSERTS_FUNCTION_LENGTH.  - Assertions ensure that assumptions made in the code are valid and enforced.  - Power of Ten Rule 5 and JPL Rule 16 require that a minimum acceptable proportion of assertions be defined and enforced.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763399.html
+
+codesonar079 <Low> :/opt/project/test/integration_tests/c_testcase/src/CWE835_Infinite_Loop__while_01.c:1: Warnings Not Treated As Errors
+    File CWE835_Infinite_Loop__while_01.c was compiled without the -Werror option, so compiler warnings were not treated as errors. The compilation command was:
+/usr/bin/gcc -Wall -Wextra -Wpedantic -I ../testcasesupport 
+See the parse details log for further information about this compilation.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763402.html
+
+codesonar080 <Low> :/opt/project/test/integration_tests/c_testcase/testcasesupport/std_testcase.h:79: Macro Does Not Start With { or (
+    The definition of false is not fully parenthesized.  - Unparenthesized macro definitions are legal, but can lead to unexpected behavior when the macro is used.  In particular, operator precedence may cause problems.  - Power of Ten Rule 8 and JPL Rule 20 require that macro definitions be "complete syntactic units".
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763403.html
+
+codesonar081 <Low> :/opt/project/test/integration_tests/c_testcase/testcasesupport/io.c:62: Not Enough Assertions
+    printWcharLine() does not contain any assertions.  - CodeSonar is configured to issue a warning whenever a function does not contain at least 2 assertions.      -  To configure this behavior, use configuration parameters MIN_ASSERTS and MIN_ASSERTS_FUNCTION_LENGTH.  - Assertions ensure that assumptions made in the code are valid and enforced.  - Power of Ten Rule 5 and JPL Rule 16 require that a minimum acceptable proportion of assertions be defined and enforced.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763404.html
+
+codesonar082 <Low> :/opt/project/test/integration_tests/c_testcase/src/CWE835_Infinite_Loop__while_01.c:55: Conditional Compilation
+    This form of conditional compilation is forbidden by Power of Ten Rule 8.When the Conditional Compilation warning class is enabled, warnings will be issued for all #ifdef directives  Find out more.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763405.html
+
+codesonar083 <Low> :/opt/project/test/integration_tests/c_testcase/testcasesupport/std_thread.c:200: Not Enough Assertions
+    stdThreadLockDestroy() does not contain any assertions.  - CodeSonar is configured to issue a warning whenever a function does not contain at least 2 assertions.      -  To configure this behavior, use configuration parameters MIN_ASSERTS and MIN_ASSERTS_FUNCTION_LENGTH.  - Assertions ensure that assumptions made in the code are valid and enforced.  - Power of Ten Rule 5 and JPL Rule 16 require that a minimum acceptable proportion of assertions be defined and enforced.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763411.html
+
+codesonar084 <Low> :/opt/project/test/integration_tests/c_testcase/testcasesupport/io.c:72: Not Enough Assertions
+    printUnsignedLine() does not contain any assertions.  - CodeSonar is configured to issue a warning whenever a function does not contain at least 2 assertions.      -  To configure this behavior, use configuration parameters MIN_ASSERTS and MIN_ASSERTS_FUNCTION_LENGTH.  - Assertions ensure that assumptions made in the code are valid and enforced.  - Power of Ten Rule 5 and JPL Rule 16 require that a minimum acceptable proportion of assertions be defined and enforced.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763412.html
+
+codesonar085 <Low> :/opt/project/test/integration_tests/c_testcase/src/CWE835_Infinite_Loop__for_empty_01.c:10: Not Enough Assertions
+    CWE835_Infinite_Loop__for_empty_01_bad() does not contain any assertions.  - CodeSonar is configured to issue a warning whenever a function does not contain at least 2 assertions.      -  To configure this behavior, use configuration parameters MIN_ASSERTS and MIN_ASSERTS_FUNCTION_LENGTH.  - Assertions ensure that assumptions made in the code are valid and enforced.  - Power of Ten Rule 5 and JPL Rule 16 require that a minimum acceptable proportion of assertions be defined and enforced.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763413.html
+
+codesonar086 <Low> :/opt/project/test/integration_tests/c_testcase/testcasesupport/std_thread.c:207: Use of <stdlib.h> Allocator/Deallocator
+    Use of free() is not recommended because it is a violation of some coding standards including MISRA C:2012 21.3: The memory allocation and deallocation functions of <stdlib.h> shall not be used.  See here for more information.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763414.html
+
+codesonar087 <Low> :/opt/project/test/integration_tests/c_testcase/src/CWE835_Infinite_Loop__while_true_01.c:42: Not Enough Assertions
+    CWE835_Infinite_Loop__while_true_01_good() does not contain any assertions.  - CodeSonar is configured to issue a warning whenever a function does not contain at least 2 assertions.      -  To configure this behavior, use configuration parameters MIN_ASSERTS and MIN_ASSERTS_FUNCTION_LENGTH.  - Assertions ensure that assumptions made in the code are valid and enforced.  - Power of Ten Rule 5 and JPL Rule 16 require that a minimum acceptable proportion of assertions be defined and enforced.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763415.html
+
+codesonar088 <Low> :/opt/project/test/integration_tests/c_testcase/testcasesupport/io.c:183: Not Enough Assertions
+    good5() does not contain any assertions.  - CodeSonar is configured to issue a warning whenever a function does not contain at least 2 assertions.      -  To configure this behavior, use configuration parameters MIN_ASSERTS and MIN_ASSERTS_FUNCTION_LENGTH.  - Assertions ensure that assumptions made in the code are valid and enforced.  - Power of Ten Rule 5 and JPL Rule 16 require that a minimum acceptable proportion of assertions be defined and enforced.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763416.html
+
+codesonar089 <Low> :/opt/project/test/integration_tests/c_testcase/testcasesupport/io.c:182: Not Enough Assertions
+    good4() does not contain any assertions.  - CodeSonar is configured to issue a warning whenever a function does not contain at least 2 assertions.      -  To configure this behavior, use configuration parameters MIN_ASSERTS and MIN_ASSERTS_FUNCTION_LENGTH.  - Assertions ensure that assumptions made in the code are valid and enforced.  - Power of Ten Rule 5 and JPL Rule 16 require that a minimum acceptable proportion of assertions be defined and enforced.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763417.html
+
+codesonar090 <Low> :/opt/project/test/integration_tests/c_testcase/testcasesupport/io.c:181: Not Enough Assertions
+    good3() does not contain any assertions.  - CodeSonar is configured to issue a warning whenever a function does not contain at least 2 assertions.      -  To configure this behavior, use configuration parameters MIN_ASSERTS and MIN_ASSERTS_FUNCTION_LENGTH.  - Assertions ensure that assumptions made in the code are valid and enforced.  - Power of Ten Rule 5 and JPL Rule 16 require that a minimum acceptable proportion of assertions be defined and enforced.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763418.html
+
+codesonar091 <Low> :/opt/project/test/integration_tests/c_testcase/testcasesupport/std_thread.c:161: Not Enough Assertions
+    stdThreadLockAcquire() does not contain any assertions.  - CodeSonar is configured to issue a warning whenever a function does not contain at least 2 assertions.      -  To configure this behavior, use configuration parameters MIN_ASSERTS and MIN_ASSERTS_FUNCTION_LENGTH.  - Assertions ensure that assumptions made in the code are valid and enforced.  - Power of Ten Rule 5 and JPL Rule 16 require that a minimum acceptable proportion of assertions be defined and enforced.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763419.html
+
+codesonar092 <Low> :/opt/project/test/integration_tests/c_testcase/testcasesupport/io.c:180: Not Enough Assertions
+    good2() does not contain any assertions.  - CodeSonar is configured to issue a warning whenever a function does not contain at least 2 assertions.      -  To configure this behavior, use configuration parameters MIN_ASSERTS and MIN_ASSERTS_FUNCTION_LENGTH.  - Assertions ensure that assumptions made in the code are valid and enforced.  - Power of Ten Rule 5 and JPL Rule 16 require that a minimum acceptable proportion of assertions be defined and enforced.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763420.html
+
+codesonar093 <Low> :/opt/project/test/integration_tests/c_testcase/testcasesupport/io.c:187: Not Enough Assertions
+    good9() does not contain any assertions.  - CodeSonar is configured to issue a warning whenever a function does not contain at least 2 assertions.      -  To configure this behavior, use configuration parameters MIN_ASSERTS and MIN_ASSERTS_FUNCTION_LENGTH.  - Assertions ensure that assumptions made in the code are valid and enforced.  - Power of Ten Rule 5 and JPL Rule 16 require that a minimum acceptable proportion of assertions be defined and enforced.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763421.html
+
+codesonar094 <Low> :/opt/project/test/integration_tests/c_testcase/testcasesupport/std_thread.c:112: Use of <stdlib.h> Allocator/Deallocator
+    Use of free() is not recommended because it is a violation of some coding standards including MISRA C:2012 21.3: The memory allocation and deallocation functions of <stdlib.h> shall not be used.  See here for more information.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763422.html
+
+codesonar095 <Low> :/opt/project/test/integration_tests/c_testcase/testcasesupport/io.c:186: Not Enough Assertions
+    good8() does not contain any assertions.  - CodeSonar is configured to issue a warning whenever a function does not contain at least 2 assertions.      -  To configure this behavior, use configuration parameters MIN_ASSERTS and MIN_ASSERTS_FUNCTION_LENGTH.  - Assertions ensure that assumptions made in the code are valid and enforced.  - Power of Ten Rule 5 and JPL Rule 16 require that a minimum acceptable proportion of assertions be defined and enforced.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763423.html
+
+codesonar096 <Low> :/opt/project/test/integration_tests/c_testcase/testcasesupport/io.c:185: Not Enough Assertions
+    good7() does not contain any assertions.  - CodeSonar is configured to issue a warning whenever a function does not contain at least 2 assertions.      -  To configure this behavior, use configuration parameters MIN_ASSERTS and MIN_ASSERTS_FUNCTION_LENGTH.  - Assertions ensure that assumptions made in the code are valid and enforced.  - Power of Ten Rule 5 and JPL Rule 16 require that a minimum acceptable proportion of assertions be defined and enforced.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763424.html
+
+codesonar097 <Low> :/opt/project/test/integration_tests/c_testcase/testcasesupport/std_testcase.h:78: Macro Does Not End With } or )
+    The definition of true is not fully parenthesized.  - Unparenthesized macro definitions are legal, but can lead to unexpected behavior when the macro is used.  In particular, operator precedence may cause problems.  - Power of Ten Rule 8 and JPL Rule 20 require that macro definitions be "complete syntactic units".
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763425.html
+
+codesonar098 <Low> :/opt/project/test/integration_tests/c_testcase/testcasesupport/io.c:184: Not Enough Assertions
+    good6() does not contain any assertions.  - CodeSonar is configured to issue a warning whenever a function does not contain at least 2 assertions.      -  To configure this behavior, use configuration parameters MIN_ASSERTS and MIN_ASSERTS_FUNCTION_LENGTH.  - Assertions ensure that assumptions made in the code are valid and enforced.  - Power of Ten Rule 5 and JPL Rule 16 require that a minimum acceptable proportion of assertions be defined and enforced.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763426.html
+
+codesonar099 <Low> :/opt/project/test/integration_tests/c_testcase/testcasesupport/io.c:179: Not Enough Assertions
+    good1() does not contain any assertions.  - CodeSonar is configured to issue a warning whenever a function does not contain at least 2 assertions.      -  To configure this behavior, use configuration parameters MIN_ASSERTS and MIN_ASSERTS_FUNCTION_LENGTH.  - Assertions ensure that assumptions made in the code are valid and enforced.  - Power of Ten Rule 5 and JPL Rule 16 require that a minimum acceptable proportion of assertions be defined and enforced.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763433.html
+
+codesonar100 <Low> :/opt/project/test/integration_tests/c_testcase/src/main_linux.cpp:1: Warnings Not Treated As Errors
+    File main_linux.cpp was compiled without the -Werror option, so compiler warnings were not treated as errors. The compilation command was:
+/usr/bin/gcc -Wall -Wextra -Wpedantic -I ../testcasesupport 
+See the parse details log for further information about this compilation.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763445.html
+
+codesonar101 <Low> :/opt/project/test/integration_tests/c_testcase/testcasesupport/io.c:196: Not Enough Assertions
+    bad7() does not contain any assertions.  - CodeSonar is configured to issue a warning whenever a function does not contain at least 2 assertions.      -  To configure this behavior, use configuration parameters MIN_ASSERTS and MIN_ASSERTS_FUNCTION_LENGTH.  - Assertions ensure that assumptions made in the code are valid and enforced.  - Power of Ten Rule 5 and JPL Rule 16 require that a minimum acceptable proportion of assertions be defined and enforced.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763446.html
+
+codesonar102 <Low> :/opt/project/test/integration_tests/c_testcase/testcasesupport/io.c:195: Not Enough Assertions
+    bad6() does not contain any assertions.  - CodeSonar is configured to issue a warning whenever a function does not contain at least 2 assertions.      -  To configure this behavior, use configuration parameters MIN_ASSERTS and MIN_ASSERTS_FUNCTION_LENGTH.  - Assertions ensure that assumptions made in the code are valid and enforced.  - Power of Ten Rule 5 and JPL Rule 16 require that a minimum acceptable proportion of assertions be defined and enforced.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763447.html
+
+codesonar103 <Low> :/opt/project/test/integration_tests/c_testcase/testcasesupport/io.c:198: Not Enough Assertions
+    bad9() does not contain any assertions.  - CodeSonar is configured to issue a warning whenever a function does not contain at least 2 assertions.      -  To configure this behavior, use configuration parameters MIN_ASSERTS and MIN_ASSERTS_FUNCTION_LENGTH.  - Assertions ensure that assumptions made in the code are valid and enforced.  - Power of Ten Rule 5 and JPL Rule 16 require that a minimum acceptable proportion of assertions be defined and enforced.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763448.html
+
+codesonar104 <Low> :/opt/project/test/integration_tests/c_testcase/testcasesupport/io.c:197: Not Enough Assertions
+    bad8() does not contain any assertions.  - CodeSonar is configured to issue a warning whenever a function does not contain at least 2 assertions.      -  To configure this behavior, use configuration parameters MIN_ASSERTS and MIN_ASSERTS_FUNCTION_LENGTH.  - Assertions ensure that assumptions made in the code are valid and enforced.  - Power of Ten Rule 5 and JPL Rule 16 require that a minimum acceptable proportion of assertions be defined and enforced.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763449.html
+
+codesonar105 <Low> :/opt/project/test/integration_tests/c_testcase/src/main_linux.cpp:11: Not Enough Assertions
+    main() does not contain any assertions.  - CodeSonar is configured to issue a warning whenever a function does not contain at least 2 assertions.      -  To configure this behavior, use configuration parameters MIN_ASSERTS and MIN_ASSERTS_FUNCTION_LENGTH.  - Assertions ensure that assumptions made in the code are valid and enforced.  - Power of Ten Rule 5 and JPL Rule 16 require that a minimum acceptable proportion of assertions be defined and enforced.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763450.html
+
+codesonar106 <Low> :/opt/project/test/integration_tests/c_testcase/src/CWE835_Infinite_Loop__for_01.c:46: Potential Unbounded Loop
+    CodeSonar could not determine that the loop is bounded.  - The following were identified as candidate loop counters, but could not be used to establish boundedness (What is a loop counter?).  - iis a candidate loop counter, but CodeSonar cannot determine whether the loop is incrementing or decrementing i.      - The loop updates i in a manner that is too complex for this analysis.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763451.html
+
+codesonar107 <Low> :/opt/project/test/integration_tests/c_testcase/src/CWE835_Infinite_Loop__for_01.c:15: Potential Unbounded Loop
+    CodeSonar could not determine that the loop is bounded.  - The following were identified as candidate loop counters, but could not be used to establish boundedness (What is a loop counter?).  - iis a candidate loop counter, but CodeSonar cannot determine whether the loop is incrementing or decrementing i.      - The loop updates i in a manner that is too complex for this analysis.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763453.html
+
+codesonar108 <Low> :/opt/project/test/integration_tests/c_testcase/src/CWE835_Infinite_Loop__while_01.c:15: Potential Unbounded Loop
+    CodeSonar could not determine that the loop is bounded.  - The following were identified as candidate loop counters, but could not be used to establish boundedness (What is a loop counter?).  - iis a candidate loop counter, but CodeSonar cannot determine whether the loop is incrementing or decrementing i.      - The loop updates i in a manner that is too complex for this analysis.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763454.html
+
+codesonar109 <Low> :/opt/project/test/integration_tests/c_testcase/src/CWE835_Infinite_Loop__do_01.c:15: Potential Unbounded Loop
+    CodeSonar could not determine that the loop is bounded.  - The following were identified as candidate loop counters, but could not be used to establish boundedness (What is a loop counter?).  - iis a candidate loop counter, but CodeSonar cannot determine whether the loop is incrementing or decrementing i.      - The loop updates i in a manner that is too complex for this analysis.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763455.html
+
+codesonar110 <Low> :/opt/project/test/integration_tests/c_testcase/src/CWE835_Infinite_Loop__while_true_01.c:15: Potential Unbounded Loop
+    CodeSonar could not determine that the loop is bounded because it could not identify a candidate loop counter (What is a loop counter?).  - The loop test does not include any terms where a variable is compared against some other expression using <, <=, >, or >=.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763459.html
+
+codesonar111 <Low> :/opt/project/test/integration_tests/c_testcase/src/CWE835_Infinite_Loop__do_true_01.c:15: Potential Unbounded Loop
+    CodeSonar could not determine that the loop is bounded because it could not identify a candidate loop counter (What is a loop counter?).  - The loop test does not include any terms where a variable is compared against some other expression using <, <=, >, or >=.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763460.html
+
+codesonar112 <Low> :/opt/project/test/integration_tests/c_testcase/src/CWE835_Infinite_Loop__for_empty_01.c:15: Potential Unbounded Loop
+    CodeSonar could not determine that the loop is bounded because it could not identify a candidate loop counter (What is a loop counter?).  - The loop test does not include any terms where a variable is compared against some other expression using <, <=, >, or >=.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763461.html
+
+codesonar113 <Low> :/opt/project/test/integration_tests/c_testcase/src/CWE835_Infinite_Loop__while_true_01.c:30: Potential Unbounded Loop
+    CodeSonar could not determine that the loop is bounded because it could not identify a candidate loop counter (What is a loop counter?).  - The loop test does not include any terms where a variable is compared against some other expression using <, <=, >, or >=.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763462.html
+
+codesonar114 <Low> :/opt/project/test/integration_tests/c_testcase/src/CWE835_Infinite_Loop__for_empty_01.c:31: Potential Unbounded Loop
+    CodeSonar could not determine that the loop is bounded because it could not identify a candidate loop counter (What is a loop counter?).  - The loop test does not include any terms where a variable is compared against some other expression using <, <=, >, or >=.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763463.html
+
+codesonar115 <Low> :/opt/project/test/integration_tests/c_testcase/src/CWE835_Infinite_Loop__do_true_01.c:31: Potential Unbounded Loop
+    CodeSonar could not determine that the loop is bounded because it could not identify a candidate loop counter (What is a loop counter?).  - The loop test does not include any terms where a variable is compared against some other expression using <, <=, >, or >=.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763464.html
+
+codesonar116 <Low> :/opt/project/test/integration_tests/c_testcase/src/CWE835_Infinite_Loop__while_01.c:30: Potential Unbounded Loop
+    CodeSonar could not determine that the loop is bounded.  - The following were identified as candidate loop counters, but could not be used to establish boundedness (What is a loop counter?).  - iis a candidate loop counter, but CodeSonar cannot determine whether the loop is incrementing or decrementing i.      - The loop updates i in a manner that is too complex for this analysis.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763466.html
+
+codesonar117 <Low> :/opt/project/test/integration_tests/c_testcase/src/CWE835_Infinite_Loop__for_01.c:30: Potential Unbounded Loop
+    CodeSonar could not determine that the loop is bounded.  - The following were identified as candidate loop counters, but could not be used to establish boundedness (What is a loop counter?).  - iis a candidate loop counter, but CodeSonar cannot determine whether the loop is incrementing or decrementing i.      - The loop updates i in a manner that is too complex for this analysis.
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763467.html
+
+codesonar126 <Low> :/opt/project/test/integration_tests/c_testcase/testcasesupport/io.c:207: Scope Could Be Local Static
+    globalArgv could be local static to main in main_linux.cpp.  - globalArgv is only used inside main().  - Power of Ten Rule 6 and JPL Rule 13 require that data objects be declared at "the smallest possible level of scope".
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763483.html
+
+codesonar128 <Low> :/opt/project/test/integration_tests/c_testcase/testcasesupport/io.c:206: Scope Could Be Local Static
+    globalArgc could be local static to main in main_linux.cpp.  - globalArgc is only used inside main().  - Power of Ten Rule 6 and JPL Rule 13 require that data objects be declared at "the smallest possible level of scope".
+    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/763485.html
+

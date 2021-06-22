@@ -1,0 +1,9 @@
+bump2version
+coverage
+pip>=20.3
+pylint
+pytest>=5.4
+pytest-cov
+pytest-html
+sphinx
+wheel>=0.36.2

@@ -1,0 +1,13 @@
+- \.o$
+- \.os$
+- \.class$
+- \.obj$
+- \.pyc$
+- .*\.git.*
+- .*\.svn.*
+- .*\.scrub.*
+- .*\.DS_Store.*
+- .*scrub_log.*
+- .*SCRUBFilters
+- .*CollaboratorFilters
+- .*scrub\.cfg

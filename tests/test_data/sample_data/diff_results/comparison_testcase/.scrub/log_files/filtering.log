@@ -1,0 +1,50 @@
+2021-03-19 17:26:54,905 INFO     
+2021-03-19 17:26:54,906 INFO     Perform filtering and distribution...
+2021-03-19 17:26:54,917 INFO     
+2021-03-19 17:26:54,918 INFO     	Creating analysis filtering list...
+2021-03-19 17:26:54,919 INFO     	>> Executing command: create_file_list.create_file_list(/opt/project/comparison_testcase, /opt/project/comparison_testcase/.scrub/SCRUBAnalysisFilteringList, /opt/project/comparison_testcase/SCRUBFilters, )
+2021-03-19 17:26:54,921 INFO     	>> From directory: /opt/project/comparison_testcase
+2021-03-19 17:26:55,240 INFO     
+2021-03-19 17:26:55,240 INFO     	No filtering file was found or no filtering file was provided. Using default values.
+2021-03-19 17:26:55,369 INFO     
+2021-03-19 17:26:55,370 INFO     	Filtering results...
+2021-03-19 17:26:55,371 INFO     	>> Executing command: filter_results.filter_results(<warning_list>, /opt/project/comparison_testcase/.scrub/compiler.scrub, /opt/project/comparison_testcase/.scrub/SCRUBAnalysisFilteringList, /opt/project/comparison_testcase/SCRUBExcludeQueries, /opt/project/comparison_testcase, True, False)
+2021-03-19 17:26:55,373 INFO     	>> From directory: /opt/project/comparison_testcase
+2021-03-19 17:26:55,379 WARNING  		Invalid tool suppression selection on line 33 of file /opt/project/comparison_testcase/testcasesupport/std_testcase.h
+2021-03-19 17:26:55,554 INFO     
+2021-03-19 17:26:55,556 INFO     	Filtering results...
+2021-03-19 17:26:55,557 INFO     	>> Executing command: filter_results.filter_results(<warning_list>, /opt/project/comparison_testcase/.scrub/p10.scrub, /opt/project/comparison_testcase/.scrub/SCRUBAnalysisFilteringList, /opt/project/comparison_testcase/SCRUBExcludeQueries, /opt/project/comparison_testcase, True, False)
+2021-03-19 17:26:55,559 INFO     	>> From directory: /opt/project/comparison_testcase
+2021-03-19 17:26:55,803 WARNING  		Invalid tool suppression selection on line 33 of file /opt/project/comparison_testcase/testcasesupport/std_testcase.h
+2021-03-19 17:26:56,190 INFO     
+2021-03-19 17:26:56,191 INFO     	Filtering results...
+2021-03-19 17:26:56,193 INFO     	>> Executing command: filter_results.filter_results(<warning_list>, /opt/project/comparison_testcase/.scrub/codesonar.scrub, /opt/project/comparison_testcase/.scrub/SCRUBAnalysisFilteringList, /opt/project/comparison_testcase/SCRUBExcludeQueries, /opt/project/comparison_testcase, True, False)
+2021-03-19 17:26:56,194 INFO     	>> From directory: /opt/project/comparison_testcase
+2021-03-19 17:26:56,275 INFO     
+2021-03-19 17:26:56,276 INFO     	Filtering results...
+2021-03-19 17:26:56,277 INFO     	>> Executing command: filter_results.filter_results(<warning_list>, /opt/project/comparison_testcase/.scrub/coverity.scrub, /opt/project/comparison_testcase/.scrub/SCRUBAnalysisFilteringList, /opt/project/comparison_testcase/SCRUBExcludeQueries, /opt/project/comparison_testcase, True, False)
+2021-03-19 17:26:56,278 INFO     	>> From directory: /opt/project/comparison_testcase
+2021-03-19 17:26:56,359 INFO     
+2021-03-19 17:26:56,360 INFO     	Filtering results...
+2021-03-19 17:26:56,360 INFO     	>> Executing command: filter_results.filter_results(<warning_list>, /opt/project/comparison_testcase/.scrub/klocwork.scrub, /opt/project/comparison_testcase/.scrub/SCRUBAnalysisFilteringList, /opt/project/comparison_testcase/SCRUBExcludeQueries, /opt/project/comparison_testcase, True, False)
+2021-03-19 17:26:56,361 INFO     	>> From directory: /opt/project/comparison_testcase
+2021-03-19 17:26:56,476 INFO     
+2021-03-19 17:26:56,477 INFO     	Moving results...
+2021-03-19 17:26:56,479 INFO     	>> Executing command: move_warnings.move_warnings(/opt/project/comparison_testcase/.scrub/codesonar.scrub, /opt/project/comparison_testcase)
+2021-03-19 17:26:56,481 INFO     	>> From directory: /opt/project/comparison_testcase
+2021-03-19 17:26:56,557 INFO     
+2021-03-19 17:26:56,558 INFO     	Moving results...
+2021-03-19 17:26:56,559 INFO     	>> Executing command: move_warnings.move_warnings(/opt/project/comparison_testcase/.scrub/compiler.scrub, /opt/project/comparison_testcase)
+2021-03-19 17:26:56,560 INFO     	>> From directory: /opt/project/comparison_testcase
+2021-03-19 17:26:56,681 INFO     
+2021-03-19 17:26:56,682 INFO     	Moving results...
+2021-03-19 17:26:56,683 INFO     	>> Executing command: move_warnings.move_warnings(/opt/project/comparison_testcase/.scrub/coverity.scrub, /opt/project/comparison_testcase)
+2021-03-19 17:26:56,684 INFO     	>> From directory: /opt/project/comparison_testcase
+2021-03-19 17:26:56,778 INFO     
+2021-03-19 17:26:56,780 INFO     	Moving results...
+2021-03-19 17:26:56,783 INFO     	>> Executing command: move_warnings.move_warnings(/opt/project/comparison_testcase/.scrub/klocwork.scrub, /opt/project/comparison_testcase)
+2021-03-19 17:26:56,784 INFO     	>> From directory: /opt/project/comparison_testcase
+2021-03-19 17:26:56,823 INFO     
+2021-03-19 17:26:56,824 INFO     	Moving results...
+2021-03-19 17:26:56,825 INFO     	>> Executing command: move_warnings.move_warnings(/opt/project/comparison_testcase/.scrub/p10.scrub, /opt/project/comparison_testcase)
+2021-03-19 17:26:56,826 INFO     	>> From directory: /opt/project/comparison_testcase

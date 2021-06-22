@@ -1,0 +1,9 @@
+<project language="cpp">
+  <displayName>scrub_semmle_analysis</displayName>
+  <timeout>600</timeout>
+  <autoupdate>
+    <build dir="${build_dir}" index="true">${build_cmd}</build>
+    <build>odasa duplicateCode --ram 2048 --minimum-tokens 100</build>
+    <source-location>${source_root}</source-location>
+  </autoupdate>
+</project>

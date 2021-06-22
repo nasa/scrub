@@ -1,0 +1,940 @@
+2021-04-02 15:53:16,203 INFO     
+2021-04-02 15:53:16,205 INFO     Perform CodeQL analysis...
+2021-04-02 15:53:16,206 INFO     	Perform CodeQL baseline analysis: True
+2021-04-02 15:53:16,207 INFO     	Perform CodeQL P10 analysis: False
+2021-04-02 15:53:17,552 INFO     	CodeQL Version: 2.4.1.
+2021-04-02 15:53:17,557 INFO     	Changing directory: /opt/project/test/integration_tests/java_testcase/src
+2021-04-02 15:53:17,559 INFO     
+2021-04-02 15:53:17,560 INFO     	>> Executing command: rm -vrf classes
+2021-04-02 15:53:17,561 INFO     	>> From directory: /opt/project/test/integration_tests/java_testcase/src
+2021-04-02 15:53:17,562 DEBUG    	Console output:
+2021-04-02 15:53:17,621 DEBUG    		removed 'classes/testcases/CWE835_Infinite_Loop/CWE835_Infinite_Loop__do_01.class'
+2021-04-02 15:53:17,622 DEBUG    		removed 'classes/testcases/CWE835_Infinite_Loop/CWE835_Infinite_Loop__do_true_01.class'
+2021-04-02 15:53:17,623 DEBUG    		removed 'classes/testcases/CWE835_Infinite_Loop/CWE835_Infinite_Loop__for_01.class'
+2021-04-02 15:53:17,625 DEBUG    		removed 'classes/testcases/CWE835_Infinite_Loop/CWE835_Infinite_Loop__for_empty_01.class'
+2021-04-02 15:53:17,626 DEBUG    		removed 'classes/testcases/CWE835_Infinite_Loop/CWE835_Infinite_Loop__while_01.class'
+2021-04-02 15:53:17,627 DEBUG    		removed 'classes/testcases/CWE835_Infinite_Loop/CWE835_Infinite_Loop__while_true_01.class'
+2021-04-02 15:53:17,629 DEBUG    		removed 'classes/testcases/CWE835_Infinite_Loop/Main.class'
+2021-04-02 15:53:17,630 DEBUG    		removed 'classes/testcases/CWE835_Infinite_Loop/ServletMain.class'
+2021-04-02 15:53:17,631 DEBUG    		removed directory: 'classes/testcases/CWE835_Infinite_Loop'
+2021-04-02 15:53:17,632 DEBUG    		removed directory: 'classes/testcases'
+2021-04-02 15:53:17,633 DEBUG    		removed 'classes/testcasesupport/AbstractTestCase.class'
+2021-04-02 15:53:17,635 DEBUG    		removed 'classes/testcasesupport/AbstractTestCaseBadOnly.class'
+2021-04-02 15:53:17,637 DEBUG    		removed 'classes/testcasesupport/AbstractTestCaseBase.class'
+2021-04-02 15:53:17,638 DEBUG    		removed 'classes/testcasesupport/AbstractTestCaseClassIssue.class'
+2021-04-02 15:53:17,639 DEBUG    		removed 'classes/testcasesupport/AbstractTestCaseClassIssueBad.class'
+2021-04-02 15:53:17,641 DEBUG    		removed 'classes/testcasesupport/AbstractTestCaseClassIssueGood.class'
+2021-04-02 15:53:17,642 DEBUG    		removed 'classes/testcasesupport/AbstractTestCaseServlet.class'
+2021-04-02 15:53:17,644 DEBUG    		removed 'classes/testcasesupport/AbstractTestCaseServletBadOnly.class'
+2021-04-02 15:53:17,645 DEBUG    		removed 'classes/testcasesupport/AbstractTestCaseServletBase.class'
+2021-04-02 15:53:17,646 DEBUG    		removed 'classes/testcasesupport/IO.class'
+2021-04-02 15:53:17,646 DEBUG    		removed directory: 'classes/testcasesupport'
+2021-04-02 15:53:17,647 DEBUG    		removed directory: 'classes'
+2021-04-02 15:53:17,649 INFO     	Changing directory to: /opt/project/test/integration_tests/java_testcase
+2021-04-02 15:53:17,651 INFO     
+2021-04-02 15:53:17,653 INFO     	>> Executing command: /opt/local/codeql/codeql-cli/codeql database create  /opt/project/test/integration_tests/java_testcase/.scrub/codeql_analysis/db --language java --source-root /opt/project/test/integration_tests/java_testcase --working-dir /opt/project/test/integration_tests/java_testcase/src --command "./build.sh"
+2021-04-02 15:53:17,654 INFO     	>> From directory: /opt/project/test/integration_tests/java_testcase
+2021-04-02 15:53:17,655 DEBUG    	Console output:
+2021-04-02 15:53:18,413 DEBUG    		Initializing database at /opt/project/test/integration_tests/java_testcase/.scrub/codeql_analysis/db.
+2021-04-02 15:53:18,896 DEBUG    		Running command [./build.sh] in /opt/project/test/integration_tests/java_testcase/src.
+2021-04-02 15:53:19,503 DEBUG    		[2021-04-02 15:53:19] [build-err] [parsing started RegularFileObject[./testcasesupport/AbstractTestCase.java]]
+2021-04-02 15:53:19,522 DEBUG    		[2021-04-02 15:53:19] [build-err] [parsing completed 23ms]
+2021-04-02 15:53:19,528 DEBUG    		[2021-04-02 15:53:19] [build-err] [parsing started RegularFileObject[./testcasesupport/AbstractTestCaseBadOnly.java]]
+2021-04-02 15:53:19,529 DEBUG    		[2021-04-02 15:53:19] [build-err] [parsing completed 2ms]
+2021-04-02 15:53:19,532 DEBUG    		[2021-04-02 15:53:19] [build-err] [parsing started RegularFileObject[./testcasesupport/AbstractTestCaseBase.java]]
+2021-04-02 15:53:19,535 DEBUG    		[2021-04-02 15:53:19] [build-err] [parsing completed 4ms]
+2021-04-02 15:53:19,540 DEBUG    		[2021-04-02 15:53:19] [build-err] [parsing started RegularFileObject[./testcasesupport/AbstractTestCaseClassIssue.java]]
+2021-04-02 15:53:19,544 DEBUG    		[2021-04-02 15:53:19] [build-err] [parsing completed 5ms]
+2021-04-02 15:53:19,547 DEBUG    		[2021-04-02 15:53:19] [build-err] [parsing started RegularFileObject[./testcasesupport/AbstractTestCaseClassIssueBad.java]]
+2021-04-02 15:53:19,550 DEBUG    		[2021-04-02 15:53:19] [build-err] [parsing completed 2ms]
+2021-04-02 15:53:19,553 DEBUG    		[2021-04-02 15:53:19] [build-err] [parsing started RegularFileObject[./testcasesupport/AbstractTestCaseClassIssueGood.java]]
+2021-04-02 15:53:19,555 DEBUG    		[2021-04-02 15:53:19] [build-err] [parsing completed 2ms]
+2021-04-02 15:53:19,559 DEBUG    		[2021-04-02 15:53:19] [build-err] [parsing started RegularFileObject[./testcasesupport/AbstractTestCaseServlet.java]]
+2021-04-02 15:53:19,565 DEBUG    		[2021-04-02 15:53:19] [build-err] [parsing completed 7ms]
+2021-04-02 15:53:19,569 DEBUG    		[2021-04-02 15:53:19] [build-err] [parsing started RegularFileObject[./testcasesupport/AbstractTestCaseServletBadOnly.java]]
+2021-04-02 15:53:19,572 DEBUG    		[2021-04-02 15:53:19] [build-err] [parsing completed 4ms]
+2021-04-02 15:53:19,577 DEBUG    		[2021-04-02 15:53:19] [build-err] [parsing started RegularFileObject[./testcasesupport/AbstractTestCaseServletBase.java]]
+2021-04-02 15:53:19,581 DEBUG    		[2021-04-02 15:53:19] [build-err] [parsing completed 3ms]
+2021-04-02 15:53:19,584 DEBUG    		[2021-04-02 15:53:19] [build-err] [parsing started RegularFileObject[./testcasesupport/IO.java]]
+2021-04-02 15:53:19,590 DEBUG    		[2021-04-02 15:53:19] [build-err] [parsing completed 5ms]
+2021-04-02 15:53:19,652 DEBUG    		[2021-04-02 15:53:19] [build-err] [search path for source files: .]
+2021-04-02 15:53:19,655 DEBUG    		[2021-04-02 15:53:19] [build-err] [search path for class files: /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.272.b10-1.el7_9.x86_64/jre/lib/resources.jar,/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.272.b10-1.el7_9.x86_64/jre/lib/rt.jar,/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.272.b10-1.el7_9.x86_64/jre/lib/sunrsasign.jar,/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.272.b10-1.el7_9.x86_64/jre/lib/jsse.jar,/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.272.b10-1.el7_9.x86_64/jre/lib/jce.jar,/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.272.b10-1.el7_9.x86_64/jre/lib/charsets.jar,/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.272.b10-1.el7_9.x86_64/jre/lib/jfr.jar,/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.272.b10-1.el7_9.x86_64/jre/classes,/opt/local/codeql/codeql-cli/java/tools/codeql-java-agent.jar,/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.272.b10-1.el7_9.x86_64/jre/lib/ext/sunjce_provider.jar,/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.272.b10-1.el7_9.x86_64/jre/lib/ext/zipfs.jar,/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.272.b10-1.el7_9.x86_64/jre/lib/ext/localedata.jar,/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.272.b10-1.el7_9.x86_64/jre/lib/ext/sunpkcs11.jar,/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.272.b10-1.el7_9.x86_64/jre/lib/ext/cldrdata.jar,/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.272.b10-1.el7_9.x86_64/jre/lib/ext/dnsns.jar,/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.272.b10-1.el7_9.x86_64/jre/lib/ext/sunec.jar,/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.272.b10-1.el7_9.x86_64/jre/lib/ext/jaccess.jar,/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.272.b10-1.el7_9.x86_64/jre/lib/ext/nashorn.jar,./classes,./../lib/servlet-api.jar,./../lib/commons-lang-2.5.jar,./../lib/commons-codec-1.5.jar,./../lib/javamail-1.4.4.jar]
+2021-04-02 15:53:19,690 DEBUG    		[2021-04-02 15:53:19] [build-err] [loading ZipFileIndexFileObject[/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.272.b10-1.el7_9.x86_64/lib/ct.sym(META-INF/sym/rt.jar/java/lang/Object.class)]]
+2021-04-02 15:53:19,697 DEBUG    		[2021-04-02 15:53:19] [build-err] [loading ZipFileIndexFileObject[/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.272.b10-1.el7_9.x86_64/lib/ct.sym(META-INF/sym/rt.jar/java/lang/Throwable.class)]]
+2021-04-02 15:53:19,700 DEBUG    		[2021-04-02 15:53:19] [build-err] [loading ZipFileIndexFileObject[/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.272.b10-1.el7_9.x86_64/lib/ct.sym(META-INF/sym/rt.jar/java/lang/String.class)]]
+2021-04-02 15:53:19,705 DEBUG    		[2021-04-02 15:53:19] [build-err] [loading ZipFileIndexFileObject[/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.272.b10-1.el7_9.x86_64/lib/ct.sym(META-INF/sym/rt.jar/java/lang/ClassNotFoundException.class)]]
+2021-04-02 15:53:19,706 DEBUG    		[2021-04-02 15:53:19] [build-err] [loading ZipFileIndexFileObject[/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.272.b10-1.el7_9.x86_64/lib/ct.sym(META-INF/sym/rt.jar/java/lang/InstantiationException.class)]]
+2021-04-02 15:53:19,708 DEBUG    		[2021-04-02 15:53:19] [build-err] [loading ZipFileIndexFileObject[/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.272.b10-1.el7_9.x86_64/lib/ct.sym(META-INF/sym/rt.jar/java/lang/IllegalAccessException.class)]]
+2021-04-02 15:53:19,711 DEBUG    		[2021-04-02 15:53:19] [build-err] [loading ZipFileIndexFileObject[/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.272.b10-1.el7_9.x86_64/lib/ct.sym(META-INF/sym/rt.jar/java/lang/Cloneable.class)]]
+2021-04-02 15:53:19,726 DEBUG    		[2021-04-02 15:53:19] [build-err] [loading ZipFileIndexFileObject[/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.272.b10-1.el7_9.x86_64/lib/ct.sym(META-INF/sym/rt.jar/java/io/IOException.class)]]
+2021-04-02 15:53:19,739 DEBUG    		[2021-04-02 15:53:19] [build-err] [loading ZipFileIndexFileObject[./../lib/servlet-api.jar(javax/servlet/http/HttpServlet.class)]]
+2021-04-02 15:53:19,742 DEBUG    		[2021-04-02 15:53:19] [build-err] [loading ZipFileIndexFileObject[/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.272.b10-1.el7_9.x86_64/lib/ct.sym(META-INF/sym/rt.jar/java/io/Serializable.class)]]
+2021-04-02 15:53:19,745 DEBUG    		[2021-04-02 15:53:19] [build-err] [loading ZipFileIndexFileObject[./../lib/servlet-api.jar(javax/servlet/GenericServlet.class)]]
+2021-04-02 15:53:19,747 DEBUG    		[2021-04-02 15:53:19] [build-err] [loading ZipFileIndexFileObject[./../lib/servlet-api.jar(javax/servlet/Servlet.class)]]
+2021-04-02 15:53:19,749 DEBUG    		[2021-04-02 15:53:19] [build-err] [loading ZipFileIndexFileObject[./../lib/servlet-api.jar(javax/servlet/ServletConfig.class)]]
+2021-04-02 15:53:19,752 DEBUG    		[2021-04-02 15:53:19] [build-err] [loading ZipFileIndexFileObject[./../lib/servlet-api.jar(javax/servlet/http/HttpServletRequest.class)]]
+2021-04-02 15:53:19,756 DEBUG    		[2021-04-02 15:53:19] [build-err] [loading ZipFileIndexFileObject[./../lib/servlet-api.jar(javax/servlet/http/HttpServletResponse.class)]]
+2021-04-02 15:53:19,831 DEBUG    		[2021-04-02 15:53:19] [build-err] [loading ZipFileIndexFileObject[/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.272.b10-1.el7_9.x86_64/lib/ct.sym(META-INF/sym/rt.jar/java/util/logging/Logger.class)]]
+2021-04-02 15:53:19,840 DEBUG    		[2021-04-02 15:53:19] [build-err] [loading ZipFileIndexFileObject[/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.272.b10-1.el7_9.x86_64/lib/ct.sym(META-INF/sym/rt.jar/java/sql/Connection.class)]]
+2021-04-02 15:53:19,842 DEBUG    		[2021-04-02 15:53:19] [build-err] [loading ZipFileIndexFileObject[/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.272.b10-1.el7_9.x86_64/lib/ct.sym(META-INF/sym/rt.jar/java/sql/SQLException.class)]]
+2021-04-02 15:53:19,848 DEBUG    		[2021-04-02 15:53:19] [build-err] [checking testcasesupport.AbstractTestCase]
+2021-04-02 15:53:19,852 DEBUG    		[2021-04-02 15:53:19] [build-err] [loading ZipFileIndexFileObject[/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.272.b10-1.el7_9.x86_64/lib/ct.sym(META-INF/sym/rt.jar/java/lang/AutoCloseable.class)]]
+2021-04-02 15:53:19,860 DEBUG    		[2021-04-02 15:53:19] [build-err] [loading ZipFileIndexFileObject[/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.272.b10-1.el7_9.x86_64/lib/ct.sym(META-INF/sym/rt.jar/java/lang/ReflectiveOperationException.class)]]
+2021-04-02 15:53:19,862 DEBUG    		[2021-04-02 15:53:19] [build-err] [loading ZipFileIndexFileObject[/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.272.b10-1.el7_9.x86_64/lib/ct.sym(META-INF/sym/rt.jar/java/lang/Exception.class)]]
+2021-04-02 15:53:19,863 DEBUG    		[2021-04-02 15:53:19] [build-err] [loading ZipFileIndexFileObject[/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.272.b10-1.el7_9.x86_64/lib/ct.sym(META-INF/sym/rt.jar/java/lang/StackTraceElement.class)]]
+2021-04-02 15:53:19,866 DEBUG    		[2021-04-02 15:53:19] [build-err] [loading ZipFileIndexFileObject[/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.272.b10-1.el7_9.x86_64/lib/ct.sym(META-INF/sym/rt.jar/java/lang/Thread.class)]]
+2021-04-02 15:53:19,880 DEBUG    		[2021-04-02 15:53:19] [build-err] [loading ZipFileIndexFileObject[/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.272.b10-1.el7_9.x86_64/lib/ct.sym(META-INF/sym/rt.jar/sun/misc/Contended.class)]]
+2021-04-02 15:53:19,888 DEBUG    		[2021-04-02 15:53:19] [build-err] [loading ZipFileIndexFileObject[/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.272.b10-1.el7_9.x86_64/lib/ct.sym(META-INF/sym/rt.jar/java/lang/annotation/Retention.class)]]
+2021-04-02 15:53:19,890 DEBUG    		[2021-04-02 15:53:19] [build-err] [loading ZipFileIndexFileObject[/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.272.b10-1.el7_9.x86_64/lib/ct.sym(META-INF/sym/rt.jar/java/lang/annotation/RetentionPolicy.class)]]
+2021-04-02 15:53:19,891 DEBUG    		[2021-04-02 15:53:19] [build-err] [loading ZipFileIndexFileObject[/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.272.b10-1.el7_9.x86_64/lib/ct.sym(META-INF/sym/rt.jar/java/lang/annotation/Target.class)]]
+2021-04-02 15:53:19,893 DEBUG    		[2021-04-02 15:53:19] [build-err] [loading ZipFileIndexFileObject[/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.272.b10-1.el7_9.x86_64/lib/ct.sym(META-INF/sym/rt.jar/java/lang/annotation/ElementType.class)]]
+2021-04-02 15:53:19,895 DEBUG    		[2021-04-02 15:53:19] [build-err] [loading ZipFileIndexFileObject[/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.272.b10-1.el7_9.x86_64/lib/ct.sym(META-INF/sym/rt.jar/java/lang/Runnable.class)]]
+2021-04-02 15:53:19,899 DEBUG    		[2021-04-02 15:53:19] [build-err] [loading ZipFileIndexFileObject[/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.272.b10-1.el7_9.x86_64/lib/ct.sym(META-INF/sym/rt.jar/java/lang/Class.class)]]
+2021-04-02 15:53:19,909 DEBUG    		[2021-04-02 15:53:19] [build-err] [loading ZipFileIndexFileObject[/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.272.b10-1.el7_9.x86_64/lib/ct.sym(META-INF/sym/rt.jar/java/lang/reflect/GenericDeclaration.class)]]
+2021-04-02 15:53:19,911 DEBUG    		[2021-04-02 15:53:19] [build-err] [loading ZipFileIndexFileObject[/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.272.b10-1.el7_9.x86_64/lib/ct.sym(META-INF/sym/rt.jar/java/lang/reflect/AnnotatedElement.class)]]
+2021-04-02 15:53:19,913 DEBUG    		[2021-04-02 15:53:19] [build-err] [loading ZipFileIndexFileObject[/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.272.b10-1.el7_9.x86_64/lib/ct.sym(META-INF/sym/rt.jar/java/lang/reflect/Type.class)]]
+2021-04-02 15:53:19,921 DEBUG    		[2021-04-02 15:53:19] [build-err] [loading ZipFileIndexFileObject[/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.272.b10-1.el7_9.x86_64/lib/ct.sym(META-INF/sym/rt.jar/java/lang/Comparable.class)]]
+2021-04-02 15:53:19,924 DEBUG    		[2021-04-02 15:53:19] [build-err] [loading ZipFileIndexFileObject[/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.272.b10-1.el7_9.x86_64/lib/ct.sym(META-INF/sym/rt.jar/java/lang/CharSequence.class)]]
+2021-04-02 15:53:19,932 DEBUG    		[2021-04-02 15:53:19] [build-err] [loading ZipFileIndexFileObject[/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.272.b10-1.el7_9.x86_64/lib/ct.sym(META-INF/sym/rt.jar/java/lang/Byte.class)]]
+2021-04-02 15:53:19,935 DEBUG    		[2021-04-02 15:53:19] [build-err] [loading ZipFileIndexFileObject[/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.272.b10-1.el7_9.x86_64/lib/ct.sym(META-INF/sym/rt.jar/java/lang/Character.class)]]
+2021-04-02 15:53:19,938 DEBUG    		[2021-04-02 15:53:19] [build-err] [loading ZipFileIndexFileObject[/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.272.b10-1.el7_9.x86_64/lib/ct.sym(META-INF/sym/rt.jar/java/lang/Short.class)]]
+2021-04-02 15:53:19,940 DEBUG    		[2021-04-02 15:53:19] [build-err] [loading ZipFileIndexFileObject[/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.272.b10-1.el7_9.x86_64/lib/ct.sym(META-INF/sym/rt.jar/java/lang/Long.class)]]
+2021-04-02 15:53:19,943 DEBUG    		[2021-04-02 15:53:19] [build-err] [loading ZipFileIndexFileObject[/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.272.b10-1.el7_9.x86_64/lib/ct.sym(META-INF/sym/rt.jar/java/lang/Float.class)]]
+2021-04-02 15:53:19,944 DEBUG    		[2021-04-02 15:53:19] [build-err] [loading ZipFileIndexFileObject[/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.272.b10-1.el7_9.x86_64/lib/ct.sym(META-INF/sym/rt.jar/java/lang/Integer.class)]]
+2021-04-02 15:53:19,945 DEBUG    		[2021-04-02 15:53:19] [build-err] [loading ZipFileIndexFileObject[/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.272.b10-1.el7_9.x86_64/lib/ct.sym(META-INF/sym/rt.jar/java/lang/Double.class)]]
+2021-04-02 15:53:19,946 DEBUG    		[2021-04-02 15:53:19] [build-err] [loading ZipFileIndexFileObject[/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.272.b10-1.el7_9.x86_64/lib/ct.sym(META-INF/sym/rt.jar/java/lang/Boolean.class)]]
+2021-04-02 15:53:19,947 DEBUG    		[2021-04-02 15:53:19] [build-err] [loading ZipFileIndexFileObject[/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.272.b10-1.el7_9.x86_64/lib/ct.sym(META-INF/sym/rt.jar/java/lang/Void.class)]]
+2021-04-02 15:53:19,965 DEBUG    		[2021-04-02 15:53:19] [build-err] [loading ZipFileIndexFileObject[/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.272.b10-1.el7_9.x86_64/lib/ct.sym(META-INF/sym/rt.jar/java/lang/Error.class)]]
+2021-04-02 15:53:19,967 DEBUG    		[2021-04-02 15:53:19] [build-err] [loading ZipFileIndexFileObject[/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.272.b10-1.el7_9.x86_64/lib/ct.sym(META-INF/sym/rt.jar/java/lang/RuntimeException.class)]]
+2021-04-02 15:53:19,969 DEBUG    		[2021-04-02 15:53:19] [build-err] [checking testcasesupport.AbstractTestCaseBase]
+2021-04-02 15:53:19,983 DEBUG    		[2021-04-02 15:53:19] [build-err] [loading ZipFileIndexFileObject[/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.272.b10-1.el7_9.x86_64/lib/ct.sym(META-INF/sym/rt.jar/java/lang/StringBuilder.class)]]
+2021-04-02 15:53:19,988 DEBUG    		[2021-04-02 15:53:19] [build-err] [loading ZipFileIndexFileObject[/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.272.b10-1.el7_9.x86_64/lib/ct.sym(META-INF/sym/rt.jar/java/lang/AbstractStringBuilder.class)]]
+2021-04-02 15:53:19,990 DEBUG    		[2021-04-02 15:53:19] [build-err] [loading ZipFileIndexFileObject[/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.272.b10-1.el7_9.x86_64/lib/ct.sym(META-INF/sym/rt.jar/java/lang/Appendable.class)]]
+2021-04-02 15:53:19,992 DEBUG    		[2021-04-02 15:53:19] [build-err] [loading ZipFileIndexFileObject[/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.272.b10-1.el7_9.x86_64/lib/ct.sym(META-INF/sym/rt.jar/java/lang/StringBuffer.class)]]
+2021-04-02 15:53:20,022 DEBUG    		[2021-04-02 15:53:20] [build-err] [wrote RegularFileObject[./classes/testcasesupport/AbstractTestCase.class]]
+2021-04-02 15:53:20,029 DEBUG    		[2021-04-02 15:53:20] [build-err] [wrote RegularFileObject[./classes/testcasesupport/AbstractTestCaseBase.class]]
+2021-04-02 15:53:20,031 DEBUG    		[2021-04-02 15:53:20] [build-err] [checking testcasesupport.AbstractTestCaseBadOnly]
+2021-04-02 15:53:20,051 DEBUG    		[2021-04-02 15:53:20] [build-err] [wrote RegularFileObject[./classes/testcasesupport/AbstractTestCaseBadOnly.class]]
+2021-04-02 15:53:20,052 DEBUG    		[2021-04-02 15:53:20] [build-err] [checking testcasesupport.AbstractTestCaseClassIssue]
+2021-04-02 15:53:20,079 DEBUG    		[2021-04-02 15:53:20] [build-err] [wrote RegularFileObject[./classes/testcasesupport/AbstractTestCaseClassIssue.class]]
+2021-04-02 15:53:20,081 DEBUG    		[2021-04-02 15:53:20] [build-err] [checking testcasesupport.AbstractTestCaseClassIssueBad]
+2021-04-02 15:53:20,099 DEBUG    		[2021-04-02 15:53:20] [build-err] [wrote RegularFileObject[./classes/testcasesupport/AbstractTestCaseClassIssueBad.class]]
+2021-04-02 15:53:20,100 DEBUG    		[2021-04-02 15:53:20] [build-err] [checking testcasesupport.AbstractTestCaseClassIssueGood]
+2021-04-02 15:53:20,116 DEBUG    		[2021-04-02 15:53:20] [build-err] [wrote RegularFileObject[./classes/testcasesupport/AbstractTestCaseClassIssueGood.class]]
+2021-04-02 15:53:20,118 DEBUG    		[2021-04-02 15:53:20] [build-err] [checking testcasesupport.AbstractTestCaseServlet]
+2021-04-02 15:53:20,120 DEBUG    		[2021-04-02 15:53:20] [build-err] [loading ZipFileIndexFileObject[./../lib/servlet-api.jar(javax/servlet/ServletException.class)]]
+2021-04-02 15:53:20,125 DEBUG    		[2021-04-02 15:53:20] [build-err] [loading ZipFileIndexFileObject[./../lib/servlet-api.jar(javax/servlet/ServletResponse.class)]]
+2021-04-02 15:53:20,128 DEBUG    		[2021-04-02 15:53:20] [build-err] [loading ZipFileIndexFileObject[/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.272.b10-1.el7_9.x86_64/lib/ct.sym(META-INF/sym/rt.jar/java/io/PrintWriter.class)]]
+2021-04-02 15:53:20,129 DEBUG    		[2021-04-02 15:53:20] [build-err] [loading ZipFileIndexFileObject[/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.272.b10-1.el7_9.x86_64/lib/ct.sym(META-INF/sym/rt.jar/java/io/Writer.class)]]
+2021-04-02 15:53:20,130 DEBUG    		[2021-04-02 15:53:20] [build-err] [loading ZipFileIndexFileObject[/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.272.b10-1.el7_9.x86_64/lib/ct.sym(META-INF/sym/rt.jar/java/io/Closeable.class)]]
+2021-04-02 15:53:20,131 DEBUG    		[2021-04-02 15:53:20] [build-err] [loading ZipFileIndexFileObject[/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.272.b10-1.el7_9.x86_64/lib/ct.sym(META-INF/sym/rt.jar/java/io/Flushable.class)]]
+2021-04-02 15:53:20,149 DEBUG    		[2021-04-02 15:53:20] [build-err] [checking testcasesupport.AbstractTestCaseServletBase]
+2021-04-02 15:53:20,171 DEBUG    		[2021-04-02 15:53:20] [build-err] [wrote RegularFileObject[./classes/testcasesupport/AbstractTestCaseServlet.class]]
+2021-04-02 15:53:20,181 DEBUG    		[2021-04-02 15:53:20] [build-err] [wrote RegularFileObject[./classes/testcasesupport/AbstractTestCaseServletBase.class]]
+2021-04-02 15:53:20,184 DEBUG    		[2021-04-02 15:53:20] [build-err] [checking testcasesupport.AbstractTestCaseServletBadOnly]
+2021-04-02 15:53:20,203 DEBUG    		[2021-04-02 15:53:20] [build-err] [wrote RegularFileObject[./classes/testcasesupport/AbstractTestCaseServletBadOnly.class]]
+2021-04-02 15:53:20,211 DEBUG    		[2021-04-02 15:53:20] [build-err] [checking testcasesupport.IO]
+2021-04-02 15:53:20,214 DEBUG    		[2021-04-02 15:53:20] [build-err] [loading ZipFileIndexFileObject[/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.272.b10-1.el7_9.x86_64/lib/ct.sym(META-INF/sym/rt.jar/java/lang/System.class)]]
+2021-04-02 15:53:20,215 DEBUG    		[2021-04-02 15:53:20] [build-err] [loading ZipFileIndexFileObject[/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.272.b10-1.el7_9.x86_64/lib/ct.sym(META-INF/sym/rt.jar/java/io/PrintStream.class)]]
+2021-04-02 15:53:20,217 DEBUG    		[2021-04-02 15:53:20] [build-err] [loading ZipFileIndexFileObject[/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.272.b10-1.el7_9.x86_64/lib/ct.sym(META-INF/sym/rt.jar/java/io/FilterOutputStream.class)]]
+2021-04-02 15:53:20,217 DEBUG    		[2021-04-02 15:53:20] [build-err] [loading ZipFileIndexFileObject[/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.272.b10-1.el7_9.x86_64/lib/ct.sym(META-INF/sym/rt.jar/java/io/OutputStream.class)]]
+2021-04-02 15:53:20,219 DEBUG    		[2021-04-02 15:53:20] [build-err] [loading ZipFileIndexFileObject[/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.272.b10-1.el7_9.x86_64/lib/ct.sym(META-INF/sym/rt.jar/java/lang/Number.class)]]
+2021-04-02 15:53:20,222 DEBUG    		[2021-04-02 15:53:20] [build-err] [loading ZipFileIndexFileObject[/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.272.b10-1.el7_9.x86_64/lib/ct.sym(META-INF/sym/rt.jar/java/util/Locale.class)]]
+2021-04-02 15:53:20,224 DEBUG    		[2021-04-02 15:53:20] [build-err] [loading ZipFileIndexFileObject[/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.272.b10-1.el7_9.x86_64/lib/ct.sym(META-INF/sym/rt.jar/java/sql/DriverManager.class)]]
+2021-04-02 15:53:20,225 DEBUG    		[2021-04-02 15:53:20] [build-err] [loading ZipFileIndexFileObject[/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.272.b10-1.el7_9.x86_64/lib/ct.sym(META-INF/sym/rt.jar/java/util/Properties.class)]]
+2021-04-02 15:53:20,226 DEBUG    		[2021-04-02 15:53:20] [build-err] [loading ZipFileIndexFileObject[/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.272.b10-1.el7_9.x86_64/lib/ct.sym(META-INF/sym/rt.jar/java/util/Random.class)]]
+2021-04-02 15:53:20,250 DEBUG    		[2021-04-02 15:53:20] [build-err] [wrote RegularFileObject[./classes/testcasesupport/IO.class]]
+2021-04-02 15:53:20,251 DEBUG    		[2021-04-02 15:53:20] [build-err] [total 805ms]
+2021-04-02 15:53:52,307 DEBUG    		[2021-04-02 15:53:52] [build-err] [parsing started RegularFileObject[./testcases/CWE835_Infinite_Loop/CWE835_Infinite_Loop__do_01.java]]
+2021-04-02 15:53:52,325 DEBUG    		[2021-04-02 15:53:52] [build-err] [parsing completed 22ms]
+2021-04-02 15:53:52,334 DEBUG    		[2021-04-02 15:53:52] [build-err] [parsing started RegularFileObject[./testcases/CWE835_Infinite_Loop/CWE835_Infinite_Loop__do_true_01.java]]
+2021-04-02 15:53:52,336 DEBUG    		[2021-04-02 15:53:52] [build-err] [parsing completed 3ms]
+2021-04-02 15:53:52,342 DEBUG    		[2021-04-02 15:53:52] [build-err] [parsing started RegularFileObject[./testcases/CWE835_Infinite_Loop/CWE835_Infinite_Loop__for_01.java]]
+2021-04-02 15:53:52,346 DEBUG    		[2021-04-02 15:53:52] [build-err] [parsing completed 5ms]
+2021-04-02 15:53:52,354 DEBUG    		[2021-04-02 15:53:52] [build-err] [parsing started RegularFileObject[./testcases/CWE835_Infinite_Loop/CWE835_Infinite_Loop__for_empty_01.java]]
+2021-04-02 15:53:52,360 DEBUG    		[2021-04-02 15:53:52] [build-err] [parsing completed 8ms]
+2021-04-02 15:53:52,363 DEBUG    		[2021-04-02 15:53:52] [build-err] [parsing started RegularFileObject[./testcases/CWE835_Infinite_Loop/CWE835_Infinite_Loop__while_01.java]]
+2021-04-02 15:53:52,367 DEBUG    		[2021-04-02 15:53:52] [build-err] [parsing completed 4ms]
+2021-04-02 15:53:52,372 DEBUG    		[2021-04-02 15:53:52] [build-err] [parsing started RegularFileObject[./testcases/CWE835_Infinite_Loop/CWE835_Infinite_Loop__while_true_01.java]]
+2021-04-02 15:53:52,375 DEBUG    		[2021-04-02 15:53:52] [build-err] [parsing completed 3ms]
+2021-04-02 15:53:52,381 DEBUG    		[2021-04-02 15:53:52] [build-err] [parsing started RegularFileObject[./testcases/CWE835_Infinite_Loop/Main.java]]
+2021-04-02 15:53:52,388 DEBUG    		[2021-04-02 15:53:52] [build-err] [parsing completed 8ms]
+2021-04-02 15:53:52,394 DEBUG    		[2021-04-02 15:53:52] [build-err] [parsing started RegularFileObject[./testcases/CWE835_Infinite_Loop/ServletMain.java]]
+2021-04-02 15:53:52,405 DEBUG    		[2021-04-02 15:53:52] [build-err] [parsing completed 11ms]
+2021-04-02 15:53:52,483 DEBUG    		[2021-04-02 15:53:52] [build-err] [search path for source files: .]
+2021-04-02 15:53:52,485 DEBUG    		[2021-04-02 15:53:52] [build-err] [search path for class files: /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.272.b10-1.el7_9.x86_64/jre/lib/resources.jar,/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.272.b10-1.el7_9.x86_64/jre/lib/rt.jar,/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.272.b10-1.el7_9.x86_64/jre/lib/sunrsasign.jar,/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.272.b10-1.el7_9.x86_64/jre/lib/jsse.jar,/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.272.b10-1.el7_9.x86_64/jre/lib/jce.jar,/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.272.b10-1.el7_9.x86_64/jre/lib/charsets.jar,/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.272.b10-1.el7_9.x86_64/jre/lib/jfr.jar,/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.272.b10-1.el7_9.x86_64/jre/classes,/opt/local/codeql/codeql-cli/java/tools/codeql-java-agent.jar,/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.272.b10-1.el7_9.x86_64/jre/lib/ext/sunjce_provider.jar,/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.272.b10-1.el7_9.x86_64/jre/lib/ext/zipfs.jar,/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.272.b10-1.el7_9.x86_64/jre/lib/ext/localedata.jar,/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.272.b10-1.el7_9.x86_64/jre/lib/ext/sunpkcs11.jar,/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.272.b10-1.el7_9.x86_64/jre/lib/ext/cldrdata.jar,/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.272.b10-1.el7_9.x86_64/jre/lib/ext/dnsns.jar,/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.272.b10-1.el7_9.x86_64/jre/lib/ext/sunec.jar,/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.272.b10-1.el7_9.x86_64/jre/lib/ext/jaccess.jar,/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.272.b10-1.el7_9.x86_64/jre/lib/ext/nashorn.jar,./classes,./../lib/servlet-api.jar,./../lib/commons-lang-2.5.jar,./../lib/commons-codec-1.5.jar,./../lib/javamail-1.4.4.jar]
+2021-04-02 15:53:52,532 DEBUG    		[2021-04-02 15:53:52] [build-err] [loading RegularFileObject[./classes/testcasesupport/AbstractTestCase.class]]
+2021-04-02 15:53:52,537 DEBUG    		[2021-04-02 15:53:52] [build-err] [loading RegularFileObject[./classes/testcasesupport/AbstractTestCaseBase.class]]
+2021-04-02 15:53:52,543 DEBUG    		[2021-04-02 15:53:52] [build-err] [loading ZipFileIndexFileObject[/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.272.b10-1.el7_9.x86_64/lib/ct.sym(META-INF/sym/rt.jar/java/lang/Object.class)]]
+2021-04-02 15:53:52,549 DEBUG    		[2021-04-02 15:53:52] [build-err] [loading ZipFileIndexFileObject[/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.272.b10-1.el7_9.x86_64/lib/ct.sym(META-INF/sym/rt.jar/java/lang/String.class)]]
+2021-04-02 15:53:52,554 DEBUG    		[2021-04-02 15:53:52] [build-err] [loading ZipFileIndexFileObject[/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.272.b10-1.el7_9.x86_64/lib/ct.sym(META-INF/sym/rt.jar/java/lang/ClassNotFoundException.class)]]
+2021-04-02 15:53:52,561 DEBUG    		[2021-04-02 15:53:52] [build-err] [loading ZipFileIndexFileObject[/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.272.b10-1.el7_9.x86_64/lib/ct.sym(META-INF/sym/rt.jar/java/lang/InstantiationException.class)]]
+2021-04-02 15:53:52,563 DEBUG    		[2021-04-02 15:53:52] [build-err] [loading ZipFileIndexFileObject[/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.272.b10-1.el7_9.x86_64/lib/ct.sym(META-INF/sym/rt.jar/java/lang/IllegalAccessException.class)]]
+2021-04-02 15:53:52,577 DEBUG    		[2021-04-02 15:53:52] [build-err] [loading ZipFileIndexFileObject[./../lib/servlet-api.jar(javax/servlet/http/HttpServlet.class)]]
+2021-04-02 15:53:52,585 DEBUG    		[2021-04-02 15:53:52] [build-err] [loading ZipFileIndexFileObject[/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.272.b10-1.el7_9.x86_64/lib/ct.sym(META-INF/sym/rt.jar/java/io/Serializable.class)]]
+2021-04-02 15:53:52,587 DEBUG    		[2021-04-02 15:53:52] [build-err] [loading ZipFileIndexFileObject[./../lib/servlet-api.jar(javax/servlet/GenericServlet.class)]]
+2021-04-02 15:53:52,589 DEBUG    		[2021-04-02 15:53:52] [build-err] [loading ZipFileIndexFileObject[./../lib/servlet-api.jar(javax/servlet/Servlet.class)]]
+2021-04-02 15:53:52,592 DEBUG    		[2021-04-02 15:53:52] [build-err] [loading ZipFileIndexFileObject[./../lib/servlet-api.jar(javax/servlet/ServletConfig.class)]]
+2021-04-02 15:53:52,595 DEBUG    		[2021-04-02 15:53:52] [build-err] [loading ZipFileIndexFileObject[./../lib/servlet-api.jar(javax/servlet/http/HttpServletRequest.class)]]
+2021-04-02 15:53:52,598 DEBUG    		[2021-04-02 15:53:52] [build-err] [loading ZipFileIndexFileObject[./../lib/servlet-api.jar(javax/servlet/http/HttpServletResponse.class)]]
+2021-04-02 15:53:52,609 DEBUG    		[2021-04-02 15:53:52] [build-err] [checking testcases.CWE835_Infinite_Loop.CWE835_Infinite_Loop__do_01]
+2021-04-02 15:53:52,616 DEBUG    		[2021-04-02 15:53:52] [build-err] [loading ZipFileIndexFileObject[/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.272.b10-1.el7_9.x86_64/lib/ct.sym(META-INF/sym/rt.jar/java/lang/AutoCloseable.class)]]
+2021-04-02 15:53:52,629 DEBUG    		[2021-04-02 15:53:52] [build-err] ./testcases/CWE835_Infinite_Loop/CWE835_Infinite_Loop__do_01.java:16: warning: [divzero] division by zero
+2021-04-02 15:53:52,631 DEBUG    		[2021-04-02 15:53:52] [build-err]         int j = 1/0;
+2021-04-02 15:53:52,632 DEBUG    		[2021-04-02 15:53:52] [build-err]                   ^
+2021-04-02 15:53:52,636 DEBUG    		[2021-04-02 15:53:52] [build-err] [loading RegularFileObject[./classes/testcasesupport/IO.class]]
+2021-04-02 15:53:52,652 DEBUG    		[2021-04-02 15:53:52] [build-err] [loading ZipFileIndexFileObject[/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.272.b10-1.el7_9.x86_64/lib/ct.sym(META-INF/sym/rt.jar/java/lang/ReflectiveOperationException.class)]]
+2021-04-02 15:53:52,662 DEBUG    		[2021-04-02 15:53:52] [build-err] [loading ZipFileIndexFileObject[/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.272.b10-1.el7_9.x86_64/lib/ct.sym(META-INF/sym/rt.jar/java/lang/Exception.class)]]
+2021-04-02 15:53:52,664 DEBUG    		[2021-04-02 15:53:52] [build-err] [loading ZipFileIndexFileObject[/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.272.b10-1.el7_9.x86_64/lib/ct.sym(META-INF/sym/rt.jar/java/lang/Throwable.class)]]
+2021-04-02 15:53:52,669 DEBUG    		[2021-04-02 15:53:52] [build-err] [loading ZipFileIndexFileObject[/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.272.b10-1.el7_9.x86_64/lib/ct.sym(META-INF/sym/rt.jar/java/lang/Error.class)]]
+2021-04-02 15:53:52,671 DEBUG    		[2021-04-02 15:53:52] [build-err] [loading ZipFileIndexFileObject[/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.272.b10-1.el7_9.x86_64/lib/ct.sym(META-INF/sym/rt.jar/java/lang/RuntimeException.class)]]
+2021-04-02 15:53:52,713 DEBUG    		[2021-04-02 15:53:52] [build-err] [wrote RegularFileObject[./classes/testcases/CWE835_Infinite_Loop/CWE835_Infinite_Loop__do_01.class]]
+2021-04-02 15:53:52,715 DEBUG    		[2021-04-02 15:53:52] [build-err] [checking testcases.CWE835_Infinite_Loop.CWE835_Infinite_Loop__do_true_01]
+2021-04-02 15:53:52,729 DEBUG    		[2021-04-02 15:53:52] [build-err] [wrote RegularFileObject[./classes/testcases/CWE835_Infinite_Loop/CWE835_Infinite_Loop__do_true_01.class]]
+2021-04-02 15:53:52,731 DEBUG    		[2021-04-02 15:53:52] [build-err] [checking testcases.CWE835_Infinite_Loop.CWE835_Infinite_Loop__for_01]
+2021-04-02 15:53:52,750 DEBUG    		[2021-04-02 15:53:52] [build-err] [wrote RegularFileObject[./classes/testcases/CWE835_Infinite_Loop/CWE835_Infinite_Loop__for_01.class]]
+2021-04-02 15:53:52,751 DEBUG    		[2021-04-02 15:53:52] [build-err] [checking testcases.CWE835_Infinite_Loop.CWE835_Infinite_Loop__for_empty_01]
+2021-04-02 15:53:52,764 DEBUG    		[2021-04-02 15:53:52] [build-err] [wrote RegularFileObject[./classes/testcases/CWE835_Infinite_Loop/CWE835_Infinite_Loop__for_empty_01.class]]
+2021-04-02 15:53:52,765 DEBUG    		[2021-04-02 15:53:52] [build-err] [checking testcases.CWE835_Infinite_Loop.CWE835_Infinite_Loop__while_01]
+2021-04-02 15:53:52,781 DEBUG    		[2021-04-02 15:53:52] [build-err] [wrote RegularFileObject[./classes/testcases/CWE835_Infinite_Loop/CWE835_Infinite_Loop__while_01.class]]
+2021-04-02 15:53:52,782 DEBUG    		[2021-04-02 15:53:52] [build-err] [checking testcases.CWE835_Infinite_Loop.CWE835_Infinite_Loop__while_true_01]
+2021-04-02 15:53:52,799 DEBUG    		[2021-04-02 15:53:52] [build-err] [wrote RegularFileObject[./classes/testcases/CWE835_Infinite_Loop/CWE835_Infinite_Loop__while_true_01.class]]
+2021-04-02 15:53:52,801 DEBUG    		[2021-04-02 15:53:52] [build-err] [checking testcases.CWE835_Infinite_Loop.Main]
+2021-04-02 15:53:52,804 DEBUG    		[2021-04-02 15:53:52] [build-err] [loading ZipFileIndexFileObject[/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.272.b10-1.el7_9.x86_64/lib/ct.sym(META-INF/sym/rt.jar/java/lang/Byte.class)]]
+2021-04-02 15:53:52,807 DEBUG    		[2021-04-02 15:53:52] [build-err] [loading ZipFileIndexFileObject[/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.272.b10-1.el7_9.x86_64/lib/ct.sym(META-INF/sym/rt.jar/java/lang/Character.class)]]
+2021-04-02 15:53:52,863 DEBUG    		[2021-04-02 15:53:52] [build-err] [loading ZipFileIndexFileObject[/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.272.b10-1.el7_9.x86_64/lib/ct.sym(META-INF/sym/rt.jar/java/lang/Short.class)]]
+2021-04-02 15:53:52,865 DEBUG    		[2021-04-02 15:53:52] [build-err] [loading ZipFileIndexFileObject[/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.272.b10-1.el7_9.x86_64/lib/ct.sym(META-INF/sym/rt.jar/java/lang/Long.class)]]
+2021-04-02 15:53:52,868 DEBUG    		[2021-04-02 15:53:52] [build-err] [loading ZipFileIndexFileObject[/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.272.b10-1.el7_9.x86_64/lib/ct.sym(META-INF/sym/rt.jar/java/lang/Float.class)]]
+2021-04-02 15:53:52,869 DEBUG    		[2021-04-02 15:53:52] [build-err] [loading ZipFileIndexFileObject[/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.272.b10-1.el7_9.x86_64/lib/ct.sym(META-INF/sym/rt.jar/java/lang/Integer.class)]]
+2021-04-02 15:53:52,873 DEBUG    		[2021-04-02 15:53:52] [build-err] [loading ZipFileIndexFileObject[/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.272.b10-1.el7_9.x86_64/lib/ct.sym(META-INF/sym/rt.jar/java/lang/Double.class)]]
+2021-04-02 15:53:52,876 DEBUG    		[2021-04-02 15:53:52] [build-err] [loading ZipFileIndexFileObject[/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.272.b10-1.el7_9.x86_64/lib/ct.sym(META-INF/sym/rt.jar/java/lang/Boolean.class)]]
+2021-04-02 15:53:52,877 DEBUG    		[2021-04-02 15:53:52] [build-err] [loading ZipFileIndexFileObject[/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.272.b10-1.el7_9.x86_64/lib/ct.sym(META-INF/sym/rt.jar/java/lang/Void.class)]]
+2021-04-02 15:53:52,879 DEBUG    		[2021-04-02 15:53:52] [build-err] [loading ZipFileIndexFileObject[/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.272.b10-1.el7_9.x86_64/lib/ct.sym(META-INF/sym/rt.jar/java/lang/Comparable.class)]]
+2021-04-02 15:53:52,880 DEBUG    		[2021-04-02 15:53:52] [build-err] [loading ZipFileIndexFileObject[/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.272.b10-1.el7_9.x86_64/lib/ct.sym(META-INF/sym/rt.jar/java/lang/CharSequence.class)]]
+2021-04-02 15:53:52,883 DEBUG    		[2021-04-02 15:53:52] [build-err] [loading ZipFileIndexFileObject[/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.272.b10-1.el7_9.x86_64/lib/ct.sym(META-INF/sym/rt.jar/java/lang/System.class)]]
+2021-04-02 15:53:52,886 DEBUG    		[2021-04-02 15:53:52] [build-err] [loading ZipFileIndexFileObject[/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.272.b10-1.el7_9.x86_64/lib/ct.sym(META-INF/sym/rt.jar/java/io/PrintStream.class)]]
+2021-04-02 15:53:52,887 DEBUG    		[2021-04-02 15:53:52] [build-err] [loading ZipFileIndexFileObject[/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.272.b10-1.el7_9.x86_64/lib/ct.sym(META-INF/sym/rt.jar/java/lang/Appendable.class)]]
+2021-04-02 15:53:52,889 DEBUG    		[2021-04-02 15:53:52] [build-err] [loading ZipFileIndexFileObject[/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.272.b10-1.el7_9.x86_64/lib/ct.sym(META-INF/sym/rt.jar/java/io/Closeable.class)]]
+2021-04-02 15:53:52,890 DEBUG    		[2021-04-02 15:53:52] [build-err] [loading ZipFileIndexFileObject[/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.272.b10-1.el7_9.x86_64/lib/ct.sym(META-INF/sym/rt.jar/java/io/FilterOutputStream.class)]]
+2021-04-02 15:53:52,891 DEBUG    		[2021-04-02 15:53:52] [build-err] [loading ZipFileIndexFileObject[/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.272.b10-1.el7_9.x86_64/lib/ct.sym(META-INF/sym/rt.jar/java/io/OutputStream.class)]]
+2021-04-02 15:53:52,894 DEBUG    		[2021-04-02 15:53:52] [build-err] [loading ZipFileIndexFileObject[/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.272.b10-1.el7_9.x86_64/lib/ct.sym(META-INF/sym/rt.jar/java/io/Flushable.class)]]
+2021-04-02 15:53:52,895 DEBUG    		[2021-04-02 15:53:52] [build-err] [loading ZipFileIndexFileObject[/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.272.b10-1.el7_9.x86_64/lib/ct.sym(META-INF/sym/rt.jar/java/lang/Class.class)]]
+2021-04-02 15:53:52,906 DEBUG    		[2021-04-02 15:53:52] [build-err] [loading ZipFileIndexFileObject[/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.272.b10-1.el7_9.x86_64/lib/ct.sym(META-INF/sym/rt.jar/java/lang/reflect/GenericDeclaration.class)]]
+2021-04-02 15:53:52,908 DEBUG    		[2021-04-02 15:53:52] [build-err] [loading ZipFileIndexFileObject[/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.272.b10-1.el7_9.x86_64/lib/ct.sym(META-INF/sym/rt.jar/java/lang/reflect/AnnotatedElement.class)]]
+2021-04-02 15:53:52,909 DEBUG    		[2021-04-02 15:53:52] [build-err] [loading ZipFileIndexFileObject[/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.272.b10-1.el7_9.x86_64/lib/ct.sym(META-INF/sym/rt.jar/java/lang/reflect/Type.class)]]
+2021-04-02 15:53:52,934 DEBUG    		[2021-04-02 15:53:52] [build-err] [loading ZipFileIndexFileObject[/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.272.b10-1.el7_9.x86_64/lib/ct.sym(META-INF/sym/rt.jar/java/lang/StringBuilder.class)]]
+2021-04-02 15:53:52,936 DEBUG    		[2021-04-02 15:53:52] [build-err] [loading ZipFileIndexFileObject[/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.272.b10-1.el7_9.x86_64/lib/ct.sym(META-INF/sym/rt.jar/java/lang/AbstractStringBuilder.class)]]
+2021-04-02 15:53:52,939 DEBUG    		[2021-04-02 15:53:52] [build-err] [loading ZipFileIndexFileObject[/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.272.b10-1.el7_9.x86_64/lib/ct.sym(META-INF/sym/rt.jar/java/lang/StringBuffer.class)]]
+2021-04-02 15:53:52,959 DEBUG    		[2021-04-02 15:53:52] [build-err] [wrote RegularFileObject[./classes/testcases/CWE835_Infinite_Loop/Main.class]]
+2021-04-02 15:53:52,961 DEBUG    		[2021-04-02 15:53:52] [build-err] [checking testcases.CWE835_Infinite_Loop.ServletMain]
+2021-04-02 15:53:52,963 DEBUG    		[2021-04-02 15:53:52] [build-err] [loading ZipFileIndexFileObject[./../lib/servlet-api.jar(javax/servlet/ServletException.class)]]
+2021-04-02 15:53:52,966 DEBUG    		[2021-04-02 15:53:52] [build-err] [loading ZipFileIndexFileObject[/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.272.b10-1.el7_9.x86_64/lib/ct.sym(META-INF/sym/rt.jar/java/io/IOException.class)]]
+2021-04-02 15:53:52,974 DEBUG    		[2021-04-02 15:53:52] [build-err] [loading ZipFileIndexFileObject[/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.272.b10-1.el7_9.x86_64/lib/ct.sym(META-INF/sym/rt.jar/java/lang/StackTraceElement.class)]]
+2021-04-02 15:53:53,025 DEBUG    		[2021-04-02 15:53:53] [build-err] [wrote RegularFileObject[./classes/testcases/CWE835_Infinite_Loop/ServletMain.class]]
+2021-04-02 15:53:53,027 DEBUG    		[2021-04-02 15:53:53] [build-err] [total 759ms]
+2021-04-02 15:53:53,029 DEBUG    		[2021-04-02 15:53:53] [build-err] 1 warning
+2021-04-02 15:53:58,084 DEBUG    		Finalizing database at /opt/project/test/integration_tests/java_testcase/.scrub/codeql_analysis/db.
+2021-04-02 15:53:59,160 DEBUG    		[2021-04-02 15:53:59] [build-err] Scanning for files in /opt/project/test/integration_tests/java_testcase...
+2021-04-02 15:54:00,711 DEBUG    		[2021-04-02 15:54:00] [build-err] /opt/project/test/integration_tests/java_testcase/.scrub/codeql_analysis/db: Indexing files in in /opt/project/test/integration_tests/java_testcase...
+2021-04-02 15:54:00,714 DEBUG    		[2021-04-02 15:54:00] [build-err] /opt/project/test/integration_tests/java_testcase/.scrub/codeql_analysis/db: Running in /opt/project/test/integration_tests/java_testcase: [/opt/local/codeql/codeql-cli/xml/tools/index-files.sh, /opt/project/test/integration_tests/java_testcase/.scrub/codeql_analysis/db/working/files-to-index1870410954540768861.list]
+2021-04-02 15:54:17,739 DEBUG    		Successfully created database at /opt/project/test/integration_tests/java_testcase/.scrub/codeql_analysis/db.
+2021-04-02 15:54:17,798 INFO     
+2021-04-02 15:54:17,800 INFO     	>> Executing command: /opt/local/codeql/codeql-cli/codeql database upgrade --search-path /opt/local/codeql/queries /opt/project/test/integration_tests/java_testcase/.scrub/codeql_analysis/db
+2021-04-02 15:54:17,802 INFO     	>> From directory: /opt/project/test/integration_tests/java_testcase
+2021-04-02 15:54:17,804 DEBUG    	Console output:
+2021-04-02 15:54:19,459 DEBUG    		/opt/project/test/integration_tests/java_testcase/.scrub/codeql_analysis/db/db-java is up to date.
+2021-04-02 15:54:19,486 INFO     
+2021-04-02 15:54:19,488 INFO     	>> Executing command: /opt/local/codeql/codeql-cli/codeql database analyze  /opt/project/test/integration_tests/java_testcase/.scrub/codeql_analysis/db /opt/local/codeql/queries/java/ql/src/codeql-suites/java-lgtm-full.qls /opt/local/codeql/queries/java/ql/src/AlertSuppression.ql --format sarif-latest --output /opt/project/test/integration_tests/java_testcase/.scrub/codeql_analysis/codeql_raw.sarif
+2021-04-02 15:54:19,489 INFO     	>> From directory: /opt/project/test/integration_tests/java_testcase
+2021-04-02 15:54:19,491 DEBUG    	Console output:
+2021-04-02 15:54:20,695 DEBUG    		Running queries.
+2021-04-02 15:54:23,675 DEBUG    		Compiling query plan for /opt/local/codeql/queries/java/ql/src/Advisory/Declarations/MissingOverrideAnnotation.ql.
+2021-04-02 15:54:24,868 DEBUG    		[1/172] Found in cache: /opt/local/codeql/queries/java/ql/src/Advisory/Declarations/MissingOverrideAnnotation.ql.
+2021-04-02 15:54:24,951 DEBUG    		Compiling query plan for /opt/local/codeql/queries/java/ql/src/Advisory/Deprecated Code/AvoidDeprecatedCallableAccess.ql.
+2021-04-02 15:54:25,365 DEBUG    		[2/172] Found in cache: /opt/local/codeql/queries/java/ql/src/Advisory/Deprecated Code/AvoidDeprecatedCallableAccess.ql.
+2021-04-02 15:54:25,406 DEBUG    		Compiling query plan for /opt/local/codeql/queries/java/ql/src/Advisory/Documentation/ImpossibleJavadocThrows.ql.
+2021-04-02 15:54:25,745 DEBUG    		[3/172] Found in cache: /opt/local/codeql/queries/java/ql/src/Advisory/Documentation/ImpossibleJavadocThrows.ql.
+2021-04-02 15:54:25,778 DEBUG    		Compiling query plan for /opt/local/codeql/queries/java/ql/src/Advisory/Documentation/SpuriousJavadocParam.ql.
+2021-04-02 15:54:26,062 DEBUG    		[4/172] Found in cache: /opt/local/codeql/queries/java/ql/src/Advisory/Documentation/SpuriousJavadocParam.ql.
+2021-04-02 15:54:26,088 DEBUG    		Compiling query plan for /opt/local/codeql/queries/java/ql/src/Violations of Best Practice/Undesirable Calls/DefaultToString.ql.
+2021-04-02 15:54:26,384 DEBUG    		[5/172] Found in cache: /opt/local/codeql/queries/java/ql/src/Violations of Best Practice/Undesirable Calls/DefaultToString.ql.
+2021-04-02 15:54:26,423 DEBUG    		Compiling query plan for /opt/local/codeql/queries/java/ql/src/Violations of Best Practice/Undesirable Calls/CallsToStringToString.ql.
+2021-04-02 15:54:26,650 DEBUG    		[6/172] Found in cache: /opt/local/codeql/queries/java/ql/src/Violations of Best Practice/Undesirable Calls/CallsToStringToString.ql.
+2021-04-02 15:54:26,673 DEBUG    		Compiling query plan for /opt/local/codeql/queries/java/ql/src/Violations of Best Practice/Undesirable Calls/PrintLnArray.ql.
+2021-04-02 15:54:26,957 DEBUG    		[7/172] Found in cache: /opt/local/codeql/queries/java/ql/src/Violations of Best Practice/Undesirable Calls/PrintLnArray.ql.
+2021-04-02 15:54:26,984 DEBUG    		Compiling query plan for /opt/local/codeql/queries/java/ql/src/Violations of Best Practice/Naming Conventions/ConfusingMethodNames.ql.
+2021-04-02 15:54:27,241 DEBUG    		[8/172] Found in cache: /opt/local/codeql/queries/java/ql/src/Violations of Best Practice/Naming Conventions/ConfusingMethodNames.ql.
+2021-04-02 15:54:27,269 DEBUG    		Compiling query plan for /opt/local/codeql/queries/java/ql/src/Violations of Best Practice/Naming Conventions/ConfusingOverloading.ql.
+2021-04-02 15:54:27,531 DEBUG    		[9/172] Found in cache: /opt/local/codeql/queries/java/ql/src/Violations of Best Practice/Naming Conventions/ConfusingOverloading.ql.
+2021-04-02 15:54:27,563 DEBUG    		Compiling query plan for /opt/local/codeql/queries/java/ql/src/Violations of Best Practice/Naming Conventions/AmbiguousOuterSuper.ql.
+2021-04-02 15:54:27,766 DEBUG    		[10/172] Found in cache: /opt/local/codeql/queries/java/ql/src/Violations of Best Practice/Naming Conventions/AmbiguousOuterSuper.ql.
+2021-04-02 15:54:27,799 DEBUG    		Compiling query plan for /opt/local/codeql/queries/java/ql/src/Violations of Best Practice/Naming Conventions/LocalShadowsFieldConfusing.ql.
+2021-04-02 15:54:28,121 DEBUG    		[11/172] Found in cache: /opt/local/codeql/queries/java/ql/src/Violations of Best Practice/Naming Conventions/LocalShadowsFieldConfusing.ql.
+2021-04-02 15:54:28,149 DEBUG    		Compiling query plan for /opt/local/codeql/queries/java/ql/src/Violations of Best Practice/Naming Conventions/SameNameAsSuper.ql.
+2021-04-02 15:54:28,381 DEBUG    		[12/172] Found in cache: /opt/local/codeql/queries/java/ql/src/Violations of Best Practice/Naming Conventions/SameNameAsSuper.ql.
+2021-04-02 15:54:28,406 DEBUG    		Compiling query plan for /opt/local/codeql/queries/java/ql/src/Violations of Best Practice/Implementation Hiding/AbstractToConcreteCollection.ql.
+2021-04-02 15:54:28,668 DEBUG    		[13/172] Found in cache: /opt/local/codeql/queries/java/ql/src/Violations of Best Practice/Implementation Hiding/AbstractToConcreteCollection.ql.
+2021-04-02 15:54:28,694 DEBUG    		Compiling query plan for /opt/local/codeql/queries/java/ql/src/Violations of Best Practice/Implementation Hiding/ExposeRepresentation.ql.
+2021-04-02 15:54:29,110 DEBUG    		[14/172] Found in cache: /opt/local/codeql/queries/java/ql/src/Violations of Best Practice/Implementation Hiding/ExposeRepresentation.ql.
+2021-04-02 15:54:29,179 DEBUG    		Compiling query plan for /opt/local/codeql/queries/java/ql/src/Violations of Best Practice/Dead Code/InterfaceCannotBeImplemented.ql.
+2021-04-02 15:54:29,413 DEBUG    		[15/172] Found in cache: /opt/local/codeql/queries/java/ql/src/Violations of Best Practice/Dead Code/InterfaceCannotBeImplemented.ql.
+2021-04-02 15:54:29,428 DEBUG    		Compiling query plan for /opt/local/codeql/queries/java/ql/src/Violations of Best Practice/Dead Code/DeadRefTypes.ql.
+2021-04-02 15:54:29,640 DEBUG    		[16/172] Found in cache: /opt/local/codeql/queries/java/ql/src/Violations of Best Practice/Dead Code/DeadRefTypes.ql.
+2021-04-02 15:54:29,659 DEBUG    		Compiling query plan for /opt/local/codeql/queries/java/ql/src/Violations of Best Practice/Dead Code/UnreadLocal.ql.
+2021-04-02 15:54:29,897 DEBUG    		[17/172] Found in cache: /opt/local/codeql/queries/java/ql/src/Violations of Best Practice/Dead Code/UnreadLocal.ql.
+2021-04-02 15:54:29,918 DEBUG    		Compiling query plan for /opt/local/codeql/queries/java/ql/src/Violations of Best Practice/Dead Code/UnusedLabel.ql.
+2021-04-02 15:54:30,119 DEBUG    		[18/172] Found in cache: /opt/local/codeql/queries/java/ql/src/Violations of Best Practice/Dead Code/UnusedLabel.ql.
+2021-04-02 15:54:30,138 DEBUG    		Compiling query plan for /opt/local/codeql/queries/java/ql/src/Violations of Best Practice/Boxed Types/BoxedVariable.ql.
+2021-04-02 15:54:30,317 DEBUG    		[19/172] Found in cache: /opt/local/codeql/queries/java/ql/src/Violations of Best Practice/Boxed Types/BoxedVariable.ql.
+2021-04-02 15:54:30,342 DEBUG    		Compiling query plan for /opt/local/codeql/queries/java/ql/src/Violations of Best Practice/Declarations/NoConstantsOnly.ql.
+2021-04-02 15:54:30,521 DEBUG    		[20/172] Found in cache: /opt/local/codeql/queries/java/ql/src/Violations of Best Practice/Declarations/NoConstantsOnly.ql.
+2021-04-02 15:54:30,541 DEBUG    		Compiling query plan for /opt/local/codeql/queries/java/ql/src/Violations of Best Practice/Exception Handling/NumberFormatException.ql.
+2021-04-02 15:54:30,721 DEBUG    		[21/172] Found in cache: /opt/local/codeql/queries/java/ql/src/Violations of Best Practice/Exception Handling/NumberFormatException.ql.
+2021-04-02 15:54:30,739 DEBUG    		Compiling query plan for /opt/local/codeql/queries/java/ql/src/Violations of Best Practice/Exception Handling/IgnoreExceptionalReturn.ql.
+2021-04-02 15:54:30,979 DEBUG    		[22/172] Found in cache: /opt/local/codeql/queries/java/ql/src/Violations of Best Practice/Exception Handling/IgnoreExceptionalReturn.ql.
+2021-04-02 15:54:31,001 DEBUG    		Compiling query plan for /opt/local/codeql/queries/java/ql/src/Performance/InefficientEmptyStringTest.ql.
+2021-04-02 15:54:31,237 DEBUG    		[23/172] Found in cache: /opt/local/codeql/queries/java/ql/src/Performance/InefficientEmptyStringTest.ql.
+2021-04-02 15:54:31,266 DEBUG    		Compiling query plan for /opt/local/codeql/queries/java/ql/src/Performance/InefficientOutputStream.ql.
+2021-04-02 15:54:31,580 DEBUG    		[24/172] Found in cache: /opt/local/codeql/queries/java/ql/src/Performance/InefficientOutputStream.ql.
+2021-04-02 15:54:31,609 DEBUG    		Compiling query plan for /opt/local/codeql/queries/java/ql/src/Performance/InefficientKeySetIterator.ql.
+2021-04-02 15:54:31,865 DEBUG    		[25/172] Found in cache: /opt/local/codeql/queries/java/ql/src/Performance/InefficientKeySetIterator.ql.
+2021-04-02 15:54:31,891 DEBUG    		Compiling query plan for /opt/local/codeql/queries/java/ql/src/Performance/InefficientPrimConstructor.ql.
+2021-04-02 15:54:32,185 DEBUG    		[26/172] Found in cache: /opt/local/codeql/queries/java/ql/src/Performance/InefficientPrimConstructor.ql.
+2021-04-02 15:54:32,210 DEBUG    		Compiling query plan for /opt/local/codeql/queries/java/ql/src/Performance/NewStringString.ql.
+2021-04-02 15:54:32,411 DEBUG    		[27/172] Found in cache: /opt/local/codeql/queries/java/ql/src/Performance/NewStringString.ql.
+2021-04-02 15:54:32,432 DEBUG    		Compiling query plan for /opt/local/codeql/queries/java/ql/src/Performance/InnerClassCouldBeStatic.ql.
+2021-04-02 15:54:32,648 DEBUG    		[28/172] Found in cache: /opt/local/codeql/queries/java/ql/src/Performance/InnerClassCouldBeStatic.ql.
+2021-04-02 15:54:32,669 DEBUG    		Compiling query plan for /opt/local/codeql/queries/java/ql/src/Likely Bugs/Comparison/InconsistentEqualsHashCode.ql.
+2021-04-02 15:54:32,925 DEBUG    		[29/172] Found in cache: /opt/local/codeql/queries/java/ql/src/Likely Bugs/Comparison/InconsistentEqualsHashCode.ql.
+2021-04-02 15:54:32,948 DEBUG    		Compiling query plan for /opt/local/codeql/queries/java/ql/src/Likely Bugs/Comparison/WrongNanComparison.ql.
+2021-04-02 15:54:33,355 DEBUG    		[30/172] Found in cache: /opt/local/codeql/queries/java/ql/src/Likely Bugs/Comparison/WrongNanComparison.ql.
+2021-04-02 15:54:33,375 DEBUG    		Compiling query plan for /opt/local/codeql/queries/java/ql/src/Likely Bugs/Comparison/IncomparableEquals.ql.
+2021-04-02 15:54:33,770 DEBUG    		[31/172] Found in cache: /opt/local/codeql/queries/java/ql/src/Likely Bugs/Comparison/IncomparableEquals.ql.
+2021-04-02 15:54:33,814 DEBUG    		Compiling query plan for /opt/local/codeql/queries/java/ql/src/Likely Bugs/Comparison/UselessComparisonTest.ql.
+2021-04-02 15:54:34,294 DEBUG    		[32/172] Found in cache: /opt/local/codeql/queries/java/ql/src/Likely Bugs/Comparison/UselessComparisonTest.ql.
+2021-04-02 15:54:34,388 DEBUG    		Compiling query plan for /opt/local/codeql/queries/java/ql/src/Likely Bugs/Comparison/CompareIdenticalValues.ql.
+2021-04-02 15:54:34,732 DEBUG    		[33/172] Found in cache: /opt/local/codeql/queries/java/ql/src/Likely Bugs/Comparison/CompareIdenticalValues.ql.
+2021-04-02 15:54:34,787 DEBUG    		Compiling query plan for /opt/local/codeql/queries/java/ql/src/Likely Bugs/Comparison/EqualsArray.ql.
+2021-04-02 15:54:35,136 DEBUG    		[34/172] Found in cache: /opt/local/codeql/queries/java/ql/src/Likely Bugs/Comparison/EqualsArray.ql.
+2021-04-02 15:54:35,159 DEBUG    		Compiling query plan for /opt/local/codeql/queries/java/ql/src/Likely Bugs/Comparison/HashedButNoHash.ql.
+2021-04-02 15:54:35,556 DEBUG    		[35/172] Found in cache: /opt/local/codeql/queries/java/ql/src/Likely Bugs/Comparison/HashedButNoHash.ql.
+2021-04-02 15:54:35,561 DEBUG    		Compiling query plan for /opt/local/codeql/queries/java/ql/src/Likely Bugs/Comparison/MissingInstanceofInEquals.ql.
+2021-04-02 15:54:35,935 DEBUG    		[36/172] Found in cache: /opt/local/codeql/queries/java/ql/src/Likely Bugs/Comparison/MissingInstanceofInEquals.ql.
+2021-04-02 15:54:35,966 DEBUG    		Compiling query plan for /opt/local/codeql/queries/java/ql/src/Likely Bugs/Comparison/RefEqBoxed.ql.
+2021-04-02 15:54:36,282 DEBUG    		[37/172] Found in cache: /opt/local/codeql/queries/java/ql/src/Likely Bugs/Comparison/RefEqBoxed.ql.
+2021-04-02 15:54:36,313 DEBUG    		Compiling query plan for /opt/local/codeql/queries/java/ql/src/Likely Bugs/Collections/ArrayIndexOutOfBounds.ql.
+2021-04-02 15:54:36,838 DEBUG    		[38/172] Found in cache: /opt/local/codeql/queries/java/ql/src/Likely Bugs/Collections/ArrayIndexOutOfBounds.ql.
+2021-04-02 15:54:36,894 DEBUG    		Compiling query plan for /opt/local/codeql/queries/java/ql/src/Likely Bugs/Collections/WriteOnlyContainer.ql.
+2021-04-02 15:54:37,169 DEBUG    		[39/172] Found in cache: /opt/local/codeql/queries/java/ql/src/Likely Bugs/Collections/WriteOnlyContainer.ql.
+2021-04-02 15:54:37,197 DEBUG    		Compiling query plan for /opt/local/codeql/queries/java/ql/src/Likely Bugs/Collections/ReadOnlyContainer.ql.
+2021-04-02 15:54:37,698 DEBUG    		[40/172] Found in cache: /opt/local/codeql/queries/java/ql/src/Likely Bugs/Collections/ReadOnlyContainer.ql.
+2021-04-02 15:54:37,770 DEBUG    		Compiling query plan for /opt/local/codeql/queries/java/ql/src/Likely Bugs/Collections/ContainsTypeMismatch.ql.
+2021-04-02 15:54:38,006 DEBUG    		[41/172] Found in cache: /opt/local/codeql/queries/java/ql/src/Likely Bugs/Collections/ContainsTypeMismatch.ql.
+2021-04-02 15:54:38,037 DEBUG    		Compiling query plan for /opt/local/codeql/queries/java/ql/src/Likely Bugs/Collections/RemoveTypeMismatch.ql.
+2021-04-02 15:54:38,328 DEBUG    		[42/172] Found in cache: /opt/local/codeql/queries/java/ql/src/Likely Bugs/Collections/RemoveTypeMismatch.ql.
+2021-04-02 15:54:38,349 DEBUG    		Compiling query plan for /opt/local/codeql/queries/java/ql/src/Likely Bugs/Arithmetic/ConstantExpAppearsNonConstant.ql.
+2021-04-02 15:54:38,560 DEBUG    		[43/172] Found in cache: /opt/local/codeql/queries/java/ql/src/Likely Bugs/Arithmetic/ConstantExpAppearsNonConstant.ql.
+2021-04-02 15:54:38,581 DEBUG    		Compiling query plan for /opt/local/codeql/queries/java/ql/src/Likely Bugs/Arithmetic/WhitespaceContradictsPrecedence.ql.
+2021-04-02 15:54:38,794 DEBUG    		[44/172] Found in cache: /opt/local/codeql/queries/java/ql/src/Likely Bugs/Arithmetic/WhitespaceContradictsPrecedence.ql.
+2021-04-02 15:54:38,818 DEBUG    		Compiling query plan for /opt/local/codeql/queries/java/ql/src/Likely Bugs/Arithmetic/IntMultToLong.ql.
+2021-04-02 15:54:39,259 DEBUG    		[45/172] Found in cache: /opt/local/codeql/queries/java/ql/src/Likely Bugs/Arithmetic/IntMultToLong.ql.
+2021-04-02 15:54:39,329 DEBUG    		Compiling query plan for /opt/local/codeql/queries/java/ql/src/Likely Bugs/Arithmetic/LShiftLargerThanTypeWidth.ql.
+2021-04-02 15:54:39,570 DEBUG    		[46/172] Found in cache: /opt/local/codeql/queries/java/ql/src/Likely Bugs/Arithmetic/LShiftLargerThanTypeWidth.ql.
+2021-04-02 15:54:39,592 DEBUG    		Compiling query plan for /opt/local/codeql/queries/java/ql/src/Likely Bugs/Arithmetic/InformationLoss.ql.
+2021-04-02 15:54:39,783 DEBUG    		[47/172] Found in cache: /opt/local/codeql/queries/java/ql/src/Likely Bugs/Arithmetic/InformationLoss.ql.
+2021-04-02 15:54:39,801 DEBUG    		Compiling query plan for /opt/local/codeql/queries/java/ql/src/Likely Bugs/Termination/ConstantLoopCondition.ql.
+2021-04-02 15:54:40,140 DEBUG    		[48/172] Found in cache: /opt/local/codeql/queries/java/ql/src/Likely Bugs/Termination/ConstantLoopCondition.ql.
+2021-04-02 15:54:40,180 DEBUG    		Compiling query plan for /opt/local/codeql/queries/java/ql/src/Likely Bugs/Nullness/NullAlways.ql.
+2021-04-02 15:54:40,591 DEBUG    		[49/172] Found in cache: /opt/local/codeql/queries/java/ql/src/Likely Bugs/Nullness/NullAlways.ql.
+2021-04-02 15:54:40,628 DEBUG    		Compiling query plan for /opt/local/codeql/queries/java/ql/src/Likely Bugs/Nullness/NullExprDeref.ql.
+2021-04-02 15:54:40,799 DEBUG    		[50/172] Found in cache: /opt/local/codeql/queries/java/ql/src/Likely Bugs/Nullness/NullExprDeref.ql.
+2021-04-02 15:54:40,822 DEBUG    		Compiling query plan for /opt/local/codeql/queries/java/ql/src/Likely Bugs/Nullness/NullMaybe.ql.
+2021-04-02 15:54:41,216 DEBUG    		[51/172] Found in cache: /opt/local/codeql/queries/java/ql/src/Likely Bugs/Nullness/NullMaybe.ql.
+2021-04-02 15:54:41,266 DEBUG    		Compiling query plan for /opt/local/codeql/queries/java/ql/src/Likely Bugs/Statements/ContinueInFalseLoop.ql.
+2021-04-02 15:54:41,487 DEBUG    		[52/172] Found in cache: /opt/local/codeql/queries/java/ql/src/Likely Bugs/Statements/ContinueInFalseLoop.ql.
+2021-04-02 15:54:41,501 DEBUG    		Compiling query plan for /opt/local/codeql/queries/java/ql/src/Likely Bugs/Statements/PartiallyMaskedCatch.ql.
+2021-04-02 15:54:41,710 DEBUG    		[53/172] Found in cache: /opt/local/codeql/queries/java/ql/src/Likely Bugs/Statements/PartiallyMaskedCatch.ql.
+2021-04-02 15:54:41,726 DEBUG    		Compiling query plan for /opt/local/codeql/queries/java/ql/src/Likely Bugs/Statements/UseBraces.ql.
+2021-04-02 15:54:41,915 DEBUG    		[54/172] Found in cache: /opt/local/codeql/queries/java/ql/src/Likely Bugs/Statements/UseBraces.ql.
+2021-04-02 15:54:41,929 DEBUG    		Compiling query plan for /opt/local/codeql/queries/java/ql/src/Likely Bugs/Concurrency/SynchSetUnsynchGet.ql.
+2021-04-02 15:54:42,152 DEBUG    		[55/172] Found in cache: /opt/local/codeql/queries/java/ql/src/Likely Bugs/Concurrency/SynchSetUnsynchGet.ql.
+2021-04-02 15:54:42,167 DEBUG    		Compiling query plan for /opt/local/codeql/queries/java/ql/src/Likely Bugs/Concurrency/DoubleCheckedLocking.ql.
+2021-04-02 15:54:42,474 DEBUG    		[56/172] Found in cache: /opt/local/codeql/queries/java/ql/src/Likely Bugs/Concurrency/DoubleCheckedLocking.ql.
+2021-04-02 15:54:42,500 DEBUG    		Compiling query plan for /opt/local/codeql/queries/java/ql/src/Likely Bugs/Concurrency/SynchOnBoxedType.ql.
+2021-04-02 15:54:42,674 DEBUG    		[57/172] Found in cache: /opt/local/codeql/queries/java/ql/src/Likely Bugs/Concurrency/SynchOnBoxedType.ql.
+2021-04-02 15:54:42,685 DEBUG    		Compiling query plan for /opt/local/codeql/queries/java/ql/src/Likely Bugs/Concurrency/CallsToRunnableRun.ql.
+2021-04-02 15:54:42,822 DEBUG    		[58/172] Found in cache: /opt/local/codeql/queries/java/ql/src/Likely Bugs/Concurrency/CallsToRunnableRun.ql.
+2021-04-02 15:54:42,833 DEBUG    		Compiling query plan for /opt/local/codeql/queries/java/ql/src/Likely Bugs/Concurrency/NonSynchronizedOverride.ql.
+2021-04-02 15:54:42,990 DEBUG    		[59/172] Found in cache: /opt/local/codeql/queries/java/ql/src/Likely Bugs/Concurrency/NonSynchronizedOverride.ql.
+2021-04-02 15:54:43,002 DEBUG    		Compiling query plan for /opt/local/codeql/queries/java/ql/src/Likely Bugs/Concurrency/DoubleCheckedLockingWithInitRace.ql.
+2021-04-02 15:54:43,216 DEBUG    		[60/172] Found in cache: /opt/local/codeql/queries/java/ql/src/Likely Bugs/Concurrency/DoubleCheckedLockingWithInitRace.ql.
+2021-04-02 15:54:43,240 DEBUG    		Compiling query plan for /opt/local/codeql/queries/java/ql/src/Likely Bugs/Resource Leaks/CloseReader.ql.
+2021-04-02 15:54:43,433 DEBUG    		[61/172] Found in cache: /opt/local/codeql/queries/java/ql/src/Likely Bugs/Resource Leaks/CloseReader.ql.
+2021-04-02 15:54:43,464 DEBUG    		Compiling query plan for /opt/local/codeql/queries/java/ql/src/Likely Bugs/Resource Leaks/CloseWriter.ql.
+2021-04-02 15:54:43,673 DEBUG    		[62/172] Found in cache: /opt/local/codeql/queries/java/ql/src/Likely Bugs/Resource Leaks/CloseWriter.ql.
+2021-04-02 15:54:43,687 DEBUG    		Compiling query plan for /opt/local/codeql/queries/java/ql/src/Likely Bugs/Resource Leaks/CloseSql.ql.
+2021-04-02 15:54:43,876 DEBUG    		[63/172] Found in cache: /opt/local/codeql/queries/java/ql/src/Likely Bugs/Resource Leaks/CloseSql.ql.
+2021-04-02 15:54:43,891 DEBUG    		Compiling query plan for /opt/local/codeql/queries/java/ql/src/Likely Bugs/Inheritance/NoNonFinalInConstructor.ql.
+2021-04-02 15:54:44,073 DEBUG    		[64/172] Found in cache: /opt/local/codeql/queries/java/ql/src/Likely Bugs/Inheritance/NoNonFinalInConstructor.ql.
+2021-04-02 15:54:44,088 DEBUG    		Compiling query plan for /opt/local/codeql/queries/java/ql/src/Likely Bugs/Likely Typos/SelfAssignment.ql.
+2021-04-02 15:54:44,225 DEBUG    		[65/172] Found in cache: /opt/local/codeql/queries/java/ql/src/Likely Bugs/Likely Typos/SelfAssignment.ql.
+2021-04-02 15:54:44,237 DEBUG    		Compiling query plan for /opt/local/codeql/queries/java/ql/src/Likely Bugs/Likely Typos/UnusedFormatArg.ql.
+2021-04-02 15:54:44,400 DEBUG    		[66/172] Found in cache: /opt/local/codeql/queries/java/ql/src/Likely Bugs/Likely Typos/UnusedFormatArg.ql.
+2021-04-02 15:54:44,431 DEBUG    		Compiling query plan for /opt/local/codeql/queries/java/ql/src/Likely Bugs/Likely Typos/ContainerSizeCmpZero.ql.
+2021-04-02 15:54:44,575 DEBUG    		[67/172] Found in cache: /opt/local/codeql/queries/java/ql/src/Likely Bugs/Likely Typos/ContainerSizeCmpZero.ql.
+2021-04-02 15:54:44,587 DEBUG    		Compiling query plan for /opt/local/codeql/queries/java/ql/src/Likely Bugs/Likely Typos/MissingFormatArg.ql.
+2021-04-02 15:54:44,820 DEBUG    		[68/172] Found in cache: /opt/local/codeql/queries/java/ql/src/Likely Bugs/Likely Typos/MissingFormatArg.ql.
+2021-04-02 15:54:44,842 DEBUG    		Compiling query plan for /opt/local/codeql/queries/java/ql/src/Likely Bugs/Likely Typos/ContradictoryTypeChecks.ql.
+2021-04-02 15:54:45,144 DEBUG    		[69/172] Found in cache: /opt/local/codeql/queries/java/ql/src/Likely Bugs/Likely Typos/ContradictoryTypeChecks.ql.
+2021-04-02 15:54:45,183 DEBUG    		Compiling query plan for /opt/local/codeql/queries/java/ql/src/Likely Bugs/Likely Typos/SuspiciousDateFormat.ql.
+2021-04-02 15:54:45,351 DEBUG    		[70/172] Found in cache: /opt/local/codeql/queries/java/ql/src/Likely Bugs/Likely Typos/SuspiciousDateFormat.ql.
+2021-04-02 15:54:45,364 DEBUG    		Compiling query plan for /opt/local/codeql/queries/java/ql/src/Likely Bugs/Likely Typos/StringBufferCharInit.ql.
+2021-04-02 15:54:45,521 DEBUG    		[71/172] Found in cache: /opt/local/codeql/queries/java/ql/src/Likely Bugs/Likely Typos/StringBufferCharInit.ql.
+2021-04-02 15:54:45,533 DEBUG    		Compiling query plan for /opt/local/codeql/queries/java/ql/src/Likely Bugs/Likely Typos/MissingSpaceTypo.ql.
+2021-04-02 15:54:45,683 DEBUG    		[72/172] Found in cache: /opt/local/codeql/queries/java/ql/src/Likely Bugs/Likely Typos/MissingSpaceTypo.ql.
+2021-04-02 15:54:45,695 DEBUG    		Compiling query plan for /opt/local/codeql/queries/java/ql/src/Language Abuse/IterableIterator.ql.
+2021-04-02 15:54:45,848 DEBUG    		[73/172] Found in cache: /opt/local/codeql/queries/java/ql/src/Language Abuse/IterableIterator.ql.
+2021-04-02 15:54:45,862 DEBUG    		Compiling query plan for /opt/local/codeql/queries/java/ql/src/Language Abuse/UselessTypeTest.ql.
+2021-04-02 15:54:46,021 DEBUG    		[74/172] Found in cache: /opt/local/codeql/queries/java/ql/src/Language Abuse/UselessTypeTest.ql.
+2021-04-02 15:54:46,034 DEBUG    		Compiling query plan for /opt/local/codeql/queries/java/ql/src/Language Abuse/WrappedIterator.ql.
+2021-04-02 15:54:46,193 DEBUG    		[75/172] Found in cache: /opt/local/codeql/queries/java/ql/src/Language Abuse/WrappedIterator.ql.
+2021-04-02 15:54:46,216 DEBUG    		Compiling query plan for /opt/local/codeql/queries/java/ql/src/Language Abuse/ChainedInstanceof.ql.
+2021-04-02 15:54:46,410 DEBUG    		[76/172] Found in cache: /opt/local/codeql/queries/java/ql/src/Language Abuse/ChainedInstanceof.ql.
+2021-04-02 15:54:46,421 DEBUG    		Compiling query plan for /opt/local/codeql/queries/java/ql/src/Language Abuse/UselessNullCheck.ql.
+2021-04-02 15:54:46,656 DEBUG    		[77/172] Found in cache: /opt/local/codeql/queries/java/ql/src/Language Abuse/UselessNullCheck.ql.
+2021-04-02 15:54:46,689 DEBUG    		Compiling query plan for /opt/local/codeql/queries/java/ql/src/Compatibility/JDK9/JdkInternalAccess.ql.
+2021-04-02 15:54:46,881 DEBUG    		[78/172] Found in cache: /opt/local/codeql/queries/java/ql/src/Compatibility/JDK9/JdkInternalAccess.ql.
+2021-04-02 15:54:46,894 DEBUG    		Compiling query plan for /opt/local/codeql/queries/java/ql/src/Compatibility/JDK9/UnderscoreIdentifier.ql.
+2021-04-02 15:54:47,074 DEBUG    		[79/172] Found in cache: /opt/local/codeql/queries/java/ql/src/Compatibility/JDK9/UnderscoreIdentifier.ql.
+2021-04-02 15:54:47,087 DEBUG    		Compiling query plan for /opt/local/codeql/queries/java/ql/src/DeadCode/UselessParameter.ql.
+2021-04-02 15:54:47,298 DEBUG    		[80/172] Found in cache: /opt/local/codeql/queries/java/ql/src/DeadCode/UselessParameter.ql.
+2021-04-02 15:54:47,309 DEBUG    		Compiling query plan for /opt/local/codeql/queries/java/ql/src/Security/CWE/CWE-078/ExecTainted.ql.
+2021-04-02 15:54:47,676 DEBUG    		[81/172] Found in cache: /opt/local/codeql/queries/java/ql/src/Security/CWE/CWE-078/ExecTainted.ql.
+2021-04-02 15:54:47,722 DEBUG    		Compiling query plan for /opt/local/codeql/queries/java/ql/src/Security/CWE/CWE-078/ExecUnescaped.ql.
+2021-04-02 15:54:48,128 DEBUG    		[82/172] Found in cache: /opt/local/codeql/queries/java/ql/src/Security/CWE/CWE-078/ExecUnescaped.ql.
+2021-04-02 15:54:48,167 DEBUG    		Compiling query plan for /opt/local/codeql/queries/java/ql/src/Security/CWE/CWE-335/PredictableSeed.ql.
+2021-04-02 15:54:48,467 DEBUG    		[83/172] Found in cache: /opt/local/codeql/queries/java/ql/src/Security/CWE/CWE-335/PredictableSeed.ql.
+2021-04-02 15:54:48,499 DEBUG    		Compiling query plan for /opt/local/codeql/queries/java/ql/src/Security/CWE/CWE-094/InsecureBeanValidation.ql.
+2021-04-02 15:54:48,828 DEBUG    		[84/172] Found in cache: /opt/local/codeql/queries/java/ql/src/Security/CWE/CWE-094/InsecureBeanValidation.ql.
+2021-04-02 15:54:48,865 DEBUG    		Compiling query plan for /opt/local/codeql/queries/java/ql/src/Security/CWE/CWE-022/TaintedPath.ql.
+2021-04-02 15:54:49,278 DEBUG    		[85/172] Found in cache: /opt/local/codeql/queries/java/ql/src/Security/CWE/CWE-022/TaintedPath.ql.
+2021-04-02 15:54:49,338 DEBUG    		Compiling query plan for /opt/local/codeql/queries/java/ql/src/Security/CWE/CWE-022/ZipSlip.ql.
+2021-04-02 15:54:49,665 DEBUG    		[86/172] Found in cache: /opt/local/codeql/queries/java/ql/src/Security/CWE/CWE-022/ZipSlip.ql.
+2021-04-02 15:54:49,725 DEBUG    		Compiling query plan for /opt/local/codeql/queries/java/ql/src/Security/CWE/CWE-312/CleartextStorageCookie.ql.
+2021-04-02 15:54:50,106 DEBUG    		[87/172] Found in cache: /opt/local/codeql/queries/java/ql/src/Security/CWE/CWE-312/CleartextStorageCookie.ql.
+2021-04-02 15:54:50,177 DEBUG    		Compiling query plan for /opt/local/codeql/queries/java/ql/src/Security/CWE/CWE-134/ExternallyControlledFormatString.ql.
+2021-04-02 15:54:50,510 DEBUG    		[88/172] Found in cache: /opt/local/codeql/queries/java/ql/src/Security/CWE/CWE-134/ExternallyControlledFormatString.ql.
+2021-04-02 15:54:50,553 DEBUG    		Compiling query plan for /opt/local/codeql/queries/java/ql/src/Security/CWE/CWE-829/InsecureDependencyResolution.ql.
+2021-04-02 15:54:50,711 DEBUG    		[89/172] Found in cache: /opt/local/codeql/queries/java/ql/src/Security/CWE/CWE-829/InsecureDependencyResolution.ql.
+2021-04-02 15:54:50,732 DEBUG    		Compiling query plan for /opt/local/codeql/queries/java/ql/src/Security/CWE/CWE-807/TaintedPermissionsCheck.ql.
+2021-04-02 15:54:51,164 DEBUG    		[90/172] Found in cache: /opt/local/codeql/queries/java/ql/src/Security/CWE/CWE-807/TaintedPermissionsCheck.ql.
+2021-04-02 15:54:51,245 DEBUG    		Compiling query plan for /opt/local/codeql/queries/java/ql/src/Security/CWE/CWE-601/UrlRedirect.ql.
+2021-04-02 15:54:51,629 DEBUG    		[91/172] Found in cache: /opt/local/codeql/queries/java/ql/src/Security/CWE/CWE-601/UrlRedirect.ql.
+2021-04-02 15:54:51,691 DEBUG    		Compiling query plan for /opt/local/codeql/queries/java/ql/src/Security/CWE/CWE-327/BrokenCryptoAlgorithm.ql.
+2021-04-02 15:54:52,138 DEBUG    		[92/172] Found in cache: /opt/local/codeql/queries/java/ql/src/Security/CWE/CWE-327/BrokenCryptoAlgorithm.ql.
+2021-04-02 15:54:52,186 DEBUG    		Compiling query plan for /opt/local/codeql/queries/java/ql/src/Security/CWE/CWE-502/UnsafeDeserialization.ql.
+2021-04-02 15:54:52,544 DEBUG    		[93/172] Found in cache: /opt/local/codeql/queries/java/ql/src/Security/CWE/CWE-502/UnsafeDeserialization.ql.
+2021-04-02 15:54:52,592 DEBUG    		Compiling query plan for /opt/local/codeql/queries/java/ql/src/Security/CWE/CWE-079/XSS.ql.
+2021-04-02 15:54:52,944 DEBUG    		[94/172] Found in cache: /opt/local/codeql/queries/java/ql/src/Security/CWE/CWE-079/XSS.ql.
+2021-04-02 15:54:52,995 DEBUG    		Compiling query plan for /opt/local/codeql/queries/java/ql/src/Security/CWE/CWE-113/ResponseSplitting.ql.
+2021-04-02 15:54:53,314 DEBUG    		[95/172] Found in cache: /opt/local/codeql/queries/java/ql/src/Security/CWE/CWE-113/ResponseSplitting.ql.
+2021-04-02 15:54:53,357 DEBUG    		Compiling query plan for /opt/local/codeql/queries/java/ql/src/Security/CWE/CWE-113/NettyResponseSplitting.ql.
+2021-04-02 15:54:53,510 DEBUG    		[96/172] Found in cache: /opt/local/codeql/queries/java/ql/src/Security/CWE/CWE-113/NettyResponseSplitting.ql.
+2021-04-02 15:54:53,524 DEBUG    		Compiling query plan for /opt/local/codeql/queries/java/ql/src/Security/CWE/CWE-297/UnsafeHostnameVerification.ql.
+2021-04-02 15:54:53,869 DEBUG    		[97/172] Found in cache: /opt/local/codeql/queries/java/ql/src/Security/CWE/CWE-297/UnsafeHostnameVerification.ql.
+2021-04-02 15:54:53,912 DEBUG    		Compiling query plan for /opt/local/codeql/queries/java/ql/src/Security/CWE/CWE-681/NumericCastTainted.ql.
+2021-04-02 15:54:54,283 DEBUG    		[98/172] Found in cache: /opt/local/codeql/queries/java/ql/src/Security/CWE/CWE-681/NumericCastTainted.ql.
+2021-04-02 15:54:54,321 DEBUG    		Compiling query plan for /opt/local/codeql/queries/java/ql/src/Security/CWE/CWE-1104/MavenPomDependsOnBintray.ql.
+2021-04-02 15:54:54,453 DEBUG    		[99/172] Found in cache: /opt/local/codeql/queries/java/ql/src/Security/CWE/CWE-1104/MavenPomDependsOnBintray.ql.
+2021-04-02 15:54:54,463 DEBUG    		Compiling query plan for /opt/local/codeql/queries/java/ql/src/Security/CWE/CWE-614/InsecureCookie.ql.
+2021-04-02 15:54:54,591 DEBUG    		[100/172] Found in cache: /opt/local/codeql/queries/java/ql/src/Security/CWE/CWE-614/InsecureCookie.ql.
+2021-04-02 15:54:54,602 DEBUG    		Compiling query plan for /opt/local/codeql/queries/java/ql/src/Security/CWE/CWE-090/LdapInjection.ql.
+2021-04-02 15:54:54,987 DEBUG    		[101/172] Found in cache: /opt/local/codeql/queries/java/ql/src/Security/CWE/CWE-090/LdapInjection.ql.
+2021-04-02 15:54:55,027 DEBUG    		Compiling query plan for /opt/local/codeql/queries/java/ql/src/Security/CWE/CWE-089/SqlUnescaped.ql.
+2021-04-02 15:54:55,360 DEBUG    		[102/172] Found in cache: /opt/local/codeql/queries/java/ql/src/Security/CWE/CWE-089/SqlUnescaped.ql.
+2021-04-02 15:54:55,397 DEBUG    		Compiling query plan for /opt/local/codeql/queries/java/ql/src/Security/CWE/CWE-089/SqlTainted.ql.
+2021-04-02 15:54:55,758 DEBUG    		[103/172] Found in cache: /opt/local/codeql/queries/java/ql/src/Security/CWE/CWE-089/SqlTainted.ql.
+2021-04-02 15:54:55,797 DEBUG    		Compiling query plan for /opt/local/codeql/queries/java/ql/src/Security/CWE/CWE-611/XXE.ql.
+2021-04-02 15:54:56,192 DEBUG    		[104/172] Found in cache: /opt/local/codeql/queries/java/ql/src/Security/CWE/CWE-611/XXE.ql.
+2021-04-02 15:54:56,238 DEBUG    		Compiling query plan for /opt/local/codeql/queries/java/ql/src/Security/CWE/CWE-338/JHipsterGeneratedPRNG.ql.
+2021-04-02 15:54:56,341 DEBUG    		[105/172] Found in cache: /opt/local/codeql/queries/java/ql/src/Security/CWE/CWE-338/JHipsterGeneratedPRNG.ql.
+2021-04-02 15:54:56,351 DEBUG    		Compiling query plan for /opt/local/codeql/queries/java/ql/src/Security/CWE/CWE-732/ReadingFromWorldWritableFile.ql.
+2021-04-02 15:54:56,482 DEBUG    		[106/172] Found in cache: /opt/local/codeql/queries/java/ql/src/Security/CWE/CWE-732/ReadingFromWorldWritableFile.ql.
+2021-04-02 15:54:56,493 DEBUG    		Compiling query plan for /opt/local/codeql/queries/java/ql/src/Security/CWE/CWE-209/StackTraceExposure.ql.
+2021-04-02 15:54:56,733 DEBUG    		[107/172] Found in cache: /opt/local/codeql/queries/java/ql/src/Security/CWE/CWE-209/StackTraceExposure.ql.
+2021-04-02 15:54:56,766 DEBUG    		Compiling query plan for /opt/local/codeql/queries/java/ql/src/Security/CWE/CWE-352/SpringCSRFProtection.ql.
+2021-04-02 15:54:56,873 DEBUG    		[108/172] Found in cache: /opt/local/codeql/queries/java/ql/src/Security/CWE/CWE-352/SpringCSRFProtection.ql.
+2021-04-02 15:54:56,882 DEBUG    		Compiling query plan for /opt/local/codeql/queries/java/ql/src/Violations of Best Practice/Undesirable Calls/NextFromIterator.ql.
+2021-04-02 15:54:57,008 DEBUG    		[109/172] Found in cache: /opt/local/codeql/queries/java/ql/src/Violations of Best Practice/Undesirable Calls/NextFromIterator.ql.
+2021-04-02 15:54:57,021 DEBUG    		Compiling query plan for /opt/local/codeql/queries/java/ql/src/Violations of Best Practice/Undesirable Calls/CallsToRunFinalizersOnExit.ql.
+2021-04-02 15:54:57,127 DEBUG    		[110/172] Found in cache: /opt/local/codeql/queries/java/ql/src/Violations of Best Practice/Undesirable Calls/CallsToRunFinalizersOnExit.ql.
+2021-04-02 15:54:57,135 DEBUG    		Compiling query plan for /opt/local/codeql/queries/java/ql/src/Violations of Best Practice/Naming Conventions/FieldMasksSuperField.ql.
+2021-04-02 15:54:57,239 DEBUG    		[111/172] Found in cache: /opt/local/codeql/queries/java/ql/src/Violations of Best Practice/Naming Conventions/FieldMasksSuperField.ql.
+2021-04-02 15:54:57,248 DEBUG    		Compiling query plan for /opt/local/codeql/queries/java/ql/src/Violations of Best Practice/Implementation Hiding/GetClassGetResource.ql.
+2021-04-02 15:54:57,359 DEBUG    		[112/172] Found in cache: /opt/local/codeql/queries/java/ql/src/Violations of Best Practice/Implementation Hiding/GetClassGetResource.ql.
+2021-04-02 15:54:57,369 DEBUG    		Compiling query plan for /opt/local/codeql/queries/java/ql/src/Violations of Best Practice/Dead Code/CreatesEmptyZip.ql.
+2021-04-02 15:54:57,508 DEBUG    		[113/172] Found in cache: /opt/local/codeql/queries/java/ql/src/Violations of Best Practice/Dead Code/CreatesEmptyZip.ql.
+2021-04-02 15:54:57,524 DEBUG    		Compiling query plan for /opt/local/codeql/queries/java/ql/src/Likely Bugs/Comparison/CovariantEquals.ql.
+2021-04-02 15:54:57,639 DEBUG    		[114/172] Found in cache: /opt/local/codeql/queries/java/ql/src/Likely Bugs/Comparison/CovariantEquals.ql.
+2021-04-02 15:54:57,646 DEBUG    		Compiling query plan for /opt/local/codeql/queries/java/ql/src/Likely Bugs/Comparison/InconsistentCompareTo.ql.
+2021-04-02 15:54:57,751 DEBUG    		[115/172] Found in cache: /opt/local/codeql/queries/java/ql/src/Likely Bugs/Comparison/InconsistentCompareTo.ql.
+2021-04-02 15:54:57,761 DEBUG    		Compiling query plan for /opt/local/codeql/queries/java/ql/src/Likely Bugs/Comparison/CovariantCompareTo.ql.
+2021-04-02 15:54:57,860 DEBUG    		[116/172] Found in cache: /opt/local/codeql/queries/java/ql/src/Likely Bugs/Comparison/CovariantCompareTo.ql.
+2021-04-02 15:54:57,873 DEBUG    		Compiling query plan for /opt/local/codeql/queries/java/ql/src/Likely Bugs/Comparison/StringComparison.ql.
+2021-04-02 15:54:57,970 DEBUG    		[117/172] Found in cache: /opt/local/codeql/queries/java/ql/src/Likely Bugs/Comparison/StringComparison.ql.
+2021-04-02 15:54:57,979 DEBUG    		Compiling query plan for /opt/local/codeql/queries/java/ql/src/Likely Bugs/Collections/IteratorRemoveMayFail.ql.
+2021-04-02 15:54:58,112 DEBUG    		[118/172] Found in cache: /opt/local/codeql/queries/java/ql/src/Likely Bugs/Collections/IteratorRemoveMayFail.ql.
+2021-04-02 15:54:58,123 DEBUG    		Compiling query plan for /opt/local/codeql/queries/java/ql/src/Likely Bugs/Serialization/MissingVoidConstructorsOnSerializable.ql.
+2021-04-02 15:54:58,226 DEBUG    		[119/172] Found in cache: /opt/local/codeql/queries/java/ql/src/Likely Bugs/Serialization/MissingVoidConstructorsOnSerializable.ql.
+2021-04-02 15:54:58,234 DEBUG    		Compiling query plan for /opt/local/codeql/queries/java/ql/src/Likely Bugs/Serialization/NonSerializableInnerClass.ql.
+2021-04-02 15:54:58,334 DEBUG    		[120/172] Found in cache: /opt/local/codeql/queries/java/ql/src/Likely Bugs/Serialization/NonSerializableInnerClass.ql.
+2021-04-02 15:54:58,344 DEBUG    		Compiling query plan for /opt/local/codeql/queries/java/ql/src/Likely Bugs/Serialization/IncorrectSerialVersionUID.ql.
+2021-04-02 15:54:58,448 DEBUG    		[121/172] Found in cache: /opt/local/codeql/queries/java/ql/src/Likely Bugs/Serialization/IncorrectSerialVersionUID.ql.
+2021-04-02 15:54:58,455 DEBUG    		Compiling query plan for /opt/local/codeql/queries/java/ql/src/Likely Bugs/Serialization/ReadResolveObject.ql.
+2021-04-02 15:54:58,558 DEBUG    		[122/172] Found in cache: /opt/local/codeql/queries/java/ql/src/Likely Bugs/Serialization/ReadResolveObject.ql.
+2021-04-02 15:54:58,571 DEBUG    		Compiling query plan for /opt/local/codeql/queries/java/ql/src/Likely Bugs/Serialization/MissingVoidConstructorOnExternalizable.ql.
+2021-04-02 15:54:58,681 DEBUG    		[123/172] Found in cache: /opt/local/codeql/queries/java/ql/src/Likely Bugs/Serialization/MissingVoidConstructorOnExternalizable.ql.
+2021-04-02 15:54:58,697 DEBUG    		Compiling query plan for /opt/local/codeql/queries/java/ql/src/Likely Bugs/Serialization/IncorrectSerializableMethods.ql.
+2021-04-02 15:54:58,812 DEBUG    		[124/172] Found in cache: /opt/local/codeql/queries/java/ql/src/Likely Bugs/Serialization/IncorrectSerializableMethods.ql.
+2021-04-02 15:54:58,821 DEBUG    		Compiling query plan for /opt/local/codeql/queries/java/ql/src/Likely Bugs/Arithmetic/RandomUsedOnce.ql.
+2021-04-02 15:54:58,920 DEBUG    		[125/172] Found in cache: /opt/local/codeql/queries/java/ql/src/Likely Bugs/Arithmetic/RandomUsedOnce.ql.
+2021-04-02 15:54:58,928 DEBUG    		Compiling query plan for /opt/local/codeql/queries/java/ql/src/Likely Bugs/Arithmetic/MultiplyRemainder.ql.
+2021-04-02 15:54:59,035 DEBUG    		[126/172] Found in cache: /opt/local/codeql/queries/java/ql/src/Likely Bugs/Arithmetic/MultiplyRemainder.ql.
+2021-04-02 15:54:59,044 DEBUG    		Compiling query plan for /opt/local/codeql/queries/java/ql/src/Likely Bugs/Arithmetic/BadAbsOfRandom.ql.
+2021-04-02 15:54:59,149 DEBUG    		[127/172] Found in cache: /opt/local/codeql/queries/java/ql/src/Likely Bugs/Arithmetic/BadAbsOfRandom.ql.
+2021-04-02 15:54:59,158 DEBUG    		Compiling query plan for /opt/local/codeql/queries/java/ql/src/Likely Bugs/Termination/SpinOnField.ql.
+2021-04-02 15:54:59,277 DEBUG    		[128/172] Found in cache: /opt/local/codeql/queries/java/ql/src/Likely Bugs/Termination/SpinOnField.ql.
+2021-04-02 15:54:59,290 DEBUG    		Compiling query plan for /opt/local/codeql/queries/java/ql/src/Likely Bugs/Statements/MissingEnumInSwitch.ql.
+2021-04-02 15:54:59,401 DEBUG    		[129/172] Found in cache: /opt/local/codeql/queries/java/ql/src/Likely Bugs/Statements/MissingEnumInSwitch.ql.
+2021-04-02 15:54:59,409 DEBUG    		Compiling query plan for /opt/local/codeql/queries/java/ql/src/Likely Bugs/Concurrency/FutileSynchOnField.ql.
+2021-04-02 15:54:59,507 DEBUG    		[130/172] Found in cache: /opt/local/codeql/queries/java/ql/src/Likely Bugs/Concurrency/FutileSynchOnField.ql.
+2021-04-02 15:54:59,515 DEBUG    		Compiling query plan for /opt/local/codeql/queries/java/ql/src/Likely Bugs/Concurrency/NotifyNotNotifyAll.ql.
+2021-04-02 15:54:59,608 DEBUG    		[131/172] Found in cache: /opt/local/codeql/queries/java/ql/src/Likely Bugs/Concurrency/NotifyNotNotifyAll.ql.
+2021-04-02 15:54:59,615 DEBUG    		Compiling query plan for /opt/local/codeql/queries/java/ql/src/Likely Bugs/Concurrency/StartInConstructor.ql.
+2021-04-02 15:54:59,712 DEBUG    		[132/172] Found in cache: /opt/local/codeql/queries/java/ql/src/Likely Bugs/Concurrency/StartInConstructor.ql.
+2021-04-02 15:54:59,721 DEBUG    		Compiling query plan for /opt/local/codeql/queries/java/ql/src/Likely Bugs/Concurrency/SleepWithLock.ql.
+2021-04-02 15:54:59,834 DEBUG    		[133/172] Found in cache: /opt/local/codeql/queries/java/ql/src/Likely Bugs/Concurrency/SleepWithLock.ql.
+2021-04-02 15:54:59,840 DEBUG    		Compiling query plan for /opt/local/codeql/queries/java/ql/src/Likely Bugs/Concurrency/UnreleasedLock.ql.
+2021-04-02 15:54:59,977 DEBUG    		[134/172] Found in cache: /opt/local/codeql/queries/java/ql/src/Likely Bugs/Concurrency/UnreleasedLock.ql.
+2021-04-02 15:54:59,995 DEBUG    		Compiling query plan for /opt/local/codeql/queries/java/ql/src/Likely Bugs/Concurrency/CallsToConditionWait.ql.
+2021-04-02 15:55:00,127 DEBUG    		[135/172] Found in cache: /opt/local/codeql/queries/java/ql/src/Likely Bugs/Concurrency/CallsToConditionWait.ql.
+2021-04-02 15:55:00,137 DEBUG    		Compiling query plan for /opt/local/codeql/queries/java/ql/src/Likely Bugs/Concurrency/DateFormatThreadUnsafe.ql.
+2021-04-02 15:55:00,257 DEBUG    		[136/172] Found in cache: /opt/local/codeql/queries/java/ql/src/Likely Bugs/Concurrency/DateFormatThreadUnsafe.ql.
+2021-04-02 15:55:00,265 DEBUG    		Compiling query plan for /opt/local/codeql/queries/java/ql/src/Likely Bugs/Concurrency/SynchWriteObject.ql.
+2021-04-02 15:55:00,380 DEBUG    		[137/172] Found in cache: /opt/local/codeql/queries/java/ql/src/Likely Bugs/Concurrency/SynchWriteObject.ql.
+2021-04-02 15:55:00,389 DEBUG    		Compiling query plan for /opt/local/codeql/queries/java/ql/src/Likely Bugs/Finalization/NullifiedSuperFinalize.ql.
+2021-04-02 15:55:00,489 DEBUG    		[138/172] Found in cache: /opt/local/codeql/queries/java/ql/src/Likely Bugs/Finalization/NullifiedSuperFinalize.ql.
+2021-04-02 15:55:00,497 DEBUG    		Compiling query plan for /opt/local/codeql/queries/java/ql/src/Likely Bugs/Reflection/AnnotationPresentCheck.ql.
+2021-04-02 15:55:00,613 DEBUG    		[139/172] Found in cache: /opt/local/codeql/queries/java/ql/src/Likely Bugs/Reflection/AnnotationPresentCheck.ql.
+2021-04-02 15:55:00,621 DEBUG    		Compiling query plan for /opt/local/codeql/queries/java/ql/src/Likely Bugs/Likely Typos/EqualsTypo.ql.
+2021-04-02 15:55:00,730 DEBUG    		[140/172] Found in cache: /opt/local/codeql/queries/java/ql/src/Likely Bugs/Likely Typos/EqualsTypo.ql.
+2021-04-02 15:55:00,737 DEBUG    		Compiling query plan for /opt/local/codeql/queries/java/ql/src/Likely Bugs/Likely Typos/ToStringTypo.ql.
+2021-04-02 15:55:00,842 DEBUG    		[141/172] Found in cache: /opt/local/codeql/queries/java/ql/src/Likely Bugs/Likely Typos/ToStringTypo.ql.
+2021-04-02 15:55:00,849 DEBUG    		Compiling query plan for /opt/local/codeql/queries/java/ql/src/Likely Bugs/Likely Typos/HashCodeTypo.ql.
+2021-04-02 15:55:00,969 DEBUG    		[142/172] Found in cache: /opt/local/codeql/queries/java/ql/src/Likely Bugs/Likely Typos/HashCodeTypo.ql.
+2021-04-02 15:55:00,975 DEBUG    		Compiling query plan for /opt/local/codeql/queries/java/ql/src/Likely Bugs/Likely Typos/DangerousNonCircuitLogic.ql.
+2021-04-02 15:55:01,074 DEBUG    		[143/172] Found in cache: /opt/local/codeql/queries/java/ql/src/Likely Bugs/Likely Typos/DangerousNonCircuitLogic.ql.
+2021-04-02 15:55:01,081 DEBUG    		Compiling query plan for /opt/local/codeql/queries/java/ql/src/Likely Bugs/Cloning/MissingMethodClone.ql.
+2021-04-02 15:55:01,187 DEBUG    		[144/172] Found in cache: /opt/local/codeql/queries/java/ql/src/Likely Bugs/Cloning/MissingMethodClone.ql.
+2021-04-02 15:55:01,194 DEBUG    		Compiling query plan for /opt/local/codeql/queries/java/ql/src/Likely Bugs/Cloning/MissingCallToSuperClone.ql.
+2021-04-02 15:55:01,286 DEBUG    		[145/172] Found in cache: /opt/local/codeql/queries/java/ql/src/Likely Bugs/Cloning/MissingCallToSuperClone.ql.
+2021-04-02 15:55:01,292 DEBUG    		Compiling query plan for /opt/local/codeql/queries/java/ql/src/Likely Bugs/Frameworks/JUnit/BadSuiteMethod.ql.
+2021-04-02 15:55:01,391 DEBUG    		[146/172] Found in cache: /opt/local/codeql/queries/java/ql/src/Likely Bugs/Frameworks/JUnit/BadSuiteMethod.ql.
+2021-04-02 15:55:01,398 DEBUG    		Compiling query plan for /opt/local/codeql/queries/java/ql/src/Likely Bugs/Frameworks/Swing/BadlyOverriddenAdapter.ql.
+2021-04-02 15:55:01,534 DEBUG    		[147/172] Found in cache: /opt/local/codeql/queries/java/ql/src/Likely Bugs/Frameworks/Swing/BadlyOverriddenAdapter.ql.
+2021-04-02 15:55:01,540 DEBUG    		Compiling query plan for /opt/local/codeql/queries/java/ql/src/Language Abuse/TypeVariableHidesType.ql.
+2021-04-02 15:55:01,640 DEBUG    		[148/172] Found in cache: /opt/local/codeql/queries/java/ql/src/Language Abuse/TypeVariableHidesType.ql.
+2021-04-02 15:55:01,646 DEBUG    		Compiling query plan for /opt/local/codeql/queries/java/ql/src/Language Abuse/OverridePackagePrivate.ql.
+2021-04-02 15:55:01,740 DEBUG    		[149/172] Found in cache: /opt/local/codeql/queries/java/ql/src/Language Abuse/OverridePackagePrivate.ql.
+2021-04-02 15:55:01,746 DEBUG    		Compiling query plan for /opt/local/codeql/queries/java/ql/src/Language Abuse/TypeVarExtendsFinalType.ql.
+2021-04-02 15:55:01,842 DEBUG    		[150/172] Found in cache: /opt/local/codeql/queries/java/ql/src/Language Abuse/TypeVarExtendsFinalType.ql.
+2021-04-02 15:55:01,847 DEBUG    		Compiling query plan for /opt/local/codeql/queries/java/ql/src/Security/CWE/CWE-078/ExecRelative.ql.
+2021-04-02 15:55:01,950 DEBUG    		[151/172] Found in cache: /opt/local/codeql/queries/java/ql/src/Security/CWE/CWE-078/ExecRelative.ql.
+2021-04-02 15:55:01,956 DEBUG    		Compiling query plan for /opt/local/codeql/queries/java/ql/src/Security/CWE/CWE-312/CleartextStorageProperties.ql.
+2021-04-02 15:55:02,237 DEBUG    		[152/172] Found in cache: /opt/local/codeql/queries/java/ql/src/Security/CWE/CWE-312/CleartextStorageProperties.ql.
+2021-04-02 15:55:02,278 DEBUG    		Compiling query plan for /opt/local/codeql/queries/java/ql/src/Security/CWE/CWE-807/ConditionalBypass.ql.
+2021-04-02 15:55:02,530 DEBUG    		[153/172] Found in cache: /opt/local/codeql/queries/java/ql/src/Security/CWE/CWE-807/ConditionalBypass.ql.
+2021-04-02 15:55:02,566 DEBUG    		Compiling query plan for /opt/local/codeql/queries/java/ql/src/Security/CWE/CWE-327/MaybeBrokenCryptoAlgorithm.ql.
+2021-04-02 15:55:02,804 DEBUG    		[154/172] Found in cache: /opt/local/codeql/queries/java/ql/src/Security/CWE/CWE-327/MaybeBrokenCryptoAlgorithm.ql.
+2021-04-02 15:55:02,831 DEBUG    		Compiling query plan for /opt/local/codeql/queries/java/ql/src/Security/CWE/CWE-798/HardcodedCredentialsApiCall.ql.
+2021-04-02 15:55:03,045 DEBUG    		[155/172] Found in cache: /opt/local/codeql/queries/java/ql/src/Security/CWE/CWE-798/HardcodedCredentialsApiCall.ql.
+2021-04-02 15:55:03,079 DEBUG    		Compiling query plan for /opt/local/codeql/queries/java/ql/src/Security/CWE/CWE-421/SocketAuthRace.ql.
+2021-04-02 15:55:03,214 DEBUG    		[156/172] Found in cache: /opt/local/codeql/queries/java/ql/src/Security/CWE/CWE-421/SocketAuthRace.ql.
+2021-04-02 15:55:03,228 DEBUG    		Compiling query plan for /opt/local/codeql/queries/java/ql/src/Security/CWE/CWE-676/PotentiallyDangerousFunction.ql.
+2021-04-02 15:55:03,323 DEBUG    		[157/172] Found in cache: /opt/local/codeql/queries/java/ql/src/Security/CWE/CWE-676/PotentiallyDangerousFunction.ql.
+2021-04-02 15:55:03,331 DEBUG    		Compiling query plan for /opt/local/codeql/queries/java/ql/src/Security/CWE/CWE-129/ImproperValidationOfArrayConstruction.ql.
+2021-04-02 15:55:03,567 DEBUG    		[158/172] Found in cache: /opt/local/codeql/queries/java/ql/src/Security/CWE/CWE-129/ImproperValidationOfArrayConstruction.ql.
+2021-04-02 15:55:03,600 DEBUG    		Compiling query plan for /opt/local/codeql/queries/java/ql/src/Security/CWE/CWE-129/ImproperValidationOfArrayIndex.ql.
+2021-04-02 15:55:03,880 DEBUG    		[159/172] Found in cache: /opt/local/codeql/queries/java/ql/src/Security/CWE/CWE-129/ImproperValidationOfArrayIndex.ql.
+2021-04-02 15:55:03,913 DEBUG    		Compiling query plan for /opt/local/codeql/queries/java/ql/src/Security/CWE/CWE-367/TOCTOURace.ql.
+2021-04-02 15:55:04,025 DEBUG    		[160/172] Found in cache: /opt/local/codeql/queries/java/ql/src/Security/CWE/CWE-367/TOCTOURace.ql.
+2021-04-02 15:55:04,040 DEBUG    		Compiling query plan for /opt/local/codeql/queries/java/ql/src/Security/CWE/CWE-835/InfiniteLoop.ql.
+2021-04-02 15:55:04,199 DEBUG    		[161/172] Found in cache: /opt/local/codeql/queries/java/ql/src/Security/CWE/CWE-835/InfiniteLoop.ql.
+2021-04-02 15:55:04,216 DEBUG    		Compiling query plan for /opt/local/codeql/queries/java/ql/src/Security/CWE/CWE-190/ArithmeticTainted.ql.
+2021-04-02 15:55:04,477 DEBUG    		[162/172] Found in cache: /opt/local/codeql/queries/java/ql/src/Security/CWE/CWE-190/ArithmeticTainted.ql.
+2021-04-02 15:55:04,514 DEBUG    		Compiling query plan for /opt/local/codeql/queries/java/ql/src/Security/CWE/CWE-190/ComparisonWithWiderType.ql.
+2021-04-02 15:55:04,619 DEBUG    		[163/172] Found in cache: /opt/local/codeql/queries/java/ql/src/Security/CWE/CWE-190/ComparisonWithWiderType.ql.
+2021-04-02 15:55:04,628 DEBUG    		Compiling query plan for /opt/local/codeql/queries/java/ql/src/Security/CWE/CWE-190/ArithmeticUncontrolled.ql.
+2021-04-02 15:55:04,860 DEBUG    		[164/172] Found in cache: /opt/local/codeql/queries/java/ql/src/Security/CWE/CWE-190/ArithmeticUncontrolled.ql.
+2021-04-02 15:55:04,894 DEBUG    		Compiling query plan for /opt/local/codeql/queries/java/ql/src/filters/ClassifyFiles.ql.
+2021-04-02 15:55:04,998 DEBUG    		[165/172] Found in cache: /opt/local/codeql/queries/java/ql/src/filters/ClassifyFiles.ql.
+2021-04-02 15:55:05,009 DEBUG    		Compiling query plan for /opt/local/codeql/queries/java/ql/src/AlertSuppression.ql.
+2021-04-02 15:55:05,105 DEBUG    		[166/172] Found in cache: /opt/local/codeql/queries/java/ql/src/AlertSuppression.ql.
+2021-04-02 15:55:05,113 DEBUG    		Compiling query plan for /opt/local/codeql/queries/java/ql/src/definitions.ql.
+2021-04-02 15:55:05,212 DEBUG    		[167/172] Found in cache: /opt/local/codeql/queries/java/ql/src/definitions.ql.
+2021-04-02 15:55:05,221 DEBUG    		Compiling query plan for /opt/local/codeql/queries/java/ql/src/AlertSuppressionAnnotations.ql.
+2021-04-02 15:55:05,323 DEBUG    		[168/172] Found in cache: /opt/local/codeql/queries/java/ql/src/AlertSuppressionAnnotations.ql.
+2021-04-02 15:55:05,334 DEBUG    		Compiling query plan for /opt/local/codeql/queries/java/ql/src/Metrics/Files/FLinesOfCode.ql.
+2021-04-02 15:55:05,451 DEBUG    		[169/172] Found in cache: /opt/local/codeql/queries/java/ql/src/Metrics/Files/FLinesOfCode.ql.
+2021-04-02 15:55:05,465 DEBUG    		Compiling query plan for /opt/local/codeql/queries/java/ql/src/Metrics/Files/FLinesOfCommentedCode.ql.
+2021-04-02 15:55:05,568 DEBUG    		[170/172] Found in cache: /opt/local/codeql/queries/java/ql/src/Metrics/Files/FLinesOfCommentedCode.ql.
+2021-04-02 15:55:05,577 DEBUG    		Compiling query plan for /opt/local/codeql/queries/java/ql/src/Metrics/Files/FLinesOfComment.ql.
+2021-04-02 15:55:05,678 DEBUG    		[171/172] Found in cache: /opt/local/codeql/queries/java/ql/src/Metrics/Files/FLinesOfComment.ql.
+2021-04-02 15:55:05,687 DEBUG    		Compiling query plan for /opt/local/codeql/queries/java/ql/src/Metrics/Files/FNumberOfTests.ql.
+2021-04-02 15:55:05,796 DEBUG    		[172/172] Found in cache: /opt/local/codeql/queries/java/ql/src/Metrics/Files/FNumberOfTests.ql.
+2021-04-02 15:55:05,802 DEBUG    		Starting evaluation of codeql-java/Advisory/Declarations/MissingOverrideAnnotation.ql.
+2021-04-02 15:55:10,147 DEBUG    		[1/172 eval 4.3s] Evaluation done; writing results to codeql-java/Advisory/Declarations/MissingOverrideAnnotation.bqrs.
+2021-04-02 15:55:10,165 DEBUG    		Starting evaluation of codeql-java/Advisory/Deprecated Code/AvoidDeprecatedCallableAccess.ql.
+2021-04-02 15:55:10,339 DEBUG    		[2/172 eval 174ms] Evaluation done; writing results to codeql-java/Advisory/Deprecated Code/AvoidDeprecatedCallableAccess.bqrs.
+2021-04-02 15:55:10,347 DEBUG    		Starting evaluation of codeql-java/Advisory/Documentation/ImpossibleJavadocThrows.ql.
+2021-04-02 15:55:10,423 DEBUG    		[3/172 eval 71ms] Evaluation done; writing results to codeql-java/Advisory/Documentation/ImpossibleJavadocThrows.bqrs.
+2021-04-02 15:55:10,434 DEBUG    		Starting evaluation of codeql-java/Advisory/Documentation/SpuriousJavadocParam.ql.
+2021-04-02 15:55:10,532 DEBUG    		[4/172 eval 97ms] Evaluation done; writing results to codeql-java/Advisory/Documentation/SpuriousJavadocParam.bqrs.
+2021-04-02 15:55:10,538 DEBUG    		Starting evaluation of codeql-java/Violations of Best Practice/Undesirable Calls/DefaultToString.ql.
+2021-04-02 15:55:11,319 DEBUG    		[5/172 eval 781ms] Evaluation done; writing results to codeql-java/Violations of Best Practice/Undesirable Calls/DefaultToString.bqrs.
+2021-04-02 15:55:11,330 DEBUG    		Starting evaluation of codeql-java/Violations of Best Practice/Undesirable Calls/CallsToStringToString.ql.
+2021-04-02 15:55:11,416 DEBUG    		[6/172 eval 85ms] Evaluation done; writing results to codeql-java/Violations of Best Practice/Undesirable Calls/CallsToStringToString.bqrs.
+2021-04-02 15:55:11,421 DEBUG    		Starting evaluation of codeql-java/Violations of Best Practice/Undesirable Calls/PrintLnArray.ql.
+2021-04-02 15:55:11,772 DEBUG    		[7/172 eval 350ms] Evaluation done; writing results to codeql-java/Violations of Best Practice/Undesirable Calls/PrintLnArray.bqrs.
+2021-04-02 15:55:11,779 DEBUG    		Starting evaluation of codeql-java/Violations of Best Practice/Naming Conventions/ConfusingMethodNames.ql.
+2021-04-02 15:55:12,070 DEBUG    		[8/172 eval 290ms] Evaluation done; writing results to codeql-java/Violations of Best Practice/Naming Conventions/ConfusingMethodNames.bqrs.
+2021-04-02 15:55:12,078 DEBUG    		Starting evaluation of codeql-java/Violations of Best Practice/Naming Conventions/ConfusingOverloading.ql.
+2021-04-02 15:55:13,260 DEBUG    		[9/172 eval 1.2s] Evaluation done; writing results to codeql-java/Violations of Best Practice/Naming Conventions/ConfusingOverloading.bqrs.
+2021-04-02 15:55:13,268 DEBUG    		Starting evaluation of codeql-java/Violations of Best Practice/Naming Conventions/AmbiguousOuterSuper.ql.
+2021-04-02 15:55:13,430 DEBUG    		[10/172 eval 160ms] Evaluation done; writing results to codeql-java/Violations of Best Practice/Naming Conventions/AmbiguousOuterSuper.bqrs.
+2021-04-02 15:55:13,437 DEBUG    		Starting evaluation of codeql-java/Violations of Best Practice/Naming Conventions/LocalShadowsFieldConfusing.ql.
+2021-04-02 15:55:13,558 DEBUG    		[11/172 eval 120ms] Evaluation done; writing results to codeql-java/Violations of Best Practice/Naming Conventions/LocalShadowsFieldConfusing.bqrs.
+2021-04-02 15:55:13,564 DEBUG    		Starting evaluation of codeql-java/Violations of Best Practice/Naming Conventions/SameNameAsSuper.ql.
+2021-04-02 15:55:13,675 DEBUG    		[12/172 eval 111ms] Evaluation done; writing results to codeql-java/Violations of Best Practice/Naming Conventions/SameNameAsSuper.bqrs.
+2021-04-02 15:55:13,685 DEBUG    		Starting evaluation of codeql-java/Violations of Best Practice/Implementation Hiding/AbstractToConcreteCollection.ql.
+2021-04-02 15:55:14,108 DEBUG    		[13/172 eval 423ms] Evaluation done; writing results to codeql-java/Violations of Best Practice/Implementation Hiding/AbstractToConcreteCollection.bqrs.
+2021-04-02 15:55:14,119 DEBUG    		Starting evaluation of codeql-java/Violations of Best Practice/Implementation Hiding/ExposeRepresentation.ql.
+2021-04-02 15:55:24,075 DEBUG    		[14/172 eval 10s] Evaluation done; writing results to codeql-java/Violations of Best Practice/Implementation Hiding/ExposeRepresentation.bqrs.
+2021-04-02 15:55:24,084 DEBUG    		Starting evaluation of codeql-java/Violations of Best Practice/Dead Code/InterfaceCannotBeImplemented.ql.
+2021-04-02 15:55:24,191 DEBUG    		[15/172 eval 106ms] Evaluation done; writing results to codeql-java/Violations of Best Practice/Dead Code/InterfaceCannotBeImplemented.bqrs.
+2021-04-02 15:55:24,199 DEBUG    		Starting evaluation of codeql-java/Violations of Best Practice/Dead Code/DeadRefTypes.ql.
+2021-04-02 15:55:24,756 DEBUG    		[16/172 eval 557ms] Evaluation done; writing results to codeql-java/Violations of Best Practice/Dead Code/DeadRefTypes.bqrs.
+2021-04-02 15:55:24,761 DEBUG    		Starting evaluation of codeql-java/Violations of Best Practice/Dead Code/UnreadLocal.ql.
+2021-04-02 15:55:24,813 DEBUG    		[17/172 eval 52ms] Evaluation done; writing results to codeql-java/Violations of Best Practice/Dead Code/UnreadLocal.bqrs.
+2021-04-02 15:55:24,819 DEBUG    		Starting evaluation of codeql-java/Violations of Best Practice/Dead Code/UnusedLabel.ql.
+2021-04-02 15:55:24,842 DEBUG    		[18/172 eval 23ms] Evaluation done; writing results to codeql-java/Violations of Best Practice/Dead Code/UnusedLabel.bqrs.
+2021-04-02 15:55:24,847 DEBUG    		Starting evaluation of codeql-java/Violations of Best Practice/Boxed Types/BoxedVariable.ql.
+2021-04-02 15:55:24,949 DEBUG    		[19/172 eval 102ms] Evaluation done; writing results to codeql-java/Violations of Best Practice/Boxed Types/BoxedVariable.bqrs.
+2021-04-02 15:55:24,957 DEBUG    		Starting evaluation of codeql-java/Violations of Best Practice/Declarations/NoConstantsOnly.ql.
+2021-04-02 15:55:25,094 DEBUG    		[20/172 eval 135ms] Evaluation done; writing results to codeql-java/Violations of Best Practice/Declarations/NoConstantsOnly.bqrs.
+2021-04-02 15:55:25,114 DEBUG    		Starting evaluation of codeql-java/Violations of Best Practice/Exception Handling/NumberFormatException.ql.
+2021-04-02 15:55:25,227 DEBUG    		[21/172 eval 113ms] Evaluation done; writing results to codeql-java/Violations of Best Practice/Exception Handling/NumberFormatException.bqrs.
+2021-04-02 15:55:25,237 DEBUG    		Starting evaluation of codeql-java/Violations of Best Practice/Exception Handling/IgnoreExceptionalReturn.ql.
+2021-04-02 15:55:25,363 DEBUG    		[22/172 eval 126ms] Evaluation done; writing results to codeql-java/Violations of Best Practice/Exception Handling/IgnoreExceptionalReturn.bqrs.
+2021-04-02 15:55:25,368 DEBUG    		Starting evaluation of codeql-java/Performance/InefficientEmptyStringTest.ql.
+2021-04-02 15:55:25,463 DEBUG    		[23/172 eval 95ms] Evaluation done; writing results to codeql-java/Performance/InefficientEmptyStringTest.bqrs.
+2021-04-02 15:55:25,471 DEBUG    		Starting evaluation of codeql-java/Performance/InefficientOutputStream.ql.
+2021-04-02 15:55:25,603 DEBUG    		[24/172 eval 133ms] Evaluation done; writing results to codeql-java/Performance/InefficientOutputStream.bqrs.
+2021-04-02 15:55:25,608 DEBUG    		Starting evaluation of codeql-java/Performance/InefficientKeySetIterator.ql.
+2021-04-02 15:55:25,657 DEBUG    		[25/172 eval 48ms] Evaluation done; writing results to codeql-java/Performance/InefficientKeySetIterator.bqrs.
+2021-04-02 15:55:25,684 DEBUG    		Starting evaluation of codeql-java/Performance/InefficientPrimConstructor.ql.
+2021-04-02 15:55:25,783 DEBUG    		[26/172 eval 98ms] Evaluation done; writing results to codeql-java/Performance/InefficientPrimConstructor.bqrs.
+2021-04-02 15:55:25,788 DEBUG    		Starting evaluation of codeql-java/Performance/NewStringString.ql.
+2021-04-02 15:55:25,829 DEBUG    		[27/172 eval 42ms] Evaluation done; writing results to codeql-java/Performance/NewStringString.bqrs.
+2021-04-02 15:55:25,835 DEBUG    		Starting evaluation of codeql-java/Performance/InnerClassCouldBeStatic.ql.
+2021-04-02 15:55:26,106 DEBUG    		[28/172 eval 272ms] Evaluation done; writing results to codeql-java/Performance/InnerClassCouldBeStatic.bqrs.
+2021-04-02 15:55:26,112 DEBUG    		Starting evaluation of codeql-java/Likely Bugs/Comparison/InconsistentEqualsHashCode.ql.
+2021-04-02 15:55:26,296 DEBUG    		[29/172 eval 184ms] Evaluation done; writing results to codeql-java/Likely Bugs/Comparison/InconsistentEqualsHashCode.bqrs.
+2021-04-02 15:55:26,308 DEBUG    		Starting evaluation of codeql-java/Likely Bugs/Comparison/WrongNanComparison.ql.
+2021-04-02 15:55:26,394 DEBUG    		[30/172 eval 87ms] Evaluation done; writing results to codeql-java/Likely Bugs/Comparison/WrongNanComparison.bqrs.
+2021-04-02 15:55:26,401 DEBUG    		Starting evaluation of codeql-java/Likely Bugs/Comparison/IncomparableEquals.ql.
+2021-04-02 15:55:26,518 DEBUG    		[31/172 eval 117ms] Evaluation done; writing results to codeql-java/Likely Bugs/Comparison/IncomparableEquals.bqrs.
+2021-04-02 15:55:26,522 DEBUG    		Starting evaluation of codeql-java/Likely Bugs/Comparison/UselessComparisonTest.ql.
+2021-04-02 15:55:33,324 DEBUG    		[32/172 eval 6.8s] Evaluation done; writing results to codeql-java/Likely Bugs/Comparison/UselessComparisonTest.bqrs.
+2021-04-02 15:55:33,330 DEBUG    		Starting evaluation of codeql-java/Likely Bugs/Comparison/CompareIdenticalValues.ql.
+2021-04-02 15:55:33,450 DEBUG    		[33/172 eval 121ms] Evaluation done; writing results to codeql-java/Likely Bugs/Comparison/CompareIdenticalValues.bqrs.
+2021-04-02 15:55:33,457 DEBUG    		Starting evaluation of codeql-java/Likely Bugs/Comparison/EqualsArray.ql.
+2021-04-02 15:55:33,572 DEBUG    		[34/172 eval 115ms] Evaluation done; writing results to codeql-java/Likely Bugs/Comparison/EqualsArray.bqrs.
+2021-04-02 15:55:33,579 DEBUG    		Starting evaluation of codeql-java/Likely Bugs/Comparison/HashedButNoHash.ql.
+2021-04-02 15:55:33,659 DEBUG    		[35/172 eval 80ms] Evaluation done; writing results to codeql-java/Likely Bugs/Comparison/HashedButNoHash.bqrs.
+2021-04-02 15:55:33,666 DEBUG    		Starting evaluation of codeql-java/Likely Bugs/Comparison/MissingInstanceofInEquals.ql.
+2021-04-02 15:55:33,757 DEBUG    		[36/172 eval 90ms] Evaluation done; writing results to codeql-java/Likely Bugs/Comparison/MissingInstanceofInEquals.bqrs.
+2021-04-02 15:55:33,765 DEBUG    		Starting evaluation of codeql-java/Likely Bugs/Comparison/RefEqBoxed.ql.
+2021-04-02 15:55:33,850 DEBUG    		[37/172 eval 86ms] Evaluation done; writing results to codeql-java/Likely Bugs/Comparison/RefEqBoxed.bqrs.
+2021-04-02 15:55:33,859 DEBUG    		Starting evaluation of codeql-java/Likely Bugs/Collections/ArrayIndexOutOfBounds.ql.
+2021-04-02 15:55:34,487 DEBUG    		[38/172 eval 628ms] Evaluation done; writing results to codeql-java/Likely Bugs/Collections/ArrayIndexOutOfBounds.bqrs.
+2021-04-02 15:55:34,495 DEBUG    		Starting evaluation of codeql-java/Likely Bugs/Collections/WriteOnlyContainer.ql.
+2021-04-02 15:55:35,002 DEBUG    		[39/172 eval 507ms] Evaluation done; writing results to codeql-java/Likely Bugs/Collections/WriteOnlyContainer.bqrs.
+2021-04-02 15:55:35,009 DEBUG    		Starting evaluation of codeql-java/Likely Bugs/Collections/ReadOnlyContainer.ql.
+2021-04-02 15:55:38,089 DEBUG    		[40/172 eval 3.1s] Evaluation done; writing results to codeql-java/Likely Bugs/Collections/ReadOnlyContainer.bqrs.
+2021-04-02 15:55:38,095 DEBUG    		Starting evaluation of codeql-java/Likely Bugs/Collections/ContainsTypeMismatch.ql.
+2021-04-02 15:55:38,208 DEBUG    		[41/172 eval 113ms] Evaluation done; writing results to codeql-java/Likely Bugs/Collections/ContainsTypeMismatch.bqrs.
+2021-04-02 15:55:38,215 DEBUG    		Starting evaluation of codeql-java/Likely Bugs/Collections/RemoveTypeMismatch.ql.
+2021-04-02 15:55:38,362 DEBUG    		[42/172 eval 147ms] Evaluation done; writing results to codeql-java/Likely Bugs/Collections/RemoveTypeMismatch.bqrs.
+2021-04-02 15:55:38,371 DEBUG    		Starting evaluation of codeql-java/Likely Bugs/Arithmetic/ConstantExpAppearsNonConstant.ql.
+2021-04-02 15:55:38,472 DEBUG    		[43/172 eval 101ms] Evaluation done; writing results to codeql-java/Likely Bugs/Arithmetic/ConstantExpAppearsNonConstant.bqrs.
+2021-04-02 15:55:38,479 DEBUG    		Starting evaluation of codeql-java/Likely Bugs/Arithmetic/WhitespaceContradictsPrecedence.ql.
+2021-04-02 15:55:38,536 DEBUG    		[44/172 eval 57ms] Evaluation done; writing results to codeql-java/Likely Bugs/Arithmetic/WhitespaceContradictsPrecedence.bqrs.
+2021-04-02 15:55:38,542 DEBUG    		Starting evaluation of codeql-java/Likely Bugs/Arithmetic/IntMultToLong.ql.
+2021-04-02 15:55:39,093 DEBUG    		[45/172 eval 551ms] Evaluation done; writing results to codeql-java/Likely Bugs/Arithmetic/IntMultToLong.bqrs.
+2021-04-02 15:55:39,097 DEBUG    		Starting evaluation of codeql-java/Likely Bugs/Arithmetic/LShiftLargerThanTypeWidth.ql.
+2021-04-02 15:55:39,138 DEBUG    		[46/172 eval 40ms] Evaluation done; writing results to codeql-java/Likely Bugs/Arithmetic/LShiftLargerThanTypeWidth.bqrs.
+2021-04-02 15:55:39,143 DEBUG    		Starting evaluation of codeql-java/Likely Bugs/Arithmetic/InformationLoss.ql.
+2021-04-02 15:55:39,182 DEBUG    		[47/172 eval 36ms] Evaluation done; writing results to codeql-java/Likely Bugs/Arithmetic/InformationLoss.bqrs.
+2021-04-02 15:55:39,196 DEBUG    		Starting evaluation of codeql-java/Likely Bugs/Termination/ConstantLoopCondition.ql.
+2021-04-02 15:55:39,768 DEBUG    		[48/172 eval 569ms] Evaluation done; writing results to codeql-java/Likely Bugs/Termination/ConstantLoopCondition.bqrs.
+2021-04-02 15:55:39,779 DEBUG    		Starting evaluation of codeql-java/Likely Bugs/Nullness/NullAlways.ql.
+2021-04-02 15:55:40,713 DEBUG    		[49/172 eval 933ms] Evaluation done; writing results to codeql-java/Likely Bugs/Nullness/NullAlways.bqrs.
+2021-04-02 15:55:40,721 DEBUG    		Starting evaluation of codeql-java/Likely Bugs/Nullness/NullExprDeref.ql.
+2021-04-02 15:55:40,794 DEBUG    		[50/172 eval 73ms] Evaluation done; writing results to codeql-java/Likely Bugs/Nullness/NullExprDeref.bqrs.
+2021-04-02 15:55:40,798 DEBUG    		Starting evaluation of codeql-java/Likely Bugs/Nullness/NullMaybe.ql.
+2021-04-02 15:55:41,604 DEBUG    		[51/172 eval 805ms] Evaluation done; writing results to codeql-java/Likely Bugs/Nullness/NullMaybe.bqrs.
+2021-04-02 15:55:41,612 DEBUG    		Starting evaluation of codeql-java/Likely Bugs/Statements/ContinueInFalseLoop.ql.
+2021-04-02 15:55:41,655 DEBUG    		[52/172 eval 43ms] Evaluation done; writing results to codeql-java/Likely Bugs/Statements/ContinueInFalseLoop.bqrs.
+2021-04-02 15:55:41,663 DEBUG    		Starting evaluation of codeql-java/Likely Bugs/Statements/PartiallyMaskedCatch.ql.
+2021-04-02 15:55:41,943 DEBUG    		[53/172 eval 278ms] Evaluation done; writing results to codeql-java/Likely Bugs/Statements/PartiallyMaskedCatch.bqrs.
+2021-04-02 15:55:41,948 DEBUG    		Starting evaluation of codeql-java/Likely Bugs/Statements/UseBraces.ql.
+2021-04-02 15:55:42,000 DEBUG    		[54/172 eval 52ms] Evaluation done; writing results to codeql-java/Likely Bugs/Statements/UseBraces.bqrs.
+2021-04-02 15:55:42,007 DEBUG    		Starting evaluation of codeql-java/Likely Bugs/Concurrency/SynchSetUnsynchGet.ql.
+2021-04-02 15:55:42,128 DEBUG    		[55/172 eval 122ms] Evaluation done; writing results to codeql-java/Likely Bugs/Concurrency/SynchSetUnsynchGet.bqrs.
+2021-04-02 15:55:42,140 DEBUG    		Starting evaluation of codeql-java/Likely Bugs/Concurrency/DoubleCheckedLocking.ql.
+2021-04-02 15:55:42,332 DEBUG    		[56/172 eval 191ms] Evaluation done; writing results to codeql-java/Likely Bugs/Concurrency/DoubleCheckedLocking.bqrs.
+2021-04-02 15:55:42,339 DEBUG    		Starting evaluation of codeql-java/Likely Bugs/Concurrency/SynchOnBoxedType.ql.
+2021-04-02 15:55:42,375 DEBUG    		[57/172 eval 35ms] Evaluation done; writing results to codeql-java/Likely Bugs/Concurrency/SynchOnBoxedType.bqrs.
+2021-04-02 15:55:42,381 DEBUG    		Starting evaluation of codeql-java/Likely Bugs/Concurrency/CallsToRunnableRun.ql.
+2021-04-02 15:55:42,514 DEBUG    		[58/172 eval 132ms] Evaluation done; writing results to codeql-java/Likely Bugs/Concurrency/CallsToRunnableRun.bqrs.
+2021-04-02 15:55:42,521 DEBUG    		Starting evaluation of codeql-java/Likely Bugs/Concurrency/NonSynchronizedOverride.ql.
+2021-04-02 15:55:42,724 DEBUG    		[59/172 eval 204ms] Evaluation done; writing results to codeql-java/Likely Bugs/Concurrency/NonSynchronizedOverride.bqrs.
+2021-04-02 15:55:42,729 DEBUG    		Starting evaluation of codeql-java/Likely Bugs/Concurrency/DoubleCheckedLockingWithInitRace.ql.
+2021-04-02 15:55:42,896 DEBUG    		[60/172 eval 167ms] Evaluation done; writing results to codeql-java/Likely Bugs/Concurrency/DoubleCheckedLockingWithInitRace.bqrs.
+2021-04-02 15:55:42,906 DEBUG    		Starting evaluation of codeql-java/Likely Bugs/Resource Leaks/CloseReader.ql.
+2021-04-02 15:55:43,115 DEBUG    		[61/172 eval 209ms] Evaluation done; writing results to codeql-java/Likely Bugs/Resource Leaks/CloseReader.bqrs.
+2021-04-02 15:55:43,122 DEBUG    		Starting evaluation of codeql-java/Likely Bugs/Resource Leaks/CloseWriter.ql.
+2021-04-02 15:55:43,287 DEBUG    		[62/172 eval 166ms] Evaluation done; writing results to codeql-java/Likely Bugs/Resource Leaks/CloseWriter.bqrs.
+2021-04-02 15:55:43,292 DEBUG    		Starting evaluation of codeql-java/Likely Bugs/Resource Leaks/CloseSql.ql.
+2021-04-02 15:55:43,442 DEBUG    		[63/172 eval 149ms] Evaluation done; writing results to codeql-java/Likely Bugs/Resource Leaks/CloseSql.bqrs.
+2021-04-02 15:55:43,447 DEBUG    		Starting evaluation of codeql-java/Likely Bugs/Inheritance/NoNonFinalInConstructor.ql.
+2021-04-02 15:55:43,654 DEBUG    		[64/172 eval 207ms] Evaluation done; writing results to codeql-java/Likely Bugs/Inheritance/NoNonFinalInConstructor.bqrs.
+2021-04-02 15:55:43,667 DEBUG    		Starting evaluation of codeql-java/Likely Bugs/Likely Typos/SelfAssignment.ql.
+2021-04-02 15:55:43,719 DEBUG    		[65/172 eval 51ms] Evaluation done; writing results to codeql-java/Likely Bugs/Likely Typos/SelfAssignment.bqrs.
+2021-04-02 15:55:43,726 DEBUG    		Starting evaluation of codeql-java/Likely Bugs/Likely Typos/UnusedFormatArg.ql.
+2021-04-02 15:55:44,222 DEBUG    		[66/172 eval 495ms] Evaluation done; writing results to codeql-java/Likely Bugs/Likely Typos/UnusedFormatArg.bqrs.
+2021-04-02 15:55:44,228 DEBUG    		Starting evaluation of codeql-java/Likely Bugs/Likely Typos/ContainerSizeCmpZero.ql.
+2021-04-02 15:55:44,423 DEBUG    		[67/172 eval 195ms] Evaluation done; writing results to codeql-java/Likely Bugs/Likely Typos/ContainerSizeCmpZero.bqrs.
+2021-04-02 15:55:44,434 DEBUG    		Starting evaluation of codeql-java/Likely Bugs/Likely Typos/MissingFormatArg.ql.
+2021-04-02 15:55:44,980 DEBUG    		[68/172 eval 545ms] Evaluation done; writing results to codeql-java/Likely Bugs/Likely Typos/MissingFormatArg.bqrs.
+2021-04-02 15:55:44,987 DEBUG    		Starting evaluation of codeql-java/Likely Bugs/Likely Typos/ContradictoryTypeChecks.ql.
+2021-04-02 15:55:45,445 DEBUG    		[69/172 eval 457ms] Evaluation done; writing results to codeql-java/Likely Bugs/Likely Typos/ContradictoryTypeChecks.bqrs.
+2021-04-02 15:55:45,450 DEBUG    		Starting evaluation of codeql-java/Likely Bugs/Likely Typos/SuspiciousDateFormat.ql.
+2021-04-02 15:55:45,486 DEBUG    		[70/172 eval 35ms] Evaluation done; writing results to codeql-java/Likely Bugs/Likely Typos/SuspiciousDateFormat.bqrs.
+2021-04-02 15:55:45,492 DEBUG    		Starting evaluation of codeql-java/Likely Bugs/Likely Typos/StringBufferCharInit.ql.
+2021-04-02 15:55:45,546 DEBUG    		[71/172 eval 54ms] Evaluation done; writing results to codeql-java/Likely Bugs/Likely Typos/StringBufferCharInit.bqrs.
+2021-04-02 15:55:45,551 DEBUG    		Starting evaluation of codeql-java/Likely Bugs/Likely Typos/MissingSpaceTypo.ql.
+2021-04-02 15:55:45,589 DEBUG    		[72/172 eval 38ms] Evaluation done; writing results to codeql-java/Likely Bugs/Likely Typos/MissingSpaceTypo.bqrs.
+2021-04-02 15:55:45,595 DEBUG    		Starting evaluation of codeql-java/Language Abuse/IterableIterator.ql.
+2021-04-02 15:55:45,661 DEBUG    		[73/172 eval 65ms] Evaluation done; writing results to codeql-java/Language Abuse/IterableIterator.bqrs.
+2021-04-02 15:55:45,669 DEBUG    		Starting evaluation of codeql-java/Language Abuse/UselessTypeTest.ql.
+2021-04-02 15:55:45,704 DEBUG    		[74/172 eval 34ms] Evaluation done; writing results to codeql-java/Language Abuse/UselessTypeTest.bqrs.
+2021-04-02 15:55:45,710 DEBUG    		Starting evaluation of codeql-java/Language Abuse/WrappedIterator.ql.
+2021-04-02 15:55:45,895 DEBUG    		[75/172 eval 184ms] Evaluation done; writing results to codeql-java/Language Abuse/WrappedIterator.bqrs.
+2021-04-02 15:55:45,910 DEBUG    		Starting evaluation of codeql-java/Language Abuse/ChainedInstanceof.ql.
+2021-04-02 15:55:45,997 DEBUG    		[76/172 eval 87ms] Evaluation done; writing results to codeql-java/Language Abuse/ChainedInstanceof.bqrs.
+2021-04-02 15:55:46,005 DEBUG    		Starting evaluation of codeql-java/Language Abuse/UselessNullCheck.ql.
+2021-04-02 15:55:46,621 DEBUG    		[77/172 eval 616ms] Evaluation done; writing results to codeql-java/Language Abuse/UselessNullCheck.bqrs.
+2021-04-02 15:55:46,633 DEBUG    		Starting evaluation of codeql-java/Compatibility/JDK9/JdkInternalAccess.ql.
+2021-04-02 15:55:46,821 DEBUG    		[78/172 eval 189ms] Evaluation done; writing results to codeql-java/Compatibility/JDK9/JdkInternalAccess.bqrs.
+2021-04-02 15:55:46,848 DEBUG    		Starting evaluation of codeql-java/Compatibility/JDK9/UnderscoreIdentifier.ql.
+2021-04-02 15:55:47,029 DEBUG    		[79/172 eval 182ms] Evaluation done; writing results to codeql-java/Compatibility/JDK9/UnderscoreIdentifier.bqrs.
+2021-04-02 15:55:47,040 DEBUG    		Starting evaluation of codeql-java/DeadCode/UselessParameter.ql.
+2021-04-02 15:55:47,364 DEBUG    		[80/172 eval 323ms] Evaluation done; writing results to codeql-java/DeadCode/UselessParameter.bqrs.
+2021-04-02 15:55:47,370 DEBUG    		Starting evaluation of codeql-java/Security/CWE/CWE-078/ExecTainted.ql.
+2021-04-02 15:55:51,591 DEBUG    		[81/172 eval 4.2s] Evaluation done; writing results to codeql-java/Security/CWE/CWE-078/ExecTainted.bqrs.
+2021-04-02 15:55:51,623 DEBUG    		Starting evaluation of codeql-java/Security/CWE/CWE-078/ExecUnescaped.ql.
+2021-04-02 15:55:52,018 DEBUG    		[82/172 eval 396ms] Evaluation done; writing results to codeql-java/Security/CWE/CWE-078/ExecUnescaped.bqrs.
+2021-04-02 15:55:52,028 DEBUG    		Starting evaluation of codeql-java/Security/CWE/CWE-335/PredictableSeed.ql.
+2021-04-02 15:55:52,454 DEBUG    		[83/172 eval 426ms] Evaluation done; writing results to codeql-java/Security/CWE/CWE-335/PredictableSeed.bqrs.
+2021-04-02 15:55:52,465 DEBUG    		Starting evaluation of codeql-java/Security/CWE/CWE-094/InsecureBeanValidation.ql.
+2021-04-02 15:55:54,110 DEBUG    		[84/172 eval 1.6s] Evaluation done; writing results to codeql-java/Security/CWE/CWE-094/InsecureBeanValidation.bqrs.
+2021-04-02 15:55:54,117 DEBUG    		Starting evaluation of codeql-java/Security/CWE/CWE-022/TaintedPath.ql.
+2021-04-02 15:55:55,643 DEBUG    		[85/172 eval 1.5s] Evaluation done; writing results to codeql-java/Security/CWE/CWE-022/TaintedPath.bqrs.
+2021-04-02 15:55:55,664 DEBUG    		Starting evaluation of codeql-java/Security/CWE/CWE-022/ZipSlip.ql.
+2021-04-02 15:55:58,658 DEBUG    		[86/172 eval 3s] Evaluation done; writing results to codeql-java/Security/CWE/CWE-022/ZipSlip.bqrs.
+2021-04-02 15:55:58,665 DEBUG    		Starting evaluation of codeql-java/Security/CWE/CWE-312/CleartextStorageCookie.ql.
+2021-04-02 15:55:59,568 DEBUG    		[87/172 eval 903ms] Evaluation done; writing results to codeql-java/Security/CWE/CWE-312/CleartextStorageCookie.bqrs.
+2021-04-02 15:55:59,576 DEBUG    		Starting evaluation of codeql-java/Security/CWE/CWE-134/ExternallyControlledFormatString.ql.
+2021-04-02 15:56:00,596 DEBUG    		[88/172 eval 1s] Evaluation done; writing results to codeql-java/Security/CWE/CWE-134/ExternallyControlledFormatString.bqrs.
+2021-04-02 15:56:00,605 DEBUG    		Starting evaluation of codeql-java/Security/CWE/CWE-829/InsecureDependencyResolution.ql.
+2021-04-02 15:56:00,679 DEBUG    		[89/172 eval 72ms] Evaluation done; writing results to codeql-java/Security/CWE/CWE-829/InsecureDependencyResolution.bqrs.
+2021-04-02 15:56:00,688 DEBUG    		Starting evaluation of codeql-java/Security/CWE/CWE-807/TaintedPermissionsCheck.ql.
+2021-04-02 15:56:02,294 DEBUG    		[90/172 eval 1.6s] Evaluation done; writing results to codeql-java/Security/CWE/CWE-807/TaintedPermissionsCheck.bqrs.
+2021-04-02 15:56:02,302 DEBUG    		Starting evaluation of codeql-java/Security/CWE/CWE-601/UrlRedirect.ql.
+2021-04-02 15:56:03,469 DEBUG    		[91/172 eval 1.2s] Evaluation done; writing results to codeql-java/Security/CWE/CWE-601/UrlRedirect.bqrs.
+2021-04-02 15:56:03,476 DEBUG    		Starting evaluation of codeql-java/Security/CWE/CWE-327/BrokenCryptoAlgorithm.ql.
+2021-04-02 15:56:04,906 DEBUG    		[92/172 eval 1.4s] Evaluation done; writing results to codeql-java/Security/CWE/CWE-327/BrokenCryptoAlgorithm.bqrs.
+2021-04-02 15:56:04,915 DEBUG    		Starting evaluation of codeql-java/Security/CWE/CWE-502/UnsafeDeserialization.ql.
+2021-04-02 15:56:06,361 DEBUG    		[93/172 eval 1.4s] Evaluation done; writing results to codeql-java/Security/CWE/CWE-502/UnsafeDeserialization.bqrs.
+2021-04-02 15:56:06,371 DEBUG    		Starting evaluation of codeql-java/Security/CWE/CWE-079/XSS.ql.
+2021-04-02 15:56:08,818 DEBUG    		[94/172 eval 2.4s] Evaluation done; writing results to codeql-java/Security/CWE/CWE-079/XSS.bqrs.
+2021-04-02 15:56:08,829 DEBUG    		Starting evaluation of codeql-java/Security/CWE/CWE-113/ResponseSplitting.ql.
+2021-04-02 15:56:10,935 DEBUG    		[95/172 eval 2.1s] Evaluation done; writing results to codeql-java/Security/CWE/CWE-113/ResponseSplitting.bqrs.
+2021-04-02 15:56:10,943 DEBUG    		Starting evaluation of codeql-java/Security/CWE/CWE-113/NettyResponseSplitting.ql.
+2021-04-02 15:56:11,083 DEBUG    		[96/172 eval 140ms] Evaluation done; writing results to codeql-java/Security/CWE/CWE-113/NettyResponseSplitting.bqrs.
+2021-04-02 15:56:11,089 DEBUG    		Starting evaluation of codeql-java/Security/CWE/CWE-297/UnsafeHostnameVerification.ql.
+2021-04-02 15:56:12,461 DEBUG    		[97/172 eval 1.4s] Evaluation done; writing results to codeql-java/Security/CWE/CWE-297/UnsafeHostnameVerification.bqrs.
+2021-04-02 15:56:12,468 DEBUG    		Starting evaluation of codeql-java/Security/CWE/CWE-681/NumericCastTainted.ql.
+2021-04-02 15:56:13,590 DEBUG    		[98/172 eval 1.1s] Evaluation done; writing results to codeql-java/Security/CWE/CWE-681/NumericCastTainted.bqrs.
+2021-04-02 15:56:13,597 DEBUG    		Starting evaluation of codeql-java/Security/CWE/CWE-1104/MavenPomDependsOnBintray.ql.
+2021-04-02 15:56:13,630 DEBUG    		[99/172 eval 32ms] Evaluation done; writing results to codeql-java/Security/CWE/CWE-1104/MavenPomDependsOnBintray.bqrs.
+2021-04-02 15:56:13,638 DEBUG    		Starting evaluation of codeql-java/Security/CWE/CWE-614/InsecureCookie.ql.
+2021-04-02 15:56:13,712 DEBUG    		[100/172 eval 74ms] Evaluation done; writing results to codeql-java/Security/CWE/CWE-614/InsecureCookie.bqrs.
+2021-04-02 15:56:13,724 DEBUG    		Starting evaluation of codeql-java/Security/CWE/CWE-090/LdapInjection.ql.
+2021-04-02 15:56:14,862 DEBUG    		[101/172 eval 1.1s] Evaluation done; writing results to codeql-java/Security/CWE/CWE-090/LdapInjection.bqrs.
+2021-04-02 15:56:14,869 DEBUG    		Starting evaluation of codeql-java/Security/CWE/CWE-089/SqlUnescaped.ql.
+2021-04-02 15:56:16,091 DEBUG    		[102/172 eval 1.2s] Evaluation done; writing results to codeql-java/Security/CWE/CWE-089/SqlUnescaped.bqrs.
+2021-04-02 15:56:16,103 DEBUG    		Starting evaluation of codeql-java/Security/CWE/CWE-089/SqlTainted.ql.
+2021-04-02 15:56:18,615 DEBUG    		[103/172 eval 2.5s] Evaluation done; writing results to codeql-java/Security/CWE/CWE-089/SqlTainted.bqrs.
+2021-04-02 15:56:18,622 DEBUG    		Starting evaluation of codeql-java/Security/CWE/CWE-611/XXE.ql.
+2021-04-02 15:56:20,355 DEBUG    		[104/172 eval 1.7s] Evaluation done; writing results to codeql-java/Security/CWE/CWE-611/XXE.bqrs.
+2021-04-02 15:56:20,364 DEBUG    		Starting evaluation of codeql-java/Security/CWE/CWE-338/JHipsterGeneratedPRNG.ql.
+2021-04-02 15:56:20,469 DEBUG    		[105/172 eval 104ms] Evaluation done; writing results to codeql-java/Security/CWE/CWE-338/JHipsterGeneratedPRNG.bqrs.
+2021-04-02 15:56:20,478 DEBUG    		Starting evaluation of codeql-java/Security/CWE/CWE-732/ReadingFromWorldWritableFile.ql.
+2021-04-02 15:56:20,654 DEBUG    		[106/172 eval 176ms] Evaluation done; writing results to codeql-java/Security/CWE/CWE-732/ReadingFromWorldWritableFile.bqrs.
+2021-04-02 15:56:20,665 DEBUG    		Starting evaluation of codeql-java/Security/CWE/CWE-209/StackTraceExposure.ql.
+2021-04-02 15:56:23,992 DEBUG    		[107/172 eval 3.3s] Evaluation done; writing results to codeql-java/Security/CWE/CWE-209/StackTraceExposure.bqrs.
+2021-04-02 15:56:24,003 DEBUG    		Starting evaluation of codeql-java/Security/CWE/CWE-352/SpringCSRFProtection.ql.
+2021-04-02 15:56:24,046 DEBUG    		[108/172 eval 42ms] Evaluation done; writing results to codeql-java/Security/CWE/CWE-352/SpringCSRFProtection.bqrs.
+2021-04-02 15:56:24,057 DEBUG    		Starting evaluation of codeql-java/Violations of Best Practice/Undesirable Calls/NextFromIterator.ql.
+2021-04-02 15:56:24,160 DEBUG    		[109/172 eval 103ms] Evaluation done; writing results to codeql-java/Violations of Best Practice/Undesirable Calls/NextFromIterator.bqrs.
+2021-04-02 15:56:24,168 DEBUG    		Starting evaluation of codeql-java/Violations of Best Practice/Undesirable Calls/CallsToRunFinalizersOnExit.ql.
+2021-04-02 15:56:24,228 DEBUG    		[110/172 eval 59ms] Evaluation done; writing results to codeql-java/Violations of Best Practice/Undesirable Calls/CallsToRunFinalizersOnExit.bqrs.
+2021-04-02 15:56:24,237 DEBUG    		Starting evaluation of codeql-java/Violations of Best Practice/Naming Conventions/FieldMasksSuperField.ql.
+2021-04-02 15:56:24,360 DEBUG    		[111/172 eval 121ms] Evaluation done; writing results to codeql-java/Violations of Best Practice/Naming Conventions/FieldMasksSuperField.bqrs.
+2021-04-02 15:56:24,371 DEBUG    		Starting evaluation of codeql-java/Violations of Best Practice/Implementation Hiding/GetClassGetResource.ql.
+2021-04-02 15:56:24,446 DEBUG    		[112/172 eval 72ms] Evaluation done; writing results to codeql-java/Violations of Best Practice/Implementation Hiding/GetClassGetResource.bqrs.
+2021-04-02 15:56:24,454 DEBUG    		Starting evaluation of codeql-java/Violations of Best Practice/Dead Code/CreatesEmptyZip.ql.
+2021-04-02 15:56:24,741 DEBUG    		[113/172 eval 286ms] Evaluation done; writing results to codeql-java/Violations of Best Practice/Dead Code/CreatesEmptyZip.bqrs.
+2021-04-02 15:56:24,747 DEBUG    		Starting evaluation of codeql-java/Likely Bugs/Comparison/CovariantEquals.ql.
+2021-04-02 15:56:24,824 DEBUG    		[114/172 eval 76ms] Evaluation done; writing results to codeql-java/Likely Bugs/Comparison/CovariantEquals.bqrs.
+2021-04-02 15:56:24,830 DEBUG    		Starting evaluation of codeql-java/Likely Bugs/Comparison/InconsistentCompareTo.ql.
+2021-04-02 15:56:25,085 DEBUG    		[115/172 eval 254ms] Evaluation done; writing results to codeql-java/Likely Bugs/Comparison/InconsistentCompareTo.bqrs.
+2021-04-02 15:56:25,093 DEBUG    		Starting evaluation of codeql-java/Likely Bugs/Comparison/CovariantCompareTo.ql.
+2021-04-02 15:56:25,181 DEBUG    		[116/172 eval 88ms] Evaluation done; writing results to codeql-java/Likely Bugs/Comparison/CovariantCompareTo.bqrs.
+2021-04-02 15:56:25,186 DEBUG    		Starting evaluation of codeql-java/Likely Bugs/Comparison/StringComparison.ql.
+2021-04-02 15:56:25,228 DEBUG    		[117/172 eval 42ms] Evaluation done; writing results to codeql-java/Likely Bugs/Comparison/StringComparison.bqrs.
+2021-04-02 15:56:25,236 DEBUG    		Starting evaluation of codeql-java/Likely Bugs/Collections/IteratorRemoveMayFail.ql.
+2021-04-02 15:56:25,269 DEBUG    		[118/172 eval 32ms] Evaluation done; writing results to codeql-java/Likely Bugs/Collections/IteratorRemoveMayFail.bqrs.
+2021-04-02 15:56:25,273 DEBUG    		Starting evaluation of codeql-java/Likely Bugs/Serialization/MissingVoidConstructorsOnSerializable.ql.
+2021-04-02 15:56:25,349 DEBUG    		[119/172 eval 77ms] Evaluation done; writing results to codeql-java/Likely Bugs/Serialization/MissingVoidConstructorsOnSerializable.bqrs.
+2021-04-02 15:56:25,356 DEBUG    		Starting evaluation of codeql-java/Likely Bugs/Serialization/NonSerializableInnerClass.ql.
+2021-04-02 15:56:25,546 DEBUG    		[120/172 eval 189ms] Evaluation done; writing results to codeql-java/Likely Bugs/Serialization/NonSerializableInnerClass.bqrs.
+2021-04-02 15:56:25,551 DEBUG    		Starting evaluation of codeql-java/Likely Bugs/Serialization/IncorrectSerialVersionUID.ql.
+2021-04-02 15:56:25,646 DEBUG    		[121/172 eval 96ms] Evaluation done; writing results to codeql-java/Likely Bugs/Serialization/IncorrectSerialVersionUID.bqrs.
+2021-04-02 15:56:25,652 DEBUG    		Starting evaluation of codeql-java/Likely Bugs/Serialization/ReadResolveObject.ql.
+2021-04-02 15:56:25,741 DEBUG    		[122/172 eval 90ms] Evaluation done; writing results to codeql-java/Likely Bugs/Serialization/ReadResolveObject.bqrs.
+2021-04-02 15:56:25,747 DEBUG    		Starting evaluation of codeql-java/Likely Bugs/Serialization/MissingVoidConstructorOnExternalizable.ql.
+2021-04-02 15:56:25,877 DEBUG    		[123/172 eval 129ms] Evaluation done; writing results to codeql-java/Likely Bugs/Serialization/MissingVoidConstructorOnExternalizable.bqrs.
+2021-04-02 15:56:25,884 DEBUG    		Starting evaluation of codeql-java/Likely Bugs/Serialization/IncorrectSerializableMethods.ql.
+2021-04-02 15:56:25,989 DEBUG    		[124/172 eval 104ms] Evaluation done; writing results to codeql-java/Likely Bugs/Serialization/IncorrectSerializableMethods.bqrs.
+2021-04-02 15:56:25,997 DEBUG    		Starting evaluation of codeql-java/Likely Bugs/Arithmetic/RandomUsedOnce.ql.
+2021-04-02 15:56:26,087 DEBUG    		[125/172 eval 89ms] Evaluation done; writing results to codeql-java/Likely Bugs/Arithmetic/RandomUsedOnce.bqrs.
+2021-04-02 15:56:26,097 DEBUG    		Starting evaluation of codeql-java/Likely Bugs/Arithmetic/MultiplyRemainder.ql.
+2021-04-02 15:56:26,128 DEBUG    		[126/172 eval 32ms] Evaluation done; writing results to codeql-java/Likely Bugs/Arithmetic/MultiplyRemainder.bqrs.
+2021-04-02 15:56:26,152 DEBUG    		Starting evaluation of codeql-java/Likely Bugs/Arithmetic/BadAbsOfRandom.ql.
+2021-04-02 15:56:26,241 DEBUG    		[127/172 eval 88ms] Evaluation done; writing results to codeql-java/Likely Bugs/Arithmetic/BadAbsOfRandom.bqrs.
+2021-04-02 15:56:26,246 DEBUG    		Starting evaluation of codeql-java/Likely Bugs/Termination/SpinOnField.ql.
+2021-04-02 15:56:26,303 DEBUG    		[128/172 eval 56ms] Evaluation done; writing results to codeql-java/Likely Bugs/Termination/SpinOnField.bqrs.
+2021-04-02 15:56:26,308 DEBUG    		Starting evaluation of codeql-java/Likely Bugs/Statements/MissingEnumInSwitch.ql.
+2021-04-02 15:56:26,341 DEBUG    		[129/172 eval 32ms] Evaluation done; writing results to codeql-java/Likely Bugs/Statements/MissingEnumInSwitch.bqrs.
+2021-04-02 15:56:26,348 DEBUG    		Starting evaluation of codeql-java/Likely Bugs/Concurrency/FutileSynchOnField.ql.
+2021-04-02 15:56:26,390 DEBUG    		[130/172 eval 42ms] Evaluation done; writing results to codeql-java/Likely Bugs/Concurrency/FutileSynchOnField.bqrs.
+2021-04-02 15:56:26,396 DEBUG    		Starting evaluation of codeql-java/Likely Bugs/Concurrency/NotifyNotNotifyAll.ql.
+2021-04-02 15:56:26,438 DEBUG    		[131/172 eval 42ms] Evaluation done; writing results to codeql-java/Likely Bugs/Concurrency/NotifyNotNotifyAll.bqrs.
+2021-04-02 15:56:26,445 DEBUG    		Starting evaluation of codeql-java/Likely Bugs/Concurrency/StartInConstructor.ql.
+2021-04-02 15:56:26,537 DEBUG    		[132/172 eval 92ms] Evaluation done; writing results to codeql-java/Likely Bugs/Concurrency/StartInConstructor.bqrs.
+2021-04-02 15:56:26,546 DEBUG    		Starting evaluation of codeql-java/Likely Bugs/Concurrency/SleepWithLock.ql.
+2021-04-02 15:56:26,650 DEBUG    		[133/172 eval 104ms] Evaluation done; writing results to codeql-java/Likely Bugs/Concurrency/SleepWithLock.bqrs.
+2021-04-02 15:56:26,658 DEBUG    		Starting evaluation of codeql-java/Likely Bugs/Concurrency/UnreleasedLock.ql.
+2021-04-02 15:56:26,858 DEBUG    		[134/172 eval 201ms] Evaluation done; writing results to codeql-java/Likely Bugs/Concurrency/UnreleasedLock.bqrs.
+2021-04-02 15:56:26,865 DEBUG    		Starting evaluation of codeql-java/Likely Bugs/Concurrency/CallsToConditionWait.ql.
+2021-04-02 15:56:26,939 DEBUG    		[135/172 eval 74ms] Evaluation done; writing results to codeql-java/Likely Bugs/Concurrency/CallsToConditionWait.bqrs.
+2021-04-02 15:56:26,945 DEBUG    		Starting evaluation of codeql-java/Likely Bugs/Concurrency/DateFormatThreadUnsafe.ql.
+2021-04-02 15:56:27,064 DEBUG    		[136/172 eval 119ms] Evaluation done; writing results to codeql-java/Likely Bugs/Concurrency/DateFormatThreadUnsafe.bqrs.
+2021-04-02 15:56:27,073 DEBUG    		Starting evaluation of codeql-java/Likely Bugs/Concurrency/SynchWriteObject.ql.
+2021-04-02 15:56:27,145 DEBUG    		[137/172 eval 72ms] Evaluation done; writing results to codeql-java/Likely Bugs/Concurrency/SynchWriteObject.bqrs.
+2021-04-02 15:56:27,150 DEBUG    		Starting evaluation of codeql-java/Likely Bugs/Finalization/NullifiedSuperFinalize.ql.
+2021-04-02 15:56:27,243 DEBUG    		[138/172 eval 92ms] Evaluation done; writing results to codeql-java/Likely Bugs/Finalization/NullifiedSuperFinalize.bqrs.
+2021-04-02 15:56:27,254 DEBUG    		Starting evaluation of codeql-java/Likely Bugs/Reflection/AnnotationPresentCheck.ql.
+2021-04-02 15:56:27,337 DEBUG    		[139/172 eval 82ms] Evaluation done; writing results to codeql-java/Likely Bugs/Reflection/AnnotationPresentCheck.bqrs.
+2021-04-02 15:56:27,345 DEBUG    		Starting evaluation of codeql-java/Likely Bugs/Likely Typos/EqualsTypo.ql.
+2021-04-02 15:56:27,392 DEBUG    		[140/172 eval 47ms] Evaluation done; writing results to codeql-java/Likely Bugs/Likely Typos/EqualsTypo.bqrs.
+2021-04-02 15:56:27,398 DEBUG    		Starting evaluation of codeql-java/Likely Bugs/Likely Typos/ToStringTypo.ql.
+2021-04-02 15:56:27,423 DEBUG    		[141/172 eval 25ms] Evaluation done; writing results to codeql-java/Likely Bugs/Likely Typos/ToStringTypo.bqrs.
+2021-04-02 15:56:27,428 DEBUG    		Starting evaluation of codeql-java/Likely Bugs/Likely Typos/HashCodeTypo.ql.
+2021-04-02 15:56:27,454 DEBUG    		[142/172 eval 26ms] Evaluation done; writing results to codeql-java/Likely Bugs/Likely Typos/HashCodeTypo.bqrs.
+2021-04-02 15:56:27,461 DEBUG    		Starting evaluation of codeql-java/Likely Bugs/Likely Typos/DangerousNonCircuitLogic.ql.
+2021-04-02 15:56:27,497 DEBUG    		[143/172 eval 35ms] Evaluation done; writing results to codeql-java/Likely Bugs/Likely Typos/DangerousNonCircuitLogic.bqrs.
+2021-04-02 15:56:27,503 DEBUG    		Starting evaluation of codeql-java/Likely Bugs/Cloning/MissingMethodClone.ql.
+2021-04-02 15:56:27,672 DEBUG    		[144/172 eval 168ms] Evaluation done; writing results to codeql-java/Likely Bugs/Cloning/MissingMethodClone.bqrs.
+2021-04-02 15:56:27,681 DEBUG    		Starting evaluation of codeql-java/Likely Bugs/Cloning/MissingCallToSuperClone.ql.
+2021-04-02 15:56:27,733 DEBUG    		[145/172 eval 53ms] Evaluation done; writing results to codeql-java/Likely Bugs/Cloning/MissingCallToSuperClone.bqrs.
+2021-04-02 15:56:27,741 DEBUG    		Starting evaluation of codeql-java/Likely Bugs/Frameworks/JUnit/BadSuiteMethod.ql.
+2021-04-02 15:56:27,797 DEBUG    		[146/172 eval 56ms] Evaluation done; writing results to codeql-java/Likely Bugs/Frameworks/JUnit/BadSuiteMethod.bqrs.
+2021-04-02 15:56:27,811 DEBUG    		Starting evaluation of codeql-java/Likely Bugs/Frameworks/Swing/BadlyOverriddenAdapter.ql.
+2021-04-02 15:56:27,861 DEBUG    		[147/172 eval 50ms] Evaluation done; writing results to codeql-java/Likely Bugs/Frameworks/Swing/BadlyOverriddenAdapter.bqrs.
+2021-04-02 15:56:27,876 DEBUG    		Starting evaluation of codeql-java/Language Abuse/TypeVariableHidesType.ql.
+2021-04-02 15:56:27,975 DEBUG    		[148/172 eval 98ms] Evaluation done; writing results to codeql-java/Language Abuse/TypeVariableHidesType.bqrs.
+2021-04-02 15:56:27,981 DEBUG    		Starting evaluation of codeql-java/Language Abuse/OverridePackagePrivate.ql.
+2021-04-02 15:56:28,165 DEBUG    		[149/172 eval 183ms] Evaluation done; writing results to codeql-java/Language Abuse/OverridePackagePrivate.bqrs.
+2021-04-02 15:56:28,170 DEBUG    		Starting evaluation of codeql-java/Language Abuse/TypeVarExtendsFinalType.ql.
+2021-04-02 15:56:28,214 DEBUG    		[150/172 eval 44ms] Evaluation done; writing results to codeql-java/Language Abuse/TypeVarExtendsFinalType.bqrs.
+2021-04-02 15:56:28,227 DEBUG    		Starting evaluation of codeql-java/Security/CWE/CWE-078/ExecRelative.ql.
+2021-04-02 15:56:28,340 DEBUG    		[151/172 eval 113ms] Evaluation done; writing results to codeql-java/Security/CWE/CWE-078/ExecRelative.bqrs.
+2021-04-02 15:56:28,346 DEBUG    		Starting evaluation of codeql-java/Security/CWE/CWE-312/CleartextStorageProperties.ql.
+2021-04-02 15:56:28,886 DEBUG    		[152/172 eval 539ms] Evaluation done; writing results to codeql-java/Security/CWE/CWE-312/CleartextStorageProperties.bqrs.
+2021-04-02 15:56:28,890 DEBUG    		Starting evaluation of codeql-java/Security/CWE/CWE-807/ConditionalBypass.ql.
+2021-04-02 15:56:31,490 DEBUG    		[153/172 eval 2.6s] Evaluation done; writing results to codeql-java/Security/CWE/CWE-807/ConditionalBypass.bqrs.
+2021-04-02 15:56:31,499 DEBUG    		Starting evaluation of codeql-java/Security/CWE/CWE-327/MaybeBrokenCryptoAlgorithm.ql.
+2021-04-02 15:56:33,895 DEBUG    		[154/172 eval 2.4s] Evaluation done; writing results to codeql-java/Security/CWE/CWE-327/MaybeBrokenCryptoAlgorithm.bqrs.
+2021-04-02 15:56:33,913 DEBUG    		Starting evaluation of codeql-java/Security/CWE/CWE-798/HardcodedCredentialsApiCall.ql.
+2021-04-02 15:56:36,142 DEBUG    		[155/172 eval 2.2s] Evaluation done; writing results to codeql-java/Security/CWE/CWE-798/HardcodedCredentialsApiCall.bqrs.
+2021-04-02 15:56:36,151 DEBUG    		Starting evaluation of codeql-java/Security/CWE/CWE-421/SocketAuthRace.ql.
+2021-04-02 15:56:36,331 DEBUG    		[156/172 eval 179ms] Evaluation done; writing results to codeql-java/Security/CWE/CWE-421/SocketAuthRace.bqrs.
+2021-04-02 15:56:36,339 DEBUG    		Starting evaluation of codeql-java/Security/CWE/CWE-676/PotentiallyDangerousFunction.ql.
+2021-04-02 15:56:36,388 DEBUG    		[157/172 eval 47ms] Evaluation done; writing results to codeql-java/Security/CWE/CWE-676/PotentiallyDangerousFunction.bqrs.
+2021-04-02 15:56:36,397 DEBUG    		Starting evaluation of codeql-java/Security/CWE/CWE-129/ImproperValidationOfArrayConstruction.ql.
+2021-04-02 15:56:38,053 DEBUG    		[158/172 eval 1.7s] Evaluation done; writing results to codeql-java/Security/CWE/CWE-129/ImproperValidationOfArrayConstruction.bqrs.
+2021-04-02 15:56:38,065 DEBUG    		Starting evaluation of codeql-java/Security/CWE/CWE-129/ImproperValidationOfArrayIndex.ql.
+2021-04-02 15:56:39,651 DEBUG    		[159/172 eval 1.6s] Evaluation done; writing results to codeql-java/Security/CWE/CWE-129/ImproperValidationOfArrayIndex.bqrs.
+2021-04-02 15:56:39,658 DEBUG    		Starting evaluation of codeql-java/Security/CWE/CWE-367/TOCTOURace.ql.
+2021-04-02 15:56:39,904 DEBUG    		[160/172 eval 244ms] Evaluation done; writing results to codeql-java/Security/CWE/CWE-367/TOCTOURace.bqrs.
+2021-04-02 15:56:39,914 DEBUG    		Starting evaluation of codeql-java/Security/CWE/CWE-835/InfiniteLoop.ql.
+2021-04-02 15:56:40,642 DEBUG    		[161/172 eval 726ms] Evaluation done; writing results to codeql-java/Security/CWE/CWE-835/InfiniteLoop.bqrs.
+2021-04-02 15:56:40,655 DEBUG    		Starting evaluation of codeql-java/Security/CWE/CWE-190/ArithmeticTainted.ql.
+2021-04-02 15:56:42,429 DEBUG    		[162/172 eval 1.8s] Evaluation done; writing results to codeql-java/Security/CWE/CWE-190/ArithmeticTainted.bqrs.
+2021-04-02 15:56:42,448 DEBUG    		Starting evaluation of codeql-java/Security/CWE/CWE-190/ComparisonWithWiderType.ql.
+2021-04-02 15:56:42,529 DEBUG    		[163/172 eval 80ms] Evaluation done; writing results to codeql-java/Security/CWE/CWE-190/ComparisonWithWiderType.bqrs.
+2021-04-02 15:56:42,535 DEBUG    		Starting evaluation of codeql-java/Security/CWE/CWE-190/ArithmeticUncontrolled.ql.
+2021-04-02 15:56:43,695 DEBUG    		[164/172 eval 1.2s] Evaluation done; writing results to codeql-java/Security/CWE/CWE-190/ArithmeticUncontrolled.bqrs.
+2021-04-02 15:56:43,705 DEBUG    		Starting evaluation of codeql-java/filters/ClassifyFiles.ql.
+2021-04-02 15:56:43,877 DEBUG    		[165/172 eval 170ms] Evaluation done; writing results to codeql-java/filters/ClassifyFiles.bqrs.
+2021-04-02 15:56:43,884 DEBUG    		Starting evaluation of codeql-java/AlertSuppression.ql.
+2021-04-02 15:56:43,995 DEBUG    		[166/172 eval 111ms] Evaluation done; writing results to codeql-java/AlertSuppression.bqrs.
+2021-04-02 15:56:44,000 DEBUG    		Starting evaluation of codeql-java/definitions.ql.
+2021-04-02 15:56:44,195 DEBUG    		[167/172 eval 196ms] Evaluation done; writing results to codeql-java/definitions.bqrs.
+2021-04-02 15:56:44,204 DEBUG    		Starting evaluation of codeql-java/AlertSuppressionAnnotations.ql.
+2021-04-02 15:56:44,268 DEBUG    		[168/172 eval 64ms] Evaluation done; writing results to codeql-java/AlertSuppressionAnnotations.bqrs.
+2021-04-02 15:56:44,273 DEBUG    		Starting evaluation of codeql-java/Metrics/Files/FLinesOfCode.ql.
+2021-04-02 15:56:44,323 DEBUG    		[169/172 eval 50ms] Evaluation done; writing results to codeql-java/Metrics/Files/FLinesOfCode.bqrs.
+2021-04-02 15:56:44,334 DEBUG    		Starting evaluation of codeql-java/Metrics/Files/FLinesOfCommentedCode.ql.
+2021-04-02 15:56:44,553 DEBUG    		[170/172 eval 219ms] Evaluation done; writing results to codeql-java/Metrics/Files/FLinesOfCommentedCode.bqrs.
+2021-04-02 15:56:44,561 DEBUG    		Starting evaluation of codeql-java/Metrics/Files/FLinesOfComment.ql.
+2021-04-02 15:56:44,597 DEBUG    		[171/172 eval 36ms] Evaluation done; writing results to codeql-java/Metrics/Files/FLinesOfComment.bqrs.
+2021-04-02 15:56:44,602 DEBUG    		Starting evaluation of codeql-java/Metrics/Files/FNumberOfTests.ql.
+2021-04-02 15:56:44,769 DEBUG    		[172/172 eval 168ms] Evaluation done; writing results to codeql-java/Metrics/Files/FNumberOfTests.bqrs.
+2021-04-02 15:56:44,776 DEBUG    		Shutting down query evaluator.
+2021-04-02 15:56:56,237 DEBUG    		Interpreting results.

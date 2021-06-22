@@ -1,0 +1,787 @@
+2021-03-25 19:25:01,677 INFO     
+2021-03-25 19:25:01,678 INFO     Perform Semmle analysis...
+2021-03-25 19:25:01,679 INFO     	Perform Semmle baseline analysis: True
+2021-03-25 19:25:01,681 INFO     	Perform Semmle P10 analysis: True
+2021-03-25 19:25:02,132 INFO     	Semmle Version: 1.22.1
+2021-03-25 19:25:02,134 INFO     	Changing directory: /opt/project/test/integration_tests/c_testcase/src
+2021-03-25 19:25:02,137 INFO     
+2021-03-25 19:25:02,139 INFO     	>> Executing command: make clean
+2021-03-25 19:25:02,140 INFO     	>> From directory: /opt/project/test/integration_tests/c_testcase/src
+2021-03-25 19:25:02,142 DEBUG    	Console output:
+2021-03-25 19:25:02,156 DEBUG    		rm -rf *.o *.out CWE835
+2021-03-25 19:25:02,177 INFO     	Changing directory: /opt/project/test/integration_tests/c_testcase
+2021-03-25 19:25:02,178 INFO     
+2021-03-25 19:25:02,179 INFO     	>> Executing command: do_semmle.create_project(/root/scrub_working_dir/semmle_analysis, /opt/project/test/integration_tests/c_testcase, /opt/project/test/integration_tests/c_testcase/src, make all)
+2021-03-25 19:25:02,181 INFO     	>> From directory: /opt/project/test/integration_tests/c_testcase
+2021-03-25 19:25:02,187 INFO     
+2021-03-25 19:25:02,188 INFO     	>> Executing command: odasa addLatestSnapshot --project /root/scrub_working_dir/semmle_analysis 
+2021-03-25 19:25:02,190 INFO     	>> From directory: /opt/project/test/integration_tests/c_testcase
+2021-03-25 19:25:02,192 DEBUG    	Console output:
+2021-03-25 19:25:02,859 DEBUG    		[2021-03-25 19:25:02] Checking out revision semmle_analysis - revision-2021-March-25--19-25-02
+2021-03-25 19:25:02,861 DEBUG    		[2021-03-25 19:25:02] Finished checkout command for semmle_analysis - revision-2021-March-25--19-25-02. Output in /root/scrub_working_dir/semmle_analysis/revision-2021-March-25--19-25-02/log
+2021-03-25 19:25:02,878 INFO     
+2021-03-25 19:25:02,880 INFO     	>> Executing command: odasa buildSnapshot --latest --verbose --overwrite --project /root/scrub_working_dir/semmle_analysis 
+2021-03-25 19:25:02,881 INFO     	>> From directory: /opt/project/test/integration_tests/c_testcase
+2021-03-25 19:25:02,882 DEBUG    	Console output:
+2021-03-25 19:25:03,525 DEBUG    		[2021-03-25 19:25:03] [DEBUG] Obtaining shared lock for project affected by buildSnapshot.
+2021-03-25 19:25:03,532 DEBUG    		[2021-03-25 19:25:03] [DEBUG] Obtaining Exclusive lock for buildSnapshot.
+2021-03-25 19:25:03,566 DEBUG    		[2021-03-25 19:25:03] Clearing build state for snapshot revision-2021-March-25--19-25-02
+2021-03-25 19:25:03,569 DEBUG    		[2021-03-25 19:25:03] Snapshot revision-2021-March-25--19-25-02 is ready to build
+2021-03-25 19:25:03,594 DEBUG    		[2021-03-25 19:25:03] Starting build of snapshot revision-2021-March-25--19-25-02
+2021-03-25 19:25:03,598 DEBUG    		[2021-03-25 19:25:03] Running build command make all in working directory /opt/project/test/integration_tests/c_testcase/src
+2021-03-25 19:25:03,604 DEBUG    		[2021-03-25 19:25:03] [DEBUG] Running command: 'odasa index --auto make all' in '/opt/project/test/integration_tests/c_testcase/src'
+2021-03-25 19:25:04,282 DEBUG    		[2021-03-25 19:25:04] [build] Running '/opt/local/odasa/tools/preload_tracer make all' with tracer /opt/local/odasa/tools/preload_tracer
+2021-03-25 19:25:04,309 DEBUG    		[2021-03-25 19:25:04] [build] /usr/bin/gcc -c -Wall -Wextra -Wpedantic -I ../testcasesupport main_linux.cpp -o main_linux.o
+2021-03-25 19:25:08,564 DEBUG    		[2021-03-25 19:25:08] [build] /usr/bin/gcc -c -Wall -Wextra -Wpedantic -I ../testcasesupport CWE835_Infinite_Loop__for_empty_01.c -o CWE835_Infinite_Loop__for_empty_01.o
+2021-03-25 19:25:08,589 DEBUG    		[2021-03-25 19:25:08] [build] In file included from CWE835_Infinite_Loop__for_empty_01.c:6:0:
+2021-03-25 19:25:08,590 DEBUG    		[2021-03-25 19:25:08] [build] ../testcasesupport/std_testcase.h:33:32: warning: C++ style comments are not allowed in ISO C90 [enabled by default]
+2021-03-25 19:25:08,591 DEBUG    		[2021-03-25 19:25:08] [build]  # define __STDC_LIMIT_MACROS 1 //SCRUB_IGNORE_WARNING_DUMMY
+2021-03-25 19:25:08,593 DEBUG    		[2021-03-25 19:25:08] [build]                                 ^
+2021-03-25 19:25:08,595 DEBUG    		[2021-03-25 19:25:08] [build] ../testcasesupport/std_testcase.h:33:32: warning: (this will be reported only once per input file) [enabled by default]
+2021-03-25 19:25:08,649 DEBUG    		[2021-03-25 19:25:08] [build] In file included from ../testcasesupport/std_testcase_io.h:8:0,
+2021-03-25 19:25:08,650 DEBUG    		[2021-03-25 19:25:08] [build]                  from ../testcasesupport/std_testcase.h:120,
+2021-03-25 19:25:08,651 DEBUG    		[2021-03-25 19:25:08] [build]                  from CWE835_Infinite_Loop__for_empty_01.c:6:
+2021-03-25 19:25:08,653 DEBUG    		[2021-03-25 19:25:08] [build] ../testcasesupport/std_testcase.h:33:32: warning: C++ style comments are not allowed in ISO C90 [enabled by default]
+2021-03-25 19:25:08,654 DEBUG    		[2021-03-25 19:25:08] [build]  # define __STDC_LIMIT_MACROS 1 //SCRUB_IGNORE_WARNING_DUMMY
+2021-03-25 19:25:08,655 DEBUG    		[2021-03-25 19:25:08] [build]                                 ^
+2021-03-25 19:25:08,656 DEBUG    		[2021-03-25 19:25:08] [build] ../testcasesupport/std_testcase.h:33:32: warning: (this will be reported only once per input file) [enabled by default]
+2021-03-25 19:25:12,713 DEBUG    		[2021-03-25 19:25:12] [build] /usr/bin/gcc -c -Wall -Wextra -Wpedantic -I ../testcasesupport CWE835_Infinite_Loop__while_true_01.c -o CWE835_Infinite_Loop__while_true_01.o
+2021-03-25 19:25:12,736 DEBUG    		[2021-03-25 19:25:12] [build] In file included from CWE835_Infinite_Loop__while_true_01.c:6:0:
+2021-03-25 19:25:12,737 DEBUG    		[2021-03-25 19:25:12] [build] ../testcasesupport/std_testcase.h:33:32: warning: C++ style comments are not allowed in ISO C90 [enabled by default]
+2021-03-25 19:25:12,740 DEBUG    		[2021-03-25 19:25:12] [build]  # define __STDC_LIMIT_MACROS 1 //SCRUB_IGNORE_WARNING_DUMMY
+2021-03-25 19:25:12,743 DEBUG    		[2021-03-25 19:25:12] [build]                                 ^
+2021-03-25 19:25:12,744 DEBUG    		[2021-03-25 19:25:12] [build] ../testcasesupport/std_testcase.h:33:32: warning: (this will be reported only once per input file) [enabled by default]
+2021-03-25 19:25:12,796 DEBUG    		[2021-03-25 19:25:12] [build] In file included from ../testcasesupport/std_testcase_io.h:8:0,
+2021-03-25 19:25:12,798 DEBUG    		[2021-03-25 19:25:12] [build]                  from ../testcasesupport/std_testcase.h:120,
+2021-03-25 19:25:12,800 DEBUG    		[2021-03-25 19:25:12] [build]                  from CWE835_Infinite_Loop__while_true_01.c:6:
+2021-03-25 19:25:12,802 DEBUG    		[2021-03-25 19:25:12] [build] ../testcasesupport/std_testcase.h:33:32: warning: C++ style comments are not allowed in ISO C90 [enabled by default]
+2021-03-25 19:25:12,804 DEBUG    		[2021-03-25 19:25:12] [build]  # define __STDC_LIMIT_MACROS 1 //SCRUB_IGNORE_WARNING_DUMMY
+2021-03-25 19:25:12,807 DEBUG    		[2021-03-25 19:25:12] [build]                                 ^
+2021-03-25 19:25:12,810 DEBUG    		[2021-03-25 19:25:12] [build] ../testcasesupport/std_testcase.h:33:32: warning: (this will be reported only once per input file) [enabled by default]
+2021-03-25 19:25:12,972 DEBUG    		[2021-03-25 19:25:12] [build] /usr/bin/gcc -c -Wall -Wextra -Wpedantic -I ../testcasesupport CWE835_Infinite_Loop__do_true_01.c -o CWE835_Infinite_Loop__do_true_01.o
+2021-03-25 19:25:12,993 DEBUG    		[2021-03-25 19:25:12] [build] In file included from CWE835_Infinite_Loop__do_true_01.c:6:0:
+2021-03-25 19:25:12,994 DEBUG    		[2021-03-25 19:25:12] [build] ../testcasesupport/std_testcase.h:33:32: warning: C++ style comments are not allowed in ISO C90 [enabled by default]
+2021-03-25 19:25:12,996 DEBUG    		[2021-03-25 19:25:12] [build]  # define __STDC_LIMIT_MACROS 1 //SCRUB_IGNORE_WARNING_DUMMY
+2021-03-25 19:25:12,998 DEBUG    		[2021-03-25 19:25:12] [build]                                 ^
+2021-03-25 19:25:12,999 DEBUG    		[2021-03-25 19:25:12] [build] ../testcasesupport/std_testcase.h:33:32: warning: (this will be reported only once per input file) [enabled by default]
+2021-03-25 19:25:13,039 DEBUG    		[2021-03-25 19:25:13] [build] In file included from ../testcasesupport/std_testcase_io.h:8:0,
+2021-03-25 19:25:13,040 DEBUG    		[2021-03-25 19:25:13] [build]                  from ../testcasesupport/std_testcase.h:120,
+2021-03-25 19:25:13,041 DEBUG    		[2021-03-25 19:25:13] [build]                  from CWE835_Infinite_Loop__do_true_01.c:6:
+2021-03-25 19:25:13,042 DEBUG    		[2021-03-25 19:25:13] [build] ../testcasesupport/std_testcase.h:33:32: warning: C++ style comments are not allowed in ISO C90 [enabled by default]
+2021-03-25 19:25:13,043 DEBUG    		[2021-03-25 19:25:13] [build]  # define __STDC_LIMIT_MACROS 1 //SCRUB_IGNORE_WARNING_DUMMY
+2021-03-25 19:25:13,044 DEBUG    		[2021-03-25 19:25:13] [build]                                 ^
+2021-03-25 19:25:13,045 DEBUG    		[2021-03-25 19:25:13] [build] ../testcasesupport/std_testcase.h:33:32: warning: (this will be reported only once per input file) [enabled by default]
+2021-03-25 19:25:13,217 DEBUG    		[2021-03-25 19:25:13] [build] /usr/bin/gcc -c -Wall -Wextra -Wpedantic -I ../testcasesupport CWE835_Infinite_Loop__while_01.c -o CWE835_Infinite_Loop__while_01.o
+2021-03-25 19:25:13,239 DEBUG    		[2021-03-25 19:25:13] [build] In file included from CWE835_Infinite_Loop__while_01.c:6:0:
+2021-03-25 19:25:13,241 DEBUG    		[2021-03-25 19:25:13] [build] ../testcasesupport/std_testcase.h:33:32: warning: C++ style comments are not allowed in ISO C90 [enabled by default]
+2021-03-25 19:25:13,242 DEBUG    		[2021-03-25 19:25:13] [build]  # define __STDC_LIMIT_MACROS 1 //SCRUB_IGNORE_WARNING_DUMMY
+2021-03-25 19:25:13,244 DEBUG    		[2021-03-25 19:25:13] [build]                                 ^
+2021-03-25 19:25:13,245 DEBUG    		[2021-03-25 19:25:13] [build] ../testcasesupport/std_testcase.h:33:32: warning: (this will be reported only once per input file) [enabled by default]
+2021-03-25 19:25:13,293 DEBUG    		[2021-03-25 19:25:13] [build] In file included from ../testcasesupport/std_testcase_io.h:8:0,
+2021-03-25 19:25:13,294 DEBUG    		[2021-03-25 19:25:13] [build]                  from ../testcasesupport/std_testcase.h:120,
+2021-03-25 19:25:13,295 DEBUG    		[2021-03-25 19:25:13] [build]                  from CWE835_Infinite_Loop__while_01.c:6:
+2021-03-25 19:25:13,296 DEBUG    		[2021-03-25 19:25:13] [build] ../testcasesupport/std_testcase.h:33:32: warning: C++ style comments are not allowed in ISO C90 [enabled by default]
+2021-03-25 19:25:13,297 DEBUG    		[2021-03-25 19:25:13] [build]  # define __STDC_LIMIT_MACROS 1 //SCRUB_IGNORE_WARNING_DUMMY
+2021-03-25 19:25:13,298 DEBUG    		[2021-03-25 19:25:13] [build]                                 ^
+2021-03-25 19:25:13,299 DEBUG    		[2021-03-25 19:25:13] [build] ../testcasesupport/std_testcase.h:33:32: warning: (this will be reported only once per input file) [enabled by default]
+2021-03-25 19:25:13,443 DEBUG    		[2021-03-25 19:25:13] [build] /usr/bin/gcc -c -Wall -Wextra -Wpedantic -I ../testcasesupport CWE835_Infinite_Loop__for_01.c -o CWE835_Infinite_Loop__for_01.o
+2021-03-25 19:25:13,460 DEBUG    		[2021-03-25 19:25:13] [build] In file included from CWE835_Infinite_Loop__for_01.c:6:0:
+2021-03-25 19:25:13,461 DEBUG    		[2021-03-25 19:25:13] [build] ../testcasesupport/std_testcase.h:33:32: warning: C++ style comments are not allowed in ISO C90 [enabled by default]
+2021-03-25 19:25:13,462 DEBUG    		[2021-03-25 19:25:13] [build]  # define __STDC_LIMIT_MACROS 1 //SCRUB_IGNORE_WARNING_DUMMY
+2021-03-25 19:25:13,463 DEBUG    		[2021-03-25 19:25:13] [build]                                 ^
+2021-03-25 19:25:13,464 DEBUG    		[2021-03-25 19:25:13] [build] ../testcasesupport/std_testcase.h:33:32: warning: (this will be reported only once per input file) [enabled by default]
+2021-03-25 19:25:13,504 DEBUG    		[2021-03-25 19:25:13] [build] In file included from ../testcasesupport/std_testcase_io.h:8:0,
+2021-03-25 19:25:13,508 DEBUG    		[2021-03-25 19:25:13] [build]                  from ../testcasesupport/std_testcase.h:120,
+2021-03-25 19:25:13,509 DEBUG    		[2021-03-25 19:25:13] [build]                  from CWE835_Infinite_Loop__for_01.c:6:
+2021-03-25 19:25:13,510 DEBUG    		[2021-03-25 19:25:13] [build] ../testcasesupport/std_testcase.h:33:32: warning: C++ style comments are not allowed in ISO C90 [enabled by default]
+2021-03-25 19:25:13,511 DEBUG    		[2021-03-25 19:25:13] [build]  # define __STDC_LIMIT_MACROS 1 //SCRUB_IGNORE_WARNING_DUMMY
+2021-03-25 19:25:13,511 DEBUG    		[2021-03-25 19:25:13] [build]                                 ^
+2021-03-25 19:25:13,512 DEBUG    		[2021-03-25 19:25:13] [build] ../testcasesupport/std_testcase.h:33:32: warning: (this will be reported only once per input file) [enabled by default]
+2021-03-25 19:25:13,648 DEBUG    		[2021-03-25 19:25:13] [build] /usr/bin/gcc -c -Wall -Wextra -Wpedantic -I ../testcasesupport CWE835_Infinite_Loop__do_01.c -o CWE835_Infinite_Loop__do_01.o
+2021-03-25 19:25:13,665 DEBUG    		[2021-03-25 19:25:13] [build] In file included from CWE835_Infinite_Loop__do_01.c:6:0:
+2021-03-25 19:25:13,666 DEBUG    		[2021-03-25 19:25:13] [build] ../testcasesupport/std_testcase.h:33:32: warning: C++ style comments are not allowed in ISO C90 [enabled by default]
+2021-03-25 19:25:13,667 DEBUG    		[2021-03-25 19:25:13] [build]  # define __STDC_LIMIT_MACROS 1 //SCRUB_IGNORE_WARNING_DUMMY
+2021-03-25 19:25:13,668 DEBUG    		[2021-03-25 19:25:13] [build]                                 ^
+2021-03-25 19:25:13,669 DEBUG    		[2021-03-25 19:25:13] [build] ../testcasesupport/std_testcase.h:33:32: warning: (this will be reported only once per input file) [enabled by default]
+2021-03-25 19:25:13,711 DEBUG    		[2021-03-25 19:25:13] [build] In file included from ../testcasesupport/std_testcase_io.h:8:0,
+2021-03-25 19:25:13,713 DEBUG    		[2021-03-25 19:25:13] [build]                  from ../testcasesupport/std_testcase.h:120,
+2021-03-25 19:25:13,714 DEBUG    		[2021-03-25 19:25:13] [build]                  from CWE835_Infinite_Loop__do_01.c:6:
+2021-03-25 19:25:13,715 DEBUG    		[2021-03-25 19:25:13] [build] ../testcasesupport/std_testcase.h:33:32: warning: C++ style comments are not allowed in ISO C90 [enabled by default]
+2021-03-25 19:25:13,716 DEBUG    		[2021-03-25 19:25:13] [build]  # define __STDC_LIMIT_MACROS 1 //SCRUB_IGNORE_WARNING_DUMMY
+2021-03-25 19:25:13,718 DEBUG    		[2021-03-25 19:25:13] [build]                                 ^
+2021-03-25 19:25:13,719 DEBUG    		[2021-03-25 19:25:13] [build] ../testcasesupport/std_testcase.h:33:32: warning: (this will be reported only once per input file) [enabled by default]
+2021-03-25 19:25:13,872 DEBUG    		[2021-03-25 19:25:13] [build] /usr/bin/gcc -c -Wall -Wextra -Wpedantic -I ../testcasesupport ../testcasesupport/io.c -o io.o
+2021-03-25 19:25:13,934 DEBUG    		[2021-03-25 19:25:13] [build] In file included from ../testcasesupport/io.c:5:0:
+2021-03-25 19:25:13,936 DEBUG    		[2021-03-25 19:25:13] [build] ../testcasesupport/std_testcase.h:33:32: warning: C++ style comments are not allowed in ISO C90 [enabled by default]
+2021-03-25 19:25:13,937 DEBUG    		[2021-03-25 19:25:13] [build]  # define __STDC_LIMIT_MACROS 1 //SCRUB_IGNORE_WARNING_DUMMY
+2021-03-25 19:25:13,939 DEBUG    		[2021-03-25 19:25:13] [build]                                 ^
+2021-03-25 19:25:13,940 DEBUG    		[2021-03-25 19:25:13] [build] ../testcasesupport/std_testcase.h:33:32: warning: (this will be reported only once per input file) [enabled by default]
+2021-03-25 19:25:13,953 DEBUG    		[2021-03-25 19:25:13] [build] In file included from ../testcasesupport/std_testcase_io.h:8:0,
+2021-03-25 19:25:13,954 DEBUG    		[2021-03-25 19:25:13] [build]                  from ../testcasesupport/std_testcase.h:120,
+2021-03-25 19:25:13,955 DEBUG    		[2021-03-25 19:25:13] [build]                  from ../testcasesupport/io.c:5:
+2021-03-25 19:25:13,956 DEBUG    		[2021-03-25 19:25:13] [build] ../testcasesupport/std_testcase.h:33:32: warning: C++ style comments are not allowed in ISO C90 [enabled by default]
+2021-03-25 19:25:13,957 DEBUG    		[2021-03-25 19:25:13] [build]  # define __STDC_LIMIT_MACROS 1 //SCRUB_IGNORE_WARNING_DUMMY
+2021-03-25 19:25:13,959 DEBUG    		[2021-03-25 19:25:13] [build]                                 ^
+2021-03-25 19:25:13,960 DEBUG    		[2021-03-25 19:25:13] [build] ../testcasesupport/std_testcase.h:33:32: warning: (this will be reported only once per input file) [enabled by default]
+2021-03-25 19:25:13,961 DEBUG    		[2021-03-25 19:25:13] [build] ../testcasesupport/io.c: In function 'printSizeTLine':
+2021-03-25 19:25:13,963 DEBUG    		[2021-03-25 19:25:13] [build] ../testcasesupport/io.c:54:5: warning: ISO C90 does not support the 'z' gnu_printf length modifier [-Wformat=]
+2021-03-25 19:25:13,964 DEBUG    		[2021-03-25 19:25:13] [build]      printf("%zu\n", sizeTNumber);
+2021-03-25 19:25:13,965 DEBUG    		[2021-03-25 19:25:13] [build]      ^
+2021-03-25 19:25:13,967 DEBUG    		[2021-03-25 19:25:13] [build] ../testcasesupport/io.c: In function 'printWcharLine':
+2021-03-25 19:25:13,968 DEBUG    		[2021-03-25 19:25:13] [build] ../testcasesupport/io.c:67:29: warning: C++ style comments are not allowed in ISO C90 [enabled by default]
+2021-03-25 19:25:13,970 DEBUG    		[2021-03-25 19:25:13] [build]          s[0] = wideChar;    // lgtm
+2021-03-25 19:25:13,971 DEBUG    		[2021-03-25 19:25:13] [build]                              ^
+2021-03-25 19:25:13,972 DEBUG    		[2021-03-25 19:25:13] [build] ../testcasesupport/io.c:67:29: warning: (this will be reported only once per input file) [enabled by default]
+2021-03-25 19:25:13,973 DEBUG    		[2021-03-25 19:25:13] [build] ../testcasesupport/io.c:69:5: warning: ISO C90 does not support the '%ls' gnu_printf format [-Wformat=]
+2021-03-25 19:25:13,974 DEBUG    		[2021-03-25 19:25:13] [build]      printf("%ls\n", s);
+2021-03-25 19:25:13,975 DEBUG    		[2021-03-25 19:25:13] [build]      ^
+2021-03-25 19:25:13,976 DEBUG    		[2021-03-25 19:25:13] [build] ../testcasesupport/io.c: In function 'decodeHexChars':
+2021-03-25 19:25:13,978 DEBUG    		[2021-03-25 19:25:13] [build] ../testcasesupport/io.c:116:9: warning: format '%x' expects argument of type 'unsigned int *', but argument 3 has type 'int *' [-Wformat=]
+2021-03-25 19:25:13,979 DEBUG    		[2021-03-25 19:25:13] [build]          sscanf(&hex[2 * numWritten], "%02x", &byte);
+2021-03-25 19:25:13,980 DEBUG    		[2021-03-25 19:25:13] [build]          ^
+2021-03-25 19:25:14,213 DEBUG    		[2021-03-25 19:25:14] [build] /usr/bin/gcc -c -Wall -Wextra -Wpedantic -I ../testcasesupport ../testcasesupport/std_thread.c -o std_thread.o
+2021-03-25 19:25:14,231 DEBUG    		[2021-03-25 19:25:14] [build] In file included from ../testcasesupport/std_thread.c:5:0:
+2021-03-25 19:25:14,232 DEBUG    		[2021-03-25 19:25:14] [build] ../testcasesupport/std_testcase.h:33:32: warning: C++ style comments are not allowed in ISO C90 [enabled by default]
+2021-03-25 19:25:14,234 DEBUG    		[2021-03-25 19:25:14] [build]  # define __STDC_LIMIT_MACROS 1 //SCRUB_IGNORE_WARNING_DUMMY
+2021-03-25 19:25:14,236 DEBUG    		[2021-03-25 19:25:14] [build]                                 ^
+2021-03-25 19:25:14,237 DEBUG    		[2021-03-25 19:25:14] [build] ../testcasesupport/std_testcase.h:33:32: warning: (this will be reported only once per input file) [enabled by default]
+2021-03-25 19:25:14,289 DEBUG    		[2021-03-25 19:25:14] [build] In file included from ../testcasesupport/std_testcase_io.h:8:0,
+2021-03-25 19:25:14,291 DEBUG    		[2021-03-25 19:25:14] [build]                  from ../testcasesupport/std_testcase.h:120,
+2021-03-25 19:25:14,292 DEBUG    		[2021-03-25 19:25:14] [build]                  from ../testcasesupport/std_thread.c:5:
+2021-03-25 19:25:14,294 DEBUG    		[2021-03-25 19:25:14] [build] ../testcasesupport/std_testcase.h:33:32: warning: C++ style comments are not allowed in ISO C90 [enabled by default]
+2021-03-25 19:25:14,294 DEBUG    		[2021-03-25 19:25:14] [build]  # define __STDC_LIMIT_MACROS 1 //SCRUB_IGNORE_WARNING_DUMMY
+2021-03-25 19:25:14,295 DEBUG    		[2021-03-25 19:25:14] [build]                                 ^
+2021-03-25 19:25:14,296 DEBUG    		[2021-03-25 19:25:14] [build] ../testcasesupport/std_testcase.h:33:32: warning: (this will be reported only once per input file) [enabled by default]
+2021-03-25 19:25:14,518 DEBUG    		[2021-03-25 19:25:14] [build] /usr/bin/g++ -lpthread -lm main_linux.o CWE835_Infinite_Loop__for_empty_01.o CWE835_Infinite_Loop__while_true_01.o CWE835_Infinite_Loop__do_true_01.o CWE835_Infinite_Loop__while_01.o CWE835_Infinite_Loop__for_01.o CWE835_Infinite_Loop__do_01.o  io.o std_thread.o -o CWE835
+2021-03-25 19:25:14,880 DEBUG    		[2021-03-25 19:25:14] Build command succeeded (exit code 0)
+2021-03-25 19:25:14,881 DEBUG    		[2021-03-25 19:25:14] Running build command odasa duplicateCode --ram 2048 --minimum-tokens 100
+2021-03-25 19:25:14,882 DEBUG    		[2021-03-25 19:25:14] [DEBUG] Running command: 'odasa duplicateCode --ram 2048 --minimum-tokens 100' in '/opt/project/test/integration_tests/c_testcase'
+2021-03-25 19:25:15,564 DEBUG    		[2021-03-25 19:25:15] [build] [2021-03-25 19:25:15] [duplicate-code] Running duplicate code detection
+2021-03-25 19:25:16,633 DEBUG    		[2021-03-25 19:25:16] Build command succeeded (exit code 0)
+2021-03-25 19:25:16,636 DEBUG    		[2021-03-25 19:25:16] [build] Processing external data for snapshot revision-2021-March-25--19-25-02 of project /root/scrub_working_dir/semmle_analysis
+2021-03-25 19:25:16,642 DEBUG    		[2021-03-25 19:25:16] [build] Processing external trap files for snapshot revision-2021-March-25--19-25-02 of project /root/scrub_working_dir/semmle_analysis
+2021-03-25 19:25:16,651 DEBUG    		[2021-03-25 19:25:16] Found 14 TRAP files for snapshot revision-2021-March-25--19-25-02
+2021-03-25 19:25:16,652 DEBUG    		[2021-03-25 19:25:16] Importing TRAP files into database for snapshot revision-2021-March-25--19-25-02 of scrub_semmle_analysis
+2021-03-25 19:25:16,657 DEBUG    		[2021-03-25 19:25:16] [DEBUG] Running command: '/opt/local/odasa/tools/java/bin/java -Xmx4096M -Xms256M -Djava.library.path=/opt/local/odasa/tools -cp /opt/local/odasa/tools/odasa.jar com.semmle.odasa.Main importTrap --db /root/scrub_working_dir/semmle_analysis/revision-2021-March-25--19-25-02/working/db-cpp --dbscheme /opt/local/odasa/queries/semmlecode-cpp-queries/semmlecode.cpp.dbscheme --verbose /root/scrub_working_dir/semmle_analysis/revision-2021-March-25--19-25-02/working/trap' in current directory ('/opt/project/test/integration_tests/c_testcase')
+2021-03-25 19:25:17,328 DEBUG    		[2021-03-25 19:25:17] Clearing disk cache since the version file /root/scrub_working_dir/semmle_analysis/revision-2021-March-25--19-25-02/working/db-cpp/default/cache/version does not exist
+2021-03-25 19:25:17,352 DEBUG    		[2021-03-25 19:25:17] Tuple pool not found. Clearing relations with cached strings
+2021-03-25 19:25:17,356 DEBUG    		[2021-03-25 19:25:17] Stopped the world to zealously trim disk
+2021-03-25 19:25:17,369 DEBUG    		[2021-03-25 19:25:17] Starting the world again
+2021-03-25 19:25:17,375 DEBUG    		[2021-03-25 19:25:17] Stopped the world to hard-clear memory
+2021-03-25 19:25:17,377 DEBUG    		[2021-03-25 19:25:17] Starting the world again
+2021-03-25 19:25:17,416 DEBUG    		[2021-03-25 19:25:17] Scanning for files in /root/scrub_working_dir/semmle_analysis/revision-2021-March-25--19-25-02/working/trap
+2021-03-25 19:25:17,438 DEBUG    		[2021-03-25 19:25:17] Grouping TRAPs by link target
+2021-03-25 19:25:17,520 DEBUG    		[2021-03-25 19:25:17] Scanning CWE835_Infinite_Loop__do_01.c.[a29dac73].trap (CWE835_Infinite_Loop__do_01.c.a29dac73_0.trap.tar.br) (1 of 185)
+2021-03-25 19:25:17,554 DEBUG    		[2021-03-25 19:25:17] Scanning CWE835_Infinite_Loop__do_true_01.c.[8642149b].trap (CWE835_Infinite_Loop__do_true_01.c.8642149b_0.trap.tar.br) (2 of 185)
+2021-03-25 19:25:17,573 DEBUG    		[2021-03-25 19:25:17] Scanning CWE835_Infinite_Loop__for_01.c.[6730b430].trap (CWE835_Infinite_Loop__for_01.c.6730b430_0.trap.tar.br) (3 of 185)
+2021-03-25 19:25:17,640 DEBUG    		[2021-03-25 19:25:17] Scanning cpp_predefined.[acb19af8].trap (CWE835_Infinite_Loop__for_empty_01.c.d69fd705_0.trap.tar.br) (4 of 185)
+2021-03-25 19:25:17,642 DEBUG    		[2021-03-25 19:25:17] Scanning stdc-predef.h.[59a8e336].trap (CWE835_Infinite_Loop__for_empty_01.c.d69fd705_0.trap.tar.br) (5 of 185)
+2021-03-25 19:25:17,643 DEBUG    		[2021-03-25 19:25:17] Scanning wordsize.h.[250aedb4].trap (CWE835_Infinite_Loop__for_empty_01.c.d69fd705_0.trap.tar.br) (6 of 185)
+2021-03-25 19:25:17,645 DEBUG    		[2021-03-25 19:25:17] Scanning cdefs.h.[93c6e976].trap (CWE835_Infinite_Loop__for_empty_01.c.d69fd705_0.trap.tar.br) (7 of 185)
+2021-03-25 19:25:17,647 DEBUG    		[2021-03-25 19:25:17] Scanning stubs-64.h.[59a8e336].trap (CWE835_Infinite_Loop__for_empty_01.c.d69fd705_0.trap.tar.br) (8 of 185)
+2021-03-25 19:25:17,648 DEBUG    		[2021-03-25 19:25:17] Scanning stubs.h.[efa163a6].trap (CWE835_Infinite_Loop__for_empty_01.c.d69fd705_0.trap.tar.br) (9 of 185)
+2021-03-25 19:25:17,649 DEBUG    		[2021-03-25 19:25:17] Scanning features.h.[3485572a].trap (CWE835_Infinite_Loop__for_empty_01.c.d69fd705_0.trap.tar.br) (10 of 185)
+2021-03-25 19:25:17,651 DEBUG    		[2021-03-25 19:25:17] Scanning stddef.h.[0120650c].trap (CWE835_Infinite_Loop__for_empty_01.c.d69fd705_0.trap.tar.br) (11 of 185)
+2021-03-25 19:25:17,653 DEBUG    		[2021-03-25 19:25:17] Scanning typesizes.h.[a304737d].trap (CWE835_Infinite_Loop__for_empty_01.c.d69fd705_0.trap.tar.br) (12 of 185)
+2021-03-25 19:25:17,655 DEBUG    		[2021-03-25 19:25:17] Scanning types.h.[45a83c33].trap (CWE835_Infinite_Loop__for_empty_01.c.d69fd705_0.trap.tar.br) (13 of 185)
+2021-03-25 19:25:17,657 DEBUG    		[2021-03-25 19:25:17] Scanning stddef.h.[4eae96b9].trap (CWE835_Infinite_Loop__for_empty_01.c.d69fd705_0.trap.tar.br) (14 of 185)
+2021-03-25 19:25:17,660 DEBUG    		[2021-03-25 19:25:17] Scanning wchar.h.[441c26a9].trap (CWE835_Infinite_Loop__for_empty_01.c.d69fd705_0.trap.tar.br) (15 of 185)
+2021-03-25 19:25:17,666 DEBUG    		[2021-03-25 19:25:17] Scanning _G_config.h.[8df4f3c5].trap (CWE835_Infinite_Loop__for_empty_01.c.d69fd705_0.trap.tar.br) (16 of 185)
+2021-03-25 19:25:17,668 DEBUG    		[2021-03-25 19:25:17] Scanning stdarg.h.[c2e36c8f].trap (CWE835_Infinite_Loop__for_empty_01.c.d69fd705_0.trap.tar.br) (17 of 185)
+2021-03-25 19:25:17,671 DEBUG    		[2021-03-25 19:25:17] Scanning libio.h.[a7fd755a].trap (CWE835_Infinite_Loop__for_empty_01.c.d69fd705_0.trap.tar.br) (18 of 185)
+2021-03-25 19:25:17,678 DEBUG    		[2021-03-25 19:25:17] Scanning stdio_lim.h.[00fa4c2e].trap (CWE835_Infinite_Loop__for_empty_01.c.d69fd705_0.trap.tar.br) (19 of 185)
+2021-03-25 19:25:17,680 DEBUG    		[2021-03-25 19:25:17] Scanning sys_errlist.h.[1db758ec].trap (CWE835_Infinite_Loop__for_empty_01.c.d69fd705_0.trap.tar.br) (20 of 185)
+2021-03-25 19:25:17,682 DEBUG    		[2021-03-25 19:25:17] Scanning stdio.h.[821f1cad].trap (CWE835_Infinite_Loop__for_empty_01.c.d69fd705_0.trap.tar.br) (21 of 185)
+2021-03-25 19:25:17,699 DEBUG    		[2021-03-25 19:25:17] Scanning stddef.h.[39831f10].trap (CWE835_Infinite_Loop__for_empty_01.c.d69fd705_0.trap.tar.br) (22 of 185)
+2021-03-25 19:25:17,706 DEBUG    		[2021-03-25 19:25:17] Scanning waitflags.h.[baa3d995].trap (CWE835_Infinite_Loop__for_empty_01.c.d69fd705_0.trap.tar.br) (23 of 185)
+2021-03-25 19:25:17,710 DEBUG    		[2021-03-25 19:25:17] Scanning endian.h.[3780ed08].trap (CWE835_Infinite_Loop__for_empty_01.c.d69fd705_0.trap.tar.br) (24 of 185)
+2021-03-25 19:25:17,711 DEBUG    		[2021-03-25 19:25:17] Scanning byteswap-16.h.[76aa879f].trap (CWE835_Infinite_Loop__for_empty_01.c.d69fd705_0.trap.tar.br) (25 of 185)
+2021-03-25 19:25:17,712 DEBUG    		[2021-03-25 19:25:17] Scanning byteswap.h.[401703c0].trap (CWE835_Infinite_Loop__for_empty_01.c.d69fd705_0.trap.tar.br) (26 of 185)
+2021-03-25 19:25:17,714 DEBUG    		[2021-03-25 19:25:17] Scanning endian.h.[3fea70e7].trap (CWE835_Infinite_Loop__for_empty_01.c.d69fd705_0.trap.tar.br) (27 of 185)
+2021-03-25 19:25:17,715 DEBUG    		[2021-03-25 19:25:17] Scanning waitstatus.h.[75492385].trap (CWE835_Infinite_Loop__for_empty_01.c.d69fd705_0.trap.tar.br) (28 of 185)
+2021-03-25 19:25:17,716 DEBUG    		[2021-03-25 19:25:17] Scanning time.h.[c4ff5e0d].trap (CWE835_Infinite_Loop__for_empty_01.c.d69fd705_0.trap.tar.br) (29 of 185)
+2021-03-25 19:25:17,718 DEBUG    		[2021-03-25 19:25:17] Scanning stddef.h.[aca35fae].trap (CWE835_Infinite_Loop__for_empty_01.c.d69fd705_0.trap.tar.br) (30 of 185)
+2021-03-25 19:25:17,722 DEBUG    		[2021-03-25 19:25:17] Scanning select.h.[0c3c91ef].trap (CWE835_Infinite_Loop__for_empty_01.c.d69fd705_0.trap.tar.br) (31 of 185)
+2021-03-25 19:25:17,724 DEBUG    		[2021-03-25 19:25:17] Scanning sigset.h.[5ec3a341].trap (CWE835_Infinite_Loop__for_empty_01.c.d69fd705_0.trap.tar.br) (32 of 185)
+2021-03-25 19:25:17,726 DEBUG    		[2021-03-25 19:25:17] Scanning time.h.[37329413].trap (CWE835_Infinite_Loop__for_empty_01.c.d69fd705_0.trap.tar.br) (33 of 185)
+2021-03-25 19:25:17,729 DEBUG    		[2021-03-25 19:25:17] Scanning time.h.[0a6a8b52].trap (CWE835_Infinite_Loop__for_empty_01.c.d69fd705_0.trap.tar.br) (34 of 185)
+2021-03-25 19:25:17,731 DEBUG    		[2021-03-25 19:25:17] Scanning select.h.[a4cfc766].trap (CWE835_Infinite_Loop__for_empty_01.c.d69fd705_0.trap.tar.br) (35 of 185)
+2021-03-25 19:25:17,734 DEBUG    		[2021-03-25 19:25:17] Scanning sysmacros.h.[29ddce6e].trap (CWE835_Infinite_Loop__for_empty_01.c.d69fd705_0.trap.tar.br) (36 of 185)
+2021-03-25 19:25:17,736 DEBUG    		[2021-03-25 19:25:17] Scanning pthreadtypes.h.[644f8cd8].trap (CWE835_Infinite_Loop__for_empty_01.c.d69fd705_0.trap.tar.br) (37 of 185)
+2021-03-25 19:25:17,739 DEBUG    		[2021-03-25 19:25:17] Scanning types.h.[21a2b47a].trap (CWE835_Infinite_Loop__for_empty_01.c.d69fd705_0.trap.tar.br) (38 of 185)
+2021-03-25 19:25:17,744 DEBUG    		[2021-03-25 19:25:17] Scanning stddef.h.[b4d7d5bc].trap (CWE835_Infinite_Loop__for_empty_01.c.d69fd705_0.trap.tar.br) (39 of 185)
+2021-03-25 19:25:17,748 DEBUG    		[2021-03-25 19:25:17] Scanning alloca.h.[076513bc].trap (CWE835_Infinite_Loop__for_empty_01.c.d69fd705_0.trap.tar.br) (40 of 185)
+2021-03-25 19:25:17,750 DEBUG    		[2021-03-25 19:25:17] Scanning stdlib-float.h.[6b9a9ba3].trap (CWE835_Infinite_Loop__for_empty_01.c.d69fd705_0.trap.tar.br) (41 of 185)
+2021-03-25 19:25:17,751 DEBUG    		[2021-03-25 19:25:17] Scanning stdlib.h.[0a366d84].trap (CWE835_Infinite_Loop__for_empty_01.c.d69fd705_0.trap.tar.br) (42 of 185)
+2021-03-25 19:25:17,767 DEBUG    		[2021-03-25 19:25:17] Scanning stddef.h.[2418fc15].trap (CWE835_Infinite_Loop__for_empty_01.c.d69fd705_0.trap.tar.br) (43 of 185)
+2021-03-25 19:25:17,772 DEBUG    		[2021-03-25 19:25:17] Scanning stddef.h.[4ba3e815].trap (CWE835_Infinite_Loop__for_empty_01.c.d69fd705_0.trap.tar.br) (44 of 185)
+2021-03-25 19:25:17,775 DEBUG    		[2021-03-25 19:25:17] Scanning time.h.[a454be70].trap (CWE835_Infinite_Loop__for_empty_01.c.d69fd705_0.trap.tar.br) (45 of 185)
+2021-03-25 19:25:17,778 DEBUG    		[2021-03-25 19:25:17] Scanning xlocale.h.[3d807082].trap (CWE835_Infinite_Loop__for_empty_01.c.d69fd705_0.trap.tar.br) (46 of 185)
+2021-03-25 19:25:17,779 DEBUG    		[2021-03-25 19:25:17] Scanning time.h.[14267b6c].trap (CWE835_Infinite_Loop__for_empty_01.c.d69fd705_0.trap.tar.br) (47 of 185)
+2021-03-25 19:25:17,784 DEBUG    		[2021-03-25 19:25:17] Scanning limits.h.[52aff277].trap (CWE835_Infinite_Loop__for_empty_01.c.d69fd705_0.trap.tar.br) (48 of 185)
+2021-03-25 19:25:17,786 DEBUG    		[2021-03-25 19:25:17] Scanning local_lim.h.[b86c9089].trap (CWE835_Infinite_Loop__for_empty_01.c.d69fd705_0.trap.tar.br) (49 of 185)
+2021-03-25 19:25:17,788 DEBUG    		[2021-03-25 19:25:17] Scanning posix1_lim.h.[6dbe3a52].trap (CWE835_Infinite_Loop__for_empty_01.c.d69fd705_0.trap.tar.br) (50 of 185)
+2021-03-25 19:25:17,789 DEBUG    		[2021-03-25 19:25:17] Scanning posix2_lim.h.[bfaf0a0a].trap (CWE835_Infinite_Loop__for_empty_01.c.d69fd705_0.trap.tar.br) (51 of 185)
+2021-03-25 19:25:17,791 DEBUG    		[2021-03-25 19:25:17] Scanning limits.h.[ab27cd2a].trap (CWE835_Infinite_Loop__for_empty_01.c.d69fd705_0.trap.tar.br) (52 of 185)
+2021-03-25 19:25:17,793 DEBUG    		[2021-03-25 19:25:17] Scanning limits.h.[cf6224b5].trap (CWE835_Infinite_Loop__for_empty_01.c.d69fd705_0.trap.tar.br) (53 of 185)
+2021-03-25 19:25:17,795 DEBUG    		[2021-03-25 19:25:17] Scanning syslimits.h.[74dcfe75].trap (CWE835_Infinite_Loop__for_empty_01.c.d69fd705_0.trap.tar.br) (54 of 185)
+2021-03-25 19:25:17,796 DEBUG    		[2021-03-25 19:25:17] Scanning limits.h.[46520070].trap (CWE835_Infinite_Loop__for_empty_01.c.d69fd705_0.trap.tar.br) (55 of 185)
+2021-03-25 19:25:17,819 DEBUG    		[2021-03-25 19:25:17] Scanning stddef.h.[8ac2917c].trap (CWE835_Infinite_Loop__for_empty_01.c.d69fd705_0.trap.tar.br) (56 of 185)
+2021-03-25 19:25:17,821 DEBUG    		[2021-03-25 19:25:17] Scanning string.h.[220cc2a9].trap (CWE835_Infinite_Loop__for_empty_01.c.d69fd705_0.trap.tar.br) (57 of 185)
+2021-03-25 19:25:17,823 DEBUG    		[2021-03-25 19:25:17] Scanning wchar.h.[c1a2fc0a].trap (CWE835_Infinite_Loop__for_empty_01.c.d69fd705_0.trap.tar.br) (58 of 185)
+2021-03-25 19:25:17,825 DEBUG    		[2021-03-25 19:25:17] Scanning stdint.h.[5db76022].trap (CWE835_Infinite_Loop__for_empty_01.c.d69fd705_0.trap.tar.br) (59 of 185)
+2021-03-25 19:25:17,828 DEBUG    		[2021-03-25 19:25:17] Scanning stdint.h.[38794451].trap (CWE835_Infinite_Loop__for_empty_01.c.d69fd705_0.trap.tar.br) (60 of 185)
+2021-03-25 19:25:17,830 DEBUG    		[2021-03-25 19:25:17] Scanning ctype.h.[254f9835].trap (CWE835_Infinite_Loop__for_empty_01.c.d69fd705_0.trap.tar.br) (61 of 185)
+2021-03-25 19:25:17,835 DEBUG    		[2021-03-25 19:25:17] Scanning fcntl-linux.h.[1a367326].trap (CWE835_Infinite_Loop__for_empty_01.c.d69fd705_0.trap.tar.br) (62 of 185)
+2021-03-25 19:25:17,837 DEBUG    		[2021-03-25 19:25:17] Scanning fcntl.h.[d77ad704].trap (CWE835_Infinite_Loop__for_empty_01.c.d69fd705_0.trap.tar.br) (63 of 185)
+2021-03-25 19:25:17,839 DEBUG    		[2021-03-25 19:25:17] Scanning stat.h.[66a4e585].trap (CWE835_Infinite_Loop__for_empty_01.c.d69fd705_0.trap.tar.br) (64 of 185)
+2021-03-25 19:25:17,841 DEBUG    		[2021-03-25 19:25:17] Scanning fcntl.h.[55f50f77].trap (CWE835_Infinite_Loop__for_empty_01.c.d69fd705_0.trap.tar.br) (65 of 185)
+2021-03-25 19:25:17,843 DEBUG    		[2021-03-25 19:25:17] Scanning stat.h.[ea59476b].trap (CWE835_Infinite_Loop__for_empty_01.c.d69fd705_0.trap.tar.br) (66 of 185)
+2021-03-25 19:25:17,845 DEBUG    		[2021-03-25 19:25:17] Scanning stat.h.[403082e5].trap (CWE835_Infinite_Loop__for_empty_01.c.d69fd705_0.trap.tar.br) (67 of 185)
+2021-03-25 19:25:17,848 DEBUG    		[2021-03-25 19:25:17] Scanning std_testcase.h.[3f2dad41].trap (CWE835_Infinite_Loop__for_empty_01.c.d69fd705_0.trap.tar.br) (68 of 185)
+2021-03-25 19:25:17,851 DEBUG    		[2021-03-25 19:25:17] Scanning std_testcase_io.h.[e6253c90].trap (CWE835_Infinite_Loop__for_empty_01.c.d69fd705_0.trap.tar.br) (69 of 185)
+2021-03-25 19:25:17,852 DEBUG    		[2021-03-25 19:25:17] Scanning std_testcase.h.[948849c2].trap (CWE835_Infinite_Loop__for_empty_01.c.d69fd705_0.trap.tar.br) (70 of 185)
+2021-03-25 19:25:17,854 DEBUG    		[2021-03-25 19:25:17] Scanning CWE835_Infinite_Loop__for_empty_01.c.[d69fd705].trap (CWE835_Infinite_Loop__for_empty_01.c.d69fd705_0.trap.tar.br) (71 of 185)
+2021-03-25 19:25:17,856 DEBUG    		[2021-03-25 19:25:17] Scanning CWE835_Infinite_Loop__while_01.c.[2f61c9cd].trap (CWE835_Infinite_Loop__while_01.c.2f61c9cd_0.trap.tar.br) (72 of 185)
+2021-03-25 19:25:17,862 DEBUG    		[2021-03-25 19:25:17] Scanning CWE835_Infinite_Loop__while_true_01.c.[28b73abe].trap (CWE835_Infinite_Loop__while_true_01.c.28b73abe_0.trap.tar.br) (73 of 185)
+2021-03-25 19:25:17,925 DEBUG    		[2021-03-25 19:25:17] Scanning cpp_predefined.[601b9a66].trap (main_linux.cpp.d09bf785_0.trap.tar.br) (74 of 185)
+2021-03-25 19:25:17,928 DEBUG    		[2021-03-25 19:25:17] Scanning stdc-predef.h.[cfb45859].trap (main_linux.cpp.d09bf785_0.trap.tar.br) (75 of 185)
+2021-03-25 19:25:17,932 DEBUG    		[2021-03-25 19:25:17] Scanning wordsize.h.[9b1662d7].trap (main_linux.cpp.d09bf785_0.trap.tar.br) (76 of 185)
+2021-03-25 19:25:17,935 DEBUG    		[2021-03-25 19:25:17] Scanning cdefs.h.[e2343552].trap (main_linux.cpp.d09bf785_0.trap.tar.br) (77 of 185)
+2021-03-25 19:25:17,938 DEBUG    		[2021-03-25 19:25:17] Scanning stubs-64.h.[cfb45859].trap (main_linux.cpp.d09bf785_0.trap.tar.br) (78 of 185)
+2021-03-25 19:25:17,940 DEBUG    		[2021-03-25 19:25:17] Scanning stubs.h.[65acd8c9].trap (main_linux.cpp.d09bf785_0.trap.tar.br) (79 of 185)
+2021-03-25 19:25:17,942 DEBUG    		[2021-03-25 19:25:17] Scanning features.h.[d9fbc704].trap (main_linux.cpp.d09bf785_0.trap.tar.br) (80 of 185)
+2021-03-25 19:25:17,945 DEBUG    		[2021-03-25 19:25:17] Scanning stddef.h.[d13831f3].trap (main_linux.cpp.d09bf785_0.trap.tar.br) (81 of 185)
+2021-03-25 19:25:17,947 DEBUG    		[2021-03-25 19:25:17] Scanning wordsize.h.[f9a943b3].trap (main_linux.cpp.d09bf785_0.trap.tar.br) (82 of 185)
+2021-03-25 19:25:17,948 DEBUG    		[2021-03-25 19:25:17] Scanning typesizes.h.[77a2c97c].trap (main_linux.cpp.d09bf785_0.trap.tar.br) (83 of 185)
+2021-03-25 19:25:17,952 DEBUG    		[2021-03-25 19:25:17] Scanning types.h.[a8312c7b].trap (main_linux.cpp.d09bf785_0.trap.tar.br) (84 of 185)
+2021-03-25 19:25:17,955 DEBUG    		[2021-03-25 19:25:17] Scanning timex.h.[62898ba8].trap (main_linux.cpp.d09bf785_0.trap.tar.br) (85 of 185)
+2021-03-25 19:25:17,957 DEBUG    		[2021-03-25 19:25:17] Scanning time.h.[9dfbd88a].trap (main_linux.cpp.d09bf785_0.trap.tar.br) (86 of 185)
+2021-03-25 19:25:17,959 DEBUG    		[2021-03-25 19:25:17] Scanning xlocale.h.[60c9e8f8].trap (main_linux.cpp.d09bf785_0.trap.tar.br) (87 of 185)
+2021-03-25 19:25:17,961 DEBUG    		[2021-03-25 19:25:17] Scanning time.h.[64da96c0].trap (main_linux.cpp.d09bf785_0.trap.tar.br) (88 of 185)
+2021-03-25 19:25:17,962 DEBUG    		[2021-03-25 19:25:17] Scanning stddef.h.[a0ad1b28].trap (main_linux.cpp.d09bf785_0.trap.tar.br) (89 of 185)
+2021-03-25 19:25:17,963 DEBUG    		[2021-03-25 19:25:17] Scanning waitflags.h.[8f422f94].trap (main_linux.cpp.d09bf785_0.trap.tar.br) (90 of 185)
+2021-03-25 19:25:17,964 DEBUG    		[2021-03-25 19:25:17] Scanning endian.h.[0c1f4307].trap (main_linux.cpp.d09bf785_0.trap.tar.br) (91 of 185)
+2021-03-25 19:25:17,966 DEBUG    		[2021-03-25 19:25:17] Scanning byteswap-16.h.[4b48dd9e].trap (main_linux.cpp.d09bf785_0.trap.tar.br) (92 of 185)
+2021-03-25 19:25:17,967 DEBUG    		[2021-03-25 19:25:17] Scanning byteswap.h.[dc6997ee].trap (main_linux.cpp.d09bf785_0.trap.tar.br) (93 of 185)
+2021-03-25 19:25:17,969 DEBUG    		[2021-03-25 19:25:17] Scanning endian.h.[1488c6e6].trap (main_linux.cpp.d09bf785_0.trap.tar.br) (94 of 185)
+2021-03-25 19:25:17,970 DEBUG    		[2021-03-25 19:25:17] Scanning waitstatus.h.[0c5822c8].trap (main_linux.cpp.d09bf785_0.trap.tar.br) (95 of 185)
+2021-03-25 19:25:17,972 DEBUG    		[2021-03-25 19:25:17] Scanning stddef.h.[aaf7c45a].trap (main_linux.cpp.d09bf785_0.trap.tar.br) (96 of 185)
+2021-03-25 19:25:17,973 DEBUG    		[2021-03-25 19:25:17] Scanning wordsize.h.[235f5260].trap (main_linux.cpp.d09bf785_0.trap.tar.br) (97 of 185)
+2021-03-25 19:25:17,975 DEBUG    		[2021-03-25 19:25:17] Scanning select.h.[0a90f69b].trap (main_linux.cpp.d09bf785_0.trap.tar.br) (98 of 185)
+2021-03-25 19:25:17,976 DEBUG    		[2021-03-25 19:25:17] Scanning sigset.h.[74447208].trap (main_linux.cpp.d09bf785_0.trap.tar.br) (99 of 185)
+2021-03-25 19:25:17,978 DEBUG    		[2021-03-25 19:25:17] Scanning time.h.[734a87d7].trap (main_linux.cpp.d09bf785_0.trap.tar.br) (100 of 185)
+2021-03-25 19:25:17,979 DEBUG    		[2021-03-25 19:25:17] Scanning select.h.[ded97ed6].trap (main_linux.cpp.d09bf785_0.trap.tar.br) (101 of 185)
+2021-03-25 19:25:17,986 DEBUG    		[2021-03-25 19:25:17] Scanning sysmacros.h.[fcb56058].trap (main_linux.cpp.d09bf785_0.trap.tar.br) (102 of 185)
+2021-03-25 19:25:17,987 DEBUG    		[2021-03-25 19:25:17] Scanning pthreadtypes.h.[82535ae2].trap (main_linux.cpp.d09bf785_0.trap.tar.br) (103 of 185)
+2021-03-25 19:25:17,992 DEBUG    		[2021-03-25 19:25:17] Scanning types.h.[c3e8e038].trap (main_linux.cpp.d09bf785_0.trap.tar.br) (104 of 185)
+2021-03-25 19:25:17,993 DEBUG    		[2021-03-25 19:25:17] Scanning stddef.h.[89762bbb].trap (main_linux.cpp.d09bf785_0.trap.tar.br) (105 of 185)
+2021-03-25 19:25:17,996 DEBUG    		[2021-03-25 19:25:17] Scanning alloca.h.[adfa4b54].trap (main_linux.cpp.d09bf785_0.trap.tar.br) (106 of 185)
+2021-03-25 19:25:17,998 DEBUG    		[2021-03-25 19:25:17] Scanning stdlib-float.h.[4038f1a2].trap (main_linux.cpp.d09bf785_0.trap.tar.br) (107 of 185)
+2021-03-25 19:25:18,001 DEBUG    		[2021-03-25 19:25:17] Scanning stdlib.h.[9eeac92c].trap (main_linux.cpp.d09bf785_0.trap.tar.br) (108 of 185)
+2021-03-25 19:25:18,003 DEBUG    		[2021-03-25 19:25:17] Scanning stddef.h.[58995206].trap (main_linux.cpp.d09bf785_0.trap.tar.br) (109 of 185)
+2021-03-25 19:25:18,005 DEBUG    		[2021-03-25 19:25:17] Scanning stddef.h.[2d284f8d].trap (main_linux.cpp.d09bf785_0.trap.tar.br) (110 of 185)
+2021-03-25 19:25:18,007 DEBUG    		[2021-03-25 19:25:17] Scanning wchar.h.[a8a2e459].trap (main_linux.cpp.d09bf785_0.trap.tar.br) (111 of 185)
+2021-03-25 19:25:18,008 DEBUG    		[2021-03-25 19:25:17] Scanning _G_config.h.[148eb5c7].trap (main_linux.cpp.d09bf785_0.trap.tar.br) (112 of 185)
+2021-03-25 19:25:18,010 DEBUG    		[2021-03-25 19:25:17] Scanning stdarg.h.[c5029950].trap (main_linux.cpp.d09bf785_0.trap.tar.br) (113 of 185)
+2021-03-25 19:25:18,011 DEBUG    		[2021-03-25 19:25:17] Scanning libio.h.[44da1dcb].trap (main_linux.cpp.d09bf785_0.trap.tar.br) (114 of 185)
+2021-03-25 19:25:18,012 DEBUG    		[2021-03-25 19:25:17] Scanning stdio_lim.h.[b2d5edea].trap (main_linux.cpp.d09bf785_0.trap.tar.br) (115 of 185)
+2021-03-25 19:25:18,014 DEBUG    		[2021-03-25 19:25:17] Scanning sys_errlist.h.[7aab7c5b].trap (main_linux.cpp.d09bf785_0.trap.tar.br) (116 of 185)
+2021-03-25 19:25:18,015 DEBUG    		[2021-03-25 19:25:17] Scanning stdio.h.[6ba8774f].trap (main_linux.cpp.d09bf785_0.trap.tar.br) (117 of 185)
+2021-03-25 19:25:18,017 DEBUG    		[2021-03-25 19:25:17] Scanning stddef.h.[7cb7bb3d].trap (main_linux.cpp.d09bf785_0.trap.tar.br) (118 of 185)
+2021-03-25 19:25:18,020 DEBUG    		[2021-03-25 19:25:17] Scanning limits.h.[c8bb679a].trap (main_linux.cpp.d09bf785_0.trap.tar.br) (119 of 185)
+2021-03-25 19:25:18,022 DEBUG    		[2021-03-25 19:25:17] Scanning local_lim.h.[2e7805ac].trap (main_linux.cpp.d09bf785_0.trap.tar.br) (120 of 185)
+2021-03-25 19:25:18,023 DEBUG    		[2021-03-25 19:25:18] Scanning posix1_lim.h.[fceffde4].trap (main_linux.cpp.d09bf785_0.trap.tar.br) (121 of 185)
+2021-03-25 19:25:18,025 DEBUG    		[2021-03-25 19:25:18] Scanning posix2_lim.h.[35ba7f2d].trap (main_linux.cpp.d09bf785_0.trap.tar.br) (122 of 185)
+2021-03-25 19:25:18,028 DEBUG    		[2021-03-25 19:25:18] Scanning stdio_lim.h.[0407460b].trap (main_linux.cpp.d09bf785_0.trap.tar.br) (123 of 185)
+2021-03-25 19:25:18,029 DEBUG    		[2021-03-25 19:25:18] Scanning xopen_lim.h.[3b9250a1].trap (main_linux.cpp.d09bf785_0.trap.tar.br) (124 of 185)
+2021-03-25 19:25:18,031 DEBUG    		[2021-03-25 19:25:18] Scanning limits.h.[96cf7262].trap (main_linux.cpp.d09bf785_0.trap.tar.br) (125 of 185)
+2021-03-25 19:25:18,033 DEBUG    		[2021-03-25 19:25:18] Scanning limits.h.[456d99d8].trap (main_linux.cpp.d09bf785_0.trap.tar.br) (126 of 185)
+2021-03-25 19:25:18,035 DEBUG    		[2021-03-25 19:25:18] Scanning syslimits.h.[eae87398].trap (main_linux.cpp.d09bf785_0.trap.tar.br) (127 of 185)
+2021-03-25 19:25:18,037 DEBUG    		[2021-03-25 19:25:18] Scanning limits.h.[6030720b].trap (main_linux.cpp.d09bf785_0.trap.tar.br) (128 of 185)
+2021-03-25 19:25:18,039 DEBUG    		[2021-03-25 19:25:18] Scanning stddef.h.[2ca286ca].trap (main_linux.cpp.d09bf785_0.trap.tar.br) (129 of 185)
+2021-03-25 19:25:18,040 DEBUG    		[2021-03-25 19:25:18] Scanning string.h.[30377956].trap (main_linux.cpp.d09bf785_0.trap.tar.br) (130 of 185)
+2021-03-25 19:25:18,044 DEBUG    		[2021-03-25 19:25:18] Scanning wchar.h.[37ae712d].trap (main_linux.cpp.d09bf785_0.trap.tar.br) (131 of 185)
+2021-03-25 19:25:18,046 DEBUG    		[2021-03-25 19:25:18] Scanning stdint.h.[9cea55bf].trap (main_linux.cpp.d09bf785_0.trap.tar.br) (132 of 185)
+2021-03-25 19:25:18,048 DEBUG    		[2021-03-25 19:25:18] Scanning stdint.h.[4b8eeb3d].trap (main_linux.cpp.d09bf785_0.trap.tar.br) (133 of 185)
+2021-03-25 19:25:18,050 DEBUG    		[2021-03-25 19:25:18] Scanning ctype.h.[ce2b76bc].trap (main_linux.cpp.d09bf785_0.trap.tar.br) (134 of 185)
+2021-03-25 19:25:18,052 DEBUG    		[2021-03-25 19:25:18] Scanning uio.h.[ff9b300f].trap (main_linux.cpp.d09bf785_0.trap.tar.br) (135 of 185)
+2021-03-25 19:25:18,054 DEBUG    		[2021-03-25 19:25:18] Scanning falloc.h.[274e4876].trap (main_linux.cpp.d09bf785_0.trap.tar.br) (136 of 185)
+2021-03-25 19:25:18,055 DEBUG    		[2021-03-25 19:25:18] Scanning fcntl-linux.h.[6724032a].trap (main_linux.cpp.d09bf785_0.trap.tar.br) (137 of 185)
+2021-03-25 19:25:18,057 DEBUG    		[2021-03-25 19:25:18] Scanning fcntl.h.[6713a392].trap (main_linux.cpp.d09bf785_0.trap.tar.br) (138 of 185)
+2021-03-25 19:25:18,058 DEBUG    		[2021-03-25 19:25:18] Scanning stat.h.[2b30419c].trap (main_linux.cpp.d09bf785_0.trap.tar.br) (139 of 185)
+2021-03-25 19:25:18,059 DEBUG    		[2021-03-25 19:25:18] Scanning fcntl.h.[bb736e27].trap (main_linux.cpp.d09bf785_0.trap.tar.br) (140 of 185)
+2021-03-25 19:25:18,061 DEBUG    		[2021-03-25 19:25:18] Scanning stat.h.[bef79d6a].trap (main_linux.cpp.d09bf785_0.trap.tar.br) (141 of 185)
+2021-03-25 19:25:18,063 DEBUG    		[2021-03-25 19:25:18] Scanning stat.h.[7ed6d0d5].trap (main_linux.cpp.d09bf785_0.trap.tar.br) (142 of 185)
+2021-03-25 19:25:18,065 DEBUG    		[2021-03-25 19:25:18] Scanning os_defines.h.[018ddd3f].trap (main_linux.cpp.d09bf785_0.trap.tar.br) (143 of 185)
+2021-03-25 19:25:18,067 DEBUG    		[2021-03-25 19:25:18] Scanning cpu_defines.h.[c8bb679a].trap (main_linux.cpp.d09bf785_0.trap.tar.br) (144 of 185)
+2021-03-25 19:25:18,070 DEBUG    		[2021-03-25 19:25:18] Scanning c++config.h.[22157bd8].trap (main_linux.cpp.d09bf785_0.trap.tar.br) (145 of 185)
+2021-03-25 19:25:18,072 DEBUG    		[2021-03-25 19:25:18] Scanning atomic_lockfree_defines.h.[6917bcd6].trap (main_linux.cpp.d09bf785_0.trap.tar.br) (146 of 185)
+2021-03-25 19:25:18,074 DEBUG    		[2021-03-25 19:25:18] Scanning exception.[b500a3df].trap (main_linux.cpp.d09bf785_0.trap.tar.br) (147 of 185)
+2021-03-25 19:25:18,075 DEBUG    		[2021-03-25 19:25:18] Scanning new.[98be5325].trap (main_linux.cpp.d09bf785_0.trap.tar.br) (148 of 185)
+2021-03-25 19:25:18,076 DEBUG    		[2021-03-25 19:25:18] Scanning std_testcase.h.[b5392264].trap (main_linux.cpp.d09bf785_0.trap.tar.br) (149 of 185)
+2021-03-25 19:25:18,078 DEBUG    		[2021-03-25 19:25:18] Scanning std_testcase_io.h.[403aaf34].trap (main_linux.cpp.d09bf785_0.trap.tar.br) (150 of 185)
+2021-03-25 19:25:18,080 DEBUG    		[2021-03-25 19:25:18] Scanning std_testcase.h.[f2e43ace].trap (main_linux.cpp.d09bf785_0.trap.tar.br) (151 of 185)
+2021-03-25 19:25:18,081 DEBUG    		[2021-03-25 19:25:18] Scanning testcases.h.[f24e9afd].trap (main_linux.cpp.d09bf785_0.trap.tar.br) (152 of 185)
+2021-03-25 19:25:18,082 DEBUG    		[2021-03-25 19:25:18] Scanning main_linux.cpp.[d09bf785].trap (main_linux.cpp.d09bf785_0.trap.tar.br) (153 of 185)
+2021-03-25 19:25:18,097 DEBUG    		[2021-03-25 19:25:18] Scanning stdint.h.[c79c1692].trap (io.c.407c979b_0.trap.tar.br) (154 of 185)
+2021-03-25 19:25:18,099 DEBUG    		[2021-03-25 19:25:18] Scanning inttypes.h.[f60e7968].trap (io.c.407c979b_0.trap.tar.br) (155 of 185)
+2021-03-25 19:25:18,100 DEBUG    		[2021-03-25 19:25:18] Scanning types.h.[0398e4c9].trap (io.c.407c979b_0.trap.tar.br) (156 of 185)
+2021-03-25 19:25:18,102 DEBUG    		[2021-03-25 19:25:18] Scanning stddef.h.[7a1efd25].trap (io.c.407c979b_0.trap.tar.br) (157 of 185)
+2021-03-25 19:25:18,104 DEBUG    		[2021-03-25 19:25:18] Scanning wchar.h.[3623a952].trap (io.c.407c979b_0.trap.tar.br) (158 of 185)
+2021-03-25 19:25:18,105 DEBUG    		[2021-03-25 19:25:18] Scanning wctype.h.[bdda0982].trap (io.c.407c979b_0.trap.tar.br) (159 of 185)
+2021-03-25 19:25:18,109 DEBUG    		[2021-03-25 19:25:18] Scanning time.h.[71753f94].trap (io.c.407c979b_0.trap.tar.br) (160 of 185)
+2021-03-25 19:25:18,113 DEBUG    		[2021-03-25 19:25:18] Scanning stdarg.h.[8767d697].trap (io.c.407c979b_0.trap.tar.br) (161 of 185)
+2021-03-25 19:25:18,114 DEBUG    		[2021-03-25 19:25:18] Scanning stddef.h.[651c9ef8].trap (io.c.407c979b_0.trap.tar.br) (162 of 185)
+2021-03-25 19:25:18,115 DEBUG    		[2021-03-25 19:25:18] Scanning wchar.h.[863f26d7].trap (io.c.407c979b_0.trap.tar.br) (163 of 185)
+2021-03-25 19:25:18,120 DEBUG    		[2021-03-25 19:25:18] Scanning io.c.[407c979b].trap (io.c.407c979b_0.trap.tar.br) (164 of 185)
+2021-03-25 19:25:18,140 DEBUG    		[2021-03-25 19:25:18] Scanning stddef.h.[86ffe0d4].trap (std_thread.c.2e0fd3e4_0.trap.tar.br) (165 of 185)
+2021-03-25 19:25:18,142 DEBUG    		[2021-03-25 19:25:18] Scanning sched.h.[e6ed6f27].trap (std_thread.c.2e0fd3e4_0.trap.tar.br) (166 of 185)
+2021-03-25 19:25:18,145 DEBUG    		[2021-03-25 19:25:18] Scanning sched.h.[97981176].trap (std_thread.c.2e0fd3e4_0.trap.tar.br) (167 of 185)
+2021-03-25 19:25:18,147 DEBUG    		[2021-03-25 19:25:18] Scanning setjmp.h.[37263fe2].trap (std_thread.c.2e0fd3e4_0.trap.tar.br) (168 of 185)
+2021-03-25 19:25:18,148 DEBUG    		[2021-03-25 19:25:18] Scanning pthread.h.[c8ab937a].trap (std_thread.c.2e0fd3e4_0.trap.tar.br) (169 of 185)
+2021-03-25 19:25:18,153 DEBUG    		[2021-03-25 19:25:18] Scanning std_thread.h.[dd00d560].trap (std_thread.c.2e0fd3e4_0.trap.tar.br) (170 of 185)
+2021-03-25 19:25:18,155 DEBUG    		[2021-03-25 19:25:18] Scanning std_thread.c.[2e0fd3e4].trap (std_thread.c.2e0fd3e4_0.trap.tar.br) (171 of 185)
+2021-03-25 19:25:18,158 DEBUG    		[2021-03-25 19:25:18] Scanning 56480486_0.trap.br (172 of 185)
+2021-03-25 19:25:18,159 DEBUG    		[2021-03-25 19:25:18] Scanning 52696216_0.trap.br (173 of 185)
+2021-03-25 19:25:18,163 DEBUG    		[2021-03-25 19:25:18] Scanning 46951136_0.trap.br (174 of 185)
+2021-03-25 19:25:18,167 DEBUG    		[2021-03-25 19:25:18] Scanning 36207255_0.trap.br (175 of 185)
+2021-03-25 19:25:18,169 DEBUG    		[2021-03-25 19:25:18] Scanning 9434755_0.trap.br (176 of 185)
+2021-03-25 19:25:18,171 DEBUG    		[2021-03-25 19:25:18] Scanning 52915489_0.trap.br (177 of 185)
+2021-03-25 19:25:18,172 DEBUG    		[2021-03-25 19:25:18] Scanning 51149061_0.trap.br (178 of 185)
+2021-03-25 19:25:18,173 DEBUG    		[2021-03-25 19:25:18] Scanning 27847338_0.trap.br (179 of 185)
+2021-03-25 19:25:18,175 DEBUG    		[2021-03-25 19:25:18] Scanning 19738489_0.trap.br (180 of 185)
+2021-03-25 19:25:18,179 DEBUG    		[2021-03-25 19:25:18] Scanning duplication.trap.gz (181 of 185)
+2021-03-25 19:25:18,181 DEBUG    		[2021-03-25 19:25:18] Scanning snapshotMetadata.csv.trap.gz (182 of 185)
+2021-03-25 19:25:18,182 DEBUG    		[2021-03-25 19:25:18] Scanning externalArtifacts.trap.gz (183 of 185)
+2021-03-25 19:25:18,184 DEBUG    		[2021-03-25 19:25:18] Scanning similarity.trap.gz (184 of 185)
+2021-03-25 19:25:18,186 DEBUG    		[2021-03-25 19:25:18] Scanning CWE835.trap.br (185 of 185)
+2021-03-25 19:25:18,190 DEBUG    		[2021-03-25 19:25:18] Assembling CWE835.link with 179 files (1 of 2)
+2021-03-25 19:25:18,192 DEBUG    		[2021-03-25 19:25:18] Assembling no link target with 6 files (2 of 2)
+2021-03-25 19:25:18,199 DEBUG    		[2021-03-25 19:25:18] Importing CWE835_Infinite_Loop__do_01.c.[a29dac73].trap (CWE835_Infinite_Loop__do_01.c.a29dac73_0.trap.tar.br) for CWE835.link (1 of 185)
+2021-03-25 19:25:18,278 DEBUG    		[2021-03-25 19:25:18] Importing CWE835_Infinite_Loop__do_true_01.c.[8642149b].trap (CWE835_Infinite_Loop__do_true_01.c.8642149b_0.trap.tar.br) for CWE835.link (2 of 185)
+2021-03-25 19:25:18,298 DEBUG    		[2021-03-25 19:25:18] Importing CWE835_Infinite_Loop__for_01.c.[6730b430].trap (CWE835_Infinite_Loop__for_01.c.6730b430_0.trap.tar.br) for CWE835.link (3 of 185)
+2021-03-25 19:25:18,362 DEBUG    		[2021-03-25 19:25:18] Importing cpp_predefined.[acb19af8].trap (CWE835_Infinite_Loop__for_empty_01.c.d69fd705_0.trap.tar.br) for no link target (4 of 185)
+2021-03-25 19:25:18,372 DEBUG    		[2021-03-25 19:25:18] Importing stdc-predef.h.[59a8e336].trap (CWE835_Infinite_Loop__for_empty_01.c.d69fd705_0.trap.tar.br) for CWE835.link (5 of 185)
+2021-03-25 19:25:18,378 DEBUG    		[2021-03-25 19:25:18] Importing wordsize.h.[250aedb4].trap (CWE835_Infinite_Loop__for_empty_01.c.d69fd705_0.trap.tar.br) for CWE835.link (6 of 185)
+2021-03-25 19:25:18,381 DEBUG    		[2021-03-25 19:25:18] Importing cdefs.h.[93c6e976].trap (CWE835_Infinite_Loop__for_empty_01.c.d69fd705_0.trap.tar.br) for CWE835.link (7 of 185)
+2021-03-25 19:25:18,399 DEBUG    		[2021-03-25 19:25:18] Importing stubs-64.h.[59a8e336].trap (CWE835_Infinite_Loop__for_empty_01.c.d69fd705_0.trap.tar.br) for CWE835.link (8 of 185)
+2021-03-25 19:25:18,401 DEBUG    		[2021-03-25 19:25:18] Importing stubs.h.[efa163a6].trap (CWE835_Infinite_Loop__for_empty_01.c.d69fd705_0.trap.tar.br) for CWE835.link (9 of 185)
+2021-03-25 19:25:18,404 DEBUG    		[2021-03-25 19:25:18] Importing features.h.[3485572a].trap (CWE835_Infinite_Loop__for_empty_01.c.d69fd705_0.trap.tar.br) for CWE835.link (10 of 185)
+2021-03-25 19:25:18,421 DEBUG    		[2021-03-25 19:25:18] Importing stddef.h.[0120650c].trap (CWE835_Infinite_Loop__for_empty_01.c.d69fd705_0.trap.tar.br) for CWE835.link (11 of 185)
+2021-03-25 19:25:18,436 DEBUG    		[2021-03-25 19:25:18] Importing typesizes.h.[a304737d].trap (CWE835_Infinite_Loop__for_empty_01.c.d69fd705_0.trap.tar.br) for CWE835.link (12 of 185)
+2021-03-25 19:25:18,439 DEBUG    		[2021-03-25 19:25:18] Importing types.h.[45a83c33].trap (CWE835_Infinite_Loop__for_empty_01.c.d69fd705_0.trap.tar.br) for CWE835.link (13 of 185)
+2021-03-25 19:25:18,458 DEBUG    		[2021-03-25 19:25:18] Importing stddef.h.[4eae96b9].trap (CWE835_Infinite_Loop__for_empty_01.c.d69fd705_0.trap.tar.br) for CWE835.link (14 of 185)
+2021-03-25 19:25:18,468 DEBUG    		[2021-03-25 19:25:18] Importing wchar.h.[441c26a9].trap (CWE835_Infinite_Loop__for_empty_01.c.d69fd705_0.trap.tar.br) for CWE835.link (15 of 185)
+2021-03-25 19:25:18,476 DEBUG    		[2021-03-25 19:25:18] Importing _G_config.h.[8df4f3c5].trap (CWE835_Infinite_Loop__for_empty_01.c.d69fd705_0.trap.tar.br) for CWE835.link (16 of 185)
+2021-03-25 19:25:18,479 DEBUG    		[2021-03-25 19:25:18] Importing stdarg.h.[c2e36c8f].trap (CWE835_Infinite_Loop__for_empty_01.c.d69fd705_0.trap.tar.br) for CWE835.link (17 of 185)
+2021-03-25 19:25:18,482 DEBUG    		[2021-03-25 19:25:18] Importing libio.h.[a7fd755a].trap (CWE835_Infinite_Loop__for_empty_01.c.d69fd705_0.trap.tar.br) for CWE835.link (18 of 185)
+2021-03-25 19:25:18,502 DEBUG    		[2021-03-25 19:25:18] Importing stdio_lim.h.[00fa4c2e].trap (CWE835_Infinite_Loop__for_empty_01.c.d69fd705_0.trap.tar.br) for CWE835.link (19 of 185)
+2021-03-25 19:25:18,505 DEBUG    		[2021-03-25 19:25:18] Importing sys_errlist.h.[1db758ec].trap (CWE835_Infinite_Loop__for_empty_01.c.d69fd705_0.trap.tar.br) for CWE835.link (20 of 185)
+2021-03-25 19:25:18,506 DEBUG    		[2021-03-25 19:25:18] Importing stdio.h.[821f1cad].trap (CWE835_Infinite_Loop__for_empty_01.c.d69fd705_0.trap.tar.br) for CWE835.link (21 of 185)
+2021-03-25 19:25:18,549 DEBUG    		[2021-03-25 19:25:18] Importing stddef.h.[39831f10].trap (CWE835_Infinite_Loop__for_empty_01.c.d69fd705_0.trap.tar.br) for CWE835.link (22 of 185)
+2021-03-25 19:25:18,557 DEBUG    		[2021-03-25 19:25:18] Importing waitflags.h.[baa3d995].trap (CWE835_Infinite_Loop__for_empty_01.c.d69fd705_0.trap.tar.br) for CWE835.link (23 of 185)
+2021-03-25 19:25:18,560 DEBUG    		[2021-03-25 19:25:18] Importing endian.h.[3780ed08].trap (CWE835_Infinite_Loop__for_empty_01.c.d69fd705_0.trap.tar.br) for CWE835.link (24 of 185)
+2021-03-25 19:25:18,563 DEBUG    		[2021-03-25 19:25:18] Importing byteswap-16.h.[76aa879f].trap (CWE835_Infinite_Loop__for_empty_01.c.d69fd705_0.trap.tar.br) for CWE835.link (25 of 185)
+2021-03-25 19:25:18,566 DEBUG    		[2021-03-25 19:25:18] Importing byteswap.h.[401703c0].trap (CWE835_Infinite_Loop__for_empty_01.c.d69fd705_0.trap.tar.br) for CWE835.link (26 of 185)
+2021-03-25 19:25:18,569 DEBUG    		[2021-03-25 19:25:18] Importing endian.h.[3fea70e7].trap (CWE835_Infinite_Loop__for_empty_01.c.d69fd705_0.trap.tar.br) for CWE835.link (27 of 185)
+2021-03-25 19:25:18,571 DEBUG    		[2021-03-25 19:25:18] Importing waitstatus.h.[75492385].trap (CWE835_Infinite_Loop__for_empty_01.c.d69fd705_0.trap.tar.br) for CWE835.link (28 of 185)
+2021-03-25 19:25:18,573 DEBUG    		[2021-03-25 19:25:18] Importing time.h.[c4ff5e0d].trap (CWE835_Infinite_Loop__for_empty_01.c.d69fd705_0.trap.tar.br) for CWE835.link (29 of 185)
+2021-03-25 19:25:18,578 DEBUG    		[2021-03-25 19:25:18] Importing stddef.h.[aca35fae].trap (CWE835_Infinite_Loop__for_empty_01.c.d69fd705_0.trap.tar.br) for CWE835.link (30 of 185)
+2021-03-25 19:25:18,587 DEBUG    		[2021-03-25 19:25:18] Importing select.h.[0c3c91ef].trap (CWE835_Infinite_Loop__for_empty_01.c.d69fd705_0.trap.tar.br) for CWE835.link (31 of 185)
+2021-03-25 19:25:18,589 DEBUG    		[2021-03-25 19:25:18] Importing sigset.h.[5ec3a341].trap (CWE835_Infinite_Loop__for_empty_01.c.d69fd705_0.trap.tar.br) for CWE835.link (32 of 185)
+2021-03-25 19:25:18,591 DEBUG    		[2021-03-25 19:25:18] Importing time.h.[37329413].trap (CWE835_Infinite_Loop__for_empty_01.c.d69fd705_0.trap.tar.br) for CWE835.link (33 of 185)
+2021-03-25 19:25:18,597 DEBUG    		[2021-03-25 19:25:18] Importing time.h.[0a6a8b52].trap (CWE835_Infinite_Loop__for_empty_01.c.d69fd705_0.trap.tar.br) for CWE835.link (34 of 185)
+2021-03-25 19:25:18,601 DEBUG    		[2021-03-25 19:25:18] Importing select.h.[a4cfc766].trap (CWE835_Infinite_Loop__for_empty_01.c.d69fd705_0.trap.tar.br) for CWE835.link (35 of 185)
+2021-03-25 19:25:18,605 DEBUG    		[2021-03-25 19:25:18] Importing sysmacros.h.[29ddce6e].trap (CWE835_Infinite_Loop__for_empty_01.c.d69fd705_0.trap.tar.br) for CWE835.link (36 of 185)
+2021-03-25 19:25:18,607 DEBUG    		[2021-03-25 19:25:18] Importing pthreadtypes.h.[644f8cd8].trap (CWE835_Infinite_Loop__for_empty_01.c.d69fd705_0.trap.tar.br) for CWE835.link (37 of 185)
+2021-03-25 19:25:18,618 DEBUG    		[2021-03-25 19:25:18] Importing types.h.[21a2b47a].trap (CWE835_Infinite_Loop__for_empty_01.c.d69fd705_0.trap.tar.br) for CWE835.link (38 of 185)
+2021-03-25 19:25:18,627 DEBUG    		[2021-03-25 19:25:18] Importing stddef.h.[b4d7d5bc].trap (CWE835_Infinite_Loop__for_empty_01.c.d69fd705_0.trap.tar.br) for CWE835.link (39 of 185)
+2021-03-25 19:25:18,634 DEBUG    		[2021-03-25 19:25:18] Importing alloca.h.[076513bc].trap (CWE835_Infinite_Loop__for_empty_01.c.d69fd705_0.trap.tar.br) for CWE835.link (40 of 185)
+2021-03-25 19:25:18,636 DEBUG    		[2021-03-25 19:25:18] Importing stdlib-float.h.[6b9a9ba3].trap (CWE835_Infinite_Loop__for_empty_01.c.d69fd705_0.trap.tar.br) for CWE835.link (41 of 185)
+2021-03-25 19:25:18,638 DEBUG    		[2021-03-25 19:25:18] Importing stdlib.h.[0a366d84].trap (CWE835_Infinite_Loop__for_empty_01.c.d69fd705_0.trap.tar.br) for CWE835.link (42 of 185)
+2021-03-25 19:25:18,682 DEBUG    		[2021-03-25 19:25:18] Importing stddef.h.[2418fc15].trap (CWE835_Infinite_Loop__for_empty_01.c.d69fd705_0.trap.tar.br) for CWE835.link (43 of 185)
+2021-03-25 19:25:18,691 DEBUG    		[2021-03-25 19:25:18] Importing stddef.h.[4ba3e815].trap (CWE835_Infinite_Loop__for_empty_01.c.d69fd705_0.trap.tar.br) for CWE835.link (44 of 185)
+2021-03-25 19:25:18,699 DEBUG    		[2021-03-25 19:25:18] Importing time.h.[a454be70].trap (CWE835_Infinite_Loop__for_empty_01.c.d69fd705_0.trap.tar.br) for CWE835.link (45 of 185)
+2021-03-25 19:25:18,703 DEBUG    		[2021-03-25 19:25:18] Importing xlocale.h.[3d807082].trap (CWE835_Infinite_Loop__for_empty_01.c.d69fd705_0.trap.tar.br) for CWE835.link (46 of 185)
+2021-03-25 19:25:18,705 DEBUG    		[2021-03-25 19:25:18] Importing time.h.[14267b6c].trap (CWE835_Infinite_Loop__for_empty_01.c.d69fd705_0.trap.tar.br) for CWE835.link (47 of 185)
+2021-03-25 19:25:18,722 DEBUG    		[2021-03-25 19:25:18] Importing limits.h.[52aff277].trap (CWE835_Infinite_Loop__for_empty_01.c.d69fd705_0.trap.tar.br) for CWE835.link (48 of 185)
+2021-03-25 19:25:18,724 DEBUG    		[2021-03-25 19:25:18] Importing local_lim.h.[b86c9089].trap (CWE835_Infinite_Loop__for_empty_01.c.d69fd705_0.trap.tar.br) for CWE835.link (49 of 185)
+2021-03-25 19:25:18,726 DEBUG    		[2021-03-25 19:25:18] Importing posix1_lim.h.[6dbe3a52].trap (CWE835_Infinite_Loop__for_empty_01.c.d69fd705_0.trap.tar.br) for CWE835.link (50 of 185)
+2021-03-25 19:25:18,733 DEBUG    		[2021-03-25 19:25:18] Importing posix2_lim.h.[bfaf0a0a].trap (CWE835_Infinite_Loop__for_empty_01.c.d69fd705_0.trap.tar.br) for CWE835.link (51 of 185)
+2021-03-25 19:25:18,735 DEBUG    		[2021-03-25 19:25:18] Importing limits.h.[ab27cd2a].trap (CWE835_Infinite_Loop__for_empty_01.c.d69fd705_0.trap.tar.br) for CWE835.link (52 of 185)
+2021-03-25 19:25:18,737 DEBUG    		[2021-03-25 19:25:18] Importing limits.h.[cf6224b5].trap (CWE835_Infinite_Loop__for_empty_01.c.d69fd705_0.trap.tar.br) for CWE835.link (53 of 185)
+2021-03-25 19:25:18,746 DEBUG    		[2021-03-25 19:25:18] Importing syslimits.h.[74dcfe75].trap (CWE835_Infinite_Loop__for_empty_01.c.d69fd705_0.trap.tar.br) for CWE835.link (54 of 185)
+2021-03-25 19:25:18,748 DEBUG    		[2021-03-25 19:25:18] Importing limits.h.[46520070].trap (CWE835_Infinite_Loop__for_empty_01.c.d69fd705_0.trap.tar.br) for CWE835.link (55 of 185)
+2021-03-25 19:25:18,750 DEBUG    		[2021-03-25 19:25:18] Importing stddef.h.[8ac2917c].trap (CWE835_Infinite_Loop__for_empty_01.c.d69fd705_0.trap.tar.br) for CWE835.link (56 of 185)
+2021-03-25 19:25:18,754 DEBUG    		[2021-03-25 19:25:18] Importing string.h.[220cc2a9].trap (CWE835_Infinite_Loop__for_empty_01.c.d69fd705_0.trap.tar.br) for CWE835.link (57 of 185)
+2021-03-25 19:25:18,780 DEBUG    		[2021-03-25 19:25:18] Importing wchar.h.[c1a2fc0a].trap (CWE835_Infinite_Loop__for_empty_01.c.d69fd705_0.trap.tar.br) for CWE835.link (58 of 185)
+2021-03-25 19:25:18,782 DEBUG    		[2021-03-25 19:25:18] Importing stdint.h.[5db76022].trap (CWE835_Infinite_Loop__for_empty_01.c.d69fd705_0.trap.tar.br) for CWE835.link (59 of 185)
+2021-03-25 19:25:18,790 DEBUG    		[2021-03-25 19:25:18] Importing stdint.h.[38794451].trap (CWE835_Infinite_Loop__for_empty_01.c.d69fd705_0.trap.tar.br) for CWE835.link (60 of 185)
+2021-03-25 19:25:18,793 DEBUG    		[2021-03-25 19:25:18] Importing ctype.h.[254f9835].trap (CWE835_Infinite_Loop__for_empty_01.c.d69fd705_0.trap.tar.br) for CWE835.link (61 of 185)
+2021-03-25 19:25:18,820 DEBUG    		[2021-03-25 19:25:18] Importing fcntl-linux.h.[1a367326].trap (CWE835_Infinite_Loop__for_empty_01.c.d69fd705_0.trap.tar.br) for CWE835.link (62 of 185)
+2021-03-25 19:25:18,828 DEBUG    		[2021-03-25 19:25:18] Importing fcntl.h.[d77ad704].trap (CWE835_Infinite_Loop__for_empty_01.c.d69fd705_0.trap.tar.br) for CWE835.link (63 of 185)
+2021-03-25 19:25:18,830 DEBUG    		[2021-03-25 19:25:18] Importing stat.h.[66a4e585].trap (CWE835_Infinite_Loop__for_empty_01.c.d69fd705_0.trap.tar.br) for CWE835.link (64 of 185)
+2021-03-25 19:25:18,837 DEBUG    		[2021-03-25 19:25:18] Importing fcntl.h.[55f50f77].trap (CWE835_Infinite_Loop__for_empty_01.c.d69fd705_0.trap.tar.br) for CWE835.link (65 of 185)
+2021-03-25 19:25:18,845 DEBUG    		[2021-03-25 19:25:18] Importing stat.h.[ea59476b].trap (CWE835_Infinite_Loop__for_empty_01.c.d69fd705_0.trap.tar.br) for CWE835.link (66 of 185)
+2021-03-25 19:25:18,849 DEBUG    		[2021-03-25 19:25:18] Importing stat.h.[403082e5].trap (CWE835_Infinite_Loop__for_empty_01.c.d69fd705_0.trap.tar.br) for CWE835.link (67 of 185)
+2021-03-25 19:25:18,863 DEBUG    		[2021-03-25 19:25:18] Importing std_testcase.h.[3f2dad41].trap (CWE835_Infinite_Loop__for_empty_01.c.d69fd705_0.trap.tar.br) for CWE835.link (68 of 185)
+2021-03-25 19:25:18,866 DEBUG    		[2021-03-25 19:25:18] Importing std_testcase_io.h.[e6253c90].trap (CWE835_Infinite_Loop__for_empty_01.c.d69fd705_0.trap.tar.br) for CWE835.link (69 of 185)
+2021-03-25 19:25:18,870 DEBUG    		[2021-03-25 19:25:18] Importing std_testcase.h.[948849c2].trap (CWE835_Infinite_Loop__for_empty_01.c.d69fd705_0.trap.tar.br) for CWE835.link (70 of 185)
+2021-03-25 19:25:18,873 DEBUG    		[2021-03-25 19:25:18] Importing CWE835_Infinite_Loop__for_empty_01.c.[d69fd705].trap (CWE835_Infinite_Loop__for_empty_01.c.d69fd705_0.trap.tar.br) for CWE835.link (71 of 185)
+2021-03-25 19:25:18,877 DEBUG    		[2021-03-25 19:25:18] Importing CWE835_Infinite_Loop__while_01.c.[2f61c9cd].trap (CWE835_Infinite_Loop__while_01.c.2f61c9cd_0.trap.tar.br) for CWE835.link (72 of 185)
+2021-03-25 19:25:18,881 DEBUG    		[2021-03-25 19:25:18] Importing CWE835_Infinite_Loop__while_true_01.c.[28b73abe].trap (CWE835_Infinite_Loop__while_true_01.c.28b73abe_0.trap.tar.br) for CWE835.link (73 of 185)
+2021-03-25 19:25:18,911 DEBUG    		[2021-03-25 19:25:18] Importing cpp_predefined.[601b9a66].trap (main_linux.cpp.d09bf785_0.trap.tar.br) for no link target (74 of 185)
+2021-03-25 19:25:18,914 DEBUG    		[2021-03-25 19:25:18] Importing stdc-predef.h.[cfb45859].trap (main_linux.cpp.d09bf785_0.trap.tar.br) for CWE835.link (75 of 185)
+2021-03-25 19:25:18,916 DEBUG    		[2021-03-25 19:25:18] Importing wordsize.h.[9b1662d7].trap (main_linux.cpp.d09bf785_0.trap.tar.br) for CWE835.link (76 of 185)
+2021-03-25 19:25:18,918 DEBUG    		[2021-03-25 19:25:18] Importing cdefs.h.[e2343552].trap (main_linux.cpp.d09bf785_0.trap.tar.br) for CWE835.link (77 of 185)
+2021-03-25 19:25:18,928 DEBUG    		[2021-03-25 19:25:18] Importing stubs-64.h.[cfb45859].trap (main_linux.cpp.d09bf785_0.trap.tar.br) for CWE835.link (78 of 185)
+2021-03-25 19:25:18,930 DEBUG    		[2021-03-25 19:25:18] Importing stubs.h.[65acd8c9].trap (main_linux.cpp.d09bf785_0.trap.tar.br) for CWE835.link (79 of 185)
+2021-03-25 19:25:18,932 DEBUG    		[2021-03-25 19:25:18] Importing features.h.[d9fbc704].trap (main_linux.cpp.d09bf785_0.trap.tar.br) for CWE835.link (80 of 185)
+2021-03-25 19:25:18,937 DEBUG    		[2021-03-25 19:25:18] Importing stddef.h.[d13831f3].trap (main_linux.cpp.d09bf785_0.trap.tar.br) for CWE835.link (81 of 185)
+2021-03-25 19:25:18,947 DEBUG    		[2021-03-25 19:25:18] Importing wordsize.h.[f9a943b3].trap (main_linux.cpp.d09bf785_0.trap.tar.br) for CWE835.link (82 of 185)
+2021-03-25 19:25:18,949 DEBUG    		[2021-03-25 19:25:18] Importing typesizes.h.[77a2c97c].trap (main_linux.cpp.d09bf785_0.trap.tar.br) for CWE835.link (83 of 185)
+2021-03-25 19:25:18,951 DEBUG    		[2021-03-25 19:25:18] Importing types.h.[a8312c7b].trap (main_linux.cpp.d09bf785_0.trap.tar.br) for CWE835.link (84 of 185)
+2021-03-25 19:25:18,959 DEBUG    		[2021-03-25 19:25:18] Importing timex.h.[62898ba8].trap (main_linux.cpp.d09bf785_0.trap.tar.br) for CWE835.link (85 of 185)
+2021-03-25 19:25:18,966 DEBUG    		[2021-03-25 19:25:18] Importing time.h.[9dfbd88a].trap (main_linux.cpp.d09bf785_0.trap.tar.br) for CWE835.link (86 of 185)
+2021-03-25 19:25:18,969 DEBUG    		[2021-03-25 19:25:18] Importing xlocale.h.[60c9e8f8].trap (main_linux.cpp.d09bf785_0.trap.tar.br) for CWE835.link (87 of 185)
+2021-03-25 19:25:18,971 DEBUG    		[2021-03-25 19:25:18] Importing time.h.[64da96c0].trap (main_linux.cpp.d09bf785_0.trap.tar.br) for CWE835.link (88 of 185)
+2021-03-25 19:25:18,986 DEBUG    		[2021-03-25 19:25:18] Importing stddef.h.[a0ad1b28].trap (main_linux.cpp.d09bf785_0.trap.tar.br) for CWE835.link (89 of 185)
+2021-03-25 19:25:18,993 DEBUG    		[2021-03-25 19:25:18] Importing waitflags.h.[8f422f94].trap (main_linux.cpp.d09bf785_0.trap.tar.br) for CWE835.link (90 of 185)
+2021-03-25 19:25:18,996 DEBUG    		[2021-03-25 19:25:18] Importing endian.h.[0c1f4307].trap (main_linux.cpp.d09bf785_0.trap.tar.br) for CWE835.link (91 of 185)
+2021-03-25 19:25:18,998 DEBUG    		[2021-03-25 19:25:18] Importing byteswap-16.h.[4b48dd9e].trap (main_linux.cpp.d09bf785_0.trap.tar.br) for CWE835.link (92 of 185)
+2021-03-25 19:25:18,999 DEBUG    		[2021-03-25 19:25:18] Importing byteswap.h.[dc6997ee].trap (main_linux.cpp.d09bf785_0.trap.tar.br) for CWE835.link (93 of 185)
+2021-03-25 19:25:19,002 DEBUG    		[2021-03-25 19:25:18] Importing endian.h.[1488c6e6].trap (main_linux.cpp.d09bf785_0.trap.tar.br) for CWE835.link (94 of 185)
+2021-03-25 19:25:19,003 DEBUG    		[2021-03-25 19:25:19] Importing waitstatus.h.[0c5822c8].trap (main_linux.cpp.d09bf785_0.trap.tar.br) for CWE835.link (95 of 185)
+2021-03-25 19:25:19,005 DEBUG    		[2021-03-25 19:25:19] Importing stddef.h.[aaf7c45a].trap (main_linux.cpp.d09bf785_0.trap.tar.br) for CWE835.link (96 of 185)
+2021-03-25 19:25:19,013 DEBUG    		[2021-03-25 19:25:19] Importing wordsize.h.[235f5260].trap (main_linux.cpp.d09bf785_0.trap.tar.br) for CWE835.link (97 of 185)
+2021-03-25 19:25:19,014 DEBUG    		[2021-03-25 19:25:19] Importing select.h.[0a90f69b].trap (main_linux.cpp.d09bf785_0.trap.tar.br) for CWE835.link (98 of 185)
+2021-03-25 19:25:19,015 DEBUG    		[2021-03-25 19:25:19] Importing sigset.h.[74447208].trap (main_linux.cpp.d09bf785_0.trap.tar.br) for CWE835.link (99 of 185)
+2021-03-25 19:25:19,017 DEBUG    		[2021-03-25 19:25:19] Importing time.h.[734a87d7].trap (main_linux.cpp.d09bf785_0.trap.tar.br) for CWE835.link (100 of 185)
+2021-03-25 19:25:19,020 DEBUG    		[2021-03-25 19:25:19] Importing select.h.[ded97ed6].trap (main_linux.cpp.d09bf785_0.trap.tar.br) for CWE835.link (101 of 185)
+2021-03-25 19:25:19,026 DEBUG    		[2021-03-25 19:25:19] Importing sysmacros.h.[fcb56058].trap (main_linux.cpp.d09bf785_0.trap.tar.br) for CWE835.link (102 of 185)
+2021-03-25 19:25:19,028 DEBUG    		[2021-03-25 19:25:19] Importing pthreadtypes.h.[82535ae2].trap (main_linux.cpp.d09bf785_0.trap.tar.br) for CWE835.link (103 of 185)
+2021-03-25 19:25:19,048 DEBUG    		[2021-03-25 19:25:19] Importing types.h.[c3e8e038].trap (main_linux.cpp.d09bf785_0.trap.tar.br) for CWE835.link (104 of 185)
+2021-03-25 19:25:19,065 DEBUG    		[2021-03-25 19:25:19] Importing stddef.h.[89762bbb].trap (main_linux.cpp.d09bf785_0.trap.tar.br) for CWE835.link (105 of 185)
+2021-03-25 19:25:19,081 DEBUG    		[2021-03-25 19:25:19] Importing alloca.h.[adfa4b54].trap (main_linux.cpp.d09bf785_0.trap.tar.br) for CWE835.link (106 of 185)
+2021-03-25 19:25:19,087 DEBUG    		[2021-03-25 19:25:19] Importing stdlib-float.h.[4038f1a2].trap (main_linux.cpp.d09bf785_0.trap.tar.br) for CWE835.link (107 of 185)
+2021-03-25 19:25:19,092 DEBUG    		[2021-03-25 19:25:19] Importing stdlib.h.[9eeac92c].trap (main_linux.cpp.d09bf785_0.trap.tar.br) for CWE835.link (108 of 185)
+2021-03-25 19:25:19,166 DEBUG    		[2021-03-25 19:25:19] Importing stddef.h.[58995206].trap (main_linux.cpp.d09bf785_0.trap.tar.br) for CWE835.link (109 of 185)
+2021-03-25 19:25:19,180 DEBUG    		[2021-03-25 19:25:19] Importing stddef.h.[2d284f8d].trap (main_linux.cpp.d09bf785_0.trap.tar.br) for CWE835.link (110 of 185)
+2021-03-25 19:25:19,194 DEBUG    		[2021-03-25 19:25:19] Importing wchar.h.[a8a2e459].trap (main_linux.cpp.d09bf785_0.trap.tar.br) for CWE835.link (111 of 185)
+2021-03-25 19:25:19,203 DEBUG    		[2021-03-25 19:25:19] Importing _G_config.h.[148eb5c7].trap (main_linux.cpp.d09bf785_0.trap.tar.br) for CWE835.link (112 of 185)
+2021-03-25 19:25:19,206 DEBUG    		[2021-03-25 19:25:19] Importing stdarg.h.[c5029950].trap (main_linux.cpp.d09bf785_0.trap.tar.br) for CWE835.link (113 of 185)
+2021-03-25 19:25:19,212 DEBUG    		[2021-03-25 19:25:19] Importing libio.h.[44da1dcb].trap (main_linux.cpp.d09bf785_0.trap.tar.br) for CWE835.link (114 of 185)
+2021-03-25 19:25:19,233 DEBUG    		[2021-03-25 19:25:19] Importing stdio_lim.h.[b2d5edea].trap (main_linux.cpp.d09bf785_0.trap.tar.br) for CWE835.link (115 of 185)
+2021-03-25 19:25:19,236 DEBUG    		[2021-03-25 19:25:19] Importing sys_errlist.h.[7aab7c5b].trap (main_linux.cpp.d09bf785_0.trap.tar.br) for CWE835.link (116 of 185)
+2021-03-25 19:25:19,240 DEBUG    		[2021-03-25 19:25:19] Importing stdio.h.[6ba8774f].trap (main_linux.cpp.d09bf785_0.trap.tar.br) for CWE835.link (117 of 185)
+2021-03-25 19:25:19,279 DEBUG    		[2021-03-25 19:25:19] Importing stddef.h.[7cb7bb3d].trap (main_linux.cpp.d09bf785_0.trap.tar.br) for CWE835.link (118 of 185)
+2021-03-25 19:25:19,294 DEBUG    		[2021-03-25 19:25:19] Importing limits.h.[c8bb679a].trap (main_linux.cpp.d09bf785_0.trap.tar.br) for CWE835.link (119 of 185)
+2021-03-25 19:25:19,298 DEBUG    		[2021-03-25 19:25:19] Importing local_lim.h.[2e7805ac].trap (main_linux.cpp.d09bf785_0.trap.tar.br) for CWE835.link (120 of 185)
+2021-03-25 19:25:19,305 DEBUG    		[2021-03-25 19:25:19] Importing posix1_lim.h.[fceffde4].trap (main_linux.cpp.d09bf785_0.trap.tar.br) for CWE835.link (121 of 185)
+2021-03-25 19:25:19,309 DEBUG    		[2021-03-25 19:25:19] Importing posix2_lim.h.[35ba7f2d].trap (main_linux.cpp.d09bf785_0.trap.tar.br) for CWE835.link (122 of 185)
+2021-03-25 19:25:19,312 DEBUG    		[2021-03-25 19:25:19] Importing stdio_lim.h.[0407460b].trap (main_linux.cpp.d09bf785_0.trap.tar.br) for CWE835.link (123 of 185)
+2021-03-25 19:25:19,322 DEBUG    		[2021-03-25 19:25:19] Importing xopen_lim.h.[3b9250a1].trap (main_linux.cpp.d09bf785_0.trap.tar.br) for CWE835.link (124 of 185)
+2021-03-25 19:25:19,327 DEBUG    		[2021-03-25 19:25:19] Importing limits.h.[96cf7262].trap (main_linux.cpp.d09bf785_0.trap.tar.br) for CWE835.link (125 of 185)
+2021-03-25 19:25:19,333 DEBUG    		[2021-03-25 19:25:19] Importing limits.h.[456d99d8].trap (main_linux.cpp.d09bf785_0.trap.tar.br) for CWE835.link (126 of 185)
+2021-03-25 19:25:19,350 DEBUG    		[2021-03-25 19:25:19] Importing syslimits.h.[eae87398].trap (main_linux.cpp.d09bf785_0.trap.tar.br) for CWE835.link (127 of 185)
+2021-03-25 19:25:19,352 DEBUG    		[2021-03-25 19:25:19] Importing limits.h.[6030720b].trap (main_linux.cpp.d09bf785_0.trap.tar.br) for CWE835.link (128 of 185)
+2021-03-25 19:25:19,359 DEBUG    		[2021-03-25 19:25:19] Importing stddef.h.[2ca286ca].trap (main_linux.cpp.d09bf785_0.trap.tar.br) for CWE835.link (129 of 185)
+2021-03-25 19:25:19,371 DEBUG    		[2021-03-25 19:25:19] Importing string.h.[30377956].trap (main_linux.cpp.d09bf785_0.trap.tar.br) for CWE835.link (130 of 185)
+2021-03-25 19:25:19,393 DEBUG    		[2021-03-25 19:25:19] Importing wchar.h.[37ae712d].trap (main_linux.cpp.d09bf785_0.trap.tar.br) for CWE835.link (131 of 185)
+2021-03-25 19:25:19,396 DEBUG    		[2021-03-25 19:25:19] Importing stdint.h.[9cea55bf].trap (main_linux.cpp.d09bf785_0.trap.tar.br) for CWE835.link (132 of 185)
+2021-03-25 19:25:19,402 DEBUG    		[2021-03-25 19:25:19] Importing stdint.h.[4b8eeb3d].trap (main_linux.cpp.d09bf785_0.trap.tar.br) for CWE835.link (133 of 185)
+2021-03-25 19:25:19,405 DEBUG    		[2021-03-25 19:25:19] Importing ctype.h.[ce2b76bc].trap (main_linux.cpp.d09bf785_0.trap.tar.br) for CWE835.link (134 of 185)
+2021-03-25 19:25:19,421 DEBUG    		[2021-03-25 19:25:19] Importing uio.h.[ff9b300f].trap (main_linux.cpp.d09bf785_0.trap.tar.br) for CWE835.link (135 of 185)
+2021-03-25 19:25:19,424 DEBUG    		[2021-03-25 19:25:19] Importing falloc.h.[274e4876].trap (main_linux.cpp.d09bf785_0.trap.tar.br) for CWE835.link (136 of 185)
+2021-03-25 19:25:19,426 DEBUG    		[2021-03-25 19:25:19] Importing fcntl-linux.h.[6724032a].trap (main_linux.cpp.d09bf785_0.trap.tar.br) for CWE835.link (137 of 185)
+2021-03-25 19:25:19,437 DEBUG    		[2021-03-25 19:25:19] Importing fcntl.h.[6713a392].trap (main_linux.cpp.d09bf785_0.trap.tar.br) for CWE835.link (138 of 185)
+2021-03-25 19:25:19,440 DEBUG    		[2021-03-25 19:25:19] Importing stat.h.[2b30419c].trap (main_linux.cpp.d09bf785_0.trap.tar.br) for CWE835.link (139 of 185)
+2021-03-25 19:25:19,466 DEBUG    		[2021-03-25 19:25:19] Importing fcntl.h.[bb736e27].trap (main_linux.cpp.d09bf785_0.trap.tar.br) for CWE835.link (140 of 185)
+2021-03-25 19:25:19,475 DEBUG    		[2021-03-25 19:25:19] Importing stat.h.[bef79d6a].trap (main_linux.cpp.d09bf785_0.trap.tar.br) for CWE835.link (141 of 185)
+2021-03-25 19:25:19,479 DEBUG    		[2021-03-25 19:25:19] Importing stat.h.[7ed6d0d5].trap (main_linux.cpp.d09bf785_0.trap.tar.br) for CWE835.link (142 of 185)
+2021-03-25 19:25:19,491 DEBUG    		[2021-03-25 19:25:19] Importing os_defines.h.[018ddd3f].trap (main_linux.cpp.d09bf785_0.trap.tar.br) for CWE835.link (143 of 185)
+2021-03-25 19:25:19,494 DEBUG    		[2021-03-25 19:25:19] Importing cpu_defines.h.[c8bb679a].trap (main_linux.cpp.d09bf785_0.trap.tar.br) for CWE835.link (144 of 185)
+2021-03-25 19:25:19,496 DEBUG    		[2021-03-25 19:25:19] Importing c++config.h.[22157bd8].trap (main_linux.cpp.d09bf785_0.trap.tar.br) for CWE835.link (145 of 185)
+2021-03-25 19:25:19,540 DEBUG    		[2021-03-25 19:25:19] Importing atomic_lockfree_defines.h.[6917bcd6].trap (main_linux.cpp.d09bf785_0.trap.tar.br) for CWE835.link (146 of 185)
+2021-03-25 19:25:19,542 DEBUG    		[2021-03-25 19:25:19] Importing exception.[b500a3df].trap (main_linux.cpp.d09bf785_0.trap.tar.br) for CWE835.link (147 of 185)
+2021-03-25 19:25:19,554 DEBUG    		[2021-03-25 19:25:19] Importing new.[98be5325].trap (main_linux.cpp.d09bf785_0.trap.tar.br) for CWE835.link (148 of 185)
+2021-03-25 19:25:19,560 DEBUG    		[2021-03-25 19:25:19] Importing std_testcase.h.[b5392264].trap (main_linux.cpp.d09bf785_0.trap.tar.br) for CWE835.link (149 of 185)
+2021-03-25 19:25:19,563 DEBUG    		[2021-03-25 19:25:19] Importing std_testcase_io.h.[403aaf34].trap (main_linux.cpp.d09bf785_0.trap.tar.br) for CWE835.link (150 of 185)
+2021-03-25 19:25:19,566 DEBUG    		[2021-03-25 19:25:19] Importing std_testcase.h.[f2e43ace].trap (main_linux.cpp.d09bf785_0.trap.tar.br) for CWE835.link (151 of 185)
+2021-03-25 19:25:19,570 DEBUG    		[2021-03-25 19:25:19] Importing testcases.h.[f24e9afd].trap (main_linux.cpp.d09bf785_0.trap.tar.br) for CWE835.link (152 of 185)
+2021-03-25 19:25:19,572 DEBUG    		[2021-03-25 19:25:19] Importing main_linux.cpp.[d09bf785].trap (main_linux.cpp.d09bf785_0.trap.tar.br) for CWE835.link (153 of 185)
+2021-03-25 19:25:19,591 DEBUG    		[2021-03-25 19:25:19] Importing stdint.h.[c79c1692].trap (io.c.407c979b_0.trap.tar.br) for CWE835.link (154 of 185)
+2021-03-25 19:25:19,600 DEBUG    		[2021-03-25 19:25:19] Importing inttypes.h.[f60e7968].trap (io.c.407c979b_0.trap.tar.br) for CWE835.link (155 of 185)
+2021-03-25 19:25:19,615 DEBUG    		[2021-03-25 19:25:19] Importing types.h.[0398e4c9].trap (io.c.407c979b_0.trap.tar.br) for CWE835.link (156 of 185)
+2021-03-25 19:25:19,621 DEBUG    		[2021-03-25 19:25:19] Importing stddef.h.[7a1efd25].trap (io.c.407c979b_0.trap.tar.br) for CWE835.link (157 of 185)
+2021-03-25 19:25:19,626 DEBUG    		[2021-03-25 19:25:19] Importing wchar.h.[3623a952].trap (io.c.407c979b_0.trap.tar.br) for CWE835.link (158 of 185)
+2021-03-25 19:25:19,631 DEBUG    		[2021-03-25 19:25:19] Importing wctype.h.[bdda0982].trap (io.c.407c979b_0.trap.tar.br) for CWE835.link (159 of 185)
+2021-03-25 19:25:19,666 DEBUG    		[2021-03-25 19:25:19] Importing time.h.[71753f94].trap (io.c.407c979b_0.trap.tar.br) for CWE835.link (160 of 185)
+2021-03-25 19:25:19,678 DEBUG    		[2021-03-25 19:25:19] Importing stdarg.h.[8767d697].trap (io.c.407c979b_0.trap.tar.br) for CWE835.link (161 of 185)
+2021-03-25 19:25:19,680 DEBUG    		[2021-03-25 19:25:19] Importing stddef.h.[651c9ef8].trap (io.c.407c979b_0.trap.tar.br) for CWE835.link (162 of 185)
+2021-03-25 19:25:19,688 DEBUG    		[2021-03-25 19:25:19] Importing wchar.h.[863f26d7].trap (io.c.407c979b_0.trap.tar.br) for CWE835.link (163 of 185)
+2021-03-25 19:25:19,715 DEBUG    		[2021-03-25 19:25:19] Importing io.c.[407c979b].trap (io.c.407c979b_0.trap.tar.br) for CWE835.link (164 of 185)
+2021-03-25 19:25:19,737 DEBUG    		[2021-03-25 19:25:19] Importing stddef.h.[86ffe0d4].trap (std_thread.c.2e0fd3e4_0.trap.tar.br) for CWE835.link (165 of 185)
+2021-03-25 19:25:19,743 DEBUG    		[2021-03-25 19:25:19] Importing sched.h.[e6ed6f27].trap (std_thread.c.2e0fd3e4_0.trap.tar.br) for CWE835.link (166 of 185)
+2021-03-25 19:25:19,748 DEBUG    		[2021-03-25 19:25:19] Importing sched.h.[97981176].trap (std_thread.c.2e0fd3e4_0.trap.tar.br) for CWE835.link (167 of 185)
+2021-03-25 19:25:19,752 DEBUG    		[2021-03-25 19:25:19] Importing setjmp.h.[37263fe2].trap (std_thread.c.2e0fd3e4_0.trap.tar.br) for CWE835.link (168 of 185)
+2021-03-25 19:25:19,754 DEBUG    		[2021-03-25 19:25:19] Importing pthread.h.[c8ab937a].trap (std_thread.c.2e0fd3e4_0.trap.tar.br) for CWE835.link (169 of 185)
+2021-03-25 19:25:19,784 DEBUG    		[2021-03-25 19:25:19] Importing std_thread.h.[dd00d560].trap (std_thread.c.2e0fd3e4_0.trap.tar.br) for CWE835.link (170 of 185)
+2021-03-25 19:25:19,787 DEBUG    		[2021-03-25 19:25:19] Importing std_thread.c.[2e0fd3e4].trap (std_thread.c.2e0fd3e4_0.trap.tar.br) for CWE835.link (171 of 185)
+2021-03-25 19:25:19,799 DEBUG    		[2021-03-25 19:25:19] Importing 56480486_0.trap.br for CWE835.link (172 of 185)
+2021-03-25 19:25:19,808 DEBUG    		[2021-03-25 19:25:19] Importing 52696216_0.trap.br for CWE835.link (173 of 185)
+2021-03-25 19:25:19,820 DEBUG    		[2021-03-25 19:25:19] Importing 46951136_0.trap.br for CWE835.link (174 of 185)
+2021-03-25 19:25:19,821 DEBUG    		[2021-03-25 19:25:19] Importing 36207255_0.trap.br for CWE835.link (175 of 185)
+2021-03-25 19:25:19,823 DEBUG    		[2021-03-25 19:25:19] Importing 9434755_0.trap.br for CWE835.link (176 of 185)
+2021-03-25 19:25:19,826 DEBUG    		[2021-03-25 19:25:19] Importing 52915489_0.trap.br for CWE835.link (177 of 185)
+2021-03-25 19:25:19,827 DEBUG    		[2021-03-25 19:25:19] Importing 51149061_0.trap.br for CWE835.link (178 of 185)
+2021-03-25 19:25:19,830 DEBUG    		[2021-03-25 19:25:19] Importing 27847338_0.trap.br for CWE835.link (179 of 185)
+2021-03-25 19:25:19,832 DEBUG    		[2021-03-25 19:25:19] Importing 19738489_0.trap.br for CWE835.link (180 of 185)
+2021-03-25 19:25:19,834 DEBUG    		[2021-03-25 19:25:19] Importing duplication.trap.gz for no link target (181 of 185)
+2021-03-25 19:25:19,836 DEBUG    		[2021-03-25 19:25:19] Importing snapshotMetadata.csv.trap.gz for no link target (182 of 185)
+2021-03-25 19:25:19,839 DEBUG    		[2021-03-25 19:25:19] Importing externalArtifacts.trap.gz for no link target (183 of 185)
+2021-03-25 19:25:19,841 DEBUG    		[2021-03-25 19:25:19] Importing similarity.trap.gz for no link target (184 of 185)
+2021-03-25 19:25:19,844 DEBUG    		[2021-03-25 19:25:19] Importing CWE835.trap.br for CWE835.link (185 of 185)
+2021-03-25 19:25:19,992 DEBUG    		[2021-03-25 19:25:19] Merging 1 fragments for files.
+2021-03-25 19:25:19,999 DEBUG    		[2021-03-25 19:25:19] Merging 1 fragments for numlines.
+2021-03-25 19:25:20,002 DEBUG    		[2021-03-25 19:25:20] Merging 1 fragments for locations_default.
+2021-03-25 19:25:20,031 DEBUG    		[2021-03-25 19:25:20] Merging 1 fragments for link_parent.
+2021-03-25 19:25:20,035 DEBUG    		[2021-03-25 19:25:20] Merging 1 fragments for functions.
+2021-03-25 19:25:20,038 DEBUG    		[2021-03-25 19:25:20] Merging 1 fragments for function_return_type.
+2021-03-25 19:25:20,042 DEBUG    		[2021-03-25 19:25:20] Merging 1 fragments for fun_decls.
+2021-03-25 19:25:20,047 DEBUG    		[2021-03-25 19:25:20] Merging 1 fragments for fun_def.
+2021-03-25 19:25:20,051 DEBUG    		[2021-03-25 19:25:20] Merging 1 fragments for fun_decl_specifiers.
+2021-03-25 19:25:20,057 DEBUG    		[2021-03-25 19:25:20] Merging 1 fragments for routinetypes.
+2021-03-25 19:25:20,060 DEBUG    		[2021-03-25 19:25:20] Merging 1 fragments for unspecifiedtype.
+2021-03-25 19:25:20,063 DEBUG    		[2021-03-25 19:25:20] Merging 1 fragments for derivedtypes.
+2021-03-25 19:25:20,065 DEBUG    		[2021-03-25 19:25:20] Merging 1 fragments for pointerishsize.
+2021-03-25 19:25:20,067 DEBUG    		[2021-03-25 19:25:20] Merging 1 fragments for locations_expr.
+2021-03-25 19:25:20,070 DEBUG    		[2021-03-25 19:25:20] Merging 1 fragments for exprs.
+2021-03-25 19:25:20,075 DEBUG    		[2021-03-25 19:25:20] Merging 1 fragments for expr_types.
+2021-03-25 19:25:20,079 DEBUG    		[2021-03-25 19:25:20] Merging 1 fragments for locations_stmt.
+2021-03-25 19:25:20,082 DEBUG    		[2021-03-25 19:25:20] Merging 1 fragments for stmts.
+2021-03-25 19:25:20,085 DEBUG    		[2021-03-25 19:25:20] Merging 1 fragments for successors.
+2021-03-25 19:25:20,089 DEBUG    		[2021-03-25 19:25:20] Merging 1 fragments for function_entry_point.
+2021-03-25 19:25:20,094 DEBUG    		[2021-03-25 19:25:20] Merging 1 fragments for localvariables.
+2021-03-25 19:25:20,096 DEBUG    		[2021-03-25 19:25:20] Merging 1 fragments for values.
+2021-03-25 19:25:20,100 DEBUG    		[2021-03-25 19:25:20] Merging 1 fragments for valuebind.
+2021-03-25 19:25:20,112 DEBUG    		[2021-03-25 19:25:20] Merging 1 fragments for exprparents.
+2021-03-25 19:25:20,116 DEBUG    		[2021-03-25 19:25:20] Merging 1 fragments for var_decls.
+2021-03-25 19:25:20,121 DEBUG    		[2021-03-25 19:25:20] Merging 1 fragments for var_def.
+2021-03-25 19:25:20,123 DEBUG    		[2021-03-25 19:25:20] Merging 1 fragments for expr_isload.
+2021-03-25 19:25:20,125 DEBUG    		[2021-03-25 19:25:20] Merging 1 fragments for routinetypeargs.
+2021-03-25 19:25:20,127 DEBUG    		[2021-03-25 19:25:20] Merging 1 fragments for truecond.
+2021-03-25 19:25:20,129 DEBUG    		[2021-03-25 19:25:20] Merging 1 fragments for falsecond.
+2021-03-25 19:25:20,131 DEBUG    		[2021-03-25 19:25:20] Merging 1 fragments for preprocdirects.
+2021-03-25 19:25:20,140 DEBUG    		[2021-03-25 19:25:20] Merging 1 fragments for preproctext.
+2021-03-25 19:25:20,147 DEBUG    		[2021-03-25 19:25:20] Merging 1 fragments for preproctrue.
+2021-03-25 19:25:20,149 DEBUG    		[2021-03-25 19:25:20] Merging 1 fragments for preprocfalse.
+2021-03-25 19:25:20,151 DEBUG    		[2021-03-25 19:25:20] Merging 1 fragments for comments.
+2021-03-25 19:25:20,158 DEBUG    		[2021-03-25 19:25:20] Merging 1 fragments for commentbinding.
+2021-03-25 19:25:20,163 DEBUG    		[2021-03-25 19:25:20] Merging 1 fragments for fileannotations.
+2021-03-25 19:25:20,165 DEBUG    		[2021-03-25 19:25:20] Merging 1 fragments for containerparent.
+2021-03-25 19:25:20,166 DEBUG    		[2021-03-25 19:25:20] Merging 1 fragments for folders.
+2021-03-25 19:25:20,169 DEBUG    		[2021-03-25 19:25:20] Merging 1 fragments for includes.
+2021-03-25 19:25:20,172 DEBUG    		[2021-03-25 19:25:20] Merging 1 fragments for blockscope.
+2021-03-25 19:25:20,173 DEBUG    		[2021-03-25 19:25:20] Merging 1 fragments for iscall.
+2021-03-25 19:25:20,174 DEBUG    		[2021-03-25 19:25:20] Merging 1 fragments for funbind.
+2021-03-25 19:25:20,176 DEBUG    		[2021-03-25 19:25:20] Merging 1 fragments for compgenerated.
+2021-03-25 19:25:20,177 DEBUG    		[2021-03-25 19:25:20] Merging 1 fragments for stmtparents.
+2021-03-25 19:25:20,179 DEBUG    		[2021-03-25 19:25:20] Merging 1 fragments for funspecifiers.
+2021-03-25 19:25:20,182 DEBUG    		[2021-03-25 19:25:20] Merging 1 fragments for stmt_decl_bind.
+2021-03-25 19:25:20,183 DEBUG    		[2021-03-25 19:25:20] Merging 1 fragments for stmt_decl_entry_bind.
+2021-03-25 19:25:20,185 DEBUG    		[2021-03-25 19:25:20] Merging 1 fragments for varspecifiers.
+2021-03-25 19:25:20,187 DEBUG    		[2021-03-25 19:25:20] Merging 1 fragments for initialisers.
+2021-03-25 19:25:20,190 DEBUG    		[2021-03-25 19:25:20] Merging 1 fragments for varbind.
+2021-03-25 19:25:20,192 DEBUG    		[2021-03-25 19:25:20] Merging 1 fragments for jumpinfo.
+2021-03-25 19:25:20,194 DEBUG    		[2021-03-25 19:25:20] Merging 1 fragments for if_then.
+2021-03-25 19:25:20,196 DEBUG    		[2021-03-25 19:25:20] Merging 1 fragments for exprconv.
+2021-03-25 19:25:20,199 DEBUG    		[2021-03-25 19:25:20] Merging 1 fragments for do_body.
+2021-03-25 19:25:20,200 DEBUG    		[2021-03-25 19:25:20] Merging 1 fragments for preprocpair.
+2021-03-25 19:25:20,204 DEBUG    		[2021-03-25 19:25:20] Merging 1 fragments for for_condition.
+2021-03-25 19:25:20,206 DEBUG    		[2021-03-25 19:25:20] Merging 1 fragments for for_body.
+2021-03-25 19:25:20,208 DEBUG    		[2021-03-25 19:25:20] Merging 1 fragments for for_initialization.
+2021-03-25 19:25:20,210 DEBUG    		[2021-03-25 19:25:20] Merging 1 fragments for for_update.
+2021-03-25 19:25:20,212 DEBUG    		[2021-03-25 19:25:20] Merging 1 fragments for builtintypes.
+2021-03-25 19:25:20,214 DEBUG    		[2021-03-25 19:25:20] Merging 1 fragments for link_targets.
+2021-03-25 19:25:20,217 DEBUG    		[2021-03-25 19:25:20] Merging 1 fragments for usertypes.
+2021-03-25 19:25:20,220 DEBUG    		[2021-03-25 19:25:20] Merging 1 fragments for usertypesize.
+2021-03-25 19:25:20,223 DEBUG    		[2021-03-25 19:25:20] Merging 1 fragments for is_pod_class.
+2021-03-25 19:25:20,225 DEBUG    		[2021-03-25 19:25:20] Merging 1 fragments for is_standard_layout_class.
+2021-03-25 19:25:20,228 DEBUG    		[2021-03-25 19:25:20] Merging 1 fragments for is_complete.
+2021-03-25 19:25:20,231 DEBUG    		[2021-03-25 19:25:20] Merging 1 fragments for membervariables.
+2021-03-25 19:25:20,233 DEBUG    		[2021-03-25 19:25:20] Merging 1 fragments for fieldoffsets.
+2021-03-25 19:25:20,236 DEBUG    		[2021-03-25 19:25:20] Merging 1 fragments for member.
+2021-03-25 19:25:20,239 DEBUG    		[2021-03-25 19:25:20] Merging 1 fragments for namespaces.
+2021-03-25 19:25:20,241 DEBUG    		[2021-03-25 19:25:20] Merging 1 fragments for specialnamequalifyingelements.
+2021-03-25 19:25:20,243 DEBUG    		[2021-03-25 19:25:20] Merging 1 fragments for specifiers.
+2021-03-25 19:25:20,246 DEBUG    		[2021-03-25 19:25:20] Merging 1 fragments for macroinvocations.
+2021-03-25 19:25:20,249 DEBUG    		[2021-03-25 19:25:20] Merging 1 fragments for macro_argument_unexpanded.
+2021-03-25 19:25:20,253 DEBUG    		[2021-03-25 19:25:20] Merging 1 fragments for macro_argument_expanded.
+2021-03-25 19:25:20,257 DEBUG    		[2021-03-25 19:25:20] Merging 1 fragments for macroparent.
+2021-03-25 19:25:20,259 DEBUG    		[2021-03-25 19:25:20] Merging 1 fragments for typedefbase.
+2021-03-25 19:25:20,261 DEBUG    		[2021-03-25 19:25:20] Merging 1 fragments for type_decls.
+2021-03-25 19:25:20,264 DEBUG    		[2021-03-25 19:25:20] Merging 1 fragments for type_decl_top.
+2021-03-25 19:25:20,267 DEBUG    		[2021-03-25 19:25:20] Merging 1 fragments for type_def.
+2021-03-25 19:25:20,270 DEBUG    		[2021-03-25 19:25:20] Merging 1 fragments for arraysizes.
+2021-03-25 19:25:20,273 DEBUG    		[2021-03-25 19:25:20] Merging 1 fragments for inmacroexpansion.
+2021-03-25 19:25:20,276 DEBUG    		[2021-03-25 19:25:20] Merging 1 fragments for type_mentions.
+2021-03-25 19:25:20,278 DEBUG    		[2021-03-25 19:25:20] Merging 1 fragments for macrolocationbind.
+2021-03-25 19:25:20,281 DEBUG    		[2021-03-25 19:25:20] Merging 1 fragments for params.
+2021-03-25 19:25:20,284 DEBUG    		[2021-03-25 19:25:20] Merging 1 fragments for enumconstants.
+2021-03-25 19:25:20,288 DEBUG    		[2021-03-25 19:25:20] Merging 1 fragments for attributes.
+2021-03-25 19:25:20,291 DEBUG    		[2021-03-25 19:25:20] Merging 1 fragments for funcattributes.
+2021-03-25 19:25:20,293 DEBUG    		[2021-03-25 19:25:20] Merging 1 fragments for param_decl_bind.
+2021-03-25 19:25:20,296 DEBUG    		[2021-03-25 19:25:20] Merging 1 fragments for globalvariables.
+2021-03-25 19:25:20,299 DEBUG    		[2021-03-25 19:25:20] Merging 1 fragments for var_decl_specifiers.
+2021-03-25 19:25:20,303 DEBUG    		[2021-03-25 19:25:20] Merging 1 fragments for typespecifiers.
+2021-03-25 19:25:20,307 DEBUG    		[2021-03-25 19:25:20] Merging 1 fragments for conversionkinds.
+2021-03-25 19:25:20,308 DEBUG    		[2021-03-25 19:25:20] Merging 1 fragments for sizeof_bind.
+2021-03-25 19:25:20,309 DEBUG    		[2021-03-25 19:25:20] Merging 1 fragments for attribute_arg_value.
+2021-03-25 19:25:20,310 DEBUG    		[2021-03-25 19:25:20] Merging 1 fragments for attribute_args.
+2021-03-25 19:25:20,312 DEBUG    		[2021-03-25 19:25:20] Merging 1 fragments for bitfield.
+2021-03-25 19:25:20,314 DEBUG    		[2021-03-25 19:25:20] Merging 1 fragments for affectedbymacroexpansion.
+2021-03-25 19:25:20,315 DEBUG    		[2021-03-25 19:25:20] Merging 1 fragments for typeattributes.
+2021-03-25 19:25:20,316 DEBUG    		[2021-03-25 19:25:20] Merging 1 fragments for expr_ancestor.
+2021-03-25 19:25:20,320 DEBUG    		[2021-03-25 19:25:20] Merging 1 fragments for expr_cond_guard.
+2021-03-25 19:25:20,321 DEBUG    		[2021-03-25 19:25:20] Merging 1 fragments for expr_cond_true.
+2021-03-25 19:25:20,323 DEBUG    		[2021-03-25 19:25:20] Merging 1 fragments for expr_cond_false.
+2021-03-25 19:25:20,324 DEBUG    		[2021-03-25 19:25:20] Merging 1 fragments for while_body.
+2021-03-25 19:25:20,326 DEBUG    		[2021-03-25 19:25:20] Merging 1 fragments for fun_decl_empty_throws.
+2021-03-25 19:25:20,329 DEBUG    		[2021-03-25 19:25:20] Merging 1 fragments for namespacembrs.
+2021-03-25 19:25:20,331 DEBUG    		[2021-03-25 19:25:20] Merging 1 fragments for namespace_decls.
+2021-03-25 19:25:20,334 DEBUG    		[2021-03-25 19:25:20] Merging 1 fragments for derivations.
+2021-03-25 19:25:20,337 DEBUG    		[2021-03-25 19:25:20] Merging 1 fragments for direct_base_offsets.
+2021-03-25 19:25:20,340 DEBUG    		[2021-03-25 19:25:20] Merging 1 fragments for overrides.
+2021-03-25 19:25:20,343 DEBUG    		[2021-03-25 19:25:20] Merging 1 fragments for derspecifiers.
+2021-03-25 19:25:20,344 DEBUG    		[2021-03-25 19:25:20] Merging 1 fragments for fun_decl_throws.
+2021-03-25 19:25:20,346 DEBUG    		[2021-03-25 19:25:20] Merging 1 fragments for compilations.
+2021-03-25 19:25:20,348 DEBUG    		[2021-03-25 19:25:20] Merging 1 fragments for compilation_args.
+2021-03-25 19:25:20,349 DEBUG    		[2021-03-25 19:25:20] Merging 1 fragments for compilation_compiling_files.
+2021-03-25 19:25:20,350 DEBUG    		[2021-03-25 19:25:20] Merging 1 fragments for compilation_time.
+2021-03-25 19:25:20,351 DEBUG    		[2021-03-25 19:25:20] Merging 1 fragments for compilation_finished.
+2021-03-25 19:25:20,353 DEBUG    		[2021-03-25 19:25:20] Merging 1 fragments for externalData.
+2021-03-25 19:25:20,359 DEBUG    		[2021-03-25 19:25:20] Merging 1 fragments for snapshotDate.
+2021-03-25 19:25:20,361 DEBUG    		[2021-03-25 19:25:20] Merging 1 fragments for sourceLocationPrefix.
+2021-03-25 19:25:20,370 DEBUG    		[2021-03-25 19:25:20] Merging 1 fragments for similarCode.
+2021-03-25 19:25:20,371 DEBUG    		[2021-03-25 19:25:20] Merging 1 fragments for tokens.
+2021-03-25 19:25:20,373 DEBUG    		[2021-03-25 19:25:20] Saving string and id pools to disk.
+2021-03-25 19:25:20,396 DEBUG    		[2021-03-25 19:25:20] Finished importing trap files.
+2021-03-25 19:25:20,405 DEBUG    		[2021-03-25 19:25:20] Stopped the world to close the cache
+2021-03-25 19:25:20,407 DEBUG    		[2021-03-25 19:25:20] The disk cache is freshly trimmed; leave it be.
+2021-03-25 19:25:20,408 DEBUG    		[2021-03-25 19:25:20] Starting the world again
+2021-03-25 19:25:20,522 DEBUG    		[2021-03-25 19:25:20] Finished importing TRAP files into database for snapshot revision-2021-March-25--19-25-02 of scrub_semmle_analysis. Time taken: 3.871s
+2021-03-25 19:25:20,537 DEBUG    		[2021-03-25 19:25:20] Processing source archive at /root/scrub_working_dir/semmle_analysis/revision-2021-March-25--19-25-02/output/src_archive/opt/project/test/integration_tests/c_testcase
+2021-03-25 19:25:20,539 DEBUG    		[2021-03-25 19:25:20] Creating source archive for snapshot revision-2021-March-25--19-25-02 with 13 source files
+2021-03-25 19:25:20,637 DEBUG    		[2021-03-25 19:25:20] ****************************************************************************************
+2021-03-25 19:25:20,639 DEBUG    		                      *  ODASA build report for snapshot semmle_analysis - revision-2021-March-25--19-25-02  *
+2021-03-25 19:25:20,640 DEBUG    		                      *  Build command 1 succeeded (exit code 0)                                             *
+2021-03-25 19:25:20,642 DEBUG    		                      *  Build command 2 succeeded (exit code 0)                                             *
+2021-03-25 19:25:20,643 DEBUG    		                      *  13 source files were archived during the build.                                     *
+2021-03-25 19:25:20,644 DEBUG    		                      *  Created an ODASA code database of 1MiB.                                             *
+2021-03-25 19:25:20,645 DEBUG    		                      ****************************************************************************************
+2021-03-25 19:25:20,647 DEBUG    		[2021-03-25 19:25:20] [DEBUG] Releasing Exclusive lock for buildSnapshot.
+2021-03-25 19:25:20,648 DEBUG    		[2021-03-25 19:25:20] [DEBUG] Releasing shared lock on /root/scrub_working_dir/semmle_analysis
+2021-03-25 19:25:20,660 INFO     
+2021-03-25 19:25:20,662 INFO     	>> Executing command: odasa analyzeSnapshot --allow-recompiles --project /root/scrub_working_dir/semmle_analysis --latest --format sarifv2.1.0 --output-file /root/scrub_working_dir/semmle_analysis/semmle_baseline_raw.sarif --suite /opt/project/tools/semmle/customizations/suite_files/scrub_queries_c 
+2021-03-25 19:25:20,663 INFO     	>> From directory: /opt/project/test/integration_tests/c_testcase
+2021-03-25 19:25:20,665 DEBUG    	Console output:
+2021-03-25 19:25:21,137 DEBUG    		[2021-03-25 19:25:21] [WARN] The flag '--allow-recompiles' is deprecated: Allow recompilation of queries if they are out of date. Now the default. Use --compiled-queries-only to suppress recompilation.
+2021-03-25 19:25:21,362 DEBUG    		[2021-03-25 19:25:21] [analyzeSnapshot] Running queries on snapshot /root/scrub_working_dir/semmle_analysis/revision-2021-March-25--19-25-02
+2021-03-25 19:25:21,669 DEBUG    		[2021-03-25 19:25:21] [analysis] The following queries will be run:
+2021-03-25 19:25:21,670 DEBUG    		[2021-03-25 19:25:21] [analysis]   -> scrub_semmle_analysis - revision-2021-March-25--19-25-02
+2021-03-25 19:25:21,672 DEBUG    		                                      49 queries will be run now
+2021-03-25 19:25:21,709 DEBUG    		[2021-03-25 19:25:21] [analysis] Scheduling queries for snapshot scrub_semmle_analysis - revision-2021-March-25--19-25-02 ...
+2021-03-25 19:25:28,859 DEBUG    		[2021-03-25 19:25:28] [analysis] [EVALUATION 1/49] Completed query odasa-cpp-metrics/Files/FLinesOfCode.ql (0s)
+2021-03-25 19:25:30,303 DEBUG    		[2021-03-25 19:25:30] [analysis] [EVALUATION 2/49] Completed query semmlecode-cpp-queries/Architecture/Refactoring Opportunities/CyclomaticComplexity.ql (1s)
+2021-03-25 19:25:30,363 DEBUG    		[2021-03-25 19:25:30] [analysis] [EVALUATION 3/49] Completed query semmlecode-cpp-queries/JPL_C/LOC-2/Rule 12/EnumInitialization.ql (0s)
+2021-03-25 19:25:30,383 DEBUG    		[2021-03-25 19:25:30] [analysis] [EVALUATION 4/49] Completed query semmlecode-cpp-queries/JPL_C/LOC-2/Rule 07/ThreadSafety.ql (0s)
+2021-03-25 19:25:30,406 DEBUG    		[2021-03-25 19:25:30] [analysis] [EVALUATION 5/49] Completed query semmlecode-cpp-queries/JPL_C/LOC-4/Rule 22/UseOfUndef.ql (0s)
+2021-03-25 19:25:30,445 DEBUG    		[2021-03-25 19:25:30] [analysis] [EVALUATION 6/49] Completed query semmlecode-cpp-queries/JPL_C/LOC-4/Rule 30/FunctionPointerConversions.ql (0s)
+2021-03-25 19:25:30,696 DEBUG    		[2021-03-25 19:25:30] [analysis] [EVALUATION 7/49] Completed query semmlecode-cpp-queries/JPL_C/LOC-4/Rule 31/IncludesFirst.ql (0s)
+2021-03-25 19:25:30,712 DEBUG    		[2021-03-25 19:25:30] [analysis] [EVALUATION 8/49] Completed query semmlecode-cpp-queries/JPL_C/LOC-2/Rule 09/AvoidSemaphores.ql (0s)
+2021-03-25 19:25:30,772 DEBUG    		[2021-03-25 19:25:30] [analysis] [EVALUATION 9/49] Completed query semmlecode-cpp-queries/JPL_C/LOC-4/Rule 28/HiddenPointerDereferenceMacro.ql (0s)
+2021-03-25 19:25:30,793 DEBUG    		[2021-03-25 19:25:30] [analysis] [EVALUATION 10/49] Completed query semmlecode-cpp-queries/JPL_C/LOC-3/Rule 18/CompoundExpressions.ql (0s)
+2021-03-25 19:25:30,827 DEBUG    		[2021-03-25 19:25:30] [analysis] [EVALUATION 11/49] Completed query semmlecode-cpp-queries/JPL_C/LOC-4/Rule 25/FunctionSizeLimits.ql (0s)
+2021-03-25 19:25:30,851 DEBUG    		[2021-03-25 19:25:30] [analysis] [EVALUATION 12/49] Completed query semmlecode-cpp-queries/JPL_C/LOC-3/Rule 13/ExternDeclsInHeader.ql (0s)
+2021-03-25 19:25:30,875 DEBUG    		[2021-03-25 19:25:30] [analysis] [EVALUATION 13/49] Completed query semmlecode-cpp-queries/JPL_C/LOC-4/Rule 24/MultipleVarDeclsPerLine.ql (0s)
+2021-03-25 19:25:30,944 DEBUG    		[2021-03-25 19:25:30] [analysis] [EVALUATION 14/49] Completed query semmlecode-cpp-queries/JPL_C/LOC-3/Rule 17/BasicIntTypes.ql (0s)
+2021-03-25 19:25:30,979 DEBUG    		[2021-03-25 19:25:30] [analysis] [EVALUATION 15/49] Completed query semmlecode-cpp-queries/Likely Bugs/Conversion/LossyPointerCast.ql (0s)
+2021-03-25 19:25:31,011 DEBUG    		[2021-03-25 19:25:31] [analysis] [EVALUATION 16/49] Completed query semmlecode-cpp-queries/Best Practices/Likely Errors/Slicing.ql (0s)
+2021-03-25 19:25:31,030 DEBUG    		[2021-03-25 19:25:31] [analysis] [EVALUATION 17/49] Completed query semmlecode-cpp-queries/Likely Bugs/Arithmetic/BadCheckOdd.ql (0s)
+2021-03-25 19:25:31,629 DEBUG    		[2021-03-25 19:25:31] [analysis] [EVALUATION 18/49] Completed query semmlecode-cpp-queries/Likely Bugs/Arithmetic/IntMultToLong.ql (0s)
+2021-03-25 19:25:31,674 DEBUG    		[2021-03-25 19:25:31] [analysis] [EVALUATION 19/49] Completed query semmlecode-cpp-queries/Likely Bugs/Conversion/NonzeroValueCastToPointer.ql (0s)
+2021-03-25 19:25:31,763 DEBUG    		[2021-03-25 19:25:31] [analysis] [EVALUATION 20/49] Completed query semmlecode-cpp-queries/Likely Bugs/Conversion/ArrayArgSizeMismatch.ql (0s)
+2021-03-25 19:25:31,861 DEBUG    		[2021-03-25 19:25:31] [analysis] [EVALUATION 21/49] Completed query semmlecode-cpp-queries/Likely Bugs/InconsistentCheckReturnNull.ql (0s)
+2021-03-25 19:25:31,911 DEBUG    		[2021-03-25 19:25:31] [analysis] [EVALUATION 22/49] Completed query semmlecode-cpp-queries/Likely Bugs/InconsistentCallOnResult.ql (0s)
+2021-03-25 19:25:32,068 DEBUG    		[2021-03-25 19:25:32] [analysis] [EVALUATION 23/49] Completed query semmlecode-cpp-queries/Likely Bugs/Likely Typos/AssignWhereCompareMeant.ql (0s)
+2021-03-25 19:25:32,102 DEBUG    		[2021-03-25 19:25:32] [analysis] [EVALUATION 24/49] Completed query semmlecode-cpp-queries/Likely Bugs/Likely Typos/CompareWhereAssignMeant.ql (0s)
+2021-03-25 19:25:32,287 DEBUG    		[2021-03-25 19:25:32] [analysis] [EVALUATION 25/49] Completed query semmlecode-cpp-queries/Likely Bugs/Likely Typos/ExprHasNoEffect.ql (0s)
+2021-03-25 19:25:32,338 DEBUG    		[2021-03-25 19:25:32] [analysis] [EVALUATION 26/49] Completed query semmlecode-cpp-queries/Likely Bugs/Likely Typos/ShortCircuitBitMask.ql (0s)
+2021-03-25 19:25:32,357 DEBUG    		[2021-03-25 19:25:32] [analysis] [EVALUATION 27/49] Completed query semmlecode-cpp-queries/Likely Bugs/Likely Typos/MissingEnumCaseInSwitch.ql (0s)
+2021-03-25 19:25:32,401 DEBUG    		[2021-03-25 19:25:32] [analysis] [EVALUATION 28/49] Completed query semmlecode-cpp-queries/Likely Bugs/Arithmetic/FloatComparison.ql (0s)
+2021-03-25 19:25:32,427 DEBUG    		[2021-03-25 19:25:32] [analysis] [EVALUATION 29/49] Completed query semmlecode-cpp-queries/Likely Bugs/Arithmetic/BitwiseSignCheck.ql (0s)
+2021-03-25 19:25:32,578 DEBUG    		[2021-03-25 19:25:32] [analysis] [EVALUATION 30/49] Completed query semmlecode-cpp-queries/Likely Bugs/NestedLoopSameVar.ql (0s)
+2021-03-25 19:25:32,627 DEBUG    		[2021-03-25 19:25:32] [analysis] [EVALUATION 31/49] Completed query semmlecode-cpp-queries/Likely Bugs/Memory Management/SuspiciousCallToMemset.ql (0s)
+2021-03-25 19:25:32,647 DEBUG    		[2021-03-25 19:25:32] [analysis] [EVALUATION 32/49] Completed query semmlecode-cpp-queries/Likely Bugs/Memory Management/SuspiciousSizeof.ql (0s)
+2021-03-25 19:25:32,683 DEBUG    		[2021-03-25 19:25:32] [analysis] [EVALUATION 33/49] Completed query semmlecode-cpp-queries/Likely Bugs/Memory Management/UnsafeUseOfStrcat.ql (0s)
+2021-03-25 19:25:32,708 DEBUG    		[2021-03-25 19:25:32] [analysis] [EVALUATION 34/49] Completed query semmlecode-cpp-queries/Likely Bugs/Memory Management/SuspiciousCallToStrncat.ql (0s)
+2021-03-25 19:25:33,498 DEBUG    		[2021-03-25 19:25:33] [analysis] [EVALUATION 35/49] Completed query semmlecode-cpp-queries/Likely Bugs/Memory Management/StrncpyFlippedArgs.ql (0s)
+2021-03-25 19:25:33,667 DEBUG    		[2021-03-25 19:25:33] [analysis] [EVALUATION 36/49] Completed query semmlecode-cpp-queries/Likely Bugs/Format/WrongNumberOfFormatArguments.ql (0s)
+2021-03-25 19:25:33,863 DEBUG    		[2021-03-25 19:25:33] [analysis] [EVALUATION 37/49] Completed query semmlecode-cpp-queries/Likely Bugs/Format/WrongTypeFormatArguments.ql (0s)
+2021-03-25 19:25:34,811 DEBUG    		[2021-03-25 19:25:34] [analysis] [EVALUATION 38/49] Completed query semmlecode-cpp-queries/Likely Bugs/Format/NonConstantFormat.ql (0s)
+2021-03-25 19:25:35,002 DEBUG    		[2021-03-25 19:25:35] [analysis] [EVALUATION 39/49] Completed query semmlecode-cpp-queries/Best Practices/Magic Constants/MagicConstantsString.ql (0s)
+2021-03-25 19:25:35,056 DEBUG    		[2021-03-25 19:25:35] [analysis] [EVALUATION 40/49] Completed query semmlecode-cpp-queries/Best Practices/Magic Constants/MagicConstantsNumbers.ql (0s)
+2021-03-25 19:25:35,146 DEBUG    		[2021-03-25 19:25:35] [analysis] [EVALUATION 41/49] Completed query semmlecode-cpp-queries/Best Practices/Unused Entities/UnusedStaticFunctions.ql (0s)
+2021-03-25 19:25:35,165 DEBUG    		[2021-03-25 19:25:35] [analysis] [EVALUATION 42/49] Completed query semmlecode-cpp-queries/Best Practices/Unused Entities/UnusedStaticVariables.ql (0s)
+2021-03-25 19:25:35,192 DEBUG    		[2021-03-25 19:25:35] [analysis] [EVALUATION 43/49] Completed query semmlecode-cpp-queries/Best Practices/Unused Entities/UnusedLocals.ql (0s)
+2021-03-25 19:25:35,235 DEBUG    		[2021-03-25 19:25:35] [analysis] [EVALUATION 44/49] Completed query semmlecode-cpp-queries/external/DuplicateFunction.ql (0s)
+2021-03-25 19:25:35,283 DEBUG    		[2021-03-25 19:25:35] [analysis] [EVALUATION 45/49] Completed query semmlecode-cpp-queries/external/MostlyDuplicateClass.ql (0s)
+2021-03-25 19:25:35,296 DEBUG    		[2021-03-25 19:25:35] [analysis] [EVALUATION 46/49] Completed query semmlecode-cpp-queries/external/MostlyDuplicateFile.ql (0s)
+2021-03-25 19:25:35,331 DEBUG    		[2021-03-25 19:25:35] [analysis] [EVALUATION 47/49] Completed query semmlecode-cpp-queries/external/MostlyDuplicateFunction.ql (0s)
+2021-03-25 19:25:35,357 DEBUG    		[2021-03-25 19:25:35] [analysis] [EVALUATION 48/49] Completed query semmlecode-cpp-queries/external/MostlySimilarFile.ql (0s)
+2021-03-25 19:25:35,404 DEBUG    		[2021-03-25 19:25:35] [analysis] [EVALUATION 49/49] Completed query semmlecode-cpp-queries/AlertSuppression.ql (0s)
+2021-03-25 19:25:35,406 DEBUG    		[2021-03-25 19:25:35] [analysis] Cleaning up after query evaluation.
+2021-03-25 19:25:35,634 DEBUG    		[2021-03-25 19:25:35] [analysis] Cleanup finished: Cleaned disk cache from 0 to 0 MB
+2021-03-25 19:25:35,776 DEBUG    		[2021-03-25 19:25:35] [analysis]  Completed analysis for semmle_analysis - revision-2021-March-25--19-25-02 in 0 minutes.
+2021-03-25 19:25:35,777 DEBUG    		[2021-03-25 19:25:35] [analysis] semmle_analysis - revision-2021-March-25--19-25-02: 49 total, 49 succeeded (0:14 minutes)
+2021-03-25 19:25:35,779 DEBUG    		[2021-03-25 19:25:35] [analyzeSnapshot] Interpreting query results into analysis results
+2021-03-25 19:25:36,824 INFO     
+2021-03-25 19:25:36,825 INFO     	>> Executing command: odasa analyzeSnapshot --allow-recompiles --project /root/scrub_working_dir/semmle_analysis --latest --format sarifv2.1.0 --output-file /root/scrub_working_dir/semmle_analysis/semmle_p10_raw.sarif --suite /opt/project/tools/semmle/customizations/suite_files/scrub_queries_p10 
+2021-03-25 19:25:36,827 INFO     	>> From directory: /opt/project/test/integration_tests/c_testcase
+2021-03-25 19:25:36,829 DEBUG    	Console output:
+2021-03-25 19:25:37,306 DEBUG    		[2021-03-25 19:25:37] [WARN] The flag '--allow-recompiles' is deprecated: Allow recompilation of queries if they are out of date. Now the default. Use --compiled-queries-only to suppress recompilation.
+2021-03-25 19:25:37,517 DEBUG    		[2021-03-25 19:25:37] [analyzeSnapshot] Running queries on snapshot /root/scrub_working_dir/semmle_analysis/revision-2021-March-25--19-25-02
+2021-03-25 19:25:37,723 DEBUG    		[2021-03-25 19:25:37] [analysis] The following queries will be run:
+2021-03-25 19:25:37,725 DEBUG    		[2021-03-25 19:25:37] [analysis]   -> scrub_semmle_analysis - revision-2021-March-25--19-25-02
+2021-03-25 19:25:37,726 DEBUG    		                                      23 queries will be run now, 2 queries have already been run
+2021-03-25 19:25:37,766 DEBUG    		[2021-03-25 19:25:37] [analysis] Scheduling queries for snapshot scrub_semmle_analysis - revision-2021-March-25--19-25-02 ...
+2021-03-25 19:25:42,454 DEBUG    		[2021-03-25 19:25:42] [analysis] [EVALUATION 1/23] Completed query semmlecode-cpp-queries/Power of 10/Rule 1/UseOfGoto.ql (0s)
+2021-03-25 19:25:42,541 DEBUG    		[2021-03-25 19:25:42] [analysis] [EVALUATION 2/23] Completed query semmlecode-cpp-queries/Power of 10/Rule 1/UseOfJmp.ql (0s)
+2021-03-25 19:25:42,760 DEBUG    		[2021-03-25 19:25:42] [analysis] [EVALUATION 3/23] Completed query semmlecode-cpp-queries/Power of 10/Rule 1/UseOfRecursion.ql (0s)
+2021-03-25 19:25:43,275 DEBUG    		[2021-03-25 19:25:43] [analysis] [EVALUATION 4/23] Completed query semmlecode-cpp-queries/Power of 10/Rule 2/BoundedLoopIterations.ql (0s)
+2021-03-25 19:25:43,311 DEBUG    		[2021-03-25 19:25:43] [analysis] [EVALUATION 5/23] Completed query semmlecode-cpp-queries/Power of 10/Rule 2/ExitPermanentLoop.ql (0s)
+2021-03-25 19:25:43,344 DEBUG    		[2021-03-25 19:25:43] [analysis] [EVALUATION 6/23] Completed query semmlecode-cpp-queries/Power of 10/Rule 3/DynamicAllocAfterInit.ql (0s)
+2021-03-25 19:25:43,533 DEBUG    		[2021-03-25 19:25:43] [analysis] [EVALUATION 7/23] Completed query semmlecode-cpp-queries/Power of 10/Rule 4/FunctionTooLong.ql (0s)
+2021-03-25 19:25:43,583 DEBUG    		[2021-03-25 19:25:43] [analysis] [EVALUATION 8/23] Completed query semmlecode-cpp-queries/Power of 10/Rule 4/OneStmtPerLine.ql (0s)
+2021-03-25 19:25:43,727 DEBUG    		[2021-03-25 19:25:43] [analysis] [EVALUATION 9/23] Completed query semmlecode-cpp-queries/Power of 10/Rule 5/AssertionDensity.ql (0s)
+2021-03-25 19:25:43,809 DEBUG    		[2021-03-25 19:25:43] [analysis] [EVALUATION 10/23] Completed query semmlecode-cpp-queries/Power of 10/Rule 5/AssertionSideEffect.ql (0s)
+2021-03-25 19:25:43,853 DEBUG    		[2021-03-25 19:25:43] [analysis] [EVALUATION 11/23] Completed query semmlecode-cpp-queries/Power of 10/Rule 5/ConstantAssertion.ql (0s)
+2021-03-25 19:25:43,879 DEBUG    		[2021-03-25 19:25:43] [analysis] [EVALUATION 12/23] Completed query semmlecode-cpp-queries/Power of 10/Rule 5/NonBooleanAssertion.ql (0s)
+2021-03-25 19:25:43,994 DEBUG    		[2021-03-25 19:25:43] [analysis] [EVALUATION 13/23] Completed query semmlecode-cpp-queries/Power of 10/Rule 6/GlobalCouldBeStatic.ql (0s)
+2021-03-25 19:25:44,044 DEBUG    		[2021-03-25 19:25:44] [analysis] [EVALUATION 14/23] Completed query semmlecode-cpp-queries/Power of 10/Rule 6/VariableScopeTooLarge.ql (0s)
+2021-03-25 19:25:44,248 DEBUG    		[2021-03-25 19:25:44] [analysis] [EVALUATION 15/23] Completed query semmlecode-cpp-queries/Power of 10/Rule 7/CheckArguments.ql (0s)
+2021-03-25 19:25:44,617 DEBUG    		[2021-03-25 19:25:44] [analysis] [EVALUATION 16/23] Completed query semmlecode-cpp-queries/Power of 10/Rule 7/CheckReturnValues.ql (0s)
+2021-03-25 19:25:44,641 DEBUG    		[2021-03-25 19:25:44] [analysis] [EVALUATION 17/23] Completed query semmlecode-cpp-queries/Power of 10/Rule 8/AvoidConditionalCompilation.ql (0s)
+2021-03-25 19:25:44,733 DEBUG    		[2021-03-25 19:25:44] [analysis] [EVALUATION 18/23] Completed query semmlecode-cpp-queries/Power of 10/Rule 8/PartialMacro.ql (0s)
+2021-03-25 19:25:44,751 DEBUG    		[2021-03-25 19:25:44] [analysis] [EVALUATION 19/23] Completed query semmlecode-cpp-queries/Power of 10/Rule 8/RestrictPreprocessor.ql (0s)
+2021-03-25 19:25:44,771 DEBUG    		[2021-03-25 19:25:44] [analysis] [EVALUATION 20/23] Completed query semmlecode-cpp-queries/Power of 10/Rule 8/UndisciplinedMacro.ql (0s)
+2021-03-25 19:25:44,784 DEBUG    		[2021-03-25 19:25:44] [analysis] [EVALUATION 21/23] Completed query semmlecode-cpp-queries/Power of 10/Rule 9/FunctionPointer.ql (0s)
+2021-03-25 19:25:44,840 DEBUG    		[2021-03-25 19:25:44] [analysis] [EVALUATION 22/23] Completed query semmlecode-cpp-queries/Power of 10/Rule 9/HiddenPointerIndirection.ql (0s)
+2021-03-25 19:25:44,921 DEBUG    		[2021-03-25 19:25:44] [analysis] [EVALUATION 23/23] Completed query semmlecode-cpp-queries/Power of 10/Rule 9/PointerNesting.ql (0s)
+2021-03-25 19:25:44,927 DEBUG    		[2021-03-25 19:25:44] [analysis] Cleaning up after query evaluation.
+2021-03-25 19:25:45,050 DEBUG    		[2021-03-25 19:25:45] [analysis] Cleanup finished: Cleaned disk cache from 0 to 0 MB
+2021-03-25 19:25:45,279 DEBUG    		[2021-03-25 19:25:45] [analysis]  Completed analysis for semmle_analysis - revision-2021-March-25--19-25-02 in 0 minutes.
+2021-03-25 19:25:45,281 DEBUG    		[2021-03-25 19:25:45] [analysis] semmle_analysis - revision-2021-March-25--19-25-02: 23 total, 23 succeeded (0:07 minutes)
+2021-03-25 19:25:45,282 DEBUG    		[2021-03-25 19:25:45] [analyzeSnapshot] Interpreting query results into analysis results
