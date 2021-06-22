@@ -14,7 +14,7 @@ their origin, and recommended responses is provided below.
 +-------------------------------+-----------------------+--------------------------------------------------------------+
 | Warning Message               | Message Origin        | Recommended Action                                           |
 +===============================+=======================+==============================================================+
-| CommandExecutionError         | execute_command       | Some error has occurred when trying to execute a tool         |
+| CommandExecutionError         | execute_command       | Some error has occurred when trying to execute a tool        |
 |                               |                       | specific command. Review the referenced log file for         |
 |                               |                       | detailed debugging information.                              |
 +-------------------------------+-----------------------+--------------------------------------------------------------+
