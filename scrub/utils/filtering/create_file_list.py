@@ -52,7 +52,7 @@ def create_file_list(source_root_dir, filtering_output_file, filtering_options_f
     logging.info('\t>> From directory: %s', os.getcwd())
 
     # Initialize the variables
-    filtering_options = []
+    # filtering_options = []
     raw_file_list = []
     default_filtering_options_file = os.path.abspath(os.path.dirname(os.path.abspath(__file__)) + '/FilteringDefaults')
 
@@ -66,8 +66,8 @@ def create_file_list(source_root_dir, filtering_output_file, filtering_options_f
             for file_name in file_names:
                 raw_file_list.append(os.path.join(root, file_name))
 
-    # Read in the default filtering options
-    filtering_options = filtering_options + parse_filtering_file(default_filtering_options_file)
+    # # Read in the default filtering options
+    # filtering_options = filtering_options + parse_filtering_file(default_filtering_options_file)
 
     # Read in the values from the filtering file and add them to the list
     if os.path.isfile(filtering_options_file):
@@ -76,27 +76,26 @@ def create_file_list(source_root_dir, filtering_output_file, filtering_options_f
         logging.info('\tParsing input file.')
 
         # Parse the filtering file
-        filtering_options = filtering_options + parse_filtering_file(filtering_options_file)
+        filtering_options = (parse_filtering_file(filtering_options_file) +
+                             parse_filtering_file(default_filtering_options_file))
 
     else:
         # Print a warning message
         logging.info('')
         logging.info('\tNo filtering file was found or no filtering file was provided. Using default values.')
 
-    # Modify the list based on the exclude options
-    filtered_file_list = raw_file_list.copy()
-    for file_path in raw_file_list:
-        for filtering_option in filtering_options:
-            if re.search(filtering_option[1], file_path) and filtering_option[0] == '-':
-                filtered_file_list.remove(file_path)
-                break
+        # Parse the filtering file
+        filtering_options = parse_filtering_file(default_filtering_options_file)
 
-    # Modify the list based on the include options
-    for file_path in raw_file_list:
-        for filtering_option in filtering_options:
-            if re.search(filtering_option[1], file_path) and filtering_option[0] == '+':
+    # Modify the list based on the include and exclude options
+    filtered_file_list = raw_file_list.copy()
+    for filtering_option in filtering_options:
+        for file_path in raw_file_list:
+            if re.search(filtering_option[1], file_path) and filtering_option[0] == '-' and file_path in filtered_file_list:
+                filtered_file_list.remove(file_path)
+
+            elif re.search(filtering_option[1], file_path) and filtering_option[0] == '+' and file_path not in filtered_file_list:
                 filtered_file_list.append(file_path)
-                break
 
     # Print the results to the output file
     with open(filtering_output_file, 'w') as output_fh:
