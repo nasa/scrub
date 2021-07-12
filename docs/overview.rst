@@ -14,5 +14,5 @@ The results from each analyzer are post-processed to a standard warning format t
 location of the warning as well as a brief description of the warning. These warnings can then reviewed and assessed by
 experienced developers to determine their merit.
 
-A full description of the origins of SCRUB, written by the original author, can be found here:
+A full description of the origins of SCRUB, written by the original author (Gerard Holzmann), can be found here:
 http://spinroot.com/gerard/pdf/ScrubPaper_rev.pdf
