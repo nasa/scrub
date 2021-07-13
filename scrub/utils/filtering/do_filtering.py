@@ -208,7 +208,7 @@ def generate_sarif(scrub_conf_data):
 
 
 def run_analysis(scrub_conf_data, override=False):
-    """This function calls Coverity to perform analysis.
+    """This function performs results filtering of raw analysis results.
 
     Inputs:
         - baseline_conf_data: Dictionary of raw scrub.cfg configuration parameters [dict]
