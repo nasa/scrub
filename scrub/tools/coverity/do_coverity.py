@@ -66,17 +66,6 @@ def perform_analysis(tool_conf_data):
     call_string = tool_conf_data.get('coverity_clean_cmd')
     scrub_utilities.execute_command(call_string, os.environ.copy())
 
-    # Examine the cov-configure flag values
-    if not tool_conf_data.get('coverity_covconfigure_flags'):
-        if tool_conf_data.get('source_lang') == 'c':
-            tool_conf_data.update({'coverity_covconfigure_flags': '--gcc'})
-        elif tool_conf_data.get('source_lang') == 'j':
-            tool_conf_data.update({'coverity_covconfigure_flags': '--java'})
-
-    # Configure Coverity to perform analysis
-    cov_configure(tool_conf_data.get('coverity_path'),
-                  tool_conf_data.get('coverity_covconfigure_flags'))
-
     # Examine the cov-build flag values
     required_covbuild_flags = ('--dir ' + tool_conf_data.get('coverity_analysis_dir') + ' '
                                + tool_conf_data.get('coverity_build_cmd'))
@@ -145,22 +134,6 @@ def post_process_analysis(tool_conf_data):
     get_coverity_warnings.parse_warnings(tool_conf_data.get('coverity_output_file'),
                                          tool_conf_data.get('coverity_raw_warning_file'),
                                          tool_conf_data.get('coverity_version'))
-
-
-def cov_configure(bin_dir, coverity_covconfigure_flags):
-    """This function configures Coverity based on the source code language.
-
-    Inputs:
-        - bin_dir: Absolute path to the 'bin' directory of the Coverity installation [string]
-        - coverity_covconfigure_flags: Command flags to be passed to Coverity command "cov-configure" [string]
-    """
-
-    # Perform the build
-    if bin_dir == '':
-        call_string = "cov-configure " + coverity_covconfigure_flags
-    else:
-        call_string = bin_dir + "/cov-configure " + coverity_covconfigure_flags
-    scrub_utilities.execute_command(call_string, os.environ.copy())
 
 
 def cov_build(bin_dir, coverity_covbuild_flags):

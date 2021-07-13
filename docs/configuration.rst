@@ -189,11 +189,6 @@ Coverity Variables
 +--------------------------------+------------+-----------+------------------------------------------------------------+
 | COVERITY_CLEAN_CMD             | String     | Yes       | Command to clean the source code for Coverity analysis     |
 +--------------------------------+------------+-----------+------------------------------------------------------------+
-| COVERITY_COVCONFIGURE_FLAGS    | String     | Optional  | Customized command flags to be passed into the             |
-|                                |            |           | 'cov-configure' command                                    |
-|                                |            |           |                                                            |
-|                                |            |           |   Default value: None                                      |
-+--------------------------------+------------+-----------+------------------------------------------------------------+
 | COVERITY_COVBUILD_FLAGS        | String     | Optional  | Customized command flags to be passed into the 'cov-build' |
 |                                |            |           | command                                                    |
 |                                |            |           |                                                            |
