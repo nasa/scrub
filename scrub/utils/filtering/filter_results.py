@@ -4,49 +4,7 @@ import logging
 from scrub.utils import translate_results
 
 
-def invalid_tag_check(source_file, warning_line, raw_valid_warning_types):
-    """This function checks to see if there are any invalid tags on the line of interest.
-
-    Inputs:
-        - source_file: Absolute path to the source code file of interest [string]
-        - warning_line: Line of interest of source code file [int]
-        - raw_valid_warning_types: List of lists containing valid types for each tool [list of list of strings]
-
-    Outputs:
-        - invalid_type: Indicator if an invalid tag type was found [bool]
-    """
-
-    # Initialize variables
-    ignore_base = "scrub_ignore_warning"
-    valid_warning_types = []
-    invalid_type = True
-
-    # Get the types of interest
-    for valid_type_set in raw_valid_warning_types:
-        valid_warning_types = valid_warning_types + valid_type_set
-
-    # Remove duplicates
-    valid_warning_types = list(set(valid_warning_types))
-
-    # Open the file of interest and read the lines
-    with open(source_file, 'r') as fh:
-        source_data = fh.readlines()
-
-    # Get the line of interest from the file
-    line = source_data[warning_line - 1]
-
-    # Check to see if an invalid suppression tag exists
-    if (ignore_base in line.lower()) or ('@suppress' in line.lower()):
-        for check_type in valid_warning_types:
-            if check_type in line.lower():
-                invalid_type = False
-    else:
-        invalid_type = False
-
-    return invalid_type
-
-
-def micro_filter_check(source_file, warning_line, warning_type, raw_valid_warning_types):
+def micro_filter_check(source_file, warning_line, warning_type, raw_valid_warning_types, checked_source_files):
     """This function checks to see if a warning has been marked as a false positive by the user.
 
     Inputs:
@@ -54,11 +12,13 @@ def micro_filter_check(source_file, warning_line, warning_type, raw_valid_warnin
         - warning_line: Line of interest of source code file [int]
         - warning_type: Full and accurate name of the check that should be ignored [string]
         - raw_valid_warning_types: List of lists containing valid types for each tool [list of list of strings]
+        - checked_source_files: Dict of dicts with line_num:line_text data corresponding to previously read and stored
+            scrub suppression lines. Dict is updated with new file dicts if a previously unopened source file
+            is referenced via source_file parameter [dict of dict of int:string]
 
     Outputs:
         - ignore_line: Indicator if warning should be ignored [bool]
     """
-
     # Set the base string
     ignore_base = "scrub_ignore_warning"
 
@@ -67,17 +27,45 @@ def micro_filter_check(source_file, warning_line, warning_type, raw_valid_warnin
 
     # Get the types of interest
     tool_warning_types = []
+    valid_warning_types = []
+
     for valid_type_set in raw_valid_warning_types:
+        # build list of expected warning types to check lines to warn about entirely invalid suppression entries
+        valid_warning_types = valid_warning_types + valid_type_set
+        # build list of warning types for the current tool
         if warning_type in valid_type_set:
             tool_warning_types = tool_warning_types + valid_type_set
 
-    try:
-        # Open the file of interest and read the lines
-        with open(source_file, 'r') as fh:
-            source_data = fh.readlines()
+    # if p10 is already in the valid_warning_types, we're building a p10 output and want to catch those suppressions
+    if 'p10' in valid_warning_types:
+        tool_warning_types.append('p10')
+    # else we want to add it to the valid warning types so we don't accidentally flag it as invalid, but we don't
+    # want to suppress on it.
+    else:
+        valid_warning_types.append('p10')
 
-        # Get the line of interest from the file
-        line = source_data[warning_line - 1]
+    valid_warning_types = set(valid_warning_types)
+
+    try:
+        if source_file not in checked_source_files.keys():
+            # Open the file of interest and read the lines
+            file_lines = {}
+            with open(source_file, 'r', errors='ignore') as fh:
+                for line_num, line in enumerate(fh, start=1):
+                    if (ignore_base in line.lower()) or ('@suppress' in line.lower()):
+                        invalid_type = True
+                        file_lines[line_num] = line
+                        for check_type in valid_warning_types:
+                            if check_type in line.lower():
+                                invalid_type = False
+                                break
+                        if invalid_type:
+                            logging.warning('\t\tNo valid tools found in suppression on line {} of file {}'
+                                            .format(line_num, source_file))
+
+            checked_source_files[source_file] = file_lines
+
+        line = checked_source_files[source_file].get(warning_line) or ""
 
         # Check to see if the line should be filtered out
         if (ignore_base in line.lower()) or ('@suppress' in line.lower()):
@@ -158,37 +146,22 @@ def external_warning_check(warning_file, source_root):
     return skip
 
 
-def baseline_filtering_check(warning_file, filtering_file):
+def baseline_filtering_check(warning_file, excluded_files):
     """This function checks to see if a warning occurs in a directory or file that should be ignored.
 
     Inputs:
         - warning_file: File of interest from warning data [string]
-        - filtering_file: Absolute path to the SCRUBAnalysisFilteringList file [string]
+        - excluded_files: Set of files read from SCRUBAnalysisFilteringList file [set [string]]
 
     Outputs:
         - skip: Indicator if result should be filtered out [bool]
     """
-
-    # Initialize the variables
-    skip = True
-
-    if os.path.isfile(filtering_file):
-        # Import the ignore data
-        with open(filtering_file, 'r') as input_fh:
-            filtering_data = input_fh.readlines()
-
-        # Iterate through every line of the ignore data
-        for filter_file in filtering_data:
-            if filter_file.strip() in warning_file:
-                skip = False
-                break
-
-    # Print a status message
-    if skip:
+    # Iterate through every line of the ignore data
+    if warning_file in excluded_files:
         logging.debug('\tWarning removed - Warning occurs in a file that has been excluded from analysis')
         logging.debug('\t\t%s', warning_file)
-
-    return skip
+        return True
+    return False
 
 
 def check_filtering_file(filtering_file, create):
@@ -232,7 +205,7 @@ def duplicate_check(warning, warning_log):
 
 
 def filter_results(warning_list, output_file, filtering_file, ignore_query_file, source_root, enable_micro_filtering,
-                   enable_external_warnings, valid_warning_types):
+                   enable_external_warnings, valid_warning_types, checked_source_files):
     """This function performs the filtering, including all other filtering functions.
 
     Inputs:
@@ -244,14 +217,24 @@ def filter_results(warning_list, output_file, filtering_file, ignore_query_file,
         - enable_micro_filtering: Flag to enable/disable micro filtering [logical]
         - enable_external_warnings: Flag to enable/disable external warnings [logical]
         - valid_warning_types: List of lists that contain valid warning type tags [list of lists]
+        - checked_source_files: Dict of dicts with line_num:line_text data corresponding to previously read and stored
+            scrub suppression lines. Dict is updated with new file dicts if a previously unopened source file
+            is referenced via source_file parameter [dict of dict of int:string]
 
     Outputs:
         - output_file: All filtered results are written to the output_file
     """
+    if checked_source_files is None:
+        checked_source_files = {}
 
     # Initialize the variables
-    filtered_warnings = warning_list.copy()
-    invalid_tag_log = []
+    filtered_warnings = []
+    if output_file.endswith('p10.scrub'):
+        valid_warning_types.append(['p10'])
+
+    # Import the ignore data
+    with open(filtering_file, 'r') as input_fh:
+        excluded_files = set([x.strip() for x in input_fh.readlines()])
 
     # Print a log message
     logging.info('')
@@ -267,48 +250,30 @@ def filter_results(warning_list, output_file, filtering_file, ignore_query_file,
     # Iterate through every warning in the list
     for warning in warning_list:
         # Check to see if it should be ignored
-        baseline_filtering_result = baseline_filtering_check(warning['file'], filtering_file)
-
-        # Check to see if the query should be ignore
-        ignore_query_result = ignore_query_check(warning['tool'], warning['query'], ignore_query_file)
+        if baseline_filtering_check(warning['file'], excluded_files):
+            continue
 
         # Check to see if the warning is external to the source directory
-        if enable_external_warnings:
-            external_check_result = False
-        else:
-            external_check_result = external_warning_check(warning['file'], source_root)
-
-        # Check to see if a valid tag exists
-        invalid_tag = invalid_tag_check(warning['file'], warning['line'], valid_warning_types)
-
-        # Print a warning message if applicable
-        if invalid_tag and ((warning['file'], warning['line']) not in invalid_tag_log):
-            # Add the line to the list
-            invalid_tag_log.append((warning['file'], warning['line']))
-
-            # Print a waning message
-            logging.warning('\t\tInvalid tool suppression selection on line %s of file %s',
-                            str(warning['line']), warning['file'])
+        if not enable_external_warnings \
+                and external_warning_check(warning['file'], source_root):
+            continue
 
         # Perform micro filtering checking
-        if enable_micro_filtering and not external_check_result and not invalid_tag:
-            micro_check_result = micro_filter_check(warning['file'], warning['line'], warning['tool'],
-                                                    valid_warning_types)
-        else:
-            micro_check_result = False
+        if enable_micro_filtering \
+                and micro_filter_check(warning['file'], warning['line'], warning['tool'],
+                                       valid_warning_types, checked_source_files):
+            continue
 
-        # Or them together
-        skip = baseline_filtering_result or ignore_query_result or external_check_result or micro_check_result
+        # Check to see if the query should be ignore
+        if ignore_query_check(warning['tool'], warning['query'], ignore_query_file):
+            continue
 
-        # Remove the warning from the list, if necessary
-        if skip:
-            filtered_warnings.remove(warning)
-        else:
-            # Make the warning file path relative
-            filtered_warnings[filtered_warnings.index(warning)]['file'] = warning['file'].replace(os.path.normpath(source_root) + '/', '')
-
-    # Remove duplicates
-    # filtered_warnings = list(set(filtered_warnings))
+        # If we made it here we want the warning.
+        # Make the warning file path relative and append to filtered list
+        warning['file'] = warning['file'].replace(os.path.normpath(source_root) + '/', '')
+        filtered_warnings.append(warning)
 
     # Write out the results
+    logging.info('\t>> Results filtered. Writing {}.'.format(output_file))
+
     translate_results.create_scrub_output_file(filtered_warnings, output_file)
