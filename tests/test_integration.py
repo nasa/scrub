@@ -64,7 +64,7 @@ def test_mod_helper(tool_module, state, working_dir, capsys):
     helpers.clean_codebase(helpers.c_test_dir, helpers.c_test_dir + '/src', 'make clean')
 
 
-@pytest.mark.parametrize("language", ['c', 'j'])
+@pytest.mark.parametrize("language", ['c', 'j', 'p'])
 @pytest.mark.parametrize("working_dir", ['source_root', 'external'])
 def test_scrubme(language, working_dir):
     import scrub.scrubme as scrubme
@@ -75,18 +75,28 @@ def test_scrubme(language, working_dir):
         conf_file = helpers.c_conf_file
         exclude_queries_file = helpers.c_exclude_queries_file
         regex_filtering_file = helpers.c_regex_filtering_file
-
-    else:
+    elif language == 'j':
         test_dir = helpers.java_test_dir
         conf_file = helpers.java_conf_file
         exclude_queries_file = helpers.java_exclude_queries_file
         regex_filtering_file = helpers.java_regex_filtering_file
+    elif language == 'p':
+        test_dir = helpers.python_test_dir
+        conf_file = helpers.python_conf_file
+        exclude_queries_file = helpers.python_exclude_queries_file
+        regex_filtering_file = helpers.python_regex_filtering_file
+    else:
+        print('Unknown language selection.')
 
-    output_dir = test_dir + '/.scrub'
+    # Make a copy of the test code
+    tmp_test_dir = helpers.test_tmp_dir
+    shutil.copytree(test_dir, tmp_test_dir)
+
+    output_dir = tmp_test_dir + '/.scrub'
 
     # Navigate to the test directory
     start_dir = os.getcwd()
-    os.chdir(test_dir)
+    os.chdir(tmp_test_dir)
 
     # Import the configuration data
     with open(conf_file, 'r') as input_fh:
@@ -98,19 +108,22 @@ def test_scrubme(language, working_dir):
 
     # Initialize the test
     if language == 'c':
-        helpers.init_codebase(test_dir, conf_data, 'gcc')
+        helpers.init_codebase(tmp_test_dir, conf_data, 'gcc')
+    elif language == 'j':
+        helpers.init_codebase(tmp_test_dir, conf_data, 'javac')
     else:
-        helpers.init_codebase(test_dir, conf_data, 'javac')
+        None
 
     # Create the conf file
-    helpers.create_conf_file(conf_data, test_dir + '/scrub.cfg')
+    helpers.create_conf_file(conf_data, tmp_test_dir + '/scrub.cfg')
 
     # Initialize the testcase
-    helpers.init_testcase(conf_data, test_dir, 'clean', helpers.log_dir)
+    if language != 'p':
+        helpers.init_testcase(conf_data, tmp_test_dir, 'clean', helpers.log_dir)
 
     # Add the filtering files
-    shutil.copyfile(exclude_queries_file, test_dir + '/SCRUBExcludeQueries')
-    shutil.copyfile(regex_filtering_file, test_dir + '/SCRUBFilters')
+    shutil.copyfile(exclude_queries_file, tmp_test_dir + '/SCRUBExcludeQueries')
+    shutil.copyfile(regex_filtering_file, tmp_test_dir + '/SCRUBFilters')
 
     # Run scrubme
     try:
@@ -135,8 +148,6 @@ def test_scrubme(language, working_dir):
         if working_dir == 'external':
             assert not os.path.exists('/root/scrub_working_dir')
 
-        # Clean the codebase
-        if language == 'c':
-            helpers.clean_codebase(test_dir, test_dir + '/src', 'make clean')
-        else:
-            helpers.clean_codebase(test_dir, test_dir + '/src', 'rm -vrf classes')
+        # Clean the test artifacts
+        if os.path.exists(tmp_test_dir):
+            shutil.rmtree(tmp_test_dir)

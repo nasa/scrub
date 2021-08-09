@@ -22,13 +22,16 @@ def assert_valid_scrub(scrub_file):
 
 def assert_scrubme_success(output_dir, language):
     # Initialize variables
+    test_dir = helpers.test_tmp_dir
     if language == 'c':
-        test_dir = helpers.c_test_dir
         module_list = helpers.module_list_c
 
-    else:
-        test_dir = helpers.java_test_dir
+    elif language == 'j':
         module_list = helpers.module_list_java
+    elif language == 'p':
+        module_list = helpers.module_list_python
+    else:
+        print('Unkown language selection.')
 
     # Get the list of log files
     log_files = []

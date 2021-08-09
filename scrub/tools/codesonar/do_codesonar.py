@@ -56,8 +56,7 @@ def initialize_analysis(tool_conf_data):
 
     # Check to see if all the required value are present to perform analysis
     if not (tool_conf_data.get('codesonar_hub') and tool_conf_data.get('codesonar_cert') and
-            tool_conf_data.get('codesonar_key') and tool_conf_data.get('codesonar_proj_name') and
-            tool_conf_data.get('codesonar_build_cmd') and tool_conf_data.get('codesonar_clean_cmd')):
+            tool_conf_data.get('codesonar_key') and tool_conf_data.get('codesonar_proj_name')):
         # Print a status message if necessary
         if tool_conf_data.get('codesonar_warnings'):
             # Print a status message
@@ -85,8 +84,10 @@ def perform_analysis(tool_conf_data):
         tool_conf_data.update({'codesonar_path': scrub_utilities.get_executable_path('codesonar')})
 
     # Perform a clean
-    call_string = tool_conf_data.get('codesonar_clean_cmd')
-    scrub_utilities.execute_command(call_string, os.environ.copy())
+    if tool_conf_data.get('codesonar_clean_cmd'):
+        scrub_utilities.execute_command(tool_conf_data.get('codesonar_clean_cmd'), os.environ.copy())
+    else:
+        logging.info('\tNo clean command was provided. Please ensure this is correct for your build system.')
 
     # Determine the analysis presets
     codesonar_presets_list = []
@@ -113,13 +114,25 @@ def perform_analysis(tool_conf_data):
 
     elif tool_conf_data.get('source_lang') == 'j':
         # Build the project
-        call_string = tool_conf_data.get('codesonar_build_cmd')
-        scrub_utilities.execute_command(call_string, os.environ.copy())
+        scrub_utilities.execute_command(tool_conf_data.get('codesonar_build_cmd'), os.environ.copy())
 
         # Update the analyze flags
         tool_conf_data.update({'codesonar_analyze_flags': tool_conf_data.get('codesonar_analyze_flags') + ' ' +
                                tool_conf_data.get('codesonar_path') + '/cs-java-scan ' +
                                tool_conf_data.get('source_dir')})
+    elif tool_conf_data.get('source_lang') == 'p':
+        # Generate a list of Python files
+        python_file_list = tool_conf_data.get('codesonar_analysis_dir') + '/python_file_list.txt'
+        call_string = 'find `pwd` -type f -name \'*.py\' > ' + python_file_list
+        scrub_utilities.execute_command(call_string, os.environ.copy())
+
+        # Update the analyze flags
+        cspython_path = os.path.normpath(tool_conf_data.get('codesonar_path') + '/cspython')
+        cspylint_path = os.path.normpath(tool_conf_data.get('codesonar_path') +
+                                         '/../../third-party/pylint-sarif/pylint2cso.py')
+        tool_conf_data.update({'codesonar_analyze_flags': tool_conf_data.get('codesonar_analyze_flags') + ' ' +
+                                                          cspython_path + ' ' + cspylint_path + ' --inputsfile ' +
+                                                          python_file_list})
 
     # Perform the CodeSonar analysis
     analyze(tool_conf_data.get('codesonar_path'), tool_conf_data.get('codesonar_analyze_flags'))

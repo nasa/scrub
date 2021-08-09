@@ -28,7 +28,9 @@ def initialize_analysis(tool_conf_data):
     codeql_p10_output_file = os.path.normpath(codeql_analysis_dir + '/codeql_p10_raw.sarif')
 
     # Valid language identifiers for `database create` flag
-    codeql_lang_ids = {'c': 'cpp', 'j': 'java'}
+    codeql_lang_ids = {'c': 'cpp',
+                       'j': 'java',
+                       'p': 'python'}
 
     # Add derived values to the dictionary
     tool_conf_data.update({'codeql_lang_id': codeql_lang_ids[tool_conf_data.get('source_lang')]})
@@ -41,14 +43,13 @@ def initialize_analysis(tool_conf_data):
     tool_conf_data.update({'codeql_p10_output_file': codeql_p10_output_file})
 
     # Update the p10 flag if necessary
-    if tool_conf_data.get('source_lang').lower() == 'j':
+    if tool_conf_data.get('source_lang').lower() != 'c':
         tool_conf_data.update({'codeql_p10_analysis': False})
 
     # Make sure the required inputs are present
-    if not (tool_conf_data.get('codeql_query_path') and tool_conf_data.get('codeql_build_cmd') and
-            tool_conf_data.get('codeql_clean_cmd')):
+    if not (tool_conf_data.get('codeql_query_path') and tool_conf_data.get('codeql_build_cmd')):
         # Update the run flag if necessary
-        if tool_conf_data.get('codeql_warnings'):
+        if tool_conf_data.get('codeql_warnings') and tool_conf_data.get('source_lang') != 'p':
             tool_conf_data.update({'codeql_warnings': False})
 
             # Print a status message
@@ -79,8 +80,10 @@ def perform_analysis(tool_conf_data):
         os.chdir(working_dir)
 
     # Perform a clean
-    call_string = tool_conf_data.get('codeql_clean_cmd')
-    scrub_utilities.execute_command(call_string, os.environ.copy())
+    if tool_conf_data.get('codeql_clean_cmd'):
+        scrub_utilities.execute_command(tool_conf_data.get('codeql_clean_cmd'), os.environ.copy())
+    else:
+        logging.info('\tNo clean command was provided. Please ensure this is correct for your build system.')
 
     # Change back to the initial dir if necessary
     if os.getcwd() != initial_dir:
@@ -88,10 +91,14 @@ def perform_analysis(tool_conf_data):
         os.chdir(initial_dir)
 
     # Examine the `database create` flag values
-    required_databasecreate_flags = ('--language ' + tool_conf_data.get('codeql_lang_id') + ' --source-root ' +
-                                     tool_conf_data.get('source_dir') + ' --working-dir ' +
-                                     tool_conf_data.get('codeql_build_dir') + ' --command \"' +
-                                     tool_conf_data.get('codeql_build_cmd') + '\"')
+    if tool_conf_data.get('source_lang') == 'p':
+        required_databasecreate_flags = ('--language ' + tool_conf_data.get('codeql_lang_id') + ' --source-root ' +
+                                         tool_conf_data.get('source_dir'))
+    else:
+        required_databasecreate_flags = ('--language ' + tool_conf_data.get('codeql_lang_id') + ' --source-root ' +
+                                         tool_conf_data.get('source_dir') + ' --working-dir ' +
+                                         tool_conf_data.get('codeql_build_dir') + ' --command \"' +
+                                         tool_conf_data.get('codeql_build_cmd') + '\"')
     codeql_databasecreate_flags = (tool_conf_data.get('codeql_databasecreate_flags') + ' ' +
                                    tool_conf_data.get('codeql_database_dir') + ' ' + required_databasecreate_flags)
 
@@ -121,6 +128,11 @@ def perform_analysis(tool_conf_data):
                                           '/java/ql/src/codeql-suites/java-lgtm-full.qls')
             suppression_query = os.path.normpath(tool_conf_data.get('codeql_query_path') +
                                                  '/java/ql/src/AlertSuppression.ql')
+        elif tool_conf_data.get('source_lang') == 'p':
+            suite_file = os.path.normpath(tool_conf_data.get('codeql_query_path') +
+                                          '/python/ql/src/codeql-suites/python-lgtm-full.qls')
+            suppression_query = os.path.normpath(tool_conf_data.get('codeql_query_path') +
+                                                 '/python/ql/src/analysis/AlertSuppression.ql')
         else:
             raise UserWarning()
 
