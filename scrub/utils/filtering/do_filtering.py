@@ -98,6 +98,7 @@ def filter_scrub_results(scrub_conf_data):
             raw_generic_files.append(results_file)
 
     # Filter compiler results
+    checked_source_files = {}
     if raw_compiler_files:
         try:
             # Set the compiler output file path
@@ -118,7 +119,8 @@ def filter_scrub_results(scrub_conf_data):
                                           scrub_conf_data.get('source_dir'),
                                           scrub_conf_data.get('enable_micro_filter'),
                                           scrub_conf_data.get('enable_ext_warnings'),
-                                          valid_warning_types)
+                                          valid_warning_types,
+                                          checked_source_files)
 
         except:      # lgtm [py/catch-base-exception]
             # Print a status message
@@ -146,7 +148,8 @@ def filter_scrub_results(scrub_conf_data):
                                           scrub_conf_data.get('source_dir'),
                                           scrub_conf_data.get('enable_micro_filter'),
                                           scrub_conf_data.get('enable_ext_warnings'),
-                                          valid_warning_types)
+                                          valid_warning_types,
+                                          checked_source_files)
 
         except:     # lgtm [py/catch-base-exception]
             # Print a status message
@@ -173,7 +176,8 @@ def filter_scrub_results(scrub_conf_data):
                                               scrub_conf_data.get('source_dir'),
                                               scrub_conf_data.get('enable_micro_filter'),
                                               scrub_conf_data.get('enable_ext_warnings'),
-                                              valid_warning_types)
+                                              valid_warning_types,
+                                              checked_source_files)
 
             except:     # lgtm [py/catch-base-exception]
                 # Print a status message
@@ -208,7 +212,7 @@ def generate_sarif(scrub_conf_data):
 
 
 def run_analysis(scrub_conf_data, override=False):
-    """This function calls Coverity to perform analysis.
+    """This function performs results filtering of raw analysis results.
 
     Inputs:
         - baseline_conf_data: Dictionary of raw scrub.cfg configuration parameters [dict]

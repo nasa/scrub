@@ -335,7 +335,7 @@ def perform_upload(tool_conf_data):
     else:
         for root, dirs, files in os.walk(tool_conf_data.get('scrub_analysis_dir')):
             for filename in files:
-                if '.scrub' in filename and 'raw' not in filename:
+                if filename.endswith('.scrub') and 'raw' not in filename:
                     tool_name = filename[0:-6]
                     tool_defect_types.append(tool_name)
 

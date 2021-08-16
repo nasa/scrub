@@ -9,12 +9,13 @@ import shutil
 # Initialize variables
 scrub_root = os.path.abspath(os.path.dirname(__file__) + '/..')
 test_root = scrub_root + '/tests'
+test_tmp_dir = test_root + '/integration_tests/tmp'
 log_dir = test_root + '/log_files'
 module_list = ['scrub.tools.compiler.do_gbuild',  'scrub.tools.compiler.do_gcc', 'scrub.tools.compiler.do_javac',
-               'scrub.tools.coverity.do_coverity', 'scrub.tools.custom.do_custom', 'scrub.tools.klocwork.do_klocwork',
-               'scrub.tools.semmle.do_semmle', 'scrub.tools.codeql.do_codeql', 'scrub.tools.codesonar.do_codesonar']
-versioned_tools = ['codeql', 'semmle', 'coverity', 'codesonar', 'klocwork']
-custom_flag_tools = ['codeql', 'semmle', 'coverity', 'codesonar', 'klocwork']
+               'scrub.tools.coverity.do_coverity', 'scrub.tools.custom.do_custom', 'scrub.tools.semmle.do_semmle',
+               'scrub.tools.codeql.do_codeql', 'scrub.tools.codesonar.do_codesonar']
+versioned_tools = ['codeql', 'semmle', 'coverity', 'codesonar']
+custom_flag_tools = ['codeql', 'semmle', 'coverity', 'codesonar']
 
 # Initialize C variables
 c_test_dir = test_root + '/integration_tests/c_testcase'
@@ -25,7 +26,7 @@ c_exclude_queries_file = test_root + '/test_data/configuration_files/c/SCRUBExcl
 c_regex_filtering_file = test_root + '/test_data/configuration_files/c/SCRUBFilters_c'
 module_list_c = ['scrub.tools.compiler.do_gcc', 'scrub.tools.compiler.do_gbuild', 'scrub.tools.coverity.do_coverity',
                  'scrub.tools.semmle.do_semmle', 'scrub.tools.codesonar.do_codesonar',
-                 'scrub.tools.klocwork.do_klocwork', 'scrub.tools.codeql.do_codeql', 'scrub.tools.custom.do_custom']
+                 'scrub.tools.codeql.do_codeql', 'scrub.tools.custom.do_custom']
 
 # Initialize java variables
 java_test_dir = test_root + '/integration_tests/java_testcase'
@@ -35,6 +36,16 @@ java_exclude_queries_file = test_root + '/test_data/configuration_files/java/SCR
 java_regex_filtering_file = test_root + '/test_data/configuration_files/java/SCRUBFilters_java'
 module_list_java = ['scrub.tools.compiler.do_javac', 'scrub.tools.coverity.do_coverity', 'scrub.tools.semmle.do_semmle',
                     'scrub.tools.codesonar.do_codesonar', 'scrub.tools.codeql.do_codeql']
+
+# Initialize python variables
+#python_test_dir = test_root + '/integration_tests/python_testcase'
+python_test_dir = scrub_root + '/scrub'
+python_custom_conf_file = test_root + '/test_data/configuration_files/python/scrub_python_custom.cfg'
+python_conf_file = test_root + '/test_data/configuration_files/python/scrub_python.cfg'
+python_exclude_queries_file = test_root + '/test_data/configuration_files/python/SCRUBExcludeQueries_python'
+python_regex_filtering_file = test_root + '/test_data/configuration_files/python/SCRUBFilters_python'
+module_list_python = ['scrub.tools.coverity.do_coverity', 'scrub.tools.codesonar.do_codesonar',
+                    'scrub.tools.codeql.do_codeql']
 
 
 def init_testcase(conf_data, test_dir, init_state, log_dir):

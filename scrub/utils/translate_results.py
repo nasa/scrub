@@ -522,3 +522,9 @@ def perform_translation(input_file, output_file, source_root, output_format):
 
     finally:
         return exit_code
+
+
+
+# if __name__ == '__main__':
+#     import sys
+#     perform_translation(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4])
