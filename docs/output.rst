@@ -33,23 +33,23 @@ Some important notes about the format:
 
 An example of a set of two warnings that adhere to this format:
 
-**Pre-Filtering (raw_results/semmle_raw.scrub)**::
+**Pre-Filtering (raw_results/codeql_raw.scrub)**::
 
-    semmle021 <Low> :/Users/lbarner/Desktop/scrub/test/c_testcase/testcasesupport/std_thread.c:57: Unchecked function argument
+    codeql021 <Low> :/Users/lbarner/Desktop/scrub/test/c_testcase/testcasesupport/std_thread.c:57: Unchecked function argument
         Functions should check their arguments before their first use.
         This use of parameter thread has not been checked.
 
-    semmle022 <Low> :/Users/lbarner/Desktop/scrub/test/c_testcase/testcasesupport/std_thread.c:112: Unchecked function argument
+    codeql022 <Low> :/Users/lbarner/Desktop/scrub/test/c_testcase/testcasesupport/std_thread.c:112: Unchecked function argument
         Functions should check their arguments before their first use.
         This use of parameter thread has not been checked.
 
-**Post-Filtering (semmle.scrub)**::
+**Post-Filtering (codeql.scrub)**::
 
-    semmle021 <Low> :testcasesupport/std_thread.c:57: Unchecked function argument
+    codelql021 <Low> :testcasesupport/std_thread.c:57: Unchecked function argument
         Functions should check their arguments before their first use.
         This use of parameter thread has not been checked.
 
-    semmle022 <Low> :testcasesupport/std_thread.c:112: Unchecked function argument
+    codeql022 <Low> :testcasesupport/std_thread.c:112: Unchecked function argument
         Functions should check their arguments before their first use.
         This use of parameter thread has not been checked.
 

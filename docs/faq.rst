@@ -13,7 +13,7 @@ The list of supported analysis tools can be found on the :ref:`Usage` page.
 
 **What languages does SCRUB support?**
 
-SCRUB currently supports C/C++ and Java.
+SCRUB currently supports C/C++, Java, and Python.
 
 **How do I configure SCRUB for my project?**
 
@@ -39,7 +39,7 @@ SCRUB results are stored in a hidden directory (``.scrub``) within the source co
 **Why does each tool require a different build and clean command?**
 
 Each of the static analysis tools support different compilers. While one make command may work for one of the
-analyzers, it may not work for all of them. For instance, Semmle does not support the Green Hills compilers, but
+analyzers, it may not work for all of them. For instance, CodeQL does not support the Green Hills compilers, but
 Coverity does. In this case a user may want to run both tools using different compilers and different build commands.
 
 **Where are SCRUB log files located?**
@@ -88,7 +88,7 @@ Yes. Please refer to the :ref:`Reviewing Results` page for more information.
 
 **What analysis tools support the Power of 10 rules?**
 
-Both Semmle and CodeSonar support the Power of 10 checks. Usage information is covered on the
+Both CodeQL and CodeSonar support the Power of 10 checks. Usage information is covered on the
 :ref:`Detailed Configuration` wiki page.
 
 **How can I perform DoubleCheck analysis?**
@@ -106,7 +106,7 @@ Yes. For more information on defining which files are included in Collaborator u
 
 Yes. It is possible to call any tool module individually. Please refer to the :ref:`Usage` page for more information.
 
-**Can I run P10 analysis with Semmle and CodeSonar?**
+**Can I run P10 analysis with CodeQL and CodeSonar?**
 
 Yes. Refer to the :ref:`Detailed Configuration` page for more information on how to enable P10 for both tools.
 The output file ``p10.scrub`` will contain results from both analysis tools.

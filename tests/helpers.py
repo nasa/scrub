@@ -12,10 +12,10 @@ test_root = scrub_root + '/tests'
 test_tmp_dir = test_root + '/integration_tests/tmp'
 log_dir = test_root + '/log_files'
 module_list = ['scrub.tools.compiler.do_gbuild',  'scrub.tools.compiler.do_gcc', 'scrub.tools.compiler.do_javac',
-               'scrub.tools.coverity.do_coverity', 'scrub.tools.custom.do_custom', 'scrub.tools.semmle.do_semmle',
-               'scrub.tools.codeql.do_codeql', 'scrub.tools.codesonar.do_codesonar']
-versioned_tools = ['codeql', 'semmle', 'coverity', 'codesonar']
-custom_flag_tools = ['codeql', 'semmle', 'coverity', 'codesonar']
+               'scrub.tools.coverity.do_coverity', 'scrub.tools.custom.do_custom', 'scrub.tools.codeql.do_codeql',
+               'scrub.tools.codesonar.do_codesonar']
+versioned_tools = ['codeql', 'coverity', 'codesonar']
+custom_flag_tools = ['codeql', 'coverity', 'codesonar']
 
 # Initialize C variables
 c_test_dir = test_root + '/integration_tests/c_testcase'
@@ -25,8 +25,7 @@ c_custom_conf_file = test_root + '/test_data/configuration_files/c/scrub_c_custo
 c_exclude_queries_file = test_root + '/test_data/configuration_files/c/SCRUBExcludeQueries_c'
 c_regex_filtering_file = test_root + '/test_data/configuration_files/c/SCRUBFilters_c'
 module_list_c = ['scrub.tools.compiler.do_gcc', 'scrub.tools.compiler.do_gbuild', 'scrub.tools.coverity.do_coverity',
-                 'scrub.tools.semmle.do_semmle', 'scrub.tools.codesonar.do_codesonar',
-                 'scrub.tools.codeql.do_codeql', 'scrub.tools.custom.do_custom']
+                 'scrub.tools.codesonar.do_codesonar', 'scrub.tools.codeql.do_codeql', 'scrub.tools.custom.do_custom']
 
 # Initialize java variables
 java_test_dir = test_root + '/integration_tests/java_testcase'
@@ -34,7 +33,7 @@ java_custom_conf_file = test_root + '/test_data/configuration_files/java/scrub_j
 java_conf_file = test_root + '/test_data/configuration_files/java/scrub_java.cfg'
 java_exclude_queries_file = test_root + '/test_data/configuration_files/java/SCRUBExcludeQueries_java'
 java_regex_filtering_file = test_root + '/test_data/configuration_files/java/SCRUBFilters_java'
-module_list_java = ['scrub.tools.compiler.do_javac', 'scrub.tools.coverity.do_coverity', 'scrub.tools.semmle.do_semmle',
+module_list_java = ['scrub.tools.compiler.do_javac', 'scrub.tools.coverity.do_coverity',
                     'scrub.tools.codesonar.do_codesonar', 'scrub.tools.codeql.do_codeql']
 
 # Initialize python variables
@@ -186,12 +185,3 @@ def disable_all_tools(conf_data):
 
     return conf_data
 
-
-if __name__ == '__main__':
-    with open(sys.argv[1], 'r') as input_fh:
-        conf_data = input_fh.readlines()
-
-    # update_tag(conf_data, sys.argv[2], sys.argv[3])
-    # disable_all_tools(conf_data)
-    # isolate_tool(conf_data, sys.argv[2])
-    get_tool_list('/Users/lbarner/Desktop/Projects/SCRUB_dev/Rel2.4')
