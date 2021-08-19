@@ -91,8 +91,6 @@ identifier) to the line of source code called out by SCRUB will filter the warni
 +-----------+------------------------------+
 | GBUILD    | gbuild, dblchck, doublecheck |
 +-----------+------------------------------+
-| Semmle    | semmle, sem, sml             |
-+-----------+------------------------------+
 | Coverity  | coverity, cov                |
 +-----------+------------------------------+
 | CodeSonar | codesonar, cdsnr             |
@@ -104,8 +102,8 @@ identifier) to the line of source code called out by SCRUB will filter the warni
 | Custom    | custom, cust                 |
 +-----------+------------------------------+
 
-.. Note:: P10 warnings can be filtered by using the suppression value of the tool that generated the warning (Semmle,
-          Codesonar, or CodeQL)
+.. Note:: P10 warnings can be filtered by using the suppression value of the tool that generated the warning (Codesonar
+          or CodeQL)
 
 For example, say you have received the following warning from SCRUB::
 

@@ -23,8 +23,8 @@ Source Code Attributes
 | SOURCE_DIR        | String | Yes       | Define the location of the source code. This is where the compilation       |
 |                   |        |           | command will execute                                                        |
 +-------------------+--------+-----------+-----------------------------------------------------------------------------+
-| SOURCE_LANG       | String | Yes       | Define the language of the source code. Valid options are 'c' and 'j' for   |
-|                   |        |           | C/C++ and Java respectively                                                 |
+| SOURCE_LANG       | String | Yes       | Define the language of the source code. Valid options are 'c', 'j', and 'p' |
+|                   |        |           | for C/C++, Java, and Python respectively                                    |
 +-------------------+--------+-----------+-----------------------------------------------------------------------------+
 | SCRUB_WORKING_DIR | String | Optional  | Define the location of the SCRUB output files. SCRUB execution will create  |
 |                   |        |           | the .scrub working directory here                                           |
@@ -76,57 +76,6 @@ GBUILD Compiler Variables
 
 .. Note:: DoubleCheck analysis is included under gbuild compiler analysis. DoubleCheck must be enabled external to
           SCRUB.
-
-Semmle Variables
-****************
-+------------------------------+------------+-----------+--------------------------------------------------------------+
-| Variable Name                | Format     | Required? | Description                                                  |
-+==============================+============+===========+==============================================================+
-| SEMMLE_WARNINGS              | True/False | Yes       | Should Semmle analysis be performed?                         |
-+------------------------------+------------+-----------+--------------------------------------------------------------+
-| SEMMLE_PATH                  | String     | Optional  | Absolute path to the directory of the Semmle installation    |
-|                              |            |           | containing setup.sh                                          |
-|                              |            |           |                                                              |
-|                              |            |           |   Default value: None                                        |
-+------------------------------+------------+-----------+--------------------------------------------------------------+
-| SEMMLE_BUILD_DIR             | String     | Optional  | Relative (to SOURCE_DIR) path to the build directory for the |
-|                              |            |           | source code                                                  |
-|                              |            |           |                                                              |
-|                              |            |           |   Default value: SOURCE_DIR                                  |
-+------------------------------+------------+-----------+--------------------------------------------------------------+
-| SEMMLE_BUILD_CMD             | String     | Yes       | Command to build the source code for Semmle analysis         |
-+------------------------------+------------+-----------+--------------------------------------------------------------+
-| SEMMLE_CLEAN_CMD             | String     | Yes       | Command to clean the source code for Semmle analysis         |
-+------------------------------+------------+-----------+--------------------------------------------------------------+
-| SEMMLE_BASELINE_ANALYSIS     | True/False | Yes       | Should baseline Semmle analysis be performed?                |
-+------------------------------+------------+-----------+--------------------------------------------------------------+
-| SEMMLE_P10_ANALYSIS          | True/False | Yes       | Should Semmle P10 analysis be performed?                     |
-+------------------------------+------------+-----------+--------------------------------------------------------------+
-| SEMMLE_SUITE_FILE            | String     | Optional  | Suite file that can override the default suite file for      |
-|                              |            |           | baseline Semmle analysis                                     |
-|                              |            |           |                                                              |
-|                              |            |           |   Default value: None                                        |
-+------------------------------+------------+-----------+--------------------------------------------------------------+
-| SEMMLE_TEMPLATE_PATH         | String     | Optional  | Template file that can be used to initialize Semmle projects |
-|                              |            |           |                                                              |
-|                              |            |           |   Default value: None                                        |
-+------------------------------+------------+-----------+--------------------------------------------------------------+
-| SEMMLE_ADDSNAPSHOT_FLAGS     | String     | Optional  | Customized command flags to be passed into the               |
-|                              |            |           | 'odasa addSnapshot' command                                  |
-|                              |            |           |                                                              |
-|                              |            |           |   Default value: None                                        |
-+------------------------------+------------+-----------+--------------------------------------------------------------+
-| SEMMLE_BUILDSNAPSHOT_FLAGS   | String     | Optional  | Customized command flags to be passed into the               |
-|                              |            |           | 'odasa buildSnapshot' command                                |
-|                              |            |           |                                                              |
-|                              |            |           |   Default value: None                                        |
-+------------------------------+------------+-----------+--------------------------------------------------------------+
-| SEMMLE_ANALYZESNAPSHOT_FLAGS | String     | Optional  | Customized command flags to be passed into the               |
-|                              |            |           | 'odasa analyzeSnapshot' command                              |
-|                              |            |           |                                                              |
-|                              |            |           |   Default value: None                                        |
-+------------------------------+------------+-----------+--------------------------------------------------------------+
-
 
 CodeQL Variables
 ****************

@@ -57,9 +57,9 @@ will be stored in a hidden directory named ``.scrub`` located at **SOURCE_DIR** 
 during execution.
 
 Tools can also be called individually by calling the "do" Python using the module helper. An example is provided below
-for Semmle execution::
+for CodeQL execution::
 
-    scrub run-tool --config scrub.cfg --module scrub.tools.semmle.do_semmle
+    scrub run-tool --config scrub.cfg --module scrub.tools.codeql.do_codeql
 
 
 Dependencies
@@ -80,20 +80,23 @@ Supported COTS Tools and Languages
 +-----------------+----------------+---------------+-------------------+
 | GBUILD Compiler | C/C++          | No            | Yes               |
 +-----------------+----------------+---------------+-------------------+
-| Semmle          | C/C++ and Java | Yes           | Yes               |
+| CodeQL          | C/C++, Java,   | Yes           | No                |
+|                 | and Python     |               |                   |
 +-----------------+----------------+---------------+-------------------+
-| CodeQL          | C/C++ and Java | Yes           | No                |
-+-----------------+----------------+---------------+-------------------+
-| Coverity        | C/C++ and Java | No            | Yes               |
+| Coverity        | C/C++, Java    | No            | Yes               |
+|                 | and Python     |               |                   |
 +-----------------+----------------+---------------+-------------------+
 | Klocwork        | C/C++          | No            | Yes               |
 +-----------------+----------------+---------------+-------------------+
-| CodeSonar       | C/C++ and Java | Yes           | Yes               |
+| CodeSonar       | C/C++, Java    | Yes           | Yes               |
+|                 | and Python     |               |                   |
 +-----------------+----------------+---------------+-------------------+
-| Custom checks   | C/C++ and Java | No            | No                |
+| Custom checks   | C/C++, Java    | No            | No                |
+|                 | and Python     |               |                   |
 +-----------------+----------------+---------------+-------------------+
 
 .. Note:: Custom checks can be run via a shell script using the ``do_custom`` analysis.
+.. Note:: P10 checks are only applicable to C/C++ analysis.
 
 Known Limitations
 #################
