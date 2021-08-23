@@ -234,7 +234,8 @@ def parse_scrub(scrub_file, source_root):
 
         # Update the file path, if necessary
         if not warning_file.startswith('/'):
-            warning_file = os.path.normpath(source_root + '/' + warning_file)
+            warning_file = updated_source_dir + '/' + warning_file
+        warning_file = os.path.normpath(warning_file)
 
         # Add the warning to the dictionary
         warning_list.append(create_warning(warning_id, warning_file, warning_line, warning_description, warning_tool,
@@ -352,7 +353,11 @@ def parse_sarif(sarif_filename, source_root, id_prefix=None):
                     warning_line = 0
 
                 # Fix the filepath
-                warning_file = updated_source_dir + '/' + warning_file.replace('file://', '')
+                warning_file = warning_file.replace('file://', '')
+                if not warning_file.startswith('/'):
+                    warning_file = updated_source_dir + '/' + warning_file
+                warning_file = os.path.normpath(warning_file)
+                
                 warning_id = tool_name + str(warning_count).zfill(3)
 
                 # Add to the warning dictionary
