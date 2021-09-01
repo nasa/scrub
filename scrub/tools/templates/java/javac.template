@@ -1,0 +1,5 @@
+set -x
+cd ${{JAVAC_BUILD_DIR}}
+${{JAVAC_CLEAN_CMD}}
+${{JAVAC_BUILD_CMD}} > ${{TOOL_ANALYSIS_DIR}}/javac_build.log 2>&1
+python3 ${{SCRUB_PATH}}/tools/parsers/get_javac_warnings.py ${{TOOL_ANALYSIS_DIR}}/javac_build.log ${{RAW_RESULTS_DIR}}/javac_raw.scrub

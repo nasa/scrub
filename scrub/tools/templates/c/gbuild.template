@@ -1,0 +1,5 @@
+set -x
+cd ${{GBUILD_BUILD_DIR}}
+${{GBUILD_CLEAN_CMD}}
+${{GBUILD_BUILD_CMD}} > ${{TOOL_ANALYSIS_DIR}}/gbuild_build.log 2>&1
+python3 ${{SCRUB_PATH}}/tools/parsers/get_gbuild_warnings.py ${{TOOL_ANALYSIS_DIR}}/gbuild_build.log ${{RAW_RESULTS_DIR}}/gbuild_raw.scrub

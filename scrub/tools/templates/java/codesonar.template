@@ -1,0 +1,8 @@
+set -x
+cd ${{CODESONAR_BUILD_DIR}}
+${{CODESONAR_CLEAN_CMD}}
+${{CODESONAR_PATH}}/codesonar analyze ${{TOOL_ANALYSIS_DIR}}/SCRUBAnalysis -project ${{CODESONAR_PROJ_NAME}} -foreground -auth certificate -hubcert ${{CODESONAR_CERT}} -hubkey ${{CODESONAR_KEY}} ${{CODESONAR_ANALYZE_FLAGS}} ${{CODESONAR_HUB}} ${{CODESONAR_BUILD_CMD}}
+aid=`cat ${{TOOL_ANALYSIS_DIR}}/*/aid.txt`
+cd ${{TOOL_ANALYSIS_DIR}}
+${{CODESONAR_PATH}}/codesonar get -auth certificate -hubcert ${{CODESONAR_CERT}} -hubkey ${{CODESONAR_KEY}} ${{CODESONAR_GET_FLAGS}} ${{CODESONAR_HUB}}/analysis/$aid-allwarnings.sarif
+python3 ${{SCRUB_PATH}}/utils/translate_results.py ${{TOOL_ANALYSIS_DIR}}/*.sarif ${{RAW_RESULTS_DIR}}/codesonar_raw.scrub ${{SOURCE_DIR}} scrub

@@ -1,0 +1,5 @@
+set -x
+cd ${{GCC_BUILD_DIR}}
+${{GCC_CLEAN_CMD}}
+${{GCC_BUILD_CMD}} > ${{TOOL_ANALYSIS_DIR}}/gcc_build.log 2>&1
+python3 ${{SCRUB_PATH}}/tools/parsers/get_gcc_warnings.py ${{TOOL_ANALYSIS_DIR}}/gcc_build.log ${{RAW_RESULTS_DIR}}/gcc_raw.scrub

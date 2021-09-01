@@ -5,6 +5,9 @@ import re
 import shutil
 import sys
 import argparse
+import logging
+import traceback
+from scrub.utils.filtering import do_filtering
 from scrub.utils import do_clean
 from scrub.utils import scrub_utilities
 
@@ -58,36 +61,92 @@ def main(conf_file=None):
     shutil.copyfile(scrub_conf_file, os.path.normpath(scrub_conf_data.get('scrub_analysis_dir') + '/scrub.cfg'))
 
     try:
-        # Search for analysis modules
-        tool_modules = glob.glob(scrub_path + '/tools/*/do*.py')
+        # Get the templates for the language
+        if scrub_conf_data.get('source_lang') == 'c':
+            template_search_string = 'templates/c/*.template'
+        elif scrub_conf_data.get('source_lang') == 'j':
+            template_search_string = 'templates/java/*.template'
+        elif scrub_conf_data.get('source_lang') == 'p':
+            template_search_string = 'templates/python/*.template'
+        else:
+            sys.exit()
 
-        # If the custom module exists, place it last
-        for module in tool_modules:
-            if module.endswith('do_custom.py'):
-                tool_modules.remove(module)
-                tool_modules.append(module)
-                break
+        # Search for analysis templates
+        analysis_templates = glob.glob(scrub_path + '/tools/' + template_search_string)
 
-        # Add the filtering module
-        tool_modules = tool_modules + glob.glob(scrub_path + '/utils/*/do_*.py')
+        # Perform analysis using the template
+        for analysis_template in analysis_templates:
+            # Get the tool name
+            tool_name = os.path.splitext(os.path.basename(analysis_template))[0]
 
-        # Loop through every tool and perform analysis
-        for tool_module in tool_modules:
-            # Form the call string
-            module_name = 'scrub.' + re.split('\\.py', os.path.relpath(tool_module, scrub_path))[0].replace('/', '.')
+            # Create the log file
+            analysis_log_file = scrub_conf_data.get('scrub_log_dir') + '/' + tool_name + '.log'
+            scrub_utilities.create_logger(analysis_log_file)
 
-            # Import the module
-            module_object = importlib.import_module(module_name)
+            # Print a status message
+            logging.info('')
+            logging.info('Attempt ' + tool_name + ' analysis: ' +
+                         str(scrub_conf_data.get(tool_name.lower() + '_warnings')))
 
-            # Call the analysis
-            tool_status = getattr(module_object, "run_analysis")(scrub_conf_data)
+            # Initialize execution status
+            tool_execution_status = 2
 
-            # Add the status to the execution status log
-            execution_status.append([module_name, tool_status])
+            if scrub_conf_data.get(tool_name.lower() + '_warnings'):
+                # Print a status message
+                logging.info('  Parsing ' + tool_name + ' template file...')
 
-            # Check to see if a python error has occurred
-            if tool_status == 100:
-                sys.exit(tool_status)
+                # Create the analysis directory
+                tool_analysis_dir = os.path.normpath(scrub_conf_data.get('scrub_analysis_dir') + '/' + tool_name +
+                                                     '_analysis')
+                scrub_conf_data.update({'tool_analysis_dir': tool_analysis_dir})
+                os.mkdir(tool_analysis_dir)
+
+                # Read in the analysis template
+                with open(analysis_template, 'r') as input_fh:
+                    analysis_template_data = input_fh.read()
+
+                # Replace all of the variables with config data
+                for key in scrub_conf_data.keys():
+                    analysis_template_data = analysis_template_data.replace('${{' + key.upper() + '}}',
+                                                                            str(scrub_conf_data.get(key)))
+
+                # Write out the completed template
+                completed_analysis_script = os.path.normpath(scrub_conf_data.get('scrub_analysis_dir') + '/' +
+                                                             tool_name + '.sh')
+                with open(completed_analysis_script, 'w') as output_fh:
+                    output_fh.write('%s' % analysis_template_data)
+
+                # Update the permissions to allow for execution
+                os.chmod(completed_analysis_script, 775)
+
+                try:
+                    # Execute the analysis
+                    scrub_utilities.execute_command(completed_analysis_script, os.environ.copy())
+
+                    # Update the execution status
+                    tool_execution_status = 0
+
+                except scrub_utilities.CommandExecutionError:
+                    logging.warning(tool_name + ' analysis could not be performed.')
+
+                    # Print the exception traceback
+                    logging.warning(traceback.format_exc())
+
+                    #  Update the execution status
+                    tool_execution_status = 1
+
+                finally:
+                    # Close the logger
+                    logging.getLogger().handlers = []
+
+            # Update the execution status
+            execution_status.append([tool_name, tool_execution_status])
+
+        # Perform filtering
+        filtering_status = do_filtering.run_analysis(scrub_conf_data)
+
+        # Update the execution status
+        execution_status.append(['filtering', filtering_status])
 
     finally:
         # Move the results back with the source code if necessary

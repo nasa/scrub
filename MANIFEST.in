@@ -1,6 +1,7 @@
-include COPYRIGHT
+include LICENSE
 include scrub/utils/scrub_defaults.cfg
 include scrub/utils/filtering/FilteringDefaults
+recursive-include scrub/tools/templates *
 
 recursive-include tests *
 recursive-exclude * __pycache__

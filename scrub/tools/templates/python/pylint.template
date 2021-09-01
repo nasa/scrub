@@ -1,0 +1,3 @@
+set -x
+pylint --output ${{TOOL_ANALYSIS_DIR}}/pylint_output.json --output-format json ${{SOURCE_DIR}}
+python3 ${{SCRUB_PATH}}/tools/parsers/get_pylint_warnings.py ${{TOOL_ANALYSIS_DIR}}/pylint_output.json ${{RAW_RESULTS_DIR}}/pylint_raw.scrub

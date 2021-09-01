@@ -1,0 +1,13 @@
+set -x
+cd ${{CODEQL_BUILD_DIR}}
+${{CODEQL_CLEAN_CMD}}
+${{CODEQL_PATH}}/codeql database create --language cpp --source-root ${{SOURCE_DIR}} --working-dir ${{CODEQL_BUILD_DIR}} ${{CODEQL_DATABASECREATE_FLAGS}} --command "${{CODEQL_BUILD_CMD}}" ${{TOOL_ANALYSIS_DIR}}/codeql-database
+${{CODEQL_PATH}}/codeql database upgrade --search-path ${{CODEQL_QUERY_PATH}}
+if [ ${{CODEQL_BASELINE_ANALYSIS}} ]; then
+  ${{CODEQL_PATH}}/codeql database analyze --format=sarif-latest --output=${{TOOL_ANALYSIS_DIR}}/codeql_raw.sarif ${{TOOL_ANALYSIS_DIR}}/codeql-database "${{CODEQL_QUERY_PATH}}/cpp/ql/src/codeql-suites/cpp-lgtm-full.qls" "${{CODEQL_QUERY_PATH}}/cpp/ql/src/AlertSuppression.ql"
+  python3 ${{SCRUB_PATH}}/utils/translate_results.py ${{TOOL_ANALYSIS_DIR}}/codeql_raw.sarif ${{RAW_RESULTS_DIR}}/codeql_raw.scrub ${{SOURCE_DIR}} scrub
+fi
+if [ ${{CODEQL_P10_ANALYSIS}} ]; then
+  ${{CODEQL_PATH}}/codeql database analyze --format=sarif-latest --output=${{TOOL_ANALYSIS_DIR}}/codeql_p10_raw.sarif ${{TOOL_ANALYSIS_DIR}}/codeql-database "${{CODEQL_QUERY_PATH}}/cpp/ql/src/Power of 10" "${{CODEQL_QUERY_PATH}}/cpp/ql/src/AlertSuppression.ql"
+  python3 ${{SCRUB_PATH}}/utils/translate_results.py ${{TOOL_ANALYSIS_DIR}}/codeql_p10_raw.sarif ${{RAW_RESULTS_DIR}}/codeql_p10_raw.scrub ${{SOURCE_DIR}} scrub
+fi
