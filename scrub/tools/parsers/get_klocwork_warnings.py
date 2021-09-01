@@ -1,5 +1,6 @@
 import os
 import re
+import sys
 import json
 import logging
 from distutils.version import StrictVersion
@@ -73,3 +74,7 @@ def parse_warnings(input_file, output_file, version_number):
         parse_warnings_2020_2(input_file, output_file)
     else:
         parse_warnings_2020_2(input_file, output_file)
+
+
+if __name__ == '__main__':
+    parse_warnings(sys.argv[1], sys.argv[2], sys.argv[3])

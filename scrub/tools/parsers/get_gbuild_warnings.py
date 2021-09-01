@@ -1,5 +1,6 @@
 import re
 import os
+import sys
 import logging
 from scrub.utils import translate_results
 
@@ -177,3 +178,7 @@ def parse_warnings(raw_input_file, parsed_output_file):
 
     # Search for DoubleCheck warnings in the log file
     parse_doublecheck_warnings(raw_input_file, parsed_output_file)
+
+
+if __name__ == '__main__':
+    parse_warnings(sys.argv[1], sys.argv[2])

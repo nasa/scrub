@@ -1,5 +1,6 @@
 import re
 import os
+import sys
 import logging
 from scrub.utils import translate_results
 
@@ -49,3 +50,7 @@ def parse_warnings(raw_input_file, parsed_output_file):
 
     # Create the SCRUB output file
     translate_results.create_scrub_output_file(raw_warnings, parsed_output_file)
+
+
+if __name__ == '__main__':
+    parse_warnings(sys.argv[1], sys.argv[2])

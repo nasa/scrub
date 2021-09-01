@@ -1,5 +1,6 @@
 import re
 import os
+import sys
 import logging
 from distutils.version import StrictVersion
 
@@ -248,3 +249,7 @@ def parse_warnings(raw_input_file, parsed_output_file, coverity_version_number):
         parse_warnings_2019_06(raw_input_file, parsed_output_file)
     else:
         parse_warnings_legacy(raw_input_file, parsed_output_file)
+
+
+if __name__ == '__main__':
+    parse_warnings(sys.argv[1], sys.argv[2], sys.argv[3])
