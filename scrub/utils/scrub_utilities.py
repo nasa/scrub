@@ -9,6 +9,30 @@ import argparse
 from scrub.utils import translate_results
 
 
+def parse_template(template_file, tool_name, conf_data):
+    """
+
+    """
+
+    # Read in the analysis template
+    with open(template_file, 'r') as input_fh:
+        template_data = input_fh.read()
+
+    # Replace all of the variables with config data
+    for key in conf_data.keys():
+        template_data = template_data.replace('${{' + key.upper() + '}}', str(conf_data.get(key)))
+
+    # Write out the completed template
+    completed_analysis_script = os.path.normpath(conf_data.get('scrub_analysis_dir') + '/' + tool_name + '.sh')
+    with open(completed_analysis_script, 'w') as output_fh:
+        output_fh.write('%s' % template_data)
+
+    # Update the permissions to allow for execution
+    os.chmod(completed_analysis_script, 775)
+
+    return completed_analysis_script
+
+
 class CommandExecutionError(Exception):
     pass
 
