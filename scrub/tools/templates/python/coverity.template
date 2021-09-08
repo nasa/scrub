@@ -1,4 +1,4 @@
-set -x
+#!/bin/bash -x
 ${{COVERITY_PATH}}/cov-build --dir ${{TOOL_ANALYSIS_DIR}} ${{COVERITY_COVBUILD_FLAGS}} --no-command --fs-capture-search ${{SOURCE_DIR}}
 ${{COVERITY_PATH}}/cov-analyze --dir ${{TOOL_ANALYSIS_DIR}} ${{COVERITY_COVANALYZE_FLAGS}}
 ${{COVERITY_PATH}}/cov-format-errors --dir ${{TOOL_ANALYSIS_DIR}} ${{COVERITY_COVFORMATERRORS_FLAGS}} -x -X --emacs-style > ${{TOOL_ANALYSIS_DIR}}/coverity.out

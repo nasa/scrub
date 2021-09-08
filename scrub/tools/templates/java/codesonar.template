@@ -1,4 +1,4 @@
-set -x
+#!/bin/bash -x
 cd ${{CODESONAR_BUILD_DIR}}
 ${{CODESONAR_CLEAN_CMD}}
 ${{CODESONAR_PATH}}/codesonar analyze ${{TOOL_ANALYSIS_DIR}}/SCRUBAnalysis -project ${{CODESONAR_PROJ_NAME}} -foreground -auth certificate -hubcert ${{CODESONAR_CERT}} -hubkey ${{CODESONAR_KEY}} ${{CODESONAR_ANALYZE_FLAGS}} ${{CODESONAR_HUB}} ${{CODESONAR_BUILD_CMD}}

@@ -1,12 +1,46 @@
 import re
 import os
 import sys
+import time
 import shutil
 import logging
+import threading
 import subprocess
 import configparser
 import argparse
 from scrub.utils import translate_results
+
+
+class Spinner:
+    busy = False
+    delay = 0.1
+
+    @staticmethod
+    def spinning_cursor():
+        while 1:
+            for cursor in '|/-\\': yield cursor
+
+    def __init__(self, delay=None):
+        self.spinner_generator = self.spinning_cursor()
+        if delay and float(delay): self.delay = delay
+
+    def spinner_task(self):
+        while self.busy:
+            sys.stdout.write(next(self.spinner_generator))
+            sys.stdout.flush()
+            time.sleep(self.delay)
+            sys.stdout.write('\b')
+            sys.stdout.flush()
+
+    def __enter__(self):
+        self.busy = True
+        threading.Thread(target=self.spinner_task).start()
+
+    def __exit__(self, exception, value, tb):
+        self.busy = False
+        time.sleep(self.delay)
+        if exception is not None:
+            return False
 
 
 def parse_template(template_file, tool_name, conf_data):
@@ -22,8 +56,13 @@ def parse_template(template_file, tool_name, conf_data):
     for key in conf_data.keys():
         template_data = template_data.replace('${{' + key.upper() + '}}', str(conf_data.get(key)))
 
+    # Create the analysis scripts directory if it doesn't exist
+    analysis_scripts_dir = os.path.normpath(conf_data.get('scrub_analysis_dir') + '/analysis_scripts')
+    if not os.path.exists(analysis_scripts_dir):
+        os.mkdir(analysis_scripts_dir)
+
     # Write out the completed template
-    completed_analysis_script = os.path.normpath(conf_data.get('scrub_analysis_dir') + '/' + tool_name + '.sh')
+    completed_analysis_script = os.path.normpath(analysis_scripts_dir + '/' + tool_name + '.sh')
     with open(completed_analysis_script, 'w') as output_fh:
         output_fh.write('%s' % template_data)
 
@@ -179,21 +218,22 @@ def execute_command(call_string, my_env, output_file=None, interactive=False):
     logging.debug('\tConsole output:')
 
     # Execute the call string and capture the output
-    if interactive:
-        proc = subprocess.Popen(call_string, shell=True, env=my_env, encoding='utf-8')
-    else:
-        proc = subprocess.Popen(call_string, shell=True, env=my_env, stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
-                                encoding='utf-8')
+    with Spinner():
+        if interactive:
+            proc = subprocess.Popen(call_string, shell=True, env=my_env, encoding='utf-8')
+        else:
+            proc = subprocess.Popen(call_string, shell=True, env=my_env, stdout=subprocess.PIPE,
+                                    stderr=subprocess.STDOUT, encoding='utf-8')
 
-        # Write the output to the logging file
-        for stdout_line in iter(proc.stdout.readline, ''):
-            logging.debug('\t\t%s', stdout_line.replace('\n', ''))
-            output_data = output_data + stdout_line
+            # Write the output to the logging file
+            for stdout_line in iter(proc.stdout.readline, ''):
+                logging.debug('\t\t%s', stdout_line.replace('\n', ''))
+                output_data = output_data + stdout_line
 
-        # Write results to the output file
-        if output_file is not None:
-            with open(output_file, 'w') as output_fh:
-                output_fh.write(output_data)
+            # Write results to the output file
+            if output_file is not None:
+                with open(output_file, 'w') as output_fh:
+                    output_fh.write(output_data)
 
     # Wait for the process to finish
     proc.wait(timeout=None)

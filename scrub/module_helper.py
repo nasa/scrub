@@ -1,5 +1,6 @@
 import sys
 import os
+import traceback
 import importlib
 import shutil
 import logging
@@ -42,7 +43,8 @@ def main(tool_name, conf_file='/.scrub.cfg'):
     scrub_path = os.path.dirname(os.path.realpath(__file__))
 
     # Find the template of interest
-    template_path = (scrub_path + '/tools/templates/' + scrub_conf_data.get('source_lang') + '/' + tool_name.lower() + '.template')
+    template_path = (scrub_path + '/tools/templates/' + scrub_conf_data.get('source_lang') + '/' + tool_name.lower() +
+                     '.template')
 
     # Attempt analysis if the template exists
     if os.path.exists(template_path):
@@ -84,7 +86,6 @@ def main(tool_name, conf_file='/.scrub.cfg'):
                 # Close the logger
                 logging.getLogger().handlers = []
 
-
         finally:
             # Move the results back with the source code if necessary
             if scrub_conf_data.get('scrub_working_dir') != scrub_conf_data.get('scrub_analysis_dir'):
@@ -107,6 +108,13 @@ def main(tool_name, conf_file='/.scrub.cfg'):
     elif tool_name == 'filter':
         # Filter and distribute the results
         do_filtering.run_analysis(scrub_conf_data)
+
+    elif tool_name == 'collaborator':
+        # Import the module
+        module_object = importlib.import_module('scrub.targets.collaborator.do_collaborator')
+
+        # Call the analysis
+        getattr(module_object, "run_analysis")(scrub_conf_data, True)
 
     else:
         sys.exit('ERROR: Template does not exist.')

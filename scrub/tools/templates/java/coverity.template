@@ -1,4 +1,4 @@
-set -x
+#!/bin/bash -x
 cd ${{COVERITY_BUILD_DIR}}
 ${{COVERITY_CLEAN_CMD}}
 ${{COVERITY_PATH}}/cov-build --dir ${{TOOL_ANALYSIS_DIR}} ${{COVERITY_COVBUILD_FLAGS}} ${{COVERITY_BUILD_CMD}}

@@ -1,4 +1,4 @@
-set -x
+#!/bin/bash -x
 cd ${{CODEQL_BUILD_DIR}}
 ${{CODEQL_CLEAN_CMD}}
 ${{CODEQL_PATH}}/codeql database create --language cpp --source-root ${{SOURCE_DIR}} --working-dir ${{CODEQL_BUILD_DIR}} ${{CODEQL_DATABASECREATE_FLAGS}} --command "${{CODEQL_BUILD_CMD}}" ${{TOOL_ANALYSIS_DIR}}/codeql-database

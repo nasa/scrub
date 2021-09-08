@@ -104,24 +104,6 @@ def main(conf_file=None):
                 # Create the analysis template
                 analysis_script = scrub_utilities.parse_template(analysis_template, tool_name, scrub_conf_data)
 
-                # # Read in the analysis template
-                # with open(analysis_template, 'r') as input_fh:
-                #     analysis_template_data = input_fh.read()
-                #
-                # # Replace all of the variables with config data
-                # for key in scrub_conf_data.keys():
-                #     analysis_template_data = analysis_template_data.replace('${{' + key.upper() + '}}',
-                #                                                             str(scrub_conf_data.get(key)))
-                #
-                # # Write out the completed template
-                # completed_analysis_script = os.path.normpath(scrub_conf_data.get('scrub_analysis_dir') + '/' +
-                #                                              tool_name + '.sh')
-                # with open(completed_analysis_script, 'w') as output_fh:
-                #     output_fh.write('%s' % analysis_template_data)
-                #
-                # # Update the permissions to allow for execution
-                # os.chmod(completed_analysis_script, 775)
-
                 try:
                     # Execute the analysis
                     scrub_utilities.execute_command(analysis_script, os.environ.copy())

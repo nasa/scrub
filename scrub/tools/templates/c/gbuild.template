@@ -1,4 +1,4 @@
-set -x
+#!/bin/bash -x
 cd ${{GBUILD_BUILD_DIR}}
 ${{GBUILD_CLEAN_CMD}}
 ${{GBUILD_BUILD_CMD}} > ${{TOOL_ANALYSIS_DIR}}/gbuild_build.log 2>&1

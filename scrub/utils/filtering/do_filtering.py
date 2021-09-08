@@ -250,7 +250,7 @@ def run_analysis(scrub_conf_data, override=False):
             generate_sarif(scrub_conf_data)
 
             # Distribute the results
-            distribute_scrub_results(scrub_conf_data)
+            # distribute_scrub_results(scrub_conf_data)
 
             # Set the exit code
             filtering_exit_code = 0
