@@ -1,0 +1,4 @@
+scrub_root=`dirname $0`
+export PYTHONPATH=$PYTHONPATH:$scrub_root
+
+python3 $scrub_root/scrub/scrub_cli.py $@
