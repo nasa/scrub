@@ -1,5 +1,6 @@
 import re
 import os
+import sys
 import logging
 from scrub.utils import translate_results
 
