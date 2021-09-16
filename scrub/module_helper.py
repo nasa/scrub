@@ -61,6 +61,10 @@ def main(tool_name, template_path, conf_file='/.scrub.cfg'):
     # Attempt analysis if the template exists
     if template_path and os.path.exists(template_path):
         try:
+            # Set the tool name if necessary
+            if not tool_name:
+                tool_name = os.path.basename(template_path).split('.')[0]
+
             # Create the log file
             analysis_log_file = scrub_conf_data.get('scrub_log_dir') + '/' + tool_name + '.log'
             scrub_utilities.create_logger(analysis_log_file)
