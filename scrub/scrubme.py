@@ -74,6 +74,11 @@ def main(conf_file=None):
         # Search for analysis templates
         analysis_templates = glob.glob(scrub_path + '/tools/' + template_search_string)
 
+        # Append the custom templates if provided
+        if scrub_conf_data.get('custom_templates'):
+            analysis_templates = analysis_templates + \
+                                 scrub_conf_data.get('custom_templates').replace('\"', '').split(',')
+
         # Perform analysis using the template
         for analysis_template in analysis_templates:
             # Get the tool name

@@ -17,34 +17,44 @@ def parse_arguments():
 
     # Add parser arguments
     parser.add_argument('--config', default='./scrub.cfg')
-    parser.add_argument('--tool', required=True)
+    parser.add_argument('--tool', default=None)
+    parser.add_argument('--template', default=None)
 
     # Parse the arguments
     args = vars(parser.parse_args(sys.argv[2:]))
+
+    # Make sure all the required inputs are present
+    if not args['tool'] and args['template']:
+        args['tool'] = os.path.basename(args['template']).split('.')[0]
+
 
     # Run analysis
     main(args['tool'], args['config'])
 
 
-def main(tool_name, conf_file='/.scrub.cfg'):
+
+def main(template_path, conf_file='/.scrub.cfg'):
     """
     This function runs a single analysis module, while preserving existing analysis results.
 
     Inputs:
-        --tool: Name of tool that needs to be run [string]
+        --analysis: Name of tool that needs to be run or path to custom template file to be executed [string]
         --config: Absolute path to the SCRUB configuration file to be used [string]
     """
 
     # Read in the configuration data
     scrub_conf_data = scrub_utilities.parse_common_configs(conf_file)
 
+    # Get the tool name
+    tool_name = ''
+
     # Initialize the SCRUB storage directory
     scrub_utilities.initialize_storage_dir(scrub_conf_data)
     scrub_path = os.path.dirname(os.path.realpath(__file__))
 
     # Find the template of interest
-    template_path = (scrub_path + '/tools/templates/' + scrub_conf_data.get('source_lang') + '/' + tool_name.lower() +
-                     '.template')
+    # template_path = (scrub_path + '/tools/templates/' + scrub_conf_data.get('source_lang') + '/' +
+    #                  tool_name.lower() + '.template')
 
     # Attempt analysis if the template exists
     if os.path.exists(template_path):
