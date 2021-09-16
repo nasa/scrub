@@ -63,6 +63,8 @@ def parse_template(template_file, tool_name, conf_data):
 
     # Write out the completed template
     completed_analysis_script = os.path.normpath(analysis_scripts_dir + '/' + tool_name + '.sh')
+    if os.path.exists(completed_analysis_script):
+        os.remove(completed_analysis_script)
     with open(completed_analysis_script, 'w') as output_fh:
         output_fh.write('%s' % template_data)
 
