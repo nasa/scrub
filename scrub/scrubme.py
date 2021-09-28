@@ -76,8 +76,8 @@ def main(conf_file=None):
 
         # Append the custom templates if provided
         if scrub_conf_data.get('custom_templates'):
-            analysis_templates = analysis_templates + \
-                                 scrub_conf_data.get('custom_templates').replace('\"', '').split(',')
+            analysis_templates = (analysis_templates +
+                                  scrub_conf_data.get('custom_templates').replace('\"', '').split(','))
 
         # Perform analysis using the template
         for analysis_template in analysis_templates:
@@ -106,8 +106,16 @@ def main(conf_file=None):
                 scrub_conf_data.update({'tool_analysis_dir': tool_analysis_dir})
                 os.mkdir(tool_analysis_dir)
 
+                # Create the analysis scripts directory
+                analysis_scripts_dir = os.path.normpath(scrub_conf_data.get('scrub_analysis_dir') + '/analysis_scripts')
+                if not os.path.exists(analysis_scripts_dir):
+                    os.mkdir(analysis_scripts_dir)
+
+                # Get the output script path
+                analysis_script = os.path.normpath(analysis_scripts_dir + '/' + tool_name + '.sh')
+
                 # Create the analysis template
-                analysis_script = scrub_utilities.parse_template(analysis_template, tool_name, scrub_conf_data)
+                scrub_utilities.parse_template(analysis_template, analysis_script, scrub_conf_data)
 
                 try:
                     # Execute the analysis

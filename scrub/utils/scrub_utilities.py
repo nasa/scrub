@@ -18,11 +18,13 @@ class Spinner:
     @staticmethod
     def spinning_cursor():
         while 1:
-            for cursor in '|/-\\': yield cursor
+            for cursor in '|/-\\':
+                yield cursor
 
     def __init__(self, delay=None):
         self.spinner_generator = self.spinning_cursor()
-        if delay and float(delay): self.delay = delay
+        if delay and float(delay):
+            self.delay = delay
 
     def spinner_task(self):
         while self.busy:
@@ -43,9 +45,13 @@ class Spinner:
             return False
 
 
-def parse_template(template_file, tool_name, conf_data):
-    """
+def parse_template(template_file, output_file, conf_data):
+    """This function parsers analysis templates and populates them with configuration values.
 
+    Inputs:
+        - template_file: Absolute path to analysis template file [string]
+        - output_file: Absolute path to output analysis script [string]
+        - conf_data: Dictionary of values read from configuration file [dict]
     """
 
     # Read in the analysis template
@@ -56,22 +62,14 @@ def parse_template(template_file, tool_name, conf_data):
     for key in conf_data.keys():
         template_data = template_data.replace('${{' + key.upper() + '}}', str(conf_data.get(key)))
 
-    # Create the analysis scripts directory if it doesn't exist
-    analysis_scripts_dir = os.path.normpath(conf_data.get('scrub_analysis_dir') + '/analysis_scripts')
-    if not os.path.exists(analysis_scripts_dir):
-        os.mkdir(analysis_scripts_dir)
-
     # Write out the completed template
-    completed_analysis_script = os.path.normpath(analysis_scripts_dir + '/' + tool_name + '.sh')
-    if os.path.exists(completed_analysis_script):
-        os.remove(completed_analysis_script)
-    with open(completed_analysis_script, 'w') as output_fh:
+    if os.path.exists(output_file):
+        os.remove(output_file)
+    with open(output_file, 'w') as output_fh:
         output_fh.write('%s' % template_data)
 
     # Update the permissions to allow for execution
-    os.chmod(completed_analysis_script, 775)
-
-    return completed_analysis_script
+    os.chmod(output_file, 775)
 
 
 class CommandExecutionError(Exception):
@@ -332,8 +330,11 @@ def parse_common_configs(user_conf_file, scrub_keys=[]):
     # Update the dictionary
     for user_section in user_conf_data.sections():
         for section_key in user_conf_data.options(user_section):
-            # Update the value only if there is a user value
+            # Update the value if the user conf has something
             if user_conf_data.get(user_section, section_key):
+                scrub_conf_data.update({section_key: user_conf_data.get(user_section, section_key)})
+            elif section_key not in scrub_conf_data.keys():
+                # Add the key if it doesn't exist
                 scrub_conf_data.update({section_key: user_conf_data.get(user_section, section_key)})
 
     # Update the configuration data

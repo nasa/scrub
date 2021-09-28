@@ -29,6 +29,9 @@ Source Code Attributes
 | SCRUB_WORKING_DIR | String | Optional  | Define the location of the SCRUB output files. SCRUB execution will create  |
 |                   |        |           | the .scrub working directory here                                           |
 +-------------------+--------+-----------+-----------------------------------------------------------------------------+
+| CUSTOM_TEMPLATES  | String | Optional  | Comma-separated list of custom templates to be executed during SCRUB        |
+|                   |        |           | execution                                                                   |
++-------------------+--------+-----------+-----------------------------------------------------------------------------+
 
 Tool Variables
 ##############
@@ -77,6 +80,16 @@ GBUILD Compiler Variables
 .. Note:: DoubleCheck analysis is included under gbuild compiler analysis. DoubleCheck must be enabled external to
           SCRUB.
 
+Pylint Variables
+*************************
++------------------+------------+-----------+--------------------------------------------------------------------------+
+| Variable Name    | Format     | Required? | Description                                                              |
++==================+============+===========+==========================================================================+
+| PYLINT_WARNINGS  | True/False | Yes       | Should pylint analysis be performed?                                     |
++------------------+------------+-----------+--------------------------------------------------------------------------+
+| PYLINT_FLAGS     | String     | Optional  | Optional flags to be passed to pylint                                    |
++------------------+------------+-----------+--------------------------------------------------------------------------+
+
 CodeQL Variables
 ****************
 +------------------------------+------------+-----------+--------------------------------------------------------------+
@@ -116,7 +129,6 @@ CodeQL Variables
 |                              |            |           |   Default value: None                                        |
 +------------------------------+------------+-----------+--------------------------------------------------------------+
 
-
 Coverity Variables
 ******************
 +--------------------------------+------------+-----------+------------------------------------------------------------+
@@ -153,7 +165,6 @@ Coverity Variables
 |                                |            |           |                                                            |
 |                                |            |           |   Default value: None                                      |
 +--------------------------------+------------+-----------+------------------------------------------------------------+
-
 
 CodeSonar Variables
 *******************
@@ -205,7 +216,6 @@ CodeSonar Variables
 |                             |            |           |                                                               |
 |                             |            |           |   Default value: None                                         |
 +-----------------------------+------------+-----------+---------------------------------------------------------------+
-
 
 Klocwork Analysis Variables
 ***************************
