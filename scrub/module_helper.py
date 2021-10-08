@@ -17,8 +17,8 @@ def parse_arguments():
 
     # Add parser arguments
     parser.add_argument('--config', default='./scrub.cfg')
-    parser.add_argument('--tool', default=None)
-    parser.add_argument('--template', default=None)
+    parser.add_argument('--tools', nargs='+', default=None)
+    parser.add_argument('--templates', default=None)
 
     # Parse the arguments
     args = vars(parser.parse_args(sys.argv[2:]))
@@ -82,8 +82,14 @@ def main(tool_name, template_path, conf_file='/.scrub.cfg'):
             scrub_conf_data.update({'tool_analysis_dir': tool_analysis_dir})
             os.mkdir(tool_analysis_dir)
 
+            # Create the analysis scripts directory
+            analysis_scripts_dir = os.path.normpath(scrub_conf_data.get('scrub_analysis_dir') + '/analysis_scripts')
+            if not os.path.exists(analysis_scripts_dir):
+                os.mkdir(analysis_scripts_dir)
+
             # Create the analysis template
-            analysis_script = scrub_utilities.parse_template(template_path, tool_name, scrub_conf_data)
+            analysis_script = os.path.normpath(analysis_scripts_dir + '/' + tool_name + '.sh')
+            scrub_utilities.parse_template(template_path, analysis_script, scrub_conf_data)
 
             try:
                 # Execute the analysis

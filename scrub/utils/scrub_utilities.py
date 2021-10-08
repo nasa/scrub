@@ -213,9 +213,9 @@ def execute_command(call_string, my_env, output_file=None, interactive=False):
 
     # Write out a logging message
     logging.info('')
-    logging.info('\t>> Executing command: %s', call_string)
-    logging.info('\t>> From directory: %s', os.getcwd())
-    logging.debug('\tConsole output:')
+    logging.info('    >> Executing command: %s', call_string)
+    logging.info('    >> From directory: %s', os.getcwd())
+    logging.debug('    Console output:')
 
     # Execute the call string and capture the output
     with Spinner():
@@ -227,7 +227,7 @@ def execute_command(call_string, my_env, output_file=None, interactive=False):
 
             # Write the output to the logging file
             for stdout_line in iter(proc.stdout.readline, ''):
-                logging.debug('\t\t%s', stdout_line.replace('\n', ''))
+                logging.debug('        %s', stdout_line.replace('\n', ''))
                 output_data = output_data + stdout_line
 
             # Write results to the output file
