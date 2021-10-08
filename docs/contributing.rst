@@ -52,33 +52,29 @@ Ready to contribute? Here's how to set up SCRUB for local development.
 1. Fork the SCRUB repo on GitHub
 2. Clone your fork locally::
 
-    $ git clone git@github.com:your_name_here/scrub.git
+    $ git clone git@github.com:nasa/scrub.git
 
-3. Install your local copy into a virtualenv. Assuming you have virtualenvwrapper installed, this is how you set up
-your fork for local development::
+3. Install your local copy for development::
 
-    $ mkvirtualenv scrub
     $ cd scrub
-    $ python setup.py develop
+    $ python3 setup.py develop
 
 4. Create a branch for local development::
 
-    $ git checkout -b name-of-your-bugfix-or-feature
+    $ git checkout -b <branch name>
 
    Now you can make your changes locally.
 
 5. When you're done making changes, check that your changes pass pylint and the tests::
 
     $ pylint scrub tests
-    $ python setup.py test or pytest
-
-   To get pylint, just conda/pip install them into your conda env/virtualenv.
+    $ python3 setup.py test or pytest
 
 6. Commit your changes and push your branch to GitHub::
 
     $ git add .
     $ git commit -m "Your detailed description of your changes."
-    $ git push origin name-of-your-bugfix-or-feature
+    $ git push origin <branch name>
 
 7. Submit a pull request through the GitHub website.
 
@@ -167,23 +163,27 @@ $ git push --tags
 
 Adding New Analysis Tools
 -------------------------
+
 SCRUB is set up to automatically discover and incorporate new analysis tools during execution. There are three updates
-that must be made in order for a new module to be included in SCRUB analysis.
+that must be made in order for a new module to be included in SCRUB analysis. Filtering is Filtering is automatically
+performed by SCRUB and does not need to be addressed in the analysis template.
 
 1. A new section in the scrub.cfg to all SCRUB to read in the input values for the new analysis module
-2. A new module in the tools directory that can read the scrub.cfg configuration file and make the applicable calls to
-   the analysis tool
+2. A new analysis template in the tools directory, for each applicable language
 3. A new module for parsing raw tool results into the defined SCRUB output format*
 
 .. Note:: Item 3 may be omitted if the new tool supports the SARIF output format. In this case the new tool may utilize
           the built in SARIF parsing utility ``scrub.utils.translate_results.parse_sarif``
 
-Items 2 and 3 should be stored in the following location::
+The items mentioned above should be stored in the following locations::
 
     <SCRUB Root>
+      scrub.cfg (item 1)
       -> tools
-        -> <tool>
-          -> do_<tool>.py (item 2)
+        -> templates
+          -> <language>
+            -> <tool>.template (item 2)
+        -> parsers
           -> get_<tool>_warnings.py (item 3)
 
 Updates to scrub.cfg
@@ -192,94 +192,59 @@ Updates to scrub.cfg
 SCRUB uses the standard Python configuration file parsing module ConfigParser. New sections can be added to the SCRUB
 configuration file by following the instructions provided in the `Python documentation`_.
 
-Every variable that is required to complete execution should be stored in the scrub.cfg file. The logic for
-determining if all required variables are present should be stored in the Analysis Module. SCRUB will pass your module
-one variable: the scrub.cfg file. Your module should be able to read the values stored in this variable and then
-determine if it is able to attempt execution.
+Every variable that is required to complete execution should be stored in the ``scrub.cfg`` file. SCRUB will read the
+configuration file and replace relevant values in the analysis template file. If a required variable is missing, SCRUB
+will generate an error message when attempting analysis.
 
-Creation of New Analysis Module
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Creation of New Analysis Template
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-This module should be the bulk of the development work to incorporate a new module. The main function of the module
-should be titled "run_analysis" and should take exactly one argument: the path to scrub.cfg. This requirement,
-combined with the requirements above means that SCRUB will attempt to run the following command when dynamically
-adding a module::
+Analysis templates attempt to minimize the work required to integrate new analysis tools into SCRUB. Once developers
+have determined how to run a tool from the command line, they can take these instructions and create an analysis
+template file using the same shell commands and dynamic substitutions from variables within the ``scrub.cfg``
+configuration file.
 
-        scrub.tools.<tool>.do_<tool>.run_analysis(<path to scrub.cfg>)
+Configuration file variables within the analysis template should match the name found within the configuration file. For
+example, the configuration file variable ``GCC_BUILD_CMD`` can be referenced using ``${{GCC_BUILD_CMD}}`` within the
+analysis template. If the value cannot be found in the configuration file, an error will occur during execution.
 
-If this pattern is not followed, SCRUB will not be able to automatically incorporate your new analysis module.
+In addition to perform the core tool analysis, the template should also handle parsing the native tool output into a
+SCRUB formatted output file that resides within the ``.scrub/raw_results`` directory.
 
-In general the logic for the following major tasks should be included in this module in the following order.
+An example template, with comments, is provided below::
 
-* Read in and store all the values from the scrub.cfg configuration file and determine if execution can be attempted
-* Make necessary calls to the analysis tool
-* Parse the raw tool output and convert to the SCRUB file format
-* Filter the raw SCRUB file based on filtering configuration options (discussed more in the following section)
-* Check the log files and output files to ensure that execution completed successfully
+  #!/bin/bash -x
 
-Reading Values From the scrub.cfg File
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  # Change to the build directory
+  cd ${{GCC_BUILD_DIR}}
 
-In addition to the values needed for the new tool execution, your tool will likely need to read in and use the Source
-Code Variables and Filtering Variables sections from the ``scrub.cfg`` configuration file.
+  # Clean the build
+  ${{GCC_CLEAN_CMD}}
 
-Expected Outputs:
+  # Build and capture the output in the GCC analysis directory
+  ${{GCC_BUILD_CMD}} > ${{TOOL_ANALYSIS_DIR}}/gcc_build.log 2>&1
 
-- All necessary values for execution have been stored locally
-- A determination of whether or not the tool can be run
+  # Parse the log file and send the output to .scrub/raw_results/gcc_raw.scrub
+  python3 ${{SCRUB_PATH}}/tools/parsers/get_gcc_warnings.py ${{TOOL_ANALYSIS_DIR}}/gcc_build.log ${{RAW_RESULTS_DIR}}/gcc_raw.scrub
 
-Logic for Running Analysis Tool
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-How this section is implemented is almost entirely up to your discretion. Make whatever calls are necessary to perform
-your analysis.
-
-Expected Outputs:
-
-- A file (or set of files) containing raw analysis results from the new analysis tool
-
-Parsing the Raw Output Files
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-This should actually be a separate module, but it should be called from within this module. More on the definition of
-this module can be found below in Creation of New Parsing Module section.
-
-Expected Outputs:
-
-- A SCRUB formatted file stored at ``<SOURCE_DIR>.scrub/raw_results/<tool>_raw.scrub``
-
-Filtering the Raw SCRUB-formatted Output File
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-There is a module that can be used specifically for filtering raw SCRUB-formatted output files: ``utils/filter_results``
-This module should be called directly from the new main analysis module.
-
-Expected Outputs:
-
-- A filtered SCRUB formatted file stored at ``<SOURCE_DIR>/.scrub/<tool>.scrub``
-
-Checking the Log Files and Execution
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-The final step is to examine the log files and output files to ensure that analysis completed successfully. Generally,
-it is enough to check that the SCRUB formatted files are not empty and there are no warnings/errors in the analysis
-tool's log file.
-
-Expected Outputs:
-
-The tool should return an exit code of the following format
-
-* 0: Tool execution completed successfully
-* 1: Tool execution was attempted, but did not complete successfully
-* 2: Tool execution was not attempted
-* 100: An unknown Python error occurred during tool execution
 
 Creation of New Parsing Module
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-The parsing module ``scrub.tools.<tool>.get<tool>_warnings`` is responsible converting warnings from the raw format outputted
-by the tool into the SCRUB format and storing it in the appropriate location
-(``SOURCE_DIR/.scrub/raw_results/<tool>.scrub``).
+
+The parsing module is responsible converting warnings from the raw format outputted by the tool into the SCRUB format
+and storing it in the appropriate location (``.scrub/raw_results/<tool>_raw.scrub``).
 
 The contents of this file must match the expected SCRUB format or else filtering, moving warnings, and exporting
 warnings to various output targets will not work properly. More information about the SCRUB format can be found on the
 :ref:`Scrub Output` page.
+
+Error Handling
+~~~~~~~~~~~~~~
+
+After parsing, each analysis script is run by ``scrub.utils.scrub_utilities.execute_command``. If any non-zero exit
+code is generated, the ``execute_command`` function with raise a CommandExecutionError. Users can debug issues by
+examining the log file found at ``.scrub/log_files/<tool>.log``. Unless a non-zero execution code is encountered, SCRUB
+will assume that the analysis was successfully completed.
 
 
 .. _`Python documentation`: https://docs.python.org/3.6/library/configparser.html
