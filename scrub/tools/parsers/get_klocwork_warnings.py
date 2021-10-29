@@ -4,7 +4,7 @@ import sys
 import json
 import logging
 from distutils.version import StrictVersion
-from scrub.utils import translate_results
+from scrub.tools.parsers import translate_results
 
 WARNING_LEVEL = 'Low'
 ID_PREFIX = 'klocwork'

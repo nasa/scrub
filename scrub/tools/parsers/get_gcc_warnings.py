@@ -2,7 +2,7 @@ import re
 import os
 import sys
 import logging
-from scrub.utils import translate_results
+from scrub.tools.parsers import translate_results
 
 WARNING_LEVEL = 'Low'
 ID_PREFIX = 'gcc'

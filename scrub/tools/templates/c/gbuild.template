@@ -9,4 +9,4 @@ ${{GBUILD_CLEAN_CMD}}
 ${{GBUILD_BUILD_CMD}} > ${{TOOL_ANALYSIS_DIR}}/gbuild_build.log 2>&1
 
 # Parse the output into SCRUB format
-python3 ${{SCRUB_PATH}}/tools/parsers/get_gbuild_warnings.py ${{TOOL_ANALYSIS_DIR}}/gbuild_build.log ${{RAW_RESULTS_DIR}}/gbuild_raw.scrub
+python3 -m scrub.tools.parsers.get_gbuild_warnings ${{TOOL_ANALYSIS_DIR}}/gbuild_build.log ${{RAW_RESULTS_DIR}}/gbuild_compiler_raw.scrub

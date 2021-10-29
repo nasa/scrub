@@ -105,7 +105,7 @@ def run_analysis(baseline_conf_data, override=False):
 
     # Initialize variables
     gui_exit_code = 2
-    attempt_analysis = tool_conf_data.get('gui_export') or override
+    attempt_analysis = tool_conf_data.get('scrub_gui_export') or override
 
     # Determine if GUI export can be run
     if attempt_analysis:

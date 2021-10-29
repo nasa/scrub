@@ -15,4 +15,4 @@ ${{CODEQL_PATH}}/codeql database upgrade --search-path ${{CODEQL_QUERY_PATH}}
 ${{CODEQL_PATH}}/codeql database analyze --format=sarif-latest --output=${{TOOL_ANALYSIS_DIR}}/codeql_raw.sarif ${{TOOL_ANALYSIS_DIR}}/codeql-database "${{CODEQL_QUERY_PATH}}/java/ql/src/codeql-suites/java-lgtm-full.qls" "${{CODEQL_QUERY_PATH}}/java/ql/src/AlertSuppression.ql"
 
 # Parse the results into SCRUB format
-python3 ${{SCRUB_PATH}}/utils/translate_results.py ${{TOOL_ANALYSIS_DIR}}/codeql_raw.sarif ${{RAW_RESULTS_DIR}}/codeql_raw.scrub ${{SOURCE_DIR}} scrub
+python3 -m scrub.tools.parsers.translate_results ${{TOOL_ANALYSIS_DIR}}/codeql_raw.sarif ${{RAW_RESULTS_DIR}}/codeql_raw.scrub ${{SOURCE_DIR}} scrub

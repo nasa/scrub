@@ -1,13 +1,14 @@
 import os
 import re
+import sys
 import glob
 import shutil
 import importlib
 import pytest
+import traceback
 from tests import helpers
 from tests import asserts
-from scrub.utils import scrub_utilities
-from scrub.utils import do_clean
+from scrub import scrubme
 
 # Get a list of the raw output files
 raw_output_files = []
@@ -19,126 +20,74 @@ for path, folders, files in os.walk(helpers.test_root + '/test_data/sample_data/
 if not os.path.exists(helpers.log_dir):
     os.mkdir(helpers.log_dir)
 
-# Create the operation scenarios
-operations = ['normal', 'tool_error', 'invalid_config', 'custom_config']
-test_tool_scenarios = []
-for module in helpers.module_list:
-    tool_name = list(filter(None, re.split('_', module)))[-1]
-    for operation in operations:
-        if operation == 'custom_config' and tool_name in helpers.custom_flag_tools:
-            test_tool_scenarios.append([module, operation])
-        elif operation != 'custom_config':
-            test_tool_scenarios.append([module, operation])
-
-
-@pytest.mark.parametrize('scenario', test_tool_scenarios)
-def test_tool(scenario):
-    # Import the module
-    tool_module = scenario[0]
-    operation = scenario[1]
-    module_object = importlib.import_module(tool_module)
-
-    # Print a status message
-    print('Performing analysis: ' + scenario[0] + ' ' + scenario[1])
-
+@pytest.mark.parametrize('template', glob.glob(helpers.scrub_root + '/scrub/tools/templates/**/*.template'))
+@pytest.mark.parametrize('operation', ['normal', 'flags'])
+def test_tool(template, operation, capsys):
     # Initialize variables
-    tool = re.split('_', tool_module)[-1]
+    tool = os.path.basename(template).replace('.template', '')
     start_dir = os.getcwd()
+    language = template.split('/')[-2]
+    test_log_file = helpers.log_dir + '/' + tool + '-' + language + '-' + operation + '.log'
 
-    # Perform C analysis if applicable
-    if tool_module in helpers.module_list_c:
-        # Initialize variables
-        log_file = os.path.normpath(helpers.c_test_dir + '/.scrub/log_files/' + tool.lower() + '.log')
-        test_log_file = os.path.normpath(helpers.log_dir + '/' + tool.lower() + '-c-' + operation + '.log')
+    # Set the configuration file
+    if language == 'c':
+        conf_file = helpers.c_conf_file
+        custom_conf_file = helpers.c_custom_conf_file
+        codebase = helpers.c_test_dir
+    elif language == 'java':
+        conf_file = helpers.java_conf_file
+        custom_conf_file = helpers.java_custom_conf_file
+        codebase = helpers.java_test_dir
+    elif language == 'python':
+        conf_file = helpers.python_conf_file
+        custom_conf_file = helpers.python_custom_conf_file
+        codebase = helpers.python_test_dir
 
-        # Move to the c_testcase
-        os.chdir(helpers.c_test_dir)
+    # Make a copy of the test code
+    if os.path.exists(helpers.test_tmp_dir):
+        shutil.rmtree(helpers.test_tmp_dir)
+    shutil.copytree(codebase, helpers.test_tmp_dir)
 
+    # Create the configuration file
+    if operation == 'normal':
         # Import the configuration data
-        if operation == 'custom_config':
-            c_conf_data = scrub_utilities.parse_common_configs(helpers.c_custom_conf_file)
-        else:
-            c_conf_data = scrub_utilities.parse_common_configs(helpers.c_conf_file)
+        with open(conf_file, 'r') as input_fh:
+            conf_data = input_fh.readlines()
 
-        # Modify the config data as necessary
-        if operation == 'tool_error':
-            if tool == 'custom':
-                c_conf_data.update({tool.lower() + '_cmd': 'make dummy'})
-            else:
-                c_conf_data.update({tool.lower() + '_build_cmd': 'make dummy'})
-        if operation == 'invalid_config':
-            if tool == 'custom':
-                c_conf_data.update({tool.lower() + '_cmd': ''})
-            else:
-                c_conf_data.update({tool.lower() + '_build_cmd': ''})
-        if operation == 'custom_config':
-            # Add the tool path to PATH
-            if tool.lower() == 'semmle':
-                tool_path = c_conf_data.get(tool.lower() + '_path') + '/tools'
-            else:
-                tool_path = c_conf_data.get(tool.lower() + '_path')
-
-            os.environ['PATH'] = tool_path + os.pathsep + os.environ['PATH']
-
-            c_conf_data.update({tool.lower() + '_path': ''})
-
-        # Clean the previous SCRUB data from the current directory
-        do_clean.clean_directory(c_conf_data.get('source_dir'))
-
-        # Initialize the SCRUB storage directory
-        scrub_utilities.initialize_storage_dir(c_conf_data)
-
-        # Perform analysis
-        tool_status = getattr(module_object, "run_analysis")(c_conf_data)
-
-        # Copy the log file
-        if os.path.exists(log_file):
-            shutil.copyfile(log_file, test_log_file)
-
-        # Check the exit code
-        if operation == 'normal' or operation == 'custom_config':
-            assert tool_status == 0
-            assert os.path.exists(log_file)
-
-        elif operation == 'tool_error':
-            assert tool_status == 1
-
-        elif operation == 'invalid_config':
-            assert tool_status == 2
-            assert not os.path.exists(log_file)
-
-        # Change back to the starting directory
-        os.chdir(start_dir)
-
-    if tool_module in helpers.module_list_java and operation == 'normal':
-        # Initialize variables
-        log_file = os.path.normpath(helpers.java_test_dir + '/.scrub/log_files/' + tool.lower() + '.log')
-        test_log_file = os.path.normpath(helpers.log_dir + '/' + tool.lower() + '-java-' + operation + '.log')
-
-        # Move to the c_testcase
-        os.chdir(helpers.java_test_dir)
-
+        # Create the conf file
+        conf_data = helpers.update_tag(conf_data, 'COLLABORATOR_UPLOAD', 'False')
+        helpers.create_conf_file(conf_data, helpers.test_tmp_dir + '/scrub.cfg')
+    elif operation == 'flags':
         # Import the configuration data
-        java_conf_data = scrub_utilities.parse_common_configs(helpers.java_conf_file)
+        with open(custom_conf_file, 'r') as input_fh:
+            conf_data = input_fh.readlines()
 
-        # Clean the previous SCRUB data from the current directory
-        do_clean.clean_directory(java_conf_data.get('source_dir'))
+        # Create the conf file
+        conf_data = helpers.update_tag(conf_data, 'COLLABORATOR_UPLOAD', 'False')
+        helpers.create_conf_file(conf_data, helpers.test_tmp_dir + '/scrub.cfg')
 
-        # Initialize the SCRUB storage directory
-        scrub_utilities.initialize_storage_dir(java_conf_data)
+    # Run the test
+    try:
+        os.chdir(helpers.test_tmp_dir)
+        sys.argv = ['/opt/project/scrub/scrub_cli.py', 'run', '--tools', tool]
+        scrubme.parse_arguments()
 
-        # Perform analysis
-        tool_status = getattr(module_object, "run_analysis")(java_conf_data)
+    except SystemExit:
+        # Get the exit code
+        sys_exit_text = traceback.format_exc()
+        exit_code = int(list(filter(None, re.split('\n|:', sys_exit_text)))[-1])
 
-        # Copy the log file
-        if os.path.exists(log_file):
-            shutil.copyfile(log_file, test_log_file)
+        # There should be no system exit
+        assert exit_code == 0
 
-        # Check the exit code
-        assert tool_status == 0
-        assert os.path.exists(test_log_file)
+    finally:
+        # Write results to the output log file
+        with open(test_log_file, 'w') as output_fh:
+            system_output = capsys.readouterr()
+            output_fh.write(system_output.err)
+            output_fh.write(system_output.out)
 
-        # Change back to the starting directory
+        # Navigate to the start directory
         os.chdir(start_dir)
 
 
@@ -153,13 +102,15 @@ def test_parser(raw_output_file):
 
     if 'java' in raw_output_file:
         source_root = '/root/scrub/test/integration_tests/java_testcase'
+    elif 'pylint' in raw_output_file:
+        source_root = '/root/scrub/scrub'
     else:
         source_root = '/root/scrub/test/integration_tests/c_testcase'
 
     # Parse SARIF files
     if raw_output_file.endswith('.sarif'):
         # Import the translator
-        import scrub.utils.translate_results as translate_results
+        from scrub.tools.parsers import translate_results
 
         # Parse the results
         translate_results.perform_translation(raw_output_file, parsed_output_file, source_root, 'scrub')

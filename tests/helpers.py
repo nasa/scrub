@@ -11,10 +11,8 @@ scrub_root = os.path.abspath(os.path.dirname(__file__) + '/..')
 test_root = scrub_root + '/tests'
 test_tmp_dir = test_root + '/integration_tests/tmp'
 log_dir = test_root + '/log_files'
-module_list = ['scrub.tools.compiler.do_gbuild',  'scrub.tools.compiler.do_gcc', 'scrub.tools.compiler.do_javac',
-               'scrub.tools.coverity.do_coverity', 'scrub.tools.custom.do_custom', 'scrub.tools.codeql.do_codeql',
-               'scrub.tools.codesonar.do_codesonar']
-versioned_tools = ['codeql', 'coverity', 'codesonar']
+module_list = ['gbuild', 'gcc', 'javac', 'pylint', 'coverity', 'codeql', 'codesonar']
+versioned_tools = ['codeql', 'coverity', 'codesonar', 'klocwork']
 custom_flag_tools = ['codeql', 'coverity', 'codesonar']
 
 # Initialize C variables
@@ -24,8 +22,7 @@ c_conf_file = test_root + '/test_data/configuration_files/c/scrub_c.cfg'
 c_custom_conf_file = test_root + '/test_data/configuration_files/c/scrub_c_custom.cfg'
 c_exclude_queries_file = test_root + '/test_data/configuration_files/c/SCRUBExcludeQueries_c'
 c_regex_filtering_file = test_root + '/test_data/configuration_files/c/SCRUBFilters_c'
-module_list_c = ['scrub.tools.compiler.do_gcc', 'scrub.tools.compiler.do_gbuild', 'scrub.tools.coverity.do_coverity',
-                 'scrub.tools.codesonar.do_codesonar', 'scrub.tools.codeql.do_codeql', 'scrub.tools.custom.do_custom']
+module_list_c = ['gcc', 'gbuild', 'coverity', 'codesonar', 'codeql']
 
 # Initialize java variables
 java_test_dir = test_root + '/integration_tests/java_testcase'
@@ -33,8 +30,7 @@ java_custom_conf_file = test_root + '/test_data/configuration_files/java/scrub_j
 java_conf_file = test_root + '/test_data/configuration_files/java/scrub_java.cfg'
 java_exclude_queries_file = test_root + '/test_data/configuration_files/java/SCRUBExcludeQueries_java'
 java_regex_filtering_file = test_root + '/test_data/configuration_files/java/SCRUBFilters_java'
-module_list_java = ['scrub.tools.compiler.do_javac', 'scrub.tools.coverity.do_coverity',
-                    'scrub.tools.codesonar.do_codesonar', 'scrub.tools.codeql.do_codeql']
+module_list_java = ['javac', 'coverity', 'codesonar', 'codeql']
 
 # Initialize python variables
 #python_test_dir = test_root + '/integration_tests/python_testcase'
@@ -43,8 +39,7 @@ python_custom_conf_file = test_root + '/test_data/configuration_files/python/scr
 python_conf_file = test_root + '/test_data/configuration_files/python/scrub_python.cfg'
 python_exclude_queries_file = test_root + '/test_data/configuration_files/python/SCRUBExcludeQueries_python'
 python_regex_filtering_file = test_root + '/test_data/configuration_files/python/SCRUBFilters_python'
-module_list_python = ['scrub.tools.coverity.do_coverity', 'scrub.tools.codesonar.do_codesonar',
-                    'scrub.tools.codeql.do_codeql']
+module_list_python = ['pylint', 'coverity', 'codesonar', 'codeql']
 
 
 def init_testcase(conf_data, test_dir, init_state, log_dir):
@@ -98,21 +93,22 @@ def create_conf_file(conf_data, output_file):
             output_fh.write('%s' % line)
 
 
-def init_codebase(source_root, conf_data, tag):
-    # Initialize variables
-    start_dir = os.getcwd()
+def init_codebase(source_root, lang, state):
+    # Create the SCRUB directory
+    if os.path.exists(source_root + '/.scrub'):
+        shutil.rmtree(source_root + '/.scrub')
 
-    # Change to the directory of interest
-    os.chdir(source_root)
-
-    # Write out the conf data
-    create_conf_file(isolate_tool(conf_data.copy(), tag), source_root + '/scrub.cfg')
-
-    # Run scrubme
-    os.system('python3 ./../../../scrubme.py >> /dev/null 2>&1')
-
-    # Change back to the starting directory
-    os.chdir(start_dir)
+    # os.mkdir(source_root + '/.scrub')
+    if state == 'empty':
+        os.mkdir(source_root + '/.scrub')
+    elif state == 'dirty':
+        # Copy the results
+        if lang == 'c':
+            shutil.copytree(test_root + '/test_data/sample_data/sample_c_results', source_root + '/.scrub')
+        elif lang == 'j':
+            shutil.copytree(test_root + '/test_data/sample_data/sample_java_results/*', source_root + '/.scrub')
+        elif lang == 'p':
+            shutil.copytree(test_root + '/test_data/sample_data/sample_python_results/*', source_root + '/.scrub')
 
 
 def execute_command(call_string, my_env, output_file=None):

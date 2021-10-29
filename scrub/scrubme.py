@@ -38,8 +38,8 @@ def main(conf_file='./scrub.cfg', clean=False, tools=None, targets=None):
     Inputs:
         - config: Path to SCRUB configuration file [string] [optional]
             Default value: ./scrub.cfg
-        - overwrite: Should SCRUB overwrite existing results? [bool]
-            Default value: True
+        - clean: Should SCRUB clean existing results? [bool]
+            Default value: False
         - tools: List of tools to run during analysis [list of strings] [optional]
             Default value: None
         - targets: List of output targets for exporting the analysis results [list of strings] [optional]
@@ -67,23 +67,24 @@ def main(conf_file='./scrub.cfg', clean=False, tools=None, targets=None):
     shutil.copyfile(conf_file, os.path.normpath(scrub_conf_data.get('scrub_analysis_dir') + '/scrub.cfg'))
 
     try:
-        # Get the templates for the language
-        if scrub_conf_data.get('source_lang') == 'c':
-            template_search_string = 'templates/c/*.template'
-        elif scrub_conf_data.get('source_lang') == 'j':
-            template_search_string = 'templates/java/*.template'
-        elif scrub_conf_data.get('source_lang') == 'p':
-            template_search_string = 'templates/python/*.template'
-        else:
-            sys.exit()
+        # Handle legacy language selections
+        if scrub_conf_data.get('source_lang') == 'j':
+            scrub_conf_data.update({'source_lang': 'java'})
+        if scrub_conf_data.get('source_lang') == 'p':
+            scrub_conf_data.update({'source_lang': 'python'})
 
-        # Search for analysis templates
-        available_analysis_templates = glob.glob(scrub_path + '/tools/' + template_search_string)
+        # Get the templates for the language
+        available_analysis_templates = glob.glob(scrub_path + '/tools/templates/' + scrub_conf_data.get('source_lang') +
+                                                 '/*.template')
 
         # Append the custom templates if provided
         if scrub_conf_data.get('custom_templates'):
             available_analysis_templates = (available_analysis_templates +
                                             scrub_conf_data.get('custom_templates').replace('\"', '').split(','))
+
+        # Check to make sure at least one possible template has been identified
+        if len(available_analysis_templates) == 0:
+            print('WARNING: No analysis templates have been found.')
 
         # Update the analysis templates to be run
         if tools == 'filter' or tools == 'filtering':
@@ -151,8 +152,18 @@ def main(conf_file='./scrub.cfg', clean=False, tools=None, targets=None):
                 scrub_utilities.parse_template(analysis_template, analysis_script, scrub_conf_data)
 
                 try:
+                    # Set the environment for execution
+                    user_env = os.environ.copy()
+
+                    # Update the envrionment
+                    if 'PYTHONPATH' in user_env.keys():
+                        user_env.update({'PYTHONPATH': user_env.get('PYTHONPATH') + ':' +
+                                                       os.path.normpath(scrub_path + '/../')})
+                    else:
+                        user_env.update({'PYTHONPATH': os.path.normpath(scrub_path + '/../')})
+
                     # Execute the analysis
-                    scrub_utilities.execute_command(analysis_script, os.environ.copy())
+                    scrub_utilities.execute_command(analysis_script, user_env)
 
                     # Update the execution status
                     tool_execution_status = 0
@@ -214,6 +225,12 @@ def main(conf_file='./scrub.cfg', clean=False, tools=None, targets=None):
     # Search for target modules
     available_target_modules = glob.glob(scrub_path + '/targets/*/do_*.py')
 
+    # Handle legacy Collaborator tag
+    if 'collaborator_upload' in scrub_conf_data.keys():
+        scrub_conf_data.update({'collaborator_export': scrub_conf_data.get('collaborator_upload')})
+    else:
+        scrub_conf_data.update({'collaborator_export': False})
+
     # Update the targets to be run
     if targets:
         target_modules = []
@@ -221,7 +238,7 @@ def main(conf_file='./scrub.cfg', clean=False, tools=None, targets=None):
             for target in targets:
                 if target in os.path.basename(module_path):
                     target_modules.append(module_path)
-                    scrub_conf_data.update({target.lower() + '_upload': True})
+                    scrub_conf_data.update({target.lower() + '_export': True})
     else:
         target_modules = available_target_modules
 

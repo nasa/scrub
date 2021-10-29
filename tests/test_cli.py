@@ -5,7 +5,6 @@ import glob
 import traceback
 from scrub import scrub_cli
 from tests import helpers
-from tests import asserts
 
 
 # Make the log directory if necessary
@@ -32,7 +31,7 @@ def test_scrubme_cli(capsys):
     helpers.init_testcase(conf_data, helpers.c_test_dir, 'clean', helpers.log_dir)
 
     # Set the sys-argv values
-    sys.argv = ['scrub', 'run-all', '--config', './scrub.cfg']
+    sys.argv = ['scrub', 'run', '--config', './scrub.cfg']
 
     # Run cli
     try:
@@ -59,46 +58,6 @@ def test_scrubme_cli(capsys):
         # Clean the codebase
         helpers.clean_codebase(helpers.c_test_dir, helpers.c_test_dir + '/src', 'make clean')
 
-
-def test_modhelper_cli(capsys):
-    # Initialize variables
-    test_log_file = helpers.log_dir + '/run_tool-cli.log'
-    output_dir = helpers.c_test_dir + '/.scrub'
-    start_dir = os.getcwd()
-
-    # Change directory
-    os.chdir(helpers.c_test_dir)
-
-    # Import the configuration data
-    with open(helpers.c_conf_file, 'r') as input_fh:
-        c_conf_data = input_fh.readlines()
-
-    # Turn off all tools
-    conf_data = helpers.disable_all_tools(c_conf_data)
-
-    # Initialize the test
-    helpers.init_testcase(conf_data, helpers.c_test_dir, 'clean', helpers.log_dir)
-
-    # Set sys.argv variables
-    sys.argv = ['scrub', 'run-tool', '--module', 'scrub.tools.compiler.do_gcc', '--config', './scrub.cfg']
-
-    # Run module_helper
-    scrub_cli.main()
-
-    # Write results to the output log file
-    with open(test_log_file, 'w') as output_fh:
-        system_output = capsys.readouterr()
-        output_fh.write(system_output.err)
-        output_fh.write(system_output.out)
-
-    # Navigate to the start directory
-    os.chdir(start_dir)
-
-    # Check the SCRUB output
-    asserts.assert_mod_helper_success(output_dir, 'gcc', test_log_file)
-
-    # Clean the codebase
-    helpers.clean_codebase(helpers.c_test_dir, helpers.c_test_dir + '/src', 'make clean')
 
 def test_diff_cli(capsys):
     # Initialize variables
@@ -133,6 +92,7 @@ def test_diff_cli(capsys):
     # Cleanup
     for diff_file in diff_output_files:
         os.remove(diff_file)
+
 
 def test_conf_cli():
     # Remove the configuration file if it exists

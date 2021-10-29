@@ -7,7 +7,7 @@ import importlib
 from scrub.utils.filtering import create_file_list
 from scrub.utils.filtering import filter_results
 from scrub.utils import scrub_utilities
-from scrub.utils import translate_results
+from scrub.tools.parsers import translate_results
 from scrub.utils import do_clean
 
 

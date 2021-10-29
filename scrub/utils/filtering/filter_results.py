@@ -1,7 +1,7 @@
 import os
 import re
 import logging
-from scrub.utils import translate_results
+from scrub.tools.parsers import translate_results
 
 
 def micro_filter_check(source_file, warning_line, warning_type, raw_valid_warning_types, checked_source_files):

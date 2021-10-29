@@ -8,7 +8,7 @@ import threading
 import subprocess
 import configparser
 import argparse
-from scrub.utils import translate_results
+from scrub.tools.parsers import translate_results
 
 
 class Spinner:
@@ -76,52 +76,52 @@ class CommandExecutionError(Exception):
     pass
 
 
-def check_file(input_file, critical):
-    """This function checks to ensure the given file is not empty.
+# def check_file(input_file, critical):
+#     """This function checks to ensure the given file is not empty.
+#
+#     Inputs:
+#         - input_file: Full path to the file of interest [string]
+#         - critical: Indication of file criticality [binary]
+#             - 0: File is not critical and may be empty
+#             - 1: File is critical and should not be empty
+#
+#     Output:
+#         - Warnings sent to standard output
+#     """
+#
+#     # Check to make sure the file isn't empty
+#     file_size = os.path.getsize(input_file)
+#     if file_size == 0:
+#         if critical == 1:
+#             message = 'Output file \"' + input_file + '\" is empty. This file should not be empty.'
+#             raise UserWarning(message)
+#         if critical == 0:
+#             logging.warning('')
+#             logging.warning('\tOutput file %s is empty.', input_file)
+#             logging.warning('\tThis may or may not be a problem.')
 
-    Inputs:
-        - input_file: Full path to the file of interest [string]
-        - critical: Indication of file criticality [binary]
-            - 0: File is not critical and may be empty
-            - 1: File is critical and should not be empty
 
-    Output:
-        - Warnings sent to standard output
-    """
-
-    # Check to make sure the file isn't empty
-    file_size = os.path.getsize(input_file)
-    if file_size == 0:
-        if critical == 1:
-            message = 'Output file \"' + input_file + '\" is empty. This file should not be empty.'
-            raise UserWarning(message)
-        if critical == 0:
-            logging.warning('')
-            logging.warning('\tOutput file %s is empty.', input_file)
-            logging.warning('\tThis may or may not be a problem.')
-
-
-def get_executable_path(executable):
-    """This function returns the path of an executable.
-
-    Inputs:
-        - executable: Executable of interest [string]
-
-    Outputs:
-        - execution_path: Absolute path to the directory containing the executable [string]
-    """
-
-    # Initialize variables
-    call_string = 'which ' + executable
-    my_env = os.environ.copy()
-
-    # Get the execution path
-    # subprocess.call(call_string, shell=True, env=my_env)
-    proc = subprocess.Popen(call_string, shell=True, env=my_env,
-                            stdout=subprocess.PIPE, stderr=subprocess.PIPE, encoding='utf-8')
-    execution_path = os.path.dirname(proc.communicate()[0].strip())
-
-    return execution_path
+# def get_executable_path(executable):
+#     """This function returns the path of an executable.
+#
+#     Inputs:
+#         - executable: Executable of interest [string]
+#
+#     Outputs:
+#         - execution_path: Absolute path to the directory containing the executable [string]
+#     """
+#
+#     # Initialize variables
+#     call_string = 'which ' + executable
+#     my_env = os.environ.copy()
+#
+#     # Get the execution path
+#     # subprocess.call(call_string, shell=True, env=my_env)
+#     proc = subprocess.Popen(call_string, shell=True, env=my_env,
+#                             stdout=subprocess.PIPE, stderr=subprocess.PIPE, encoding='utf-8')
+#     execution_path = os.path.dirname(proc.communicate()[0].strip())
+#
+#     return execution_path
 
 
 def split_results(baseline_file, subset_file, remainder_file, queries):

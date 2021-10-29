@@ -1,4 +1,0 @@
-#!/bin/bash -x
-cd ${{KLOCWORK_BUILD_DIR}}
-${{KLOCWORK_CLEAN_CMD}}
-${{KLOCWORK_PATH}}/
