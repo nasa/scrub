@@ -3,7 +3,7 @@ import sys
 import glob
 import datetime
 import shutil
-import scrub.utils.translate_results as translate_results
+from scrub.tools.parsers import translate_results
 
 
 def parse_warnings(input_dir):
