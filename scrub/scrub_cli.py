@@ -1,15 +1,12 @@
 import sys
 
 from scrub import scrubme
-from scrub import module_helper
 from scrub.utils import diff_results
 from scrub.utils import scrub_utilities
 
 
-help_message = ('run-all\n' +
+help_message = ('run\n' +
                 scrubme.main.__doc__ + '\n\n'
-                'run-tool\n' +
-                module_helper.main.__doc__ + '\n\n'
                 'diff\n' +
                 diff_results.diff.__doc__ + '\n\n'
                 'get-conf\n' +
@@ -22,13 +19,9 @@ def main():
     if len(sys.argv) <= 1:
         print(help_message)
     else:
-        if 'run-all' in sys.argv:
+        if 'run' in sys.argv:
             # Run analysis
             scrubme.parse_arguments()
-
-        elif 'run-tool' in sys.argv:
-            # Run analysis
-            module_helper.parse_arguments()
 
         elif 'diff' in sys.argv:
             # Run analysis

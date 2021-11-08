@@ -1,0 +1,21 @@
+#!/bin/bash -x
+# Change to the build directory
+cd ${{CODESONAR_BUILD_DIR}}
+
+# Clean the build
+${{CODESONAR_CLEAN_CMD}}
+
+# Perform CodeSonar analysis
+${{CODESONAR_PATH}}/codesonar analyze ${{TOOL_ANALYSIS_DIR}}/SCRUBAnalysis -project ${{CODESONAR_PROJ_NAME}} -foreground -auth certificate -hubcert ${{CODESONAR_CERT}} -hubkey ${{CODESONAR_KEY}} ${{CODESONAR_ANALYZE_FLAGS}} ${{CODESONAR_HUB}} ${{CODESONAR_BUILD_CMD}}
+
+# Get the analysis ID from the analysis artifacts
+aid=`cat ${{TOOL_ANALYSIS_DIR}}/*/aid.txt`
+
+# Change to the analysis directory
+cd ${{TOOL_ANALYSIS_DIR}}
+
+# Get the results from the CodeSonar Hub
+${{CODESONAR_PATH}}/codesonar get -auth certificate -hubcert ${{CODESONAR_CERT}} -hubkey ${{CODESONAR_KEY}} ${{CODESONAR_GET_FLAGS}} ${{CODESONAR_HUB}}/analysis/$aid-allwarnings.sarif
+
+# Parse the results into SCRUB format
+python3 -m scrub.tools.parsers.translate_results ${{TOOL_ANALYSIS_DIR}}/*.sarif ${{RAW_RESULTS_DIR}}/codesonar_raw.scrub ${{SOURCE_DIR}} scrub

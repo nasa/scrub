@@ -16,3 +16,13 @@ experienced developers to determine their merit.
 
 A full description of the origins of SCRUB, written by the original author (Gerard Holzmann), can be found here:
 http://spinroot.com/gerard/pdf/ScrubPaper_rev.pdf
+
+
+Program Flow
+------------
+
+Executing the ``scrub run-all`` command results in the following program flow:
+
+
+
+Executing the ``scrub run-tool`` command results in the following program flow:

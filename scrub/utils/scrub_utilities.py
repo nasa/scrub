@@ -1,64 +1,127 @@
 import re
 import os
 import sys
+import time
 import shutil
 import logging
+import threading
 import subprocess
 import configparser
 import argparse
-from scrub.utils import translate_results
+from scrub.tools.parsers import translate_results
+
+
+class Spinner:
+    busy = False
+    delay = 0.1
+
+    @staticmethod
+    def spinning_cursor():
+        while 1:
+            for cursor in '|/-\\':
+                yield cursor
+
+    def __init__(self, delay=None):
+        self.spinner_generator = self.spinning_cursor()
+        if delay and float(delay):
+            self.delay = delay
+
+    def spinner_task(self):
+        while self.busy:
+            sys.stdout.write(next(self.spinner_generator))
+            sys.stdout.flush()
+            time.sleep(self.delay)
+            sys.stdout.write('\b')
+            sys.stdout.flush()
+
+    def __enter__(self):
+        self.busy = True
+        threading.Thread(target=self.spinner_task).start()
+
+    def __exit__(self, exception, value, tb):
+        self.busy = False
+        time.sleep(self.delay)
+        if exception is not None:
+            return False
+
+
+def parse_template(template_file, output_file, conf_data):
+    """This function parsers analysis templates and populates them with configuration values.
+
+    Inputs:
+        - template_file: Absolute path to analysis template file [string]
+        - output_file: Absolute path to output analysis script [string]
+        - conf_data: Dictionary of values read from configuration file [dict]
+    """
+
+    # Read in the analysis template
+    with open(template_file, 'r') as input_fh:
+        template_data = input_fh.read()
+
+    # Replace all of the variables with config data
+    for key in conf_data.keys():
+        template_data = template_data.replace('${{' + key.upper() + '}}', str(conf_data.get(key)))
+
+    # Write out the completed template
+    if os.path.exists(output_file):
+        os.remove(output_file)
+    with open(output_file, 'w') as output_fh:
+        output_fh.write('%s' % template_data)
+
+    # Update the permissions to allow for execution
+    os.chmod(output_file, 775)
 
 
 class CommandExecutionError(Exception):
     pass
 
 
-def check_file(input_file, critical):
-    """This function checks to ensure the given file is not empty.
+# def check_file(input_file, critical):
+#     """This function checks to ensure the given file is not empty.
+#
+#     Inputs:
+#         - input_file: Full path to the file of interest [string]
+#         - critical: Indication of file criticality [binary]
+#             - 0: File is not critical and may be empty
+#             - 1: File is critical and should not be empty
+#
+#     Output:
+#         - Warnings sent to standard output
+#     """
+#
+#     # Check to make sure the file isn't empty
+#     file_size = os.path.getsize(input_file)
+#     if file_size == 0:
+#         if critical == 1:
+#             message = 'Output file \"' + input_file + '\" is empty. This file should not be empty.'
+#             raise UserWarning(message)
+#         if critical == 0:
+#             logging.warning('')
+#             logging.warning('\tOutput file %s is empty.', input_file)
+#             logging.warning('\tThis may or may not be a problem.')
 
-    Inputs:
-        - input_file: Full path to the file of interest [string]
-        - critical: Indication of file criticality [binary]
-            - 0: File is not critical and may be empty
-            - 1: File is critical and should not be empty
 
-    Output:
-        - Warnings sent to standard output
-    """
-
-    # Check to make sure the file isn't empty
-    file_size = os.path.getsize(input_file)
-    if file_size == 0:
-        if critical == 1:
-            message = 'Output file \"' + input_file + '\" is empty. This file should not be empty.'
-            raise UserWarning(message)
-        if critical == 0:
-            logging.warning('')
-            logging.warning('\tOutput file %s is empty.', input_file)
-            logging.warning('\tThis may or may not be a problem.')
-
-
-def get_executable_path(executable):
-    """This function returns the path of an executable.
-
-    Inputs:
-        - executable: Executable of interest [string]
-
-    Outputs:
-        - execution_path: Absolute path to the directory containing the executable [string]
-    """
-
-    # Initialize variables
-    call_string = 'which ' + executable
-    my_env = os.environ.copy()
-
-    # Get the execution path
-    # subprocess.call(call_string, shell=True, env=my_env)
-    proc = subprocess.Popen(call_string, shell=True, env=my_env,
-                            stdout=subprocess.PIPE, stderr=subprocess.PIPE, encoding='utf-8')
-    execution_path = os.path.dirname(proc.communicate()[0].strip())
-
-    return execution_path
+# def get_executable_path(executable):
+#     """This function returns the path of an executable.
+#
+#     Inputs:
+#         - executable: Executable of interest [string]
+#
+#     Outputs:
+#         - execution_path: Absolute path to the directory containing the executable [string]
+#     """
+#
+#     # Initialize variables
+#     call_string = 'which ' + executable
+#     my_env = os.environ.copy()
+#
+#     # Get the execution path
+#     # subprocess.call(call_string, shell=True, env=my_env)
+#     proc = subprocess.Popen(call_string, shell=True, env=my_env,
+#                             stdout=subprocess.PIPE, stderr=subprocess.PIPE, encoding='utf-8')
+#     execution_path = os.path.dirname(proc.communicate()[0].strip())
+#
+#     return execution_path
 
 
 def split_results(baseline_file, subset_file, remainder_file, queries):
@@ -150,26 +213,27 @@ def execute_command(call_string, my_env, output_file=None, interactive=False):
 
     # Write out a logging message
     logging.info('')
-    logging.info('\t>> Executing command: %s', call_string)
-    logging.info('\t>> From directory: %s', os.getcwd())
-    logging.debug('\tConsole output:')
+    logging.info('    >> Executing command: %s', call_string)
+    logging.info('    >> From directory: %s', os.getcwd())
+    logging.debug('    Console output:')
 
     # Execute the call string and capture the output
-    if interactive:
-        proc = subprocess.Popen(call_string, shell=True, env=my_env, encoding='utf-8')
-    else:
-        proc = subprocess.Popen(call_string, shell=True, env=my_env, stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
-                                encoding='utf-8')
+    with Spinner():
+        if interactive:
+            proc = subprocess.Popen(call_string, shell=True, env=my_env, encoding='utf-8')
+        else:
+            proc = subprocess.Popen(call_string, shell=True, env=my_env, stdout=subprocess.PIPE,
+                                    stderr=subprocess.STDOUT, encoding='utf-8')
 
-        # Write the output to the logging file
-        for stdout_line in iter(proc.stdout.readline, ''):
-            logging.debug('\t\t%s', stdout_line.replace('\n', ''))
-            output_data = output_data + stdout_line
+            # Write the output to the logging file
+            for stdout_line in iter(proc.stdout.readline, ''):
+                logging.debug('        %s', stdout_line.replace('\n', ''))
+                output_data = output_data + stdout_line
 
-        # Write results to the output file
-        if output_file is not None:
-            with open(output_file, 'w') as output_fh:
-                output_fh.write(output_data)
+            # Write results to the output file
+            if output_file is not None:
+                with open(output_file, 'w') as output_fh:
+                    output_fh.write(output_data)
 
     # Wait for the process to finish
     proc.wait(timeout=None)
@@ -266,8 +330,11 @@ def parse_common_configs(user_conf_file, scrub_keys=[]):
     # Update the dictionary
     for user_section in user_conf_data.sections():
         for section_key in user_conf_data.options(user_section):
-            # Update the value only if there is a user value
+            # Update the value if the user conf has something
             if user_conf_data.get(user_section, section_key):
+                scrub_conf_data.update({section_key: user_conf_data.get(user_section, section_key)})
+            elif section_key not in scrub_conf_data.keys():
+                # Add the key if it doesn't exist
                 scrub_conf_data.update({section_key: user_conf_data.get(user_section, section_key)})
 
     # Update the configuration data

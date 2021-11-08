@@ -1,0 +1,135 @@
+#!/bin/bash -x
+# Change to the build directory
+cd ${{SEMMLE_BUILD_DIR}}
+
+# Clean the build
+${{SEMMLE_CLEAN_CMD}}
+
+# Generate the Semmle project file
+if [ ${{SEMMLE_TEMPLATE_PATH}} ]; then
+    # Copy the user provided project template
+    cp ${{SEMMLE_TEMPLATE_PATH}} ${{TOOL_ANALYSIS_DIR}}/project
+
+    # Replace the configuration values
+    sed -i 's;SEMMLE_BUILD_DIR;${{SEMMLE_BUILD_DIR}};g' ${{TOOL_ANALYSIS_DIR}}/project
+    sed -i 's;SEMMLE_BUILD_CMD;${{SEMMLE_BUILD_CMD}};g' ${{TOOL_ANALYSIS_DIR}}/project
+    sed -i 's;SOURCE_DIR;${{SOURCE_DIR}};g' ${{TOOL_ANALYSIS_DIR}}/project
+else
+    # Generate a new one if none is provided by the user
+    echo "<project language=\"cpp\">" >> ${{TOOL_ANALYSIS_DIR}}/project
+    echo "  <timeout>600</timeout>" >> ${{TOOL_ANALYSIS_DIR}}/project
+    echo "  <autoupdate>" >> ${{TOOL_ANALYSIS_DIR}}/project
+    echo "    <build dir=\"${{SEMMLE_BUILD_DIR}}\" index=\"true\">${{SEMMLE_BUILD_CMD}}</build>" >> ${{TOOL_ANALYSIS_DIR}}/project
+    echo "    <build>odasa duplicateCode --ram 2048 --minimum-tokens 100</build>" >> ${{TOOL_ANALYSIS_DIR}}/project
+    echo "    <source-location>${{SOURCE_DIR}}</source-location>" >> ${{TOOL_ANALYSIS_DIR}}/project
+    echo "  </autoupdate>" >> ${{TOOL_ANALYSIS_DIR}}/project
+    echo "</project>" >> ${{TOOL_ANALYSIS_DIR}}/project
+fi
+
+# Add the latest code snapshot to the project
+${{SEMMLE_PATH}}/tools/odasa addLatestSnapshot ${{SEMMLE_ADDSNAPSHOT_FLAGS}} --project ${{TOOL_ANALYSIS_DIR}}
+
+# Build the snapshot
+${{SEMMLE_PATH}}/tools/odasa buildSnapshot ${{SEMMLE_BUILDSNAPSHOT_FLAGS}} --latest --verbose --overwrite --project ${{TOOL_ANALYSIS_DIR}}
+
+# Perform baseline analysis, if desired
+if [ ${{SEMMLE_BASELINE_ANALYSIS}} ]; then
+    if [ ${{SEMMLE_SUITE_FILE}} ]; then
+        # Copy user generated baseline analysis suite
+        cp ${{SEMMLE_SUITE_FILE}} ${{TOOL_ANALYSIS_DIR}}/baseline_suite
+    else
+        # Generate default baseline analysis suite
+        echo "+ odasa-cpp-metrics/Files/FLinesOfCode.ql: /Metrics/Size" >> ${{TOOL_ANALYSIS_DIR}}/baseline_suite
+        echo "+ semmlecode-cpp-queries/Architecture/Refactoring Opportunities/CyclomaticComplexity.ql: /Metrics" >> ${{TOOL_ANALYSIS_DIR}}/baseline_suite
+        echo "+ semmlecode-cpp-queries/JPL_C/LOC-2/Rule 12/EnumInitialization.ql: /JPL" >> ${{TOOL_ANALYSIS_DIR}}/baseline_suite
+        echo "+ semmlecode-cpp-queries/JPL_C/LOC-2/Rule 07/ThreadSafety.ql: /JPL" >> ${{TOOL_ANALYSIS_DIR}}/baseline_suite
+        echo "+ semmlecode-cpp-queries/JPL_C/LOC-4/Rule 22/UseOfUndef.ql: /JPL" >> ${{TOOL_ANALYSIS_DIR}}/baseline_suite
+        echo "+ semmlecode-cpp-queries/JPL_C/LOC-4/Rule 30/FunctionPointerConversions.ql: /JPL" >> ${{TOOL_ANALYSIS_DIR}}/baseline_suite
+        echo "+ semmlecode-cpp-queries/JPL_C/LOC-4/Rule 31/IncludesFirst.ql: /JPL" >> ${{TOOL_ANALYSIS_DIR}}/baseline_suite
+        echo "+ semmlecode-cpp-queries/JPL_C/LOC-2/Rule 09/AvoidSemaphores.ql: /JPL" >> ${{TOOL_ANALYSIS_DIR}}/baseline_suite
+        echo "+ semmlecode-cpp-queries/JPL_C/LOC-4/Rule 28/HiddenPointerDereferenceMacro.ql: /JPL" >> ${{TOOL_ANALYSIS_DIR}}/baseline_suite
+        echo "+ semmlecode-cpp-queries/JPL_C/LOC-3/Rule 18/CompoundExpressions.ql: /JPL" >> ${{TOOL_ANALYSIS_DIR}}/baseline_suite
+        echo "+ semmlecode-cpp-queries/JPL_C/LOC-4/Rule 25/FunctionSizeLimits.ql: /JPL" >> ${{TOOL_ANALYSIS_DIR}}/baseline_suite
+        echo "+ semmlecode-cpp-queries/JPL_C/LOC-3/Rule 13/ExternDeclsInHeader.ql: /JPL" >> ${{TOOL_ANALYSIS_DIR}}/baseline_suite
+        echo "+ semmlecode-cpp-queries/JPL_C/LOC-4/Rule 24/MultipleVarDeclsPerLine.ql: /JPL" >> ${{TOOL_ANALYSIS_DIR}}/baseline_suite
+        echo "+ semmlecode-cpp-queries/JPL_C/LOC-3/Rule 17/BasicIntTypes.ql: /JPL" >> ${{TOOL_ANALYSIS_DIR}}/baseline_suite
+        echo "+ semmlecode-cpp-queries/Likely Bugs/Conversion/LossyPointerCast.ql: /Correctness/Dangerous Conversions" >> ${{TOOL_ANALYSIS_DIR}}/baseline_suite
+        echo "+ semmlecode-cpp-queries/Best Practices/Likely Errors/Slicing.ql: /Correctness/Dangerous Conversions" >> ${{TOOL_ANALYSIS_DIR}}/baseline_suite
+        echo "+ semmlecode-cpp-queries/Likely Bugs/Arithmetic/BadCheckOdd.ql: /Correctness/Dangerous Conversions" >> ${{TOOL_ANALYSIS_DIR}}/baseline_suite
+        echo "+ semmlecode-cpp-queries/Likely Bugs/Arithmetic/IntMultToLong.ql: /Correctness/Dangerous Conversions" >> ${{TOOL_ANALYSIS_DIR}}/baseline_suite
+        echo "+ semmlecode-cpp-queries/Likely Bugs/Conversion/NonzeroValueCastToPointer.ql: /Correctness/Dangerous Conversions" >> ${{TOOL_ANALYSIS_DIR}}/baseline_suite
+        echo "+ semmlecode-cpp-queries/Likely Bugs/Conversion/ArrayArgSizeMismatch.ql: /Correctness/Dangerous Conversions" >> ${{TOOL_ANALYSIS_DIR}}/baseline_suite
+        echo "+ semmlecode-cpp-queries/Likely Bugs/InconsistentCheckReturnNull.ql: /Correctness/Consistent Use" >> ${{TOOL_ANALYSIS_DIR}}/baseline_suite
+        echo "+ semmlecode-cpp-queries/Likely Bugs/InconsistentCallOnResult.ql: /Correctness/Consistent Use" >> ${{TOOL_ANALYSIS_DIR}}/baseline_suite
+        echo "+ semmlecode-cpp-queries/Likely Bugs/Likely Typos/AssignWhereCompareMeant.ql: /Correctness/Common Errors" >> ${{TOOL_ANALYSIS_DIR}}/baseline_suite
+        echo "+ semmlecode-cpp-queries/Likely Bugs/Likely Typos/CompareWhereAssignMeant.ql: /Correctness/Common Errors" >> ${{TOOL_ANALYSIS_DIR}}/baseline_suite
+        echo "+ semmlecode-cpp-queries/Likely Bugs/Likely Typos/ExprHasNoEffect.ql: /Correctness/Common Errors" >> ${{TOOL_ANALYSIS_DIR}}/baseline_suite
+        echo "+ semmlecode-cpp-queries/Likely Bugs/Likely Typos/ShortCircuitBitMask.ql: /Correctness/Common Errors" >> ${{TOOL_ANALYSIS_DIR}}/baseline_suite
+        echo "+ semmlecode-cpp-queries/Likely Bugs/Likely Typos/MissingEnumCaseInSwitch.ql: /Correctness/Common Errors" >> ${{TOOL_ANALYSIS_DIR}}/baseline_suite
+        echo "+ semmlecode-cpp-queries/Likely Bugs/Arithmetic/FloatComparison.ql: /Correctness/Common Errors" >> ${{TOOL_ANALYSIS_DIR}}/baseline_suite
+        echo "+ semmlecode-cpp-queries/Likely Bugs/Arithmetic/BitwiseSignCheck.ql: /Correctness/Common Errors" >> ${{TOOL_ANALYSIS_DIR}}/baseline_suite
+        echo "+ semmlecode-cpp-queries/Likely Bugs/NestedLoopSameVar.ql: /Correctness/Common Errors" >> ${{TOOL_ANALYSIS_DIR}}/baseline_suite
+        echo "+ semmlecode-cpp-queries/Likely Bugs/Memory Management/SuspiciousCallToMemset.ql: /Correctness/Use of Libraries" >> ${{TOOL_ANALYSIS_DIR}}/baseline_suite
+        echo "+ semmlecode-cpp-queries/Likely Bugs/Memory Management/SuspiciousSizeof.ql: /Correctness/Use of Libraries" >> ${{TOOL_ANALYSIS_DIR}}/baseline_suite
+        echo "+ semmlecode-cpp-queries/Likely Bugs/Memory Management/UnsafeUseOfStrcat.ql: /Correctness/Use of Libraries" >> ${{TOOL_ANALYSIS_DIR}}/baseline_suite
+        echo "+ semmlecode-cpp-queries/Likely Bugs/Memory Management/SuspiciousCallToStrncat.ql: /Correctness/Use of Libraries" >> ${{TOOL_ANALYSIS_DIR}}/baseline_suite
+        echo "+ semmlecode-cpp-queries/Likely Bugs/Memory Management/StrncpyFlippedArgs.ql: /Correctness/Use of Libraries" >> ${{TOOL_ANALYSIS_DIR}}/baseline_suite
+        echo "+ semmlecode-cpp-queries/Likely Bugs/Format/WrongNumberOfFormatArguments.ql: /Correctness/Use of Libraries" >> ${{TOOL_ANALYSIS_DIR}}/baseline_suite
+        echo "+ semmlecode-cpp-queries/Likely Bugs/Format/WrongTypeFormatArguments.ql: /Correctness/Use of Libraries" >> ${{TOOL_ANALYSIS_DIR}}/baseline_suite
+        echo "+ semmlecode-cpp-queries/Likely Bugs/Format/NonConstantFormat.ql: /Correctness/Use of Libraries" >> ${{TOOL_ANALYSIS_DIR}}/baseline_suite
+        echo "+ semmlecode-cpp-queries/Best Practices/Magic Constants/MagicConstantsString.ql: /Maintainability/Declarations" >> ${{TOOL_ANALYSIS_DIR}}/baseline_suite
+        echo "+ semmlecode-cpp-queries/Best Practices/Magic Constants/MagicConstantsNumbers.ql: /Maintainability/Declarations" >> ${{TOOL_ANALYSIS_DIR}}/baseline_suite
+        echo "+ semmlecode-cpp-queries/Best Practices/Unused Entities/UnusedStaticFunctions.ql: /Useless Code" >> ${{TOOL_ANALYSIS_DIR}}/baseline_suite
+        echo "+ semmlecode-cpp-queries/Best Practices/Unused Entities/UnusedStaticVariables.ql: /Useless Code" >> ${{TOOL_ANALYSIS_DIR}}/baseline_suite
+        echo "+ semmlecode-cpp-queries/Best Practices/Unused Entities/UnusedLocals.ql: /Useless Code" >> ${{TOOL_ANALYSIS_DIR}}/baseline_suite
+        echo "+ semmlecode-cpp-queries/external/DuplicateFunction.ql: /Useless Code/Duplicate Code" >> ${{TOOL_ANALYSIS_DIR}}/baseline_suite
+        echo "+ semmlecode-cpp-queries/external/MostlyDuplicateClass.ql: /Useless Code/Duplicate Code" >> ${{TOOL_ANALYSIS_DIR}}/baseline_suite
+        echo "+ semmlecode-cpp-queries/external/MostlyDuplicateFile.ql: /Useless Code/Duplicate Code" >> ${{TOOL_ANALYSIS_DIR}}/baseline_suite
+        echo "+ semmlecode-cpp-queries/external/MostlyDuplicateFunction.ql: /Useless Code/Duplicate Code" >> ${{TOOL_ANALYSIS_DIR}}/baseline_suite
+        echo "+ semmlecode-cpp-queries/external/MostlySimilarFile.ql: /Useless Code/Duplicate Code" >> ${{TOOL_ANALYSIS_DIR}}/baseline_suite
+        echo "+ semmlecode-cpp-queries/AlertSuppression.ql" >> ${{TOOL_ANALYSIS_DIR}}/baseline_suite
+    fi
+
+    # Perform baseline analysis on the snapshot
+    ${{SEMMLE_PATH}}/tools/odasa analyzeSnapshot ${{SEMMLE_ANALYZESNAPSHOT_FLAGS}} --allow-recompiles --project ${{TOOL_ANALYSIS_DIR}} --latest --format sarifv2.1.0 --suite ${{TOOL_ANALYSIS_DIR}}/baseline_suite --output-file ${{TOOL_ANALYSIS_DIR}}/semmle_baseline_raw.sarif
+
+    # Parse the results into SCRUB format
+    python3 ${{SCRUB_PATH}}/utils/translate_results.py ${{TOOL_ANALYSIS_DIR}}/semmle_baseline_raw.sarif ${{RAW_RESULTS_DIR}}/semmle_raw.scrub ${{SOURCE_DIR}} scrub
+fi
+
+# Perform P10 analysis, if desired
+if [ ${{SEMMLE_P10_ANALYSIS}} ]; then
+    # Generate P10 analysis suite
+    echo "+ odasa-cpp-metrics/Files/FLinesOfCode.ql: /Metrics/Size" >> ${{TOOL_ANALYSIS_DIR}}/p10_suite
+    echo "+ semmlecode-cpp-queries/AlertSuppression.ql" >> ${{TOOL_ANALYSIS_DIR}}/p10_suite
+    echo "+ semmlecode-cpp-queries/Power of 10/Rule 1/UseOfGoto.ql: /Power of 10/Rule 1" >> ${{TOOL_ANALYSIS_DIR}}/p10_suite
+    echo "+ semmlecode-cpp-queries/Power of 10/Rule 1/UseOfJmp.ql: /Power of 10/Rule 1" >> ${{TOOL_ANALYSIS_DIR}}/p10_suite
+    echo "+ semmlecode-cpp-queries/Power of 10/Rule 1/UseOfRecursion.ql: /Power of 10/Rule 1" >> ${{TOOL_ANALYSIS_DIR}}/p10_suite
+    echo "+ semmlecode-cpp-queries/Power of 10/Rule 2/BoundedLoopIterations.ql: /Power of 10/Rule 2" >> ${{TOOL_ANALYSIS_DIR}}/p10_suite
+    echo "+ semmlecode-cpp-queries/Power of 10/Rule 2/ExitPermanentLoop.ql: /Power of 10/Rule 2" >> ${{TOOL_ANALYSIS_DIR}}/p10_suite
+    echo "+ semmlecode-cpp-queries/Power of 10/Rule 3/DynamicAllocAfterInit.ql: /Power of 10/Rule 3" >> ${{TOOL_ANALYSIS_DIR}}/p10_suite
+    echo "+ semmlecode-cpp-queries/Power of 10/Rule 4/FunctionTooLong.ql: /Power of 10/Rule 4" >> ${{TOOL_ANALYSIS_DIR}}/p10_suite
+    echo "+ semmlecode-cpp-queries/Power of 10/Rule 4/OneStmtPerLine.ql: /Power of 10/Rule 4" >> ${{TOOL_ANALYSIS_DIR}}/p10_suite
+    echo "+ semmlecode-cpp-queries/Power of 10/Rule 5/AssertionDensity.ql: /Power of 10/Rule 5" >> ${{TOOL_ANALYSIS_DIR}}/p10_suite
+    echo "+ semmlecode-cpp-queries/Power of 10/Rule 5/AssertionSideEffect.ql: /Power of 10/Rule 5" >> ${{TOOL_ANALYSIS_DIR}}/p10_suite
+    echo "+ semmlecode-cpp-queries/Power of 10/Rule 5/ConstantAssertion.ql: /Power of 10/Rule 5" >> ${{TOOL_ANALYSIS_DIR}}/p10_suite
+    echo "+ semmlecode-cpp-queries/Power of 10/Rule 5/NonBooleanAssertion.ql: /Power of 10/Rule 5" >> ${{TOOL_ANALYSIS_DIR}}/p10_suite
+    echo "+ semmlecode-cpp-queries/Power of 10/Rule 6/GlobalCouldBeStatic.ql: /Power of 10/Rule 6" >> ${{TOOL_ANALYSIS_DIR}}/p10_suite
+    echo "+ semmlecode-cpp-queries/Power of 10/Rule 6/VariableScopeTooLarge.ql: /Power of 10/Rule 6" >> ${{TOOL_ANALYSIS_DIR}}/p10_suite
+    echo "+ semmlecode-cpp-queries/Power of 10/Rule 7/CheckArguments.ql: /Power of 10/Rule 7" >> ${{TOOL_ANALYSIS_DIR}}/p10_suite
+    echo "+ semmlecode-cpp-queries/Power of 10/Rule 7/CheckReturnValues.ql: /Power of 10/Rule 7" >> ${{TOOL_ANALYSIS_DIR}}/p10_suite
+    echo "+ semmlecode-cpp-queries/Power of 10/Rule 8/AvoidConditionalCompilation.ql: /Power of 10/Rule 8" >> ${{TOOL_ANALYSIS_DIR}}/p10_suite
+    echo "+ semmlecode-cpp-queries/Power of 10/Rule 8/PartialMacro.ql: /Power of 10/Rule 8" >> ${{TOOL_ANALYSIS_DIR}}/p10_suite
+    echo "+ semmlecode-cpp-queries/Power of 10/Rule 8/RestrictPreprocessor.ql: /Power of 10/Rule 8" >> ${{TOOL_ANALYSIS_DIR}}/p10_suite
+    echo "+ semmlecode-cpp-queries/Power of 10/Rule 8/UndisciplinedMacro.ql: /Power of 10/Rule 8" >> ${{TOOL_ANALYSIS_DIR}}/p10_suite
+    echo "+ semmlecode-cpp-queries/Power of 10/Rule 9/FunctionPointer.ql: /Power of 10/Rule 9" >> ${{TOOL_ANALYSIS_DIR}}/p10_suite
+    echo "+ semmlecode-cpp-queries/Power of 10/Rule 9/HiddenPointerIndirection.ql: /Power of 10/Rule 9" >> ${{TOOL_ANALYSIS_DIR}}/p10_suite
+    echo "+ semmlecode-cpp-queries/Power of 10/Rule 9/PointerNesting.ql: /Power of 10/Rule 9" >> ${{TOOL_ANALYSIS_DIR}}/p10_suite
+    echo "+ semmlecode-cpp-queries/AlertSuppression.ql" >> ${{TOOL_ANALYSIS_DIR}}/p10_suite
+
+    # Perform P10 analysis on the snapshot
+    ${{SEMMLE_PATH}}/tools/odasa analyzeSnapshot ${{SEMMLE_ANALYZESNAPSHOT_FLAGS}} --allow-recompiles --project ${{TOOL_ANALYSIS_DIR}} --latest --format sarifv2.1.0 --suite ${{TOOL_ANALYSIS_DIR}}/p10_suite --output-file ${{TOOL_ANALYSIS_DIR}}/semmle_p10_raw.sarif
+
+    # Parse the results into SCRUB format
+    python3 ${{SCRUB_PATH}}/utils/translate_results.py ${{TOOL_ANALYSIS_DIR}}/semmle_baseline_raw.sarif ${{RAW_RESULTS_DIR}}/semmle_raw.scrub ${{SOURCE_DIR}} scrub
+fi

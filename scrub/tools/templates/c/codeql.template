@@ -1,0 +1,27 @@
+#!/bin/bash -x
+# Change to the build directory
+cd ${{CODEQL_BUILD_DIR}}
+
+# Clean the build
+${{CODEQL_CLEAN_CMD}}
+
+# Create the CodeQL database
+${{CODEQL_PATH}}/codeql database create --language cpp --source-root ${{SOURCE_DIR}} --working-dir ${{CODEQL_BUILD_DIR}} ${{CODEQL_DATABASECREATE_FLAGS}} --command "${{CODEQL_BUILD_CMD}}" ${{TOOL_ANALYSIS_DIR}}/codeql-database
+
+# Upgrade the database to make sure that it works with the queries
+${{CODEQL_PATH}}/codeql database upgrade --search-path ${{CODEQL_QUERY_PATH}}
+
+if [ ${{CODEQL_BASELINE_ANALYSIS}} ]; then
+  # Preform the baseline analysis, if necessary
+  ${{CODEQL_PATH}}/codeql database analyze --format=sarif-latest --output=${{TOOL_ANALYSIS_DIR}}/codeql_raw.sarif ${{TOOL_ANALYSIS_DIR}}/codeql-database "${{CODEQL_QUERY_PATH}}/cpp/ql/src/codeql-suites/cpp-lgtm-full.qls" "${{CODEQL_QUERY_PATH}}/cpp/ql/src/AlertSuppression.ql"
+
+  # Parse the SARIF baseline results output file into SCRUB format
+  python3 -m scrub.tools.parsers.translate_results ${{TOOL_ANALYSIS_DIR}}/codeql_raw.sarif ${{RAW_RESULTS_DIR}}/codeql_raw.scrub ${{SOURCE_DIR}} scrub
+fi
+if [ ${{CODEQL_P10_ANALYSIS}} ]; then
+  # Perform P10 analysis, if desired
+  ${{CODEQL_PATH}}/codeql database analyze --format=sarif-latest --output=${{TOOL_ANALYSIS_DIR}}/codeql_p10_raw.sarif ${{TOOL_ANALYSIS_DIR}}/codeql-database "${{CODEQL_QUERY_PATH}}/cpp/ql/src/Power of 10" "${{CODEQL_QUERY_PATH}}/cpp/ql/src/AlertSuppression.ql"
+
+  # Parse the SARIF P10 results output file into SCRUB format
+  python3 -m scrub.tools.parsers.translate_results ${{TOOL_ANALYSIS_DIR}}/codeql_p10_raw.sarif ${{RAW_RESULTS_DIR}}/codeql_p10_raw.scrub ${{SOURCE_DIR}} scrub
+fi

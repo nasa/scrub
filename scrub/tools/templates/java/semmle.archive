@@ -1,0 +1,31 @@
+#!/bin/bash -x
+# Change to the build directory
+cd ${{SEMMLE_BUILD_DIR}}
+# Clean the build
+${{SEMMLE_CLEAN_CMD}}
+if [ ${{SEMMLE_TEMPLATE_PATH}} ]; then
+    cp ${{SEMMLE_TEMPLATE_PATH}} ${{TOOL_ANALYSIS_DIR}}/project
+
+    sed -i 's;SEMMLE_BUILD_DIR;${{SEMMLE_BUILD_DIR}};g' ${{TOOL_ANALYSIS_DIR}}/project
+    sed -i 's;SEMMLE_BUILD_CMD;${{SEMMLE_BUILD_CMD}};g' ${{TOOL_ANALYSIS_DIR}}/project
+    sed -i 's;SOURCE_DIR;${{SOURCE_DIR}};g' ${{TOOL_ANALYSIS_DIR}}/project
+else
+    echo "<project language=\"java\">" >> ${{TOOL_ANALYSIS_DIR}}/project
+    echo "  <timeout>600</timeout>" >> ${{TOOL_ANALYSIS_DIR}}/project
+    echo "  <autoupdate>" >> ${{TOOL_ANALYSIS_DIR}}/project
+    echo "    <build dir=\"${{SEMMLE_BUILD_DIR}}\" index=\"true\">${{SEMMLE_BUILD_CMD}}</build>" >> ${{TOOL_ANALYSIS_DIR}}/project
+    echo "    <build>odasa duplicateCode --ram 2048 --minimum-tokens 100</build>" >> ${{TOOL_ANALYSIS_DIR}}/project
+    echo "    <source-location>${{SOURCE_DIR}}</source-location>" >> ${{TOOL_ANALYSIS_DIR}}/project
+    echo "  </autoupdate>" >> ${{TOOL_ANALYSIS_DIR}}/project
+    echo "</project>" >> ${{TOOL_ANALYSIS_DIR}}/project
+fi
+${{SEMMLE_PATH}}/tools/odasa addLatestSnapshot ${{SEMMLE_ADDSNAPSHOT_FLAGS}} --project ${{TOOL_ANALYSIS_DIR}}
+${{SEMMLE_PATH}}/tools/odasa buildSnapshot ${{SEMMLE_BUILDSNAPSHOT_FLAGS}} --latest --verbose --overwrite --project ${{TOOL_ANALYSIS_DIR}}
+
+if [ ${{SEMMLE_SUITE_FILE}} ]; then
+    suite_file=${{SEMMLE_SUITE_FILE}}
+else
+    suite_file=${{SEMMLE_PATH}}/queries/suites/java/code-review
+fi
+${{SEMMLE_PATH}}/tools/odasa analyzeSnapshot ${{SEMMLE_ANALYZESNAPSHOT_FLAGS}} --allow-recompiles --project ${{TOOL_ANALYSIS_DIR}} --latest --format sarifv2.1.0 --suite $suite_file --output-file ${{TOOL_ANALYSIS_DIR}}/semmle_raw.sarif
+python3 ${{SCRUB_PATH}}/utils/translate_results.py ${{TOOL_ANALYSIS_DIR}}/semmle_baseline_raw.sarif ${{RAW_RESULTS_DIR}}/semmle_raw.scrub ${{SOURCE_DIR}} scrub

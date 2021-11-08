@@ -1,0 +1,12 @@
+#!/bin/bash -x
+# Change to the build directory
+cd ${{GBUILD_BUILD_DIR}}
+
+# Clean the build
+${{GBUILD_CLEAN_CMD}}
+
+# Build and capture the output
+${{GBUILD_BUILD_CMD}} > ${{TOOL_ANALYSIS_DIR}}/gbuild_build.log 2>&1
+
+# Parse the output into SCRUB format
+python3 -m scrub.tools.parsers.get_gbuild_warnings ${{TOOL_ANALYSIS_DIR}}/gbuild_build.log ${{RAW_RESULTS_DIR}}/gbuild_compiler_raw.scrub

@@ -1,0 +1,13 @@
+#!/bin/bash -x
+
+# Create the CodeQL database
+${{CODEQL_PATH}}/codeql database create --language python --source-root ${{SOURCE_DIR}} --working-dir ${{CODEQL_BUILD_DIR}} ${{CODEQL_DATABASECREATE_FLAGS}} ${{TOOL_ANALYSIS_DIR}}/codeql-database
+
+# Upgrade the database to make sure that it works with the queries
+${{CODEQL_PATH}}/codeql database upgrade --search-path ${{CODEQL_QUERY_PATH}}
+
+# Perform analysis
+${{CODEQL_PATH}}/codeql database analyze --format=sarif-latest --output=${{TOOL_ANALYSIS_DIR}}/codeql_raw.sarif ${{TOOL_ANALYSIS_DIR}}/codeql-database "${{CODEQL_QUERY_PATH}}/python/ql/src/codeql-suites/python-lgtm-full.qls" "${{CODEQL_QUERY_PATH}}/python/ql/src/analysis/AlertSuppression.ql"
+
+# Parse the results into SCRUB format
+python3 -m scrub.tools.parsers.translate_results ${{TOOL_ANALYSIS_DIR}}/codeql_raw.sarif ${{RAW_RESULTS_DIR}}/codeql_raw.scrub ${{SOURCE_DIR}} scrub

@@ -6,9 +6,8 @@ import traceback
 import importlib
 from scrub.utils.filtering import create_file_list
 from scrub.utils.filtering import filter_results
-from scrub.utils.filtering import move_warnings
 from scrub.utils import scrub_utilities
-from scrub.utils import translate_results
+from scrub.tools.parsers import translate_results
 from scrub.utils import do_clean
 
 
@@ -49,22 +48,6 @@ def get_valid_tags(scrub_root):
         valid_warning_types.append(getattr(module_object, "VALID_TAGS"))
 
     return valid_warning_types
-
-
-def distribute_scrub_results(scrub_conf_data):
-    """This function distributes the filtered SCRUB output files
-
-    Inputs:
-        - scrub_conf_data: Dictionary of SCRUB configuration variables [dict]
-    """
-
-    # Get a list of the filtered SCRUB output files
-    filtered_output_files = glob.glob(scrub_conf_data.get('scrub_analysis_dir') + '/*.scrub')
-
-    # Move the warnings to the appropriate directories
-    for filtered_output_file in filtered_output_files:
-        move_warnings.move_warnings(filtered_output_file,
-                                    scrub_conf_data.get('source_dir'))
 
 
 def filter_scrub_results(scrub_conf_data):
@@ -250,7 +233,7 @@ def run_analysis(scrub_conf_data, override=False):
             generate_sarif(scrub_conf_data)
 
             # Distribute the results
-            distribute_scrub_results(scrub_conf_data)
+            # distribute_scrub_results(scrub_conf_data)
 
             # Set the exit code
             filtering_exit_code = 0

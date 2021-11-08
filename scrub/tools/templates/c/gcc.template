@@ -1,0 +1,12 @@
+#!/bin/bash -x
+# Change to the build directory
+cd ${{GCC_BUILD_DIR}}
+
+# Clean the build
+${{GCC_CLEAN_CMD}}
+
+# Build and capture the output
+${{GCC_BUILD_CMD}} > ${{TOOL_ANALYSIS_DIR}}/gcc_build.log 2>&1
+
+# Parse the output file into SCRUB format
+python3 -m scrub.tools.parsers.get_gcc_warnings ${{TOOL_ANALYSIS_DIR}}/gcc_build.log ${{RAW_RESULTS_DIR}}/gcc_compiler_raw.scrub

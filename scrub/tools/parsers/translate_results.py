@@ -1,5 +1,6 @@
 import re
 import os
+import sys
 import json
 import logging
 import traceback
@@ -524,7 +525,5 @@ def perform_translation(input_file, output_file, source_root, output_format):
         return exit_code
 
 
-
-# if __name__ == '__main__':
-#     import sys
-#     perform_translation(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4])
+if __name__ == '__main__':
+    perform_translation(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4])

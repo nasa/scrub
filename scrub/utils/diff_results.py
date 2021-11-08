@@ -2,7 +2,7 @@ import os
 import sys
 import glob
 import argparse
-from scrub.utils import translate_results
+from scrub.tools.parsers import translate_results
 
 
 def parse_arguments():
