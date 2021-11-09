@@ -80,9 +80,10 @@ analysis.
 
 ### Filtering Individual Warnings
 
-Adding a comment containing the string "SCRUB_IGNORE_WARNING_<warning_type>" (where 'warning_type' is the tool
+Adding a comment containing the string `SCRUB_IGNORE_WARNING_<warning_type>` (where 'warning_type' is the tool
 identifier) to the line of source code called out by SCRUB will filter the warning from future analysis. Valid
-<warning_type> values for each tool are shown in the table below.
+`<warning_type>` values for each tool are shown in the table below.
+
 
 | Tool Name | Suppression Value            |
 | --------- | ---------------------------- |
@@ -99,6 +100,7 @@ For example, say you have received the following warning from SCRUB:
 
     cmp002 <Low> :helloworld.c:9:
         ISO C90 forbids mixed declarations and code [-Wpedantic]
+
 
 Adding the following comment to line 9 of the source code file would remove this warning from showing up in future runs
 of SCRUB:
@@ -139,6 +141,7 @@ SCRUB also supports the legacy SCRUB micro filtering format. See the code snippe
       13    printf("Value of mean : %f\n", mean );
       14
       15 }
+
 
 ## Custom Filtering
 
