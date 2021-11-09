@@ -46,7 +46,7 @@ This depends almost entirely on the needs of a project. The baseline recommendat
 
 **How do I filter out results I don't care about?**
 
-SCRUB provides several filtering options: regex-based filtering, query-based filtering, and false positive filtering. Details on how to use each of these filtering options can be found on the :ref:`Filtering` page.
+SCRUB provides several filtering options: regex-based filtering, query-based filtering, and false positive filtering. Details on how to use each of these filtering options can be found on the [Filtering](filtering.md) page.
 
 **How do I view SCRUB results?**
 

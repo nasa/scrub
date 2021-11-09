@@ -12,10 +12,10 @@ SCRUB is capable of export results directly to the SARIF output format. Any tool
 
 Users can also push results to Collaborator directly from SCRUB. This can occur in two different ways:
 
-- Direct invocation of the module for pushing results to Collaborator (targets/collaborator/do_collaborator.py)
+- Direct invocation of the module for pushing results to Collaborator
 - Automated invocation via SCRUB configuration file
 
-**Note**: The Collaborator command line utility is required for pushing results to Collaborator. This utility can be found on the [Collaborator download page](https://support.smartbear.com/collaborator/downloads/).
+**Note**: The Collaborator command line utility `ccollab` is required for pushing results to Collaborator. This utility can be found on the [Collaborator download page](https://support.smartbear.com/collaborator/downloads/).
 
 **Note**: User credentials are required for all Collaborator uploads. After analysis has been completed and before the Collaborator upload has begun, SCRUB will prompt users to enter their Collaborator login password.
 
@@ -24,11 +24,11 @@ Users can also push results to Collaborator directly from SCRUB. This can occur 
 
 Results can be pushed to Collaborator manually by executing the following command from the same location as you performed your SCRUB analysis:
 
-    python3 <SCRUB root>/module_helper.py scrub.targets.collaborator.do_collaborator scrub.cfg
+    scrub run --targets collaborator
 
 Please refer to the [Detailed Configuration](configuration.md) page for more information about Collaborator configuration inputs.
 
 
 ### Automated Invocation
 
-There is a section of the scrub.cfg file that can be used for pushing results to Collaborator automatically. For more information about the expected inputs for this process, please refer to the [Detailed Configuration](configuration.md) page. SCRUB analysis will be performed normally, but before execution is completed SCRUB will create a new Collaborator review that is initialized with all of the SCRUB results.
+There is a section of the `scrub.cfg` file that can be used for pushing results to Collaborator automatically. For more information about the expected inputs for this process, please refer to the [Detailed Configuration](configuration.md) page. SCRUB analysis will be performed normally, but before execution is completed SCRUB will create a new Collaborator review that is initialized with all of the SCRUB results.

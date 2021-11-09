@@ -1,6 +1,6 @@
 # Usage
 
-After SCRUB has been installed, it can be run using the command line interface. There are 3 defined entry points::
+After SCRUB has been installed, it can be run using the command line interface. There are 3 defined entry points:
 
     scrub run
 

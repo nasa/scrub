@@ -2,7 +2,7 @@
 
 The information below provides a detailed description of each `scrub.cfg` value. A blank `scrub.cfg` file containing all of these values can be generated using the command:  
 
-    `scrub generate-conf`
+    scrub generate-conf
 
 Each table below represents a portion of the complete `scrub.cfg` file.
 
@@ -15,7 +15,7 @@ Each table below represents a portion of the complete `scrub.cfg` file.
 
 | Variable Name     | Format | Required? | Description                                                                    | Default Value       |
 | ----------------- | ------ | --------- | ------------------------------------------------------------------------------ | ------------------- |
-| SOURCE_DIR        | String | Yes       | Define the root location of the source code                                    | N/A                 |                                       |
+| SOURCE_DIR        | String | Yes       | Define the root location of the source code                                    | N/A                 |
 | SOURCE_LANG       | String | Yes       | Define the language of the source code                                         | N/A                 |
 | SCRUB_WORKING_DIR | String | Optional  | Define the location of the SCRUB output files.                                 | `SOURCE_DIR/.scrub` |
 | CUSTOM_TEMPLATES  | String | Optional  | Comma-separated list of custom templates to be executed during SCRUB execution | ''                  |
@@ -98,8 +98,8 @@ Each table below represents a portion of the complete `scrub.cfg` file.
 | Variable Name               | Format     | Required? | Description                                                   | Default Value |
 | --------------------------- | ---------- | --------- | ------------------------------------------------------------- | ------------- |
 | CODESONAR_WARNINGS          | True/False | Yes       | Should CodeSonar analysis be performed?                       | False         |
-| CODESONAR_PATH              | String     | Optional  | Absolute path to the bin` directory of CodeSonar              | Check `PATH`  |
-| CODESONAR_HUB               | String     | Yes       | '<hub location>:<port>'                                       | N/A           |
+| CODESONAR_PATH              | String     | Optional  | Absolute path to the bin directory of CodeSonar               | Check `PATH`  |
+| CODESONAR_HUB               | String     | Yes       | `<hub location>:<port>`                                       | N/A           |
 | CODESONAR_CERT              | String     | Yes       | Absolute path of the Hub certificate                          | N/A           |
 | CODESONAR_KEY               | String     | Yes       | Absolute path of the user's private key                       | N/A           |
 | CODESONAR_PROJ_NAME         | String     | Yes       | Project name provided by the Hub admin upon project creation  | N/A           |
@@ -116,22 +116,23 @@ Each table below represents a portion of the complete `scrub.cfg` file.
 
 ### Collaborator Variables
 
-| Variable Name                 | Format         | Required? | Description                                             | Default Value              |
-| ----------------------------- | -------------- | --------- | ------------------------------------------------------- | -------------------------- |
-| COLLABORATOR_UPLOAD           | True/False     | Yes       | Should Collaborator upload be performed?                | False                      |
-| COLLABORATOR_SERVER           | String         | Yes       | URL of the Collaborator server                          | N/A                        |
-| COLLABORATOR_CCOLLAB_LOCATION | String         | Optional  | Absolute path to `ccollab` directory                    | Check `PATH`               |
-| COLLABORATOR_USERNAME         | String         | Yes       | Collaborator username to be used to create the review   | Current user               |
-| COLLABORATOR_REVIEW_TITLE     | String         | Optional  | Optional title for the review                           | SCRUB Review               |
-| COLLABORATOR_REVIEW_GROUP     | String         | Optional  | Optional review group for the review                    | ''                         |
-| COLLABORATOR_REVIEW_TEMPLATE  | String         | Optional  | Template to be used when creating review                | ''                         |
-| COLLABORATOR_REVIEW_ACCESS    | String         | Optional  | Access level to be used or the review                   | ''                         |
-| COLLABORATOR_FINDING_LEVEL    | comment/defect | Optional  | Level at which findings will be added to review         | comment                    |
-| COLLABORATOR_FILTERS          | String         | Optional  | Absolute path to Collaborator upload regex file         | ./SCRUBCollaboratorFilters |
-| COLLABORATOR_SRC_FILES        | String         | Optional  | Comma separated list of results files to upload         | *                          |
+| Variable Name                 | Format         | Required? | Description                                             | Default Value                |
+| ----------------------------- | -------------- | --------- | ------------------------------------------------------- | ---------------------------- |
+| COLLABORATOR_UPLOAD           | True/False     | Yes       | Should Collaborator upload be performed?                | False                        |
+| COLLABORATOR_SERVER           | String         | Yes       | URL of the Collaborator server                          | N/A                          |
+| COLLABORATOR_CCOLLAB_LOCATION | String         | Optional  | Absolute path to `ccollab` directory                    | Check `PATH`                 |
+| COLLABORATOR_USERNAME         | String         | Yes       | Collaborator username to be used to create the review   | Current user                 |
+| COLLABORATOR_REVIEW_TITLE     | String         | Optional  | Optional title for the review                           | SCRUB Review                 |
+| COLLABORATOR_REVIEW_GROUP     | String         | Optional  | Optional review group for the review                    | ''                           |
+| COLLABORATOR_REVIEW_TEMPLATE  | String         | Optional  | Template to be used when creating review                | ''                           |
+| COLLABORATOR_REVIEW_ACCESS    | String         | Optional  | Access level to be used or the review                   | ''                           |
+| COLLABORATOR_FINDING_LEVEL    | comment/defect | Optional  | Level at which findings will be added to review         | comment                      |
+| COLLABORATOR_FILTERS          | String         | Optional  | Absolute path to Collaborator upload regex file         | `./SCRUBCollaboratorFilters` |
+| COLLABORATOR_SRC_FILES        | String         | Optional  | Comma separated list of results files to upload         | *                            |
 
 
 ### SCRUB GUI
+
 | Variable Name    | Format         | Required? | Description                                             | Default Value |
 | ---------------- | -------------- | --------- | ------------------------------------------------------- | ------------- |
 | SCRUB_GUI_EXPORT | True/False     | Yes       | Should results be distributed for legacy SCRUB GUI?     | False         |
@@ -139,10 +140,10 @@ Each table below represents a portion of the complete `scrub.cfg` file.
 
 ## Filtering Variables
 
-| Variable Name         | Format     | Required? | Description                                                         | Default Value         |
-| --------------------- | ---------- | --------- | ------------------------------------------------------------------- | --------------------- |
-| ENABLE_EXT_WARNINGS   | True/False | Yes       | Display warnings in directories outside of source root?             | False                 |
-| ENABLE_MICRO_FILTER   | True/False | Yes       | Enable micro filtering?                                             | True                  |
-| CUSTOM_FILTER_COMMAND | String     | Optional  | User-defined filtering command to perform specialty filtering       | ''                    |
-| ANALYSIS_FILTERS      | String     | Optional  | Path to list of regex patterns to include/exclude source files      | ./SCRUBFilters        |
-| QUERY_FILTERS         | String     | Optional  | Absolute path to list of tool queries to exclude from results       | ./SCRUBExcludeQueries |
+| Variable Name         | Format     | Required? | Description                                                         | Default Value           |
+| --------------------- | ---------- | --------- | ------------------------------------------------------------------- | ----------------------- |
+| ENABLE_EXT_WARNINGS   | True/False | Yes       | Display warnings in directories outside of source root?             | False                   |
+| ENABLE_MICRO_FILTER   | True/False | Yes       | Enable micro filtering?                                             | True                    |
+| CUSTOM_FILTER_COMMAND | String     | Optional  | User-defined filtering command to perform specialty filtering       | ''                      |
+| ANALYSIS_FILTERS      | String     | Optional  | Path to list of regex patterns to include/exclude source files      | `./SCRUBFilters`        |
+| QUERY_FILTERS         | String     | Optional  | Absolute path to list of tool queries to exclude from results       | `./SCRUBExcludeQueries` |
