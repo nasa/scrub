@@ -151,6 +151,9 @@ def main(conf_file='./scrub.cfg', clean=False, tools=None, targets=None):
                 # Create the analysis template
                 scrub_utilities.parse_template(analysis_template, analysis_script, scrub_conf_data)
 
+                # Update the permissions of the analysis script
+                os.chmod(analysis_script, 0o777)
+
                 try:
                     # Set the environment for execution
                     user_env = os.environ.copy()
