@@ -353,7 +353,7 @@ def parse_sarif(sarif_filename, source_root, id_prefix=None):
                     warning_line = 0
 
                 # Fix the filepath
-                warning_file = updated_source_dir + '/' + warning_file.replace('file://', '')
+                warning_file = os.path.normpath(updated_source_dir + '/' + warning_file.replace('file://', ''))
                 warning_id = tool_name + str(warning_count).zfill(3)
 
                 # Add to the warning dictionary
