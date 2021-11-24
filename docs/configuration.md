@@ -147,3 +147,214 @@ Each table below represents a portion of the complete `scrub.cfg` file.
 | CUSTOM_FILTER_COMMAND | String     | Optional  | User-defined filtering command to perform specialty filtering       | ''                      |
 | ANALYSIS_FILTERS      | String     | Optional  | Path to list of regex patterns to include/exclude source files      | `./SCRUBFilters`        |
 | QUERY_FILTERS         | String     | Optional  | Absolute path to list of tool queries to exclude from results       | `./SCRUBExcludeQueries` |
+
+
+## Sample Configuration File
+The configuration file provided below is a sample configuration file for a C project.
+
+
+    # Please refer to the SCRUB documentation for more detailed configuration information
+    
+    ###############################################################################
+    ###############################################################################
+    # SOURCE CODE VARIABLES
+    ###############################################################################
+    ###############################################################################
+    [Source Code Variables]
+    # VARIABLE           REQUIRED?    FORMAT
+    # SOURCE_DIR         Yes          String
+    # SOURCE_LANG        Yes          String
+    # SCRUB_WORKING_DIR  No           String
+    # CUSTOM_TEMPLATES   No           String
+    #
+    SOURCE_DIR: ./
+    SOURCE_LANG: c
+    SCRUB_WORKING_DIR: ~/scrub_analysis
+    CUSTOM_TEMPLATES: ~/
+    
+    ###############################################################################
+    ###############################################################################
+    # TOOL VARIABLES
+    ###############################################################################
+    ###############################################################################
+    
+    # GCC compiler analysis variables
+    # VARIABLE        REQUIRED?     FORMAT
+    # GCC_WARNINGS    Yes           True/False
+    # GCC_BUILD_DIR   No            String
+    # GCC_BUILD_CMD   Yes           String
+    # GCC_CLEAN_CMD   Yes           String
+    #
+    [GCC Variables]
+    GCC_WARNINGS: True
+    GCC_BUILD_DIR: src
+    GCC_BUILD_CMD: make all
+    GCC_CLEAN_CMD: make clean
+    
+    # JAVAC compiler analysis variables
+    # VARIABLE          REQUIRED?   FORMAT
+    # JAVAC_WARNINGS    Yes         True/False
+    # JAVAC_BUILD_DIR   No          String
+    # JAVAC_BUILD_CMD   Yes         String
+    # JAVAC_CLEAN_CMD   Yes         String
+    #
+    [JAVAC Variables]
+    JAVAC_WARNINGS: False
+    JAVAC_BUILD_DIR:
+    JAVAC_BUILD_CMD:
+    JAVAC_CLEAN_CMD:
+    
+    # GBUILD compiler analysis variables
+    # VARIABLE           REQUIRED?   FORMAT
+    # GBUILD_WARNINGS    Yes         True/False
+    # GBUILD_BUILD_DIR   No          String
+    # GBUILD_BUILD_CMD   Yes         String
+    # GBUILD_CLEAN_CMD   Yes         String
+    #
+    [GBUILD Variables]
+    GBUILD_WARNINGS: False
+    GBUILD_BUILD_DIR:
+    GBUILD_BUILD_CMD:
+    GBUILD_CLEAN_CMD:
+    
+    # PYLINT analysis variables
+    # VARIABLE           REQUIRED?   FORMAT
+    # PYLINT_WARNINGS    Yes         True/False
+    # PYLINT_FLAGS       No          String
+    #
+    [PYLINT Variables]
+    PYLINT_WARNINGS: False
+    PYLINT_FLAGS:
+    
+    # CodeQL analysis variables
+    # VARIABLE                          REQUIRED?   FORMAT
+    # CODEQL_WARNINGS                   Yes         True/False
+    # CODEQL_PATH                       No          String
+    # CODEQL_QUERY_PATH                 Yes         String
+    # CODEQL_BUILD_DIR                  No          String
+    # CODEQL_BUILD_CMD                  Yes         String
+    # CODEQL_CLEAN_CMD                  Yes         String
+    # CODEQL_BASELINE_ANALYSIS          Yes         True/False
+    # CODEQL_P10_ANALYSIS               Yes         True/False
+    # CODEQL_DATABASECREATE_FLAGS       No          String
+    # CODEQL_DATABASEANALYZE_FLAGS      No          String
+    #
+    [CodeQL Variables]
+    CODEQL_WARNINGS: True
+    CODEQL_PATH: /opt/local/codeql/codeql-cli
+    CODEQL_QUERY_PATH: /opt/local/codeql/queries
+    CODEQL_BUILD_DIR: src
+    CODEQL_BUILD_CMD: make all
+    CODEQL_CLEAN_CMD: make clean
+    CODEQL_BASELINE_ANALYSIS: True
+    CODEQL_P10_ANALYSIS: False
+    CODEQL_DATABASECREATE_FLAGS:
+    CODEQL_DATABASEANALYZE_FLAGS:
+    
+    # Coverity analysis variables
+    # VARIABLE                         REQUIRED?   FORMAT
+    # COVERITY_WARNINGS                Yes         True/False
+    # COVERITY_PATH                    No          String
+    # COVERITY_BUILD_DIR               No          String
+    # COVERITY_BUILD_CMD               Yes         String
+    # COVERITY_CLEAN_CMD               Yes         String
+    # COVERITY_COVBUILD_FLAGS          No          String
+    # COVERITY_COVANALYZE_FLAGS        No          String
+    # COVERITY_COVFORMATERRORS_FLAGS   No          String
+    #
+    [Coverity Variables]
+    COVERITY_WARNINGS: True
+    COVERITY_PATH: /opt/local/coverity/bin
+    COVERITY_BUILD_DIR: src
+    COVERITY_BUILD_CMD: make all
+    COVERITY_CLEAN_CMD: make clean
+    COVERITY_COVBUILD_FLAGS: 
+    COVERITY_COVANALYZE_FLAGS:
+    COVERITY_COVFORMATERRORS_FLAGS:
+    
+    # CodeSonar analysis variables
+    # VARIABLE                      REQUIRED?   FORMAT
+    # CODESONAR_WARNINGS            Yes         True/False
+    # CODESONAR_PATH                No          String
+    # CODESONAR_HUB                 Yes         String
+    # CODESONAR_CERT                Yes         String
+    # CODESONAR_KEY                 Yes         String
+    # CODESONAR_PROJ_NAME           Yes         String
+    # CODESONAR_RESULTS_TEMPLATE    No          Integer
+    # CODESONAR_BUILD_DIR           No          String
+    # CODESONAR_BUILD_CMD           Yes         String
+    # CODESONAR_CLEAN_CMD           Yes         String
+    # CODESONAR_BASELINE_ANALYSIS   Yes         True/False
+    # CODESONAR_P10_ANALYSIS        Yes         True/False
+    # CODESONAR_ANALYZE_FLAGS       No          String
+    # CODESONAR_GET_FLAGS           No          String
+    #
+    [CodeSonar Variables]
+    CODESONAR_WARNINGS: True
+    CODESONAR_PATH: /opt/local/codesonar/codesonar/bin
+    CODESONAR_HUB: www.fake-codesonar-hub.com
+    CODESONAR_CERT: /home/user/codesonar_cert.pem
+    CODESONAR_KEY: /home/user/codesonar_key.pem
+    CODESONAR_PROJ_NAME: /TestProject
+    CODESONAR_BUILD_DIR: src
+    CODESONAR_BUILD_CMD: make all
+    CODESONAR_CLEAN_CMD: make clean
+    CODESONAR_BASELINE_ANALYSIS: True
+    CODESONAR_P10_ANALYSIS: True
+    CODESONAR_ANALYZE_FLAGS:
+    CODESONAR_GET_FLAGS:
+    
+    
+    # Collaborator upload variables
+    # VARIABLE                        REQUIRED?   FORMAT
+    # COLLABORATOR_UPLOAD             Yes         True/False
+    # COLLABORATOR_SERVER             Yes         String
+    # COLLABORATOR_CCOLLAB_LOCATION   No          String
+    # COLLABORATOR_USERNAME           No          String
+    # COLLABORATOR_REVIEW_TITLE       No          String
+    # COLLABORATOR_REVIEW_GROUP       No          String
+    # COLLABORATOR_REVIEW_TEMPLATE    No          String
+    # COLLABORATOR_REVIEW_ACCESS      No          String
+    # COLLABORATOR_FINDING_LEVEL      No          String
+    # COLLABORATOR_FILTERS            No          String
+    # COLLABORATOR_SRC_FILES          No          String
+    #
+    [Collaborator Variables]
+    COLLABORATOR_UPLOAD: True
+    COLLABORATOR_SERVER: www.fake-collaborator.com
+    COLLABORATOR_CCOLLAB_LOCATION: /opt/local/ccollab
+    COLLABORATOR_USERNAME: userid
+    COLLABORATOR_REVIEW_TITLE: 'My SCRUB Review'
+    COLLABORATOR_REVIEW_GROUP:
+    COLLABORATOR_REVIEW_TEMPLATE: 'The Best Template'
+    COLLABORATOR_REVIEW_ACCESS:
+    COLLABORATOR_FINDING_LEVEL: Defect
+    COLLABORATOR_FILTERS:
+    COLLABORATOR_SRC_FILES:
+    
+    # SCRUB GUI variables
+    # VARIABLE     REQUIRED?   FORMAT
+    # GUI_EXPORT   Yes         True/False
+    #
+    [SCRUB GUI Variables]
+    SCRUB_GUI_EXPORT: True
+    
+    ###############################################################################
+    ################################################################################
+    ## FILTERING VARIABLES
+    ################################################################################
+    ################################################################################
+    # SCRUB analysis filtering variables
+    # VARIABLE              REQUIRED?   FORMAT
+    # ENABLE_EXT_WARNINGS   Yes         True/False
+    # ENABLE_MICRO_FILTER   Yes         True/False
+    # CUSTOM_FILTER_CMD     No          String
+    # ANALYSIS_FILTERS      No          String
+    # QUERY_FILTERS         No          String
+    #
+    [Filtering Variables]
+    ENABLE_EXT_WARNINGS: False
+    ENABLE_MICRO_FILTER: True
+    CUSTOM_FILTER_CMD:
+    ANALYSIS_FILTERS:
+    QUERY_FILTERS:
