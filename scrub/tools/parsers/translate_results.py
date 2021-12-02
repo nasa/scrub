@@ -273,7 +273,7 @@ def parse_sarif(sarif_filename, source_root, id_prefix=None):
         with open(sarif_filename, 'r') as sarif:
             sarif_data = json.loads(sarif.read())
 
-        if sarif_data:
+        if sarif_data and 'results' in sarif_data.keys():
             # Create new dictionary item for each analysis result and append to results list
             schema_version = sarif_data['version']
             sarif_data = sarif_data.get('runs')[0]
