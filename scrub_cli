@@ -1,4 +1,4 @@
-scrub_root=`dirname $0`
-export PYTHONPATH=$PYTHONPATH:$scrub_root
+#!/usr/bin/python3
 
-python3 $scrub_root/scrub/scrub_cli.py $@
+import scrub.scrub_cli
+scrub.scrub_cli.main()
