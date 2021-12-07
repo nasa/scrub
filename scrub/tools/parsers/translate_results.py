@@ -311,63 +311,66 @@ def parse_sarif(sarif_filename, source_root, id_prefix=None):
                 # prefer user defined tool name for scrub microfilter
                 tool_name = id_prefix
 
-            for result in sarif_data['results']:
-                viewer_uri = ''
-                if 'suppressions' in result.keys() and result["suppressions"] != []:
-                    suppress_warning = True
-                else:
-                    suppress_warning = False
-
-                if result.get('hostedViewerUri') is not None:
-                    viewer_uri = result['hostedViewerUri']
-
-                if 'ruleId' in result.keys():
-                    warning_query = result['ruleId']
-
-                warning_description = [(result['message']['text'].replace('\n', ''))]
-                if 'codesonar' in tool_name.lower():
-                    warning_description.append('Codesonar viewer: ' + viewer_uri)
-
-                location = result.get('locations')[0]['physicalLocation']  # this much is the same across versions
-                if schema_version == "2.1.0":
-                    if 'rules' in sarif_data['tool']['driver'].keys() and sarif_data['tool']['driver']['rules'] != []:
-                        if 'ruleId' in result.keys():
-                            warning_description.append(analysis_rules[result['ruleId']].replace('\n', ''))
-
-                    if 'uri' in location['artifactLocation'].keys() and location['artifactLocation']['uri'] != '':
-                        warning_file = location['artifactLocation']['uri']
+            # Check to make sure there are results
+            if 'results' in sarif_data.keys():
+                # Iterate through the results
+                for result in sarif_data['results']:
+                    viewer_uri = ''
+                    if 'suppressions' in result.keys() and result["suppressions"] != []:
+                        suppress_warning = True
                     else:
-                        file_index = result['locations'][0]['physicalLocation']['artifactLocation'].get('index')
-                        warning_file = locations[file_index]
-                    # TODO: use helper functions to do key checks? there are too many.
-                elif schema_version == "2.0.0":
-                    if 'fileIndex' in location['fileLocation'].keys():
-                        file_index = location['fileLocation']['fileIndex']  # mostly for CodeSonar compatibility
-                        warning_file = locations[file_index]
+                        suppress_warning = False
+
+                    if result.get('hostedViewerUri') is not None:
+                        viewer_uri = result['hostedViewerUri']
+
+                    if 'ruleId' in result.keys():
+                        warning_query = result['ruleId']
+
+                    warning_description = [(result['message']['text'].replace('\n', ''))]
+                    if 'codesonar' in tool_name.lower():
+                        warning_description.append('Codesonar viewer: ' + viewer_uri)
+
+                    location = result.get('locations')[0]['physicalLocation']  # this much is the same across versions
+                    if schema_version == "2.1.0":
+                        if 'rules' in sarif_data['tool']['driver'].keys() and sarif_data['tool']['driver']['rules'] != []:
+                            if 'ruleId' in result.keys():
+                                warning_description.append(analysis_rules[result['ruleId']].replace('\n', ''))
+
+                        if 'uri' in location['artifactLocation'].keys() and location['artifactLocation']['uri'] != '':
+                            warning_file = location['artifactLocation']['uri']
+                        else:
+                            file_index = result['locations'][0]['physicalLocation']['artifactLocation'].get('index')
+                            warning_file = locations[file_index]
+                        # TODO: use helper functions to do key checks? there are too many.
+                    elif schema_version == "2.0.0":
+                        if 'fileIndex' in location['fileLocation'].keys():
+                            file_index = location['fileLocation']['fileIndex']  # mostly for CodeSonar compatibility
+                            warning_file = locations[file_index]
+                        else:
+                            warning_file = location['fileLocation']['uri']
+
+                    # Find the line number
+                    if 'region' in location.keys():
+                        warning_line = location['region']['startLine']
                     else:
-                        warning_file = location['fileLocation']['uri']
+                        warning_line = 0
 
-                # Find the line number
-                if 'region' in location.keys():
-                    warning_line = location['region']['startLine']
-                else:
-                    warning_line = 0
+                    # Fix the filepath
+                    warning_file = warning_file.replace('file://', '')
+                    if not warning_file.startswith('/'):
+                        warning_file = updated_source_dir + '/' + warning_file
+                    warning_file = os.path.normpath(warning_file)
 
-                # Fix the filepath
-                warning_file = warning_file.replace('file://', '')
-                if not warning_file.startswith('/'):
-                    warning_file = updated_source_dir + '/' + warning_file
-                warning_file = os.path.normpath(warning_file)
+                    # Set the warning ID
+                    warning_id = tool_name + str(warning_count).zfill(3)
 
-                # Set the warning ID
-                warning_id = tool_name + str(warning_count).zfill(3)
+                    # Add to the warning dictionary
+                    results.append(create_warning(warning_id, warning_file, warning_line, warning_description, tool_name,
+                                                  'Low', warning_query, suppress_warning))
 
-                # Add to the warning dictionary
-                results.append(create_warning(warning_id, warning_file, warning_line, warning_description, tool_name,
-                                              'Low', warning_query, suppress_warning))
-
-                # Update the warning count
-                warning_count = warning_count + 1
+                    # Update the warning count
+                    warning_count = warning_count + 1
 
         else:
             results = []
