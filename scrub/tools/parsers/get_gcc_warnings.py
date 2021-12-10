@@ -35,10 +35,9 @@ def parse_warnings(raw_input_file, parsed_output_file):
         # Find lines that contain warnings
         if 'warning:' in line.strip():
             # Split the line and store the data
-            line_split = re.split(':|warning', line)
-            warning_file = os.path.abspath(line_split[0].strip())
-            warning_line = int(line_split[1].strip())
-            warning_message = ['GCC Compiler Warning: ' + line_split[-1].strip()]
+            warning_file = os.path.abspath(line.split(':')[0].strip())
+            warning_line = int(line.split(':')[1].strip())
+            warning_message = ['GCC Compiler Warning: ' + line.split('warning:')[-1].strip()]
             warning_id = ID_PREFIX + str(warning_count).zfill(3)
 
             # Add to the warning dictionary
