@@ -107,7 +107,7 @@ def parse_doublecheck_warnings(raw_input_file, parsed_output_file):
                     break
 
             # Create the warning description
-            warning_message = []
+            warning_message = ['Warning from DoubleCheck:']
             for text in raw_warning:
                 warning_message.append(text.rstrip())
 
@@ -142,7 +142,33 @@ def parse_doublecheck_warnings(raw_input_file, parsed_output_file):
                     break
 
             # Create the warning description
-            warning_message = []
+            warning_message = ['Warning from DoubleCheck:']
+            for text in raw_warning:
+                warning_message.append(text.rstrip())
+
+            # Set the warning ID
+            warning_id = ID_PREFIX + str(warning_count).zfill(3)
+
+            # Add to the warning dictionary
+            raw_warnings.append(translate_results.create_warning(warning_id, warning_file, warning_line,
+                                                                 warning_message, ID_PREFIX, WARNING_LEVEL,
+                                                                 warning_query))
+
+            # Increment the warning count
+            warning_count = warning_count + 1
+
+        elif ': warning #' in line:
+            # Get the raw warning text
+            raw_warning = get_raw_warning(raw_input_file, i)
+
+            # Get the warning location data
+            warning_location = raw_warning[0].split(':')[0]
+            warning_file = warning_location.split(',')[0].replace('"', '').strip()
+            warning_line = int(warning_location.split('line ')[-1].strip())
+            warning_query = raw_warning[0].split(':')[1].strip()
+
+            # Create the warning description
+            warning_message = ['Warning from gbuild:']
             for text in raw_warning:
                 warning_message.append(text.rstrip())
 
