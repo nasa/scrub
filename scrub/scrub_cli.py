@@ -19,7 +19,20 @@ def main():
     if len(sys.argv) <= 1:
         print(help_message)
     else:
-        if 'run' in sys.argv:
+        if 'run' in sys.argv or 'run-all' in sys.argv:
+            # Run analysis
+            scrubme.parse_arguments()
+
+        elif 'run-tool' in sys.argv:
+            # Get the tool name
+            tool = sys.argv[sys.argv.index('--module') + 1].split('_')[-1]
+            insert_index = sys.argv.index('--module')
+
+            # Update the arguments
+            sys.argv[1] = 'run'
+            sys.argv[insert_index] = '--tool'
+            sys.argv[insert_index + 1] = tool
+
             # Run analysis
             scrubme.parse_arguments()
 
