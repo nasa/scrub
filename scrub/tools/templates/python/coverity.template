@@ -1,5 +1,8 @@
 #!/bin/bash -x
 
+# Generate a list of Python files
+find ${{SOURCE_DIR}} -name *.py >> ${{TOOL_ANALYSIS_DIR}}/source_file_list.txt
+
 # Capture the build
 ${{COVERITY_PATH}}/cov-build --dir ${{TOOL_ANALYSIS_DIR}} ${{COVERITY_COVBUILD_FLAGS}} --no-command --fs-capture-search ${{SOURCE_DIR}}
 
