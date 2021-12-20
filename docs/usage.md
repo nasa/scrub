@@ -14,6 +14,15 @@ After SCRUB has been installed, it can be run using the command line interface. 
             - clean: Remove all previous analysis
 
 
+    scrub run-tool
+
+        This function runs a single analysis module, while preserving existing analysis results.
+
+        Inputs:
+            - module: Tool import location of the form scrub.tools.<tool>.do_<tool> [string]
+            - config: Absolute path to the SCRUB configuration file to be used [string]
+
+
     scrub diff
 
         This function compares a set of static analysis results to a defined baseline set of results.
@@ -43,7 +52,7 @@ Running SCRUB is a relatively straightforward process after it has been configur
 
 During execution SCRUB will print various status messages to the console. Additionally, log information and results will be stored in a hidden directory named `.scrub` located at `SOURCE_DIR` as defined in the scrub.cfg file used during execution.
 
-Tools can also be called individually by calling the "do" Python using the module helper. An example is provided below for CodeQL execution:
+Tools can also be called individually by calling the "do" module using the `run-tool` helper. An example is provided below for CodeQL execution:
 
     scrub run-tool --config scrub.cfg --module scrub.tools.codeql.do_codeql
 
