@@ -7,3 +7,4 @@ SCRUB allows users to run multiple static code analysis tools, collect the resul
 A full description of the origins of SCRUB, written by the original author (Gerard Holzmann), can be [found here](http://spinroot.com/gerard/pdf/ScrubPaper_rev.pdf).
 
 ## [SCRUB Documentation](https://nasa.github.io/scrub)
+
