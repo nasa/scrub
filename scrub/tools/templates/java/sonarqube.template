@@ -1,0 +1,33 @@
+#!/bin/bash -x
+
+# Change to the build directory
+cd $${{SONARQUBE_BUILD_DIR}}
+
+# Clean any previous builds
+${{SONARQUBE_CLEAN_CMD}}
+
+# Build the code
+${{SONARQUBE_BUILD_CMD}}
+
+# Perform SonarQube analysis
+${{SONARQUBE_PATH}}/sonar-scanner ${{SONARQUBE_SCANNER_FLAGS}} -D sonar.host.url=${{SONARQUBE_SERVER}} -D sonar.projectKey=${{SONARQUBE_PROJECT}} -D sonar.login=${{SONARQUBE_TOKEN}} -D sonar.java.binaries=${{SOURCE_DIR}} -D sonar.working.directory=${{TOOL_ANALYSIS_DIR}}
+
+# Retrieve the results from the SonarQube server
+PAGE=1
+MORE_RESULTS=true
+while $MORE_RESULTS; do
+    # Get the page
+    RESULTS_FILE=${{TOOL_ANALYSIS_DIR}}/sonarqube_warnings_$PAGE.json
+    curl -u ${{SONARQUBE_TOKEN}}: "${{SONARQUBE_SERVER}}/api/issues/search?ps=500&componentKeys=${{SONARQUBE_PROJECT}}&p=$PAGE&${{SONARQUBE_CURL_FLAGS}}" >> $RESULTS_FILE
+
+    # Check the contents
+    if grep -q "\"issues\":\[\]" $RESULTS_FILE; then
+       rm -f $RESULTS_FILE
+       MORE_RESULTS=false
+    else
+       PAGE=$((PAGE+1))
+    fi
+done
+
+# Parse the results
+python3 -m scrub.tools.parsers.get_sonarqube_warnings ${{TOOL_ANALYSIS_DIR}} ${{RAW_RESULTS_DIR}}/sonarqube_raw.scrub ${{SOURCE_DIR}}
