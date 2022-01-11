@@ -3,6 +3,9 @@
 # Perform SonarQube analysis
 ${{SONARQUBE_PATH}}/sonar-scanner ${{SONARQUBE_SCANNER_FLAGS}} -D sonar.host.url=${{SONARQUBE_SERVER}} -D sonar.projectKey=${{SONARQUBE_PROJECT}} -D sonar.login=${{SONARQUBE_TOKEN}} -D sonar.sources=${{SOURCE_DIR}} -D sonar.working.directory=${{TOOL_ANALYSIS_DIR}}
 
+# Wait for results to be finalized
+sleep 2
+
 # Retrieve the results from the SonarQube server
 PAGE=1
 MORE_RESULTS=true

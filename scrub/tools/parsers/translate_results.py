@@ -70,7 +70,7 @@ def create_scrub_output_file(warnings, output_file):
     """
 
     # Create the output file
-    with open(output_file, 'w') as output_fh:
+    with open(output_file, 'w', encoding='utf-8') as output_fh:
         # Iterate through every raw warning
         for warning in warnings:
             # Check that the warning isn't suppressed
@@ -202,7 +202,7 @@ def parse_scrub(scrub_file, source_root):
     warning_list = []
 
     # Import the data
-    with open(scrub_file, 'r') as input_fh:
+    with open(scrub_file, 'r', encoding='utf-8') as input_fh:
         scrub_data = input_fh.read()
 
     # Split the warnings
