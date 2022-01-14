@@ -235,8 +235,8 @@ def parse_scrub(scrub_file, source_root):
 
         # Update the file path, if necessary
         if not warning_file.startswith('/'):
-            warning_file = source_root + '/' + warning_file
-        warning_file = os.path.normpath(warning_file)
+            warning_file = os.path.join(source_root, warning_file)
+        warning_file = os.path.realpath(warning_file)
 
         # Add the warning to the dictionary
         warning_list.append(create_warning(warning_id, warning_file, warning_line, warning_description, warning_tool,
@@ -284,7 +284,7 @@ def parse_sarif(sarif_filename, source_root, id_prefix=None):
             # Update the source root if it can be found in the SARIF data
             if "originalUriBaseIds" in sarif_data:
                 for item in sarif_data.get("originalUriBaseIds").items():
-                    updated_source_dir = os.path.normpath(item[-1]['uri'].replace('file://', ''))
+                    updated_source_dir = os.path.realpath(item[-1]['uri'].replace('file://', ''))
 
             # TODO: replace key checks with booleans for all optional SARIF fields
             tool_name, analysis_rules, locations = '', [], []
@@ -359,8 +359,8 @@ def parse_sarif(sarif_filename, source_root, id_prefix=None):
                     # Fix the filepath
                     warning_file = warning_file.replace('file://', '')
                     if not warning_file.startswith('/'):
-                        warning_file = updated_source_dir + '/' + warning_file
-                    warning_file = os.path.normpath(warning_file)
+                        warning_file = os.path.join(updated_source_dir, warning_file)
+                    warning_file = os.path.realpath(warning_file)
 
                     # Set the warning ID
                     warning_id = tool_name + str(warning_count).zfill(3)
