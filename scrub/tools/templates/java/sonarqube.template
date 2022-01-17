@@ -13,7 +13,19 @@ ${{SONARQUBE_BUILD_CMD}}
 ${{SONARQUBE_PATH}}/sonar-scanner ${{SONARQUBE_SCANNER_FLAGS}} -D sonar.host.url=${{SONARQUBE_SERVER}} -D sonar.projectKey=${{SONARQUBE_PROJECT}} -D sonar.login=${{SONARQUBE_TOKEN}} -D sonar.java.binaries=${{SOURCE_DIR}} -D sonar.working.directory=${{TOOL_ANALYSIS_DIR}}
 
 # Wait for results to be finalized
-sleep 2
+STATUS_URL=`tail -n 1 ${{TOOL_ANALYSIS_DIR}}/report-task.txt | cut -c11-`
+READY=false
+while ! $READY; do
+    # Get the status
+    STATUS=`curl -u ${{SONARQUBE_TOKEN}}: $STATUS_URL`
+
+    # Check the contents
+    if [[ "$STATUS" == *"\"status\":\"SUCCESS\""* ]]; then
+       READY=true
+    else
+       sleep 2
+    fi
+done
 
 # Retrieve the results from the SonarQube server
 PAGE=1
@@ -22,6 +34,11 @@ while $MORE_RESULTS; do
     # Get the page
     RESULTS_FILE=${{TOOL_ANALYSIS_DIR}}/sonarqube_warnings_$PAGE.json
     curl -u ${{SONARQUBE_TOKEN}}: "${{SONARQUBE_SERVER}}/api/issues/search?ps=500&componentKeys=${{SONARQUBE_PROJECT}}&p=$PAGE&${{SONARQUBE_CURL_FLAGS}}" >> $RESULTS_FILE
+
+    # Check to see if the file is empty
+    if [ ! -s "$RESULTS_FILE" ]; then
+        exit 1
+    fi
 
     # Check the contents
     if grep -q "\"issues\":\[\]" $RESULTS_FILE; then
