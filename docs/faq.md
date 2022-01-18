@@ -10,7 +10,7 @@ The list of supported analysis tools can be found on the [Usage](usage.md) page.
 
 **What languages does SCRUB support?**
 
-SCRUB currently supports C/C++, Java, and Python.
+SCRUB currently supports C/C++, Java, JavaScript, and Python.
 
 **How do I configure SCRUB for my project?**
 
