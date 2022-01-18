@@ -82,13 +82,14 @@ Python v3.6 or later is required.
 **Note**: P10 checks are only applicable to C/C++ analysis.
 
 \* CodeQL does not require a license to perform analysis, but there are restrictions on its usage. Please refer to the [full license](https://github.com/github/codeql-cli-binaries/blob/main/LICENSE.md) for more information.
+
 \** SonarQube analysis of C/C++ code requires the Enterprise Edition, which requires a license.
 
 ## Known Limitations
 
 SCRUB is currently not compatible with Windows system due to differences in how the tools are executed on Windows.
 
-
+Some tools that analyze C/C++ must be pre-configured to support various compilers. Not every tool supports every compiler. Please refer to the tool documentation for more information on which compilers are supported.
 
 ## Installation and Setup
 
