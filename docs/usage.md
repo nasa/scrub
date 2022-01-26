@@ -41,6 +41,8 @@ After SCRUB has been installed, it can be run using the command line interface. 
         Inputs:
             - output: Path to desired output location [string] [optional]
 
+**Note**: `scrub run-tool` is a legacy command and only included for backwards compatability. Users are incouraged to use the command below to run individual tools.
+
 
 Running SCRUB is a relatively straightforward process after it has been configured properly. Users only need to perform the following steps.
 
@@ -48,13 +50,13 @@ Running SCRUB is a relatively straightforward process after it has been configur
 2. Create a valid scrub.cfg configuration file and fill out the applicable portions
 3. Execute the following command from this directory to begin SCRUB execution:
 
-    `scrub run-all --config scrub.cfg`
+    `scrub run --config scrub.cfg`
 
 During execution SCRUB will print various status messages to the console. Additionally, log information and results will be stored in a hidden directory named `.scrub` located at `SOURCE_DIR` as defined in the scrub.cfg file used during execution.
 
-Tools can also be called individually by calling the "do" module using the `run-tool` helper. An example is provided below for CodeQL execution:
+Tools can also be run individuall by using using the `run --tools` command. An example is provided below for CodeQL execution:
 
-    scrub run-tool --config scrub.cfg --module scrub.tools.codeql.do_codeql
+    scrub run --tools codeql --config scrub.cfg
 
 
 ## Dependencies
@@ -66,22 +68,28 @@ Python v3.6 or later is required.
 ## Supported COTS Tools and Languages
 
 
-| Tool            | Languages            | Supports P10? | License Required? |
-| --------------- | -------------------- | ------------- | ----------------- |
-| GCC Compiler    | C/C++                | No            | No                |
-| JAVAC Compiler  | Java                 | No            | No                |
-| GBUILD Compiler | C/C++                | No            | Yes               |
-| CodeQL          | C/C++, Java, Python  | Yes           | No                |
-| Coverity        | C/C++, Java, Python  | No            | Yes               |
-| CodeSonar       | C/C++, Java, Python  | Yes           | Yes               |
+| Tool            | Languages                        | Supports P10? | License Required? |
+| --------------- | -------------------------------- | ------------- | ----------------- |
+| CodeSonar       | C/C++, Java, JavaScript, Python  | Yes           | Yes               |
+| CodeQL          | C/C++, Java, JavaScript, Python  | Yes           | No*               |
+| Coverity        | C/C++, Java, JavaScript, Python  | No            | Yes               |
+| GBUILD Compiler | C/C++                            | No            | Yes               |
+| GCC Compiler    | C/C++                            | No            | No                |
+| JAVAC Compiler  | Java                             | No            | No                |
+| Pylint          | Python                           | No            | No                |
+| SonarQube       | Java, JavaScript, Python         | No            | No**              |
 
 **Note**: P10 checks are only applicable to C/C++ analysis.
 
+\* CodeQL does not require a license to perform analysis, but there are restrictions on its usage. Please refer to the [full license](https://github.com/github/codeql-cli-binaries/blob/main/LICENSE.md) for more information.
+
+\** SonarQube analysis of C/C++ code requires the Enterprise Edition, which requires a license.
 
 ## Known Limitations
 
 SCRUB is currently not compatible with Windows system due to differences in how the tools are executed on Windows.
 
+Some tools that analyze C/C++ must be pre-configured to support various compilers. Not every tool supports every compiler. Please refer to the tool documentation for more information on which compilers are supported.
 
 ## Installation and Setup
 

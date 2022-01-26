@@ -1,15 +1,17 @@
 # Installation
-<!---
 ## Stable release
 
-To install scrub, run this command in your terminal:
+To install SCRUB, run this command in your terminal:
 
     pip install nasa-scrub
+    
+To upgrade your existing version to the latest version of SCRUB, run this command in your terminal:
+
+    pip install --upgrade nasa-scrub
 
 This is the preferred method to install scrub, as it will always install the most recent stable release.
 
 If you don't have [pip](https://pip.pypa.io) installed, this [Python installation guide](http://docs.python-guide.org/en/latest/starting/installation/) can guide you through the process.
---->
 
 ## From sources
 

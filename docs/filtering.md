@@ -87,12 +87,14 @@ identifier) to the line of source code called out by SCRUB will filter the warni
 
 | Tool Name | Suppression Value            |
 | --------- | ---------------------------- |
+| GBUILD    | gbuild, dblchck, doublecheck |
 | GCC       | cmp, compiler, gcc           |
 | JAVAC     | cmp, compiler, javac         |
-| GBUILD    | gbuild, dblchck, doublecheck |
 | Coverity  | coverity, cov                |
 | CodeSonar | codesonar, cdsnr             |
 | CodeQL    | codeql                       |
+| Pylint    | cmp, pylint                  |
+| SonarQube | sonarqube                    |
 
 **Note**: P10 warnings can be filtered by using the suppression value of the tool that generated the warning (Codesonar or CodeQL)
 

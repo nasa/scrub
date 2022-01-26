@@ -71,8 +71,8 @@ Each table below represents a portion of the complete `scrub.cfg` file.
 | CODEQL_PATH                  | String     | Optional  | Absolute path to the directory of the CodeQL installation    | Check `PATH`  |
 | CODEQL_QUERY_PATH            | String     | Yes       | Absolute path to the CodeQL query files                      | N/A           |
 | CODEQL_BUILD_DIR             | String     | Optional  | Relative path (to `SOURCE_DIR`) to the build directory       | `SOURCE_DIR`  |
-| CODEQL_BUILD_CMD             | String     | Yes       | Command to build the source code for CodeQL analysis         | N/A           |
-| CODEQL_CLEAN_CMD             | String     | Yes       | Command to clean the source code for CodeQL analysis         | N/A           |
+| CODEQL_BUILD_CMD             | String     | Optional  | Command to build the source code for CodeQL analysis         | N/A           |
+| CODEQL_CLEAN_CMD             | String     | Optional  | Command to clean the source code for CodeQL analysis         | N/A           |
 | CODEQL_BASELINE_ANALYSIS     | True/False | Yes       | Should baseline CodeQL analysis be performed?                | True          |
 | CODEQL_P10_ANALYSIS          | True/False | Yes       | Should CodeQL P10 analysis be performed?                     | True          |
 | CODEQL_DATABASECREATE_FLAGS  | String     | Optional  | Flags to be passed into 'codeql database create' command     | ''            |
@@ -86,8 +86,8 @@ Each table below represents a portion of the complete `scrub.cfg` file.
 | COVERITY_WARNINGS              | True/False | Yes       | Should Coverity analysis be performed?                     | False         |
 | COVERITY_PATH                  | String     | Optional  | Absolute path to `bin` directory of the Coverity           | Check `PATH`  |
 | COVERITY_BUILD_DIR             | String     | Optional  | Relative path (to `SOURCE_DIR`) to the build directory     | `SOURCE_DIR`  |
-| COVERITY_BUILD_CMD             | String     | Yes       | Command to build the source code for Coverity analysis     | N/A           |
-| COVERITY_CLEAN_CMD             | String     | Yes       | Command to clean the source code for Coverity analysis     | N/A           |
+| COVERITY_BUILD_CMD             | String     | Optional  | Command to build the source code for Coverity analysis     | N/A           |
+| COVERITY_CLEAN_CMD             | String     | Optional  | Command to clean the source code for Coverity analysis     | N/A           |
 | COVERITY_COVBUILD_FLAGS        | String     | Optional  | Flags to be passed into 'cov-build' command                | ''            |
 | COVERITY_COVANALYZE_FLAGS      | String     | Optional  | Flags to be passed into the 'cov-analyze' command          | ''            |
 | COVERITY_COVFORMATERRORS_FLAGS | String     | Optional  | Flags to be passed into the 'cov-format-errors' command    | ''            |
@@ -104,13 +104,30 @@ Each table below represents a portion of the complete `scrub.cfg` file.
 | CODESONAR_KEY               | String     | Yes       | Absolute path of the user's private key                       | N/A           |
 | CODESONAR_PROJ_NAME         | String     | Yes       | Project name provided by the Hub admin upon project creation  | N/A           |
 | CODESONAR_BUILD_DIR         | String     | Optional  | Relative path (to `SOURCE_DIR`) to the build directory        | `SOURCE_DIR`  |
-| CODESONAR_BUILD_CMD         | String     | Yes       | Command to build the source code for CodeSonar analysis       | N/A           |
-| CODESONAR_CLEAN_CMD         | String     | Yes       | Command to clean the source code for CodeSonar analysis       | N/A           |
+| CODESONAR_BUILD_CMD         | String     | Optional  | Command to build the source code for CodeSonar analysis       | N/A           |
+| CODESONAR_CLEAN_CMD         | String     | Optional  | Command to clean the source code for CodeSonar analysis       | N/A           |
 | CODESONAR_BASELINE_ANALYSIS | True/False | Yes       | Should baseline CodeSonar analysis be performed?              | True          |
 | CODESONAR_P10_ANALYSIS      | True/False | Yes       | Should CodeSonar P10 analysis be performed?                   | True          |
-| CODESONAR_ANALYZE_FLAGS     | String     | Optional  | Flags to be passed into 'codesonar analyze' command           | ''            |
-| CODESONAR_GET_FLAGS         | String     | Optional  | Flags to be passed into 'codesonar get' command               | ''            |
+| CODESONAR_ANALYZE_FLAGS     | String     | Optional  | Flags to be passed into `codesonar analyze` command           | ''            |
+| CODESONAR_GET_FLAGS         | String     | Optional  | Flags to be passed into `codesonar get` command               | ''            |
 
+**Note**: For more information on generating CodeSonar certificates and keys, please refer to the CodeSonar documentation.
+
+### SonarQube Variables
+| Variable Name               | Format     | Required? | Description                                                   | Default Value |
+| --------------------------- | ---------- | --------- | ------------------------------------------------------------- | ------------- |
+| SONARQUBE_WARNINGS          | True/False | Yes       | Should SonarQube analysis be performed?                       | False         |
+| SONARQUBE_PATH              | String     | Optional  | Absolute path to the bin directory of SonarQube               | Check `PATH`  |
+| SONARQUBE_SERVER            | String     | Yes       | Address of the SonarQube server for results upload            | N/A           |
+| SONARQUBE_TOKEN             | String     | Yes       | Access token for server authentication                        | N/A           |
+| SONARQUBE_PROJECT           | String     | Yes       | Project key where results will stored on server               | N/A           |
+| SONARQUBE_BUILD_DIR         | String     | Optional  | Relative path (to `SOURCE_DIR`) to the build directory        | `SOURCE_DIR`  |
+| SONARQUBE_BUILD_CMD         | String     | Optional  | Command to build the source code for SonarQube analysis       | N/A           |
+| SONARQUBE_CLEAN_CMD         | String     | Optional  | Command to clean the source code for SonarQube analysis       | N/A           |
+| SONARQUBE_SCANNER_FLAGS     | String     | Optional  | Flags to be passed into the `sonar-scanner` command           | ''            |
+| SONARQUBE_CURL_FLAGS        | String     | Optional  | Flags to be passed into the `curl` command                    | ''            |
+
+**Note**: For more information on generating SonarQube access tokens, please refer to the SonarQube documentation.
 
 ## Output Target Variables
 
@@ -303,6 +320,32 @@ The configuration file provided below is a sample configuration file for a C pro
     CODESONAR_P10_ANALYSIS: True
     CODESONAR_ANALYZE_FLAGS:
     CODESONAR_GET_FLAGS:
+    
+    
+    # SonarQube analysis variables
+    # VARIABLE                 REQUIRED?   FORMAT
+    # SONARQUBE_WARNINGS       Yes         True/False
+    # SONARQUBE_PATH           No          String
+    # SONARQUBE_SERVER         Yes         String
+    # SONARQUBE_TOKEN          Yes         String
+    # SONARQUBE_PROJECT        Yes         String
+    # SONARQUBE_BUILD_DIR      No          String
+    # SONARQUBE_BUILD_CMD      No          String
+    # SONARQUBE_CLEAN_CMD      No          String
+    # SONARQUBE_SCANNER_FLAGS  No          String
+    # SONARQUBE_CURL_FLAGS     No          String
+    #
+    [SonarQube Variables]
+    SONARQUBE_WARNINGS: True
+    SONARQUBE_PATH: /opt/local/sonarqube/bin
+    SONARQUBE_SERVER: www.fake-sonarqube-server.com
+    SONARQUBE_TOKEN: $SONARQUBE_TOKEN
+    SONARQUBE_PROJECT: scrub-analysis
+    SONARQUBE_BUILD_DIR: src
+    SONARQUBE_BUILD_CMD: make all
+    SONARQUBE_CLEAN_CMD: make clean
+    SONARQUBE_SCANNER_FLAGS:
+    SONARQUBE_CURL_FLAGS:
     
     
     # Collaborator upload variables

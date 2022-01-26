@@ -71,4 +71,7 @@ The following section provides a description of the structure of the .scrub outp
     |
     |--[tool]_analysis                  (Directory containing intermediary files generated during tool analysis)
     |    intermediary files
+    |
+    |--analysis_scripts                 (Directory containing parsed tool analysis scripts)
+    |    [tool].sh
 
