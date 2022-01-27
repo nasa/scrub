@@ -14,5 +14,19 @@ cd ${{TOOL_ANALYSIS_DIR}}
 # Get the results from the CodeSonar Hub
 ${{CODESONAR_PATH}}/codesonar get -auth certificate -hubcert ${{CODESONAR_CERT}} -hubkey ${{CODESONAR_KEY}} ${{CODESONAR_GET_FLAGS}} ${{CODESONAR_HUB}}/analysis/$aid-allwarnings.sarif
 
-# Parse the results into SCRUB format
-python3 -m scrub.tools.parsers.translate_results ${{TOOL_ANALYSIS_DIR}}/*.sarif ${{RAW_RESULTS_DIR}}/codesonar_raw.scrub ${{SOURCE_DIR}} scrub
+# Get the results
+results_template='${{CODESONAR_RESULTS_TEMPLATE}}'
+re='^[0-9]+$'
+if [[ $results_template =~ $re ]] ; then
+    # Get the results from the CodeSonar Hub
+    /opt/local/codesonar/codesonar/bin/codesonar get -auth certificate -hubcert $CODESONAR_CERT -hubkey $CODESONAR_KEY  $CODESONAR_HUB/report/aid-$aid-$results_template.xml
+
+    # Parse the results into SCRUB format
+    python3 -m scrub.tools.parsers.get_codesonar_warnings /opt/project/tests/integration_tests/c_testcase/.scrub/codesonar_analysis/*.xml /opt/project/tests/integration_tests/c_testcase/.scrub/raw_results/codesonar_raw.scrub
+else
+    # Get the results from the CodeSonar Hub
+    /opt/local/codesonar/codesonar/bin/codesonar get -auth certificate -hubcert $CODESONAR_CERT -hubkey $CODESONAR_KEY  $CODESONAR_HUB/analysis/$aid-allwarnings.sarif
+
+    # Parse the results into SCRUB format
+    python3 -m scrub.tools.parsers.translate_results /opt/project/tests/integration_tests/c_testcase/.scrub/codesonar_analysis/*.sarif /opt/project/tests/integration_tests/c_testcase/.scrub/raw_results/codesonar_raw.scrub /opt/project/tests/integration_tests/c_testcase scrub
+fi

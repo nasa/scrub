@@ -22,8 +22,19 @@ aid=`cat ${{TOOL_ANALYSIS_DIR}}/*/aid.txt`
 # Change to the analysis directory
 cd ${{TOOL_ANALYSIS_DIR}}
 
-# Get the results from the CodeSonar Hub
-${{CODESONAR_PATH}}/codesonar get -auth certificate -hubcert ${{CODESONAR_CERT}} -hubkey ${{CODESONAR_KEY}} ${{CODESONAR_GET_FLAGS}} ${{CODESONAR_HUB}}/analysis/$aid-allwarnings.sarif
+# Get the results
+results_template='${{CODESONAR_RESULTS_TEMPLATE}}'
+re='^[0-9]+$'
+if [[ $results_template =~ $re ]] ; then
+    # Get the results from the CodeSonar Hub
+    ${{CODESONAR_PATH}}/codesonar get -auth certificate -hubcert ${{CODESONAR_CERT}} -hubkey ${{CODESONAR_KEY}} ${{CODESONAR_GET_FLAGS}} ${{CODESONAR_HUB}}/report/aid-$aid-$results_template.xml
 
-# Parse the results into SCRUB format
-python3 -m scrub.tools.parsers.translate_results ${{TOOL_ANALYSIS_DIR}}/*.sarif ${{RAW_RESULTS_DIR}}/codesonar_raw.scrub ${{SOURCE_DIR}} scrub
+    # Parse the results into SCRUB format
+    python3 -m scrub.tools.parsers.get_codesonar_warnings ${{TOOL_ANALYSIS_DIR}}/*.xml ${{RAW_RESULTS_DIR}}/codesonar_raw.scrub
+else
+    # Get the results from the CodeSonar Hub
+    ${{CODESONAR_PATH}}/codesonar get -auth certificate -hubcert ${{CODESONAR_CERT}} -hubkey ${{CODESONAR_KEY}} ${{CODESONAR_GET_FLAGS}} ${{CODESONAR_HUB}}/analysis/$aid-allwarnings.sarif
+
+    # Parse the results into SCRUB format
+    python3 -m scrub.tools.parsers.translate_results ${{TOOL_ANALYSIS_DIR}}/*.sarif ${{RAW_RESULTS_DIR}}/codesonar_raw.scrub ${{SOURCE_DIR}} scrub
+fi
