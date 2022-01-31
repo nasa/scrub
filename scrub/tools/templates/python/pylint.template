@@ -1,4 +1,5 @@
 #!/bin/bash -x
+
 # Perform Pylint analysis
 pylint --output ${{TOOL_ANALYSIS_DIR}}/pylint_output.json --output-format json ${{SOURCE_DIR}}
 
