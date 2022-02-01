@@ -1,7 +1,7 @@
 #!/bin/bash -x
 
 # Change to the build directory
-cd $${{SONARQUBE_BUILD_DIR}}
+cd ${{SONARQUBE_BUILD_DIR}}
 
 # Clean any previous builds
 ${{SONARQUBE_CLEAN_CMD}}
@@ -14,14 +14,14 @@ ${{SONARQUBE_PATH}}/sonar-scanner ${{SONARQUBE_SCANNER_FLAGS}} -D sonar.host.url
 
 # Wait for results to be finalized
 STATUS_URL=`tail -n 1 ${{TOOL_ANALYSIS_DIR}}/report-task.txt | cut -c11-`
-READY=false
-while ! $READY; do
+for i in {1..10}
+do
     # Get the status
     STATUS=`curl -u ${{SONARQUBE_TOKEN}}: $STATUS_URL`
 
     # Check the contents
     if [[ "$STATUS" == *"\"status\":\"SUCCESS\""* ]]; then
-       READY=true
+       break
     else
        sleep 2
     fi
