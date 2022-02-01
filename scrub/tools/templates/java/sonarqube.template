@@ -1,7 +1,7 @@
 #!/bin/bash -x
 
 # Change to the build directory
-cd $${{SONARQUBE_BUILD_DIR}}
+cd ${{SONARQUBE_BUILD_DIR}}
 
 # Clean any previous builds
 ${{SONARQUBE_CLEAN_CMD}}
