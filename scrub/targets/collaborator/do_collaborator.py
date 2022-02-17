@@ -235,10 +235,14 @@ def create_batch_xml_defect_upload(output_file, file_list, defect_list, review_i
 
         # Write out the global options
         output_fh.write('{}'.format(construct_xml_global_options(url, username)))
+        
+        # Track if we're including any warnings
+        uploaded_warnings = False
 
         # Write out every defect for files of interest
         for defect in defect_list:
             if defect.get('file') in file_list:
+                uploaded_warnings = True
                 if finding_level.lower() == 'defect':
                     # Parse the priority level
                     if defect.get('priority') == 'High':
@@ -267,6 +271,13 @@ def create_batch_xml_defect_upload(output_file, file_list, defect_list, review_i
                 else:
                     output_fh.write('    </admin_review_comment_create>\n')
 
+        # Add a general comment if there are no uploaded warnings
+        if not uploaded_warnings:
+            output_fh.write('    <admin_review_comment_create>\n')
+            output_fh.write('        <review>{}</review>\n'.format(review_id))
+            output_fh.write('        <comment>No warnings were found to include in this review.</comment>\n')
+            output_fh.write('    </admin_review_comment_create>\n')
+                    
         # Close out the file
         output_fh.write('</batch-commands>\n')
 
