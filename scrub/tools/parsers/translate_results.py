@@ -224,7 +224,7 @@ def parse_scrub(scrub_file, source_root):
         # Get the warning description
         warning_description = []
         for line in warning_lines[1:]:
-            warning_description.append(line.strip())
+            warning_description.append(line.rstrip())
 
         # Get the values of interest
         warning_id = warning_info[0].split()[0]
@@ -385,13 +385,14 @@ def parse_sarif(sarif_filename, source_root, id_prefix=None):
     return results
 
 
-def create_sarif_output_file(results_list, sarif_version, output_file):
+def create_sarif_output_file(results_list, sarif_version, output_file, source_root):
     """This function creates a SARIF formatted output file.
 
     Inputs:
         - results_list: List of dictionaries representing each warning [list of dicts]
         - sarif_version:
         - output_file:
+        - source_root: Absolute path of source root directory [string]
 
     Returns:
         - output_file is created at the specified location
@@ -402,6 +403,7 @@ def create_sarif_output_file(results_list, sarif_version, output_file):
     rules_list = get_rules_list(results_list)
     sarif_output = {
         'version': sarif_version,
+        '$schema': 'https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json',
         'runs': [
                    {
                        'results': []
@@ -414,11 +416,15 @@ def create_sarif_output_file(results_list, sarif_version, output_file):
         file_index = 0
 
         # Set the priority level
-        result_item['level'] = warning['priority']
+        #result_item['level'] = warning['priority']
+        result_item['level'] = 'warning'
+
+        # Set the rule ID
+        result_item['ruleId'] = warning['query']
 
         if warning.get('description') is not None:
             result_item['message'] = {
-                'text': warning['description']
+                'text': '\n'.join(warning['description'])
             }
         if sarif_version == '2.0.0':
             # TODO: CAREFUL USING 2.0.0, STRUCT IS NOT COMPLETELY DEPENDABLE, NEEDS WORK
@@ -447,16 +453,27 @@ def create_sarif_output_file(results_list, sarif_version, output_file):
             ]
             file_index += 1
         elif sarif_version == '2.1.0':
+            # Create the list of sarif rules
+            sarif_rules = []
+            for rule in rules_list:
+                sarif_rules.append({
+                    'id': rule,
+                    'shortDescription': {
+                        'text': rule
+                    }
+                })
+
             sarif_output['runs'][0]['tool'] = {
                 'driver': {
                     'name': results_list[0]['tool'],
-                    'rules': rules_list
+                    'rules': sarif_rules
                 }
             }
             result_item['locations'] = [{
                 'physicalLocation': {
                     'artifactLocation': {
-                        'uri': warning['file']
+                        'uri': os.path.relpath(warning['file'], source_root),
+                        'uriBaseId': source_root
                     },
                     'region': {
                         'startLine': warning['line']
@@ -470,7 +487,8 @@ def create_sarif_output_file(results_list, sarif_version, output_file):
 
     # Create the output file
     with open(output_file, 'w') as output_fh:
-        output_fh.write('{}'.format(json.dumps(sarif_output)))
+        # output_fh.write('{}'.format(json.dumps(sarif_output, indent=4)))
+        json.dump(sarif_output, output_fh, indent=4)
 
     # Change the permissions of the output file
     os.chmod(output_file, 438)
@@ -514,7 +532,7 @@ def perform_translation(input_file, output_file, source_root, output_format):
             sarif_version = output_format.strip('sarifv')
 
             # Generate the output file
-            create_sarif_output_file(parsed_results, sarif_version, output_file)
+            create_sarif_output_file(parsed_results, sarif_version, output_file, source_root)
 
         else:
             # TODO: This should generate an exception
