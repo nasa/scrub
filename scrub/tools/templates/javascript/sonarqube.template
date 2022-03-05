@@ -1,10 +1,11 @@
 #!/bin/bash -x
 
 # Perform SonarQube analysis
-${{SONARQUBE_PATH}}/sonar-scanner ${{SONARQUBE_SCANNER_FLAGS}} -D sonar.host.url=${{SONARQUBE_SERVER}} -D sonar.projectKey=${{SONARQUBE_PROJECT}} -D sonar.login=${{SONARQUBE_TOKEN}} -D sonar.sources=${{SOURCE_DIR}} -D sonar.working.directory=${{TOOL_ANALYSIS_DIR}}
+${{SONARQUBE_PATH}}/sonar-scanner ${{SONARQUBE_SCANNER_FLAGS}} -D sonar.sources=${{SOURCE_DIR}} -D sonar.inclusions=**/*.js -D sonar.host.url=${{SONARQUBE_SERVER}} -D sonar.projectKey=${{SONARQUBE_PROJECT}} -D sonar.login=${{SONARQUBE_TOKEN}} -D sonar.working.directory=${{TOOL_ANALYSIS_DIR}}
 
 # Wait for results to be finalized
 STATUS_URL=`tail -n 1 ${{TOOL_ANALYSIS_DIR}}/report-task.txt | cut -c11-`
+ANALYSIS_SUCCESS=false
 for i in {1..10}
 do
     # Get the status
@@ -12,11 +13,18 @@ do
 
     # Check the contents
     if [[ "$STATUS" == *"\"status\":\"SUCCESS\""* ]]; then
+       ANALYSIS_SUCCESS=true
        break
     else
        sleep 2
     fi
 done
+
+# Check if the analysis was successful
+if ! $ANALYSIS_SUCCESS
+then
+    exit 1
+fi
 
 # Retrieve the results from the SonarQube server
 PAGE=1
