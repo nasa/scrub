@@ -24,41 +24,12 @@ def initialize_analysis(scrub_conf_data):
     return scrub_conf_data
 
 
-def get_valid_tags(scrub_root):
-    """This function gets the valid tags from every tool module.
-
-    Inputs:
-        - scrub_root: Absolute path to the SCRUB root directory [string]
-
-    Outputs:
-        - valid_warning_tags: A dictionary of valid warning tags for each tool [dict]
-    """
-
-    # Initialize variables
-    valid_warning_types = []
-
-    # Find all of the tool modules
-    for tool_module in glob.glob(scrub_root + '/tools/**/do*.py'):
-        module_name = 'scrub.' + re.split('\\.py', os.path.relpath(tool_module, scrub_root))[0].replace('/', '.')
-
-        # Import the module
-        module_object = importlib.import_module(module_name)
-
-        # Add the tags
-        valid_warning_types.append(getattr(module_object, "VALID_TAGS"))
-
-    return valid_warning_types
-
-
 def filter_scrub_results(scrub_conf_data):
     """This function filters the raw SCRUB output files.
 
     Inputs:
         - scrub_conf_data: Dictionary of SCRUB configuration variables [dict]
     """
-
-    # Get a list of valid tags
-    valid_warning_types = get_valid_tags(scrub_conf_data.get('scrub_path'))
 
     # Create a filtering list
     create_file_list.create_file_list(scrub_conf_data.get('source_dir'),
@@ -81,7 +52,6 @@ def filter_scrub_results(scrub_conf_data):
             raw_generic_files.append(results_file)
 
     # Filter compiler results
-    checked_source_files = {}
     if raw_compiler_files:
         try:
             # Set the compiler output file path
@@ -89,21 +59,24 @@ def filter_scrub_results(scrub_conf_data):
 
             # Parse all of the input files
             compiler_results = []
+            valid_warning_types = []
             for results_file in raw_compiler_files:
                 # Append the results file
                 compiler_results = (compiler_results +
                                     translate_results.parse_scrub(results_file,
                                                                   scrub_conf_data.get('source_dir')))
 
-            # filtered_compiler_results_file = scrub_conf_data.get('scrub_analysis_dir') + '/compiler.scrub'
+                # Append to the valid warning types
+                valid_warning_types.append(os.path.basename(results_file).split('_')[0])
+
+            # Filter the results file
             filter_results.filter_results(compiler_results, filtered_compiler_results_file,
                                           scrub_conf_data.get('filtering_output_file'),
                                           scrub_conf_data.get('query_filters'),
                                           scrub_conf_data.get('source_dir'),
                                           scrub_conf_data.get('enable_micro_filter'),
                                           scrub_conf_data.get('enable_ext_warnings'),
-                                          valid_warning_types,
-                                          checked_source_files)
+                                          valid_warning_types)
 
         except:      # lgtm [py/catch-base-exception]
             # Print a status message
@@ -120,10 +93,14 @@ def filter_scrub_results(scrub_conf_data):
 
             # Parse all of the input files
             p10_results = []
+            valid_warning_types = []
             for results_file in raw_p10_files:
                 # Append the results file
                 p10_results = (p10_results + translate_results.parse_scrub(results_file,
                                                                            scrub_conf_data.get('source_dir')))
+
+                # Append to the valid warning types
+                valid_warning_types.append(os.path.basename(results_file).split('_')[0])
 
             filter_results.filter_results(p10_results, filtered_p10_results,
                                           scrub_conf_data.get('filtering_output_file'),
@@ -131,8 +108,7 @@ def filter_scrub_results(scrub_conf_data):
                                           scrub_conf_data.get('source_dir'),
                                           scrub_conf_data.get('enable_micro_filter'),
                                           scrub_conf_data.get('enable_ext_warnings'),
-                                          valid_warning_types,
-                                          checked_source_files)
+                                          valid_warning_types)
 
         except:     # lgtm [py/catch-base-exception]
             # Print a status message
@@ -150,7 +126,7 @@ def filter_scrub_results(scrub_conf_data):
                                                                      scrub_conf_data.get('source_dir'))
 
                 # Get the output file name
-                tool_name = list(filter(None, re.split('_raw.scrub', os.path.basename(raw_generic_file))))[0]
+                tool_name = os.path.basename(raw_generic_file).split('_')[0]
                 filtered_generic_results = scrub_conf_data.get('scrub_analysis_dir') + '/' + tool_name + '.scrub'
 
                 filter_results.filter_results(raw_generic_warnings, filtered_generic_results,
@@ -159,8 +135,7 @@ def filter_scrub_results(scrub_conf_data):
                                               scrub_conf_data.get('source_dir'),
                                               scrub_conf_data.get('enable_micro_filter'),
                                               scrub_conf_data.get('enable_ext_warnings'),
-                                              valid_warning_types,
-                                              checked_source_files)
+                                              tool_name)
 
             except:     # lgtm [py/catch-base-exception]
                 # Print a status message
@@ -229,11 +204,16 @@ def run_analysis(scrub_conf_data, override=False):
             # Filter the results
             filter_scrub_results(scrub_conf_data)
 
+            # Check the status of all the filtered SCRUB output files
+            for output_file in glob.glob(os.path.join(scrub_conf_data['scrub_analysis_dir'], '*.scrub')):
+                scrub_utilities.check_artifact(output_file, False)
+
             # Convert the results into SARIF format
             generate_sarif(scrub_conf_data)
 
-            # Distribute the results
-            # distribute_scrub_results(scrub_conf_data)
+            # Check the status of all the filtered SARIF output files
+            for output_file in glob.glob(os.path.join(scrub_conf_data['scrub_analysis_dir'], 'sarif_results/*.sarif')):
+                scrub_utilities.check_artifact(output_file, False)
 
             # Set the exit code
             filtering_exit_code = 0
