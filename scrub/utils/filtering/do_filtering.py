@@ -3,7 +3,6 @@ import os
 import glob
 import logging
 import traceback
-import importlib
 from scrub.utils.filtering import create_file_list
 from scrub.utils.filtering import filter_results
 from scrub.utils import scrub_utilities

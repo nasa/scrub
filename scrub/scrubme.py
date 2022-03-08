@@ -152,21 +152,32 @@ def main(conf_file='./scrub.cfg', clean=False, tools=None, targets=None):
                 scrub_utilities.parse_template(analysis_template, analysis_script, scrub_conf_data)
 
                 # Update the permissions of the analysis script
-                os.chmod(analysis_script, 0o777)
+                # os.chmod(analysis_script, 0o777)
 
                 try:
                     # Set the environment for execution
                     user_env = os.environ.copy()
 
-                    # Update the envrionment
+                    # Update the environment
                     if 'PYTHONPATH' in user_env.keys():
                         user_env.update({'PYTHONPATH': user_env.get('PYTHONPATH') + ':' +
-                                                       os.path.normpath(scrub_path + '/../')})
+                                        os.path.normpath(scrub_path + '/../')})
                     else:
                         user_env.update({'PYTHONPATH': os.path.normpath(scrub_path + '/../')})
 
                     # Execute the analysis
                     scrub_utilities.execute_command(analysis_script, user_env)
+
+                    # Check the tool analysis directory
+                    scrub_utilities.check_artifact(tool_analysis_dir, True)
+
+                    # Check the raw results files
+                    for raw_results_file in glob.glob(os.path.join(scrub_conf_data['raw_results_dir'],
+                                                                   tool_name + '_*.scrub')):
+                        scrub_utilities.check_artifact(raw_results_file, False)
+
+                    # Check the log file
+                    scrub_utilities.check_artifact(analysis_log_file, True)
 
                     # Update the execution status
                     tool_execution_status = 0

@@ -68,60 +68,41 @@ def parse_template(template_file, output_file, conf_data):
     with open(output_file, 'w') as output_fh:
         output_fh.write('%s' % template_data)
 
+    # Check the contents of the analysis script file
+    check_artifact(output_file, True)
+
     # Update the permissions to allow for execution
-    os.chmod(output_file, 775)
+    os.chmod(output_file, 0o777)
 
 
 class CommandExecutionError(Exception):
     pass
 
 
-# def check_file(input_file, critical):
-#     """This function checks to ensure the given file is not empty.
-#
-#     Inputs:
-#         - input_file: Full path to the file of interest [string]
-#         - critical: Indication of file criticality [binary]
-#             - 0: File is not critical and may be empty
-#             - 1: File is critical and should not be empty
-#
-#     Output:
-#         - Warnings sent to standard output
-#     """
-#
-#     # Check to make sure the file isn't empty
-#     file_size = os.path.getsize(input_file)
-#     if file_size == 0:
-#         if critical == 1:
-#             message = 'Output file \"' + input_file + '\" is empty. This file should not be empty.'
-#             raise UserWarning(message)
-#         if critical == 0:
-#             logging.warning('')
-#             logging.warning('\tOutput file %s is empty.', input_file)
-#             logging.warning('\tThis may or may not be a problem.')
+def check_artifact(input_artifact, critical=False):
+    """This function checks to ensure the given file is not empty.
 
+    Inputs:
+        - input_artifact: Absolute path to the artifact of interest [string]
+        - critical: Indication of artifact criticality [bool]
+            - True: Artifact is critical and should not be empty
+    """
 
-# def get_executable_path(executable):
-#     """This function returns the path of an executable.
-#
-#     Inputs:
-#         - executable: Executable of interest [string]
-#
-#     Outputs:
-#         - execution_path: Absolute path to the directory containing the executable [string]
-#     """
-#
-#     # Initialize variables
-#     call_string = 'which ' + executable
-#     my_env = os.environ.copy()
-#
-#     # Get the execution path
-#     # subprocess.call(call_string, shell=True, env=my_env)
-#     proc = subprocess.Popen(call_string, shell=True, env=my_env,
-#                             stdout=subprocess.PIPE, stderr=subprocess.PIPE, encoding='utf-8')
-#     execution_path = os.path.dirname(proc.communicate()[0].strip())
-#
-#     return execution_path
+    # Get the size of the item
+    if os.path.isfile(input_artifact):
+        size = os.path.getsize(input_artifact)
+    else:
+        size = len(os.listdir(input_artifact))
+
+    # Check to make sure the file isn't empty
+    if size == 0:
+        if critical:
+            message = os.path.basename(input_artifact) + ' is empty. This should not be empty.'
+            raise CommandExecutionError(message)
+        else:
+            logging.warning('')
+            logging.warning('\t%s is empty.', os.path.basename(input_artifact))
+            logging.warning('\tThis may or may not be a problem.')
 
 
 def split_results(baseline_file, subset_file, remainder_file, queries):
