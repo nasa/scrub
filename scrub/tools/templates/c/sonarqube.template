@@ -9,6 +9,9 @@ ${{SONARQUBE_CLEAN_CMD}}
 # Build the code using the SonarQube build wrapper
 ${{SONARQUBE_WRAPPER_PATH}}/build-wrapper* --out-dir ${{TOOL_ANALYSIS_DIR}}/build_wrapper_output ${{SONARQUBE_BUILD_CMD}}
 
+# Change to the source root directory
+cd ${{SOURCE_DIR}}
+
 # Perform SonarQube analysis
 ${{SONARQUBE_PATH}}/sonar-scanner ${{SONARQUBE_SCANNER_FLAGS}} -X -D sonar.cfamily.threads=1 -D sonar.cfamily.cache.enabled=false -D sonar.host.url=${{SONARQUBE_SERVER}} -D sonar.projectKey=${{SONARQUBE_PROJECT}} -D sonar.login=${{SONARQUBE_TOKEN}} -D sonar.cfamily.build-wrapper-output=${{TOOL_ANALYSIS_DIR}}/build_wrapper_output -D sonar.working.directory=${{TOOL_ANALYSIS_DIR}}/scanner_output
 
@@ -41,7 +44,7 @@ MORE_RESULTS=true
 while $MORE_RESULTS; do
     # Get the page
     RESULTS_FILE=${{TOOL_ANALYSIS_DIR}}/sonarqube_warnings_$PAGE.json
-    curl -u ${{SONARQUBE_TOKEN}}: "${{SONARQUBE_SERVER}}/api/issues/search?ps=500&componentKeys=${{SONARQUBE_PROJECT}}&p=$PAGE&${{SONARQUBE_CURL_FLAGS}}" >> $RESULTS_FILE
+    curl -u ${{SONARQUBE_TOKEN}}: "${{SONARQUBE_SERVER}}/api/issues/search?ps=500&componentKeys=${{SONARQUBE_PROJECT}}&p=$PAGE&${{SONARQUBE_CURL_FLAGS}}" -o $RESULTS_FILE
 
     # Check to see if the file is empty
     if [ ! -s "$RESULTS_FILE" ]; then
