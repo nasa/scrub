@@ -85,7 +85,7 @@ def parse_warnings(input_file, output_file, exclude_p10=False):
     logging.info('\t>> From directory: %s', os.getcwd())
 
     # Initialize the variables
-    WARNING_LEVEL = 'Low'
+    warning_level = 'Low'
     warning_count = 1
     id_prefix = 'codesonar'
     p10_only = False
@@ -167,7 +167,7 @@ def parse_warnings(input_file, output_file, exclude_p10=False):
                         if warning_class.strip() in filter_list:
                             # Write the warnings to the output file
                             output_fh.write('%s%03d <%s> :%s:%d: %s\n\tCodeSonar P10 Warning: %s\n\t%s\n\n' %
-                                            (id_prefix, warning_count, WARNING_LEVEL, warning_file, warning_line,
+                                            (id_prefix, warning_count, warning_level, warning_file, warning_line,
                                              warning_class, warning_summary, warning_link))
 
                             # Increase the warning_count
@@ -178,7 +178,7 @@ def parse_warnings(input_file, output_file, exclude_p10=False):
                         if warning_class.strip() not in filter_list:
                             # Write the warnings to the output file
                             output_fh.write('%s%03d <%s> :%s:%d: %s\n\t%s\n\t%s\n\n' %
-                                            (id_prefix, warning_count, WARNING_LEVEL, warning_file, warning_line,
+                                            (id_prefix, warning_count, warning_level, warning_file, warning_line,
                                              warning_class, warning_summary, warning_link))
 
                             # Increase the warning_count
@@ -187,7 +187,7 @@ def parse_warnings(input_file, output_file, exclude_p10=False):
                     else:
                         # Write the warnings to the output file
                         output_fh.write('%s%03d <%s> :%s:%d: %s\n\t%s\n\t%s\n\n' %
-                                        (id_prefix, warning_count, WARNING_LEVEL, warning_file, warning_line,
+                                        (id_prefix, warning_count, warning_level, warning_file, warning_line,
                                          warning_class, warning_summary, warning_link))
 
                         # Increase the warning_count
@@ -199,7 +199,7 @@ def parse_warnings(input_file, output_file, exclude_p10=False):
 
 if __name__ == '__main__':
     # Store input variables
-    input_file = sys.argv[1]
-    output_file = sys.argv[2]
+    codesonar_file = sys.argv[1]
+    scrub_file = sys.argv[2]
 
-    parse_warnings(input_file, output_file)
+    parse_warnings(codesonar_file, scrub_file)
