@@ -21,6 +21,7 @@ def parse_arguments():
     # Add parser arguments
     parser.add_argument('--config', default='./scrub.cfg')
     parser.add_argument('--clean', action='store_true')
+    parser.add_argument('--debug', action='store_true')
     parser.add_argument('--tools', nargs='+', default=None)
     parser.add_argument('--targets', nargs='+', default=None)
 
@@ -28,10 +29,10 @@ def parse_arguments():
     args = vars(parser.parse_args(sys.argv[2:]))
 
     # Run analysis
-    main(args['config'], args['clean'], args['tools'], args['targets'])
+    main(args['config'], args['clean'], args['debug'], args['tools'], args['targets'])
 
 
-def main(conf_file='./scrub.cfg', clean=False, tools=None, targets=None):
+def main(conf_file='./scrub.cfg', clean=False, console_debug=False, tools=None, targets=None):
     """
     This function runs all applicable tools present within the configuration file.
 
@@ -39,6 +40,8 @@ def main(conf_file='./scrub.cfg', clean=False, tools=None, targets=None):
         - config: Path to SCRUB configuration file [string] [optional]
             Default value: ./scrub.cfg
         - clean: Should SCRUB clean existing results? [bool]
+            Default value: False
+        - console_debug: Should SCRUB print debugging information to console?
             Default value: False
         - tools: List of tools to run during analysis [list of strings] [optional]
             Default value: None
@@ -128,7 +131,7 @@ def main(conf_file='./scrub.cfg', clean=False, tools=None, targets=None):
 
                 # Create the log file
                 analysis_log_file = scrub_conf_data.get('scrub_log_dir') + '/' + tool_name + '.log'
-                scrub_utilities.create_logger(analysis_log_file)
+                scrub_utilities.create_logger(analysis_log_file, console_debug)
 
                 # Print a status message
                 logging.info('')
