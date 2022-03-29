@@ -22,17 +22,26 @@ def parse_arguments():
     parser.add_argument('--config', default='./scrub.cfg')
     parser.add_argument('--clean', action='store_true')
     parser.add_argument('--debug', action='store_true')
+    parser.add_argument('--quiet', action='store_true')
     parser.add_argument('--tools', nargs='+', default=None)
     parser.add_argument('--targets', nargs='+', default=None)
 
     # Parse the arguments
     args = vars(parser.parse_args(sys.argv[2:]))
 
+    # Set the logging level
+    if args['debug']:
+        logging_level = logging.DEBUG
+    elif args['quiet']:
+        logging_level = logging.CRITICAL
+    else:
+        logging_level = logging.INFO
+
     # Run analysis
-    main(args['config'], args['clean'], args['debug'], args['tools'], args['targets'])
+    main(args['config'], args['clean'], logging_level, args['tools'], args['targets'])
 
 
-def main(conf_file='./scrub.cfg', clean=False, console_debug=False, tools=None, targets=None):
+def main(conf_file='./scrub.cfg', clean=False, console_logging=logging.INFO, tools=None, targets=None):
     """
     This function runs all applicable tools present within the configuration file.
 
@@ -41,8 +50,8 @@ def main(conf_file='./scrub.cfg', clean=False, console_debug=False, tools=None, 
             Default value: ./scrub.cfg
         - clean: Should SCRUB clean existing results? [bool]
             Default value: False
-        - console_debug: Should SCRUB print debugging information to console?
-            Default value: False
+        - console_logging: Logging level for console [int] [optional]
+            Default value: logging.INFO (20)
         - tools: List of tools to run during analysis [list of strings] [optional]
             Default value: None
         - targets: List of output targets for exporting the analysis results [list of strings] [optional]
@@ -131,7 +140,7 @@ def main(conf_file='./scrub.cfg', clean=False, console_debug=False, tools=None, 
 
                 # Create the log file
                 analysis_log_file = scrub_conf_data.get('scrub_log_dir') + '/' + tool_name + '.log'
-                scrub_utilities.create_logger(analysis_log_file, console_debug)
+                scrub_utilities.create_logger(analysis_log_file, console_logging)
 
                 # Print a status message
                 logging.info('')

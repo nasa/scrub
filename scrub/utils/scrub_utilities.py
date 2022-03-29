@@ -224,13 +224,13 @@ def execute_command(call_string, my_env, output_file=None, interactive=False):
         raise CommandExecutionError
 
 
-def create_logger(log_file, console_debug=False):
+def create_logger(log_file, console_logging=logging.INFO):
     """This function creates the logger to be used for logging SCRUB data.
 
     Inputs:
         - log_file: Absolute path to the location of the log file to be created [string]
-        - console_debug: Should debugging info be printed to the consol?
-            - Default value: False
+        - console_logging: Should debugging info be printed to the console?
+            - Default value: logging.INFO
     """
 
     # Clear any existing loggers
@@ -247,12 +247,7 @@ def create_logger(log_file, console_debug=False):
     formatter = logging.Formatter('%(asctime)s %(levelname)-8s %(message)s')
     console.setFormatter(formatter)
     logging.getLogger('').addHandler(console)
-
-    # Set the logging level for console output
-    if console_debug:
-        console.setLevel(logging.DEBUG)
-    else:
-        console.setLevel(logging.INFO)
+    console.setLevel(console_logging)
 
 
 def create_conf_file(output_path=None):
