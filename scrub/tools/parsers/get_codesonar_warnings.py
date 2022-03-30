@@ -157,7 +157,10 @@ def parse_warnings(input_file, output_file, exclude_p10=False):
                     warning_file = warning[path_index].text
                     warning_line = int(warning[line_index].text)
                     warning_class = warning[class_index].text
-                    warning_procedure = warning[procedure_index].text
+                    if str(warning[procedure_index].text).lower() == 'none':
+                        warning_procedure = 'undefined procedure'
+                    else:
+                        warning_procedure = warning[procedure_index].text
                     warning_summary = warning_class + ' found in ' + warning_procedure
                     warning_link = codesonar_hub_location + '/warninginstance/' + warning_instance_id + '.html'
 
