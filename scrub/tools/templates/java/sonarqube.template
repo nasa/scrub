@@ -10,12 +10,12 @@ ${{SONARQUBE_CLEAN_CMD}}
 ${{SONARQUBE_BUILD_CMD}}
 
 # Perform SonarQube analysis
-${{SONARQUBE_PATH}}/sonar-scanner ${{SONARQUBE_SCANNER_FLAGS}} -D sonar.host.url=${{SONARQUBE_SERVER}} -D sonar.projectKey=${{SONARQUBE_PROJECT}} -D sonar.login=${{SONARQUBE_TOKEN}} -D sonar.java.binaries=${{SOURCE_DIR}} -D sonar.working.directory=${{TOOL_ANALYSIS_DIR}}
+${{SONARQUBE_PATH}}/sonar-scanner ${{SONARQUBE_SCANNER_FLAGS}} -D sonar.sources=${{SOURCE_DIR}} -D sonar.inclusions=**/*.java -D sonar.host.url=${{SONARQUBE_SERVER}} -D sonar.projectKey=${{SONARQUBE_PROJECT}} -D sonar.login=${{SONARQUBE_TOKEN}} -D sonar.java.binaries=${{SOURCE_DIR}} -D sonar.working.directory=${{TOOL_ANALYSIS_DIR}}
 
 # Wait for results to be finalized
 STATUS_URL=`tail -n 1 ${{TOOL_ANALYSIS_DIR}}/report-task.txt | cut -c11-`
 ANALYSIS_SUCCESS=false
-for i in {1..10}
+for i in {1..20}
 do
     # Get the status
     STATUS=`curl -u ${{SONARQUBE_TOKEN}}: $STATUS_URL`
@@ -25,7 +25,7 @@ do
        ANALYSIS_SUCCESS=true
        break
     else
-       sleep 2
+       sleep 30
     fi
 done
 

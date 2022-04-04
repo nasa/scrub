@@ -18,7 +18,7 @@ ${{SONARQUBE_PATH}}/sonar-scanner ${{SONARQUBE_SCANNER_FLAGS}} -X -D sonar.cfami
 # Wait for results to be finalized
 STATUS_URL=`tail -n 1 ${{TOOL_ANALYSIS_DIR}}/scanner_output/report-task.txt | cut -c11-`
 ANALYSIS_SUCCESS=false
-for i in {1..10}
+for i in {1..20}
 do
     # Get the status
     STATUS=`curl -u ${{SONARQUBE_TOKEN}}: $STATUS_URL`
@@ -28,7 +28,7 @@ do
        ANALYSIS_SUCCESS=true
        break
     else
-       sleep 2
+       sleep 30
     fi
 done
 
