@@ -24,7 +24,6 @@ all code changes have been completed and is ready for testing and subsequent rel
 
 ## Create Release
 - [ ] Update [setup.cfg](https://github.com/nasa/scrub/blob/master/setup.cfg) for new release
-- [ ] Upload new release to [pip](https://pypi.org/project/nasa-scrub)
 - [ ] Create new release on [GitHub](https://github.com/nasa/scrub/releases)
 
 ## Process Improvement
