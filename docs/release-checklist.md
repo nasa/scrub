@@ -10,7 +10,7 @@ all code changes have been completed and is ready for testing and subsequent rel
 
 
 ## Static Analysis
-- [ ] Perform static analysis on SCRUB
+- [ ] Review CodeQL results
 - [ ] Make necessary code changes based on findings
 
 ## Integration Testing
