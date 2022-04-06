@@ -103,13 +103,17 @@ Each table below represents a portion of the complete `scrub.cfg` file.
 | CODESONAR_CERT              | String     | Yes       | Absolute path of the Hub certificate                          | N/A           |
 | CODESONAR_KEY               | String     | Yes       | Absolute path of the user's private key                       | N/A           |
 | CODESONAR_PROJ_NAME         | String     | Yes       | Project name provided by the Hub admin upon project creation  | N/A           |
+| CODESONAR_RESULTS_TEMPLATE* | Int        | Optional  | CodeSonar results template to use for results export          | ''            |
 | CODESONAR_BUILD_DIR         | String     | Optional  | Relative path (to `SOURCE_DIR`) to the build directory        | `SOURCE_DIR`  |
 | CODESONAR_BUILD_CMD         | String     | Optional  | Command to build the source code for CodeSonar analysis       | N/A           |
 | CODESONAR_CLEAN_CMD         | String     | Optional  | Command to clean the source code for CodeSonar analysis       | N/A           |
 | CODESONAR_BASELINE_ANALYSIS | True/False | Yes       | Should baseline CodeSonar analysis be performed?              | True          |
 | CODESONAR_P10_ANALYSIS      | True/False | Yes       | Should CodeSonar P10 analysis be performed?                   | True          |
+| CODESONAR_BUILD_FLAGS       | String     | Optional  | Flags to be passed into `codesonar build` command             | ''            |
 | CODESONAR_ANALYZE_FLAGS     | String     | Optional  | Flags to be passed into `codesonar analyze` command           | ''            |
 | CODESONAR_GET_FLAGS         | String     | Optional  | Flags to be passed into `codesonar get` command               | ''            |
+
+\* The default behavoir is to export results as SARIF, but some instances required pulling results in an XML format. If a template is specified, SCRUB will retrieve XML results instead of SARIF.
 
 **Note**: For more information on generating CodeSonar certificates and keys, please refer to the CodeSonar documentation.
 
@@ -118,6 +122,7 @@ Each table below represents a portion of the complete `scrub.cfg` file.
 | --------------------------- | ---------- | --------- | ------------------------------------------------------------- | ------------- |
 | SONARQUBE_WARNINGS          | True/False | Yes       | Should SonarQube analysis be performed?                       | False         |
 | SONARQUBE_PATH              | String     | Optional  | Absolute path to the bin directory of SonarQube               | Check `PATH`  |
+| SONARQUBE_WRAPPER_PATH      | String     | Optional  | Absolute path to the SonarQube build wrappers for C/C++       | Check `PATH`  |
 | SONARQUBE_SERVER            | String     | Yes       | Address of the SonarQube server for results upload            | N/A           |
 | SONARQUBE_TOKEN             | String     | Yes       | Access token for server authentication                        | N/A           |
 | SONARQUBE_PROJECT           | String     | Yes       | Project key where results will stored on server               | N/A           |
@@ -303,6 +308,7 @@ The configuration file provided below is a sample configuration file for a C pro
     # CODESONAR_CLEAN_CMD           Yes         String
     # CODESONAR_BASELINE_ANALYSIS   Yes         True/False
     # CODESONAR_P10_ANALYSIS        Yes         True/False
+    # CODESONAR_BUILD_FLAGS         No          String
     # CODESONAR_ANALYZE_FLAGS       No          String
     # CODESONAR_GET_FLAGS           No          String
     #
@@ -313,12 +319,14 @@ The configuration file provided below is a sample configuration file for a C pro
     CODESONAR_CERT: /home/user/codesonar_cert.pem
     CODESONAR_KEY: /home/user/codesonar_key.pem
     CODESONAR_PROJ_NAME: /TestProject
+    CODESONAR_RESULTS_TEMPLATE:
     CODESONAR_BUILD_DIR: src
     CODESONAR_BUILD_CMD: make all
     CODESONAR_CLEAN_CMD: make clean
     CODESONAR_BASELINE_ANALYSIS: True
     CODESONAR_P10_ANALYSIS: True
-    CODESONAR_ANALYZE_FLAGS:
+    CODESONAR_BUILD_FLAGS:
+    CODESONAR_ANALYZE_FLAGS: 
     CODESONAR_GET_FLAGS:
     
     
