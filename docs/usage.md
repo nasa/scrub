@@ -52,13 +52,13 @@ Running SCRUB is a relatively straightforward process after it has been configur
 2. Create a valid scrub.cfg configuration file and fill out the applicable portions
 3. Execute the following command from this directory to begin SCRUB execution:
 
-    `scrub run --config scrub.cfg`
+    `scrub run --config scrub.cfg --debug --clean`
 
 During execution SCRUB will print various status messages to the console. Additionally, log information and results will be stored in a hidden directory named `.scrub` located at `SOURCE_DIR` as defined in the scrub.cfg file used during execution.
 
 Tools can also be run individuall by using using the `run --tools` command. An example is provided below for CodeQL execution:
 
-    scrub run --tools codeql --config scrub.cfg
+    scrub run --tools codeql --config scrub.cfg --quiet
 
 
 ## Dependencies
@@ -79,7 +79,7 @@ Python v3.6 or later is required.
 | GCC Compiler    | C/C++                            | No            | No                |
 | JAVAC Compiler  | Java                             | No            | No                |
 | Pylint          | Python                           | No            | No                |
-| SonarQube       | Java, JavaScript, Python         | No            | No**              |
+| SonarQube       | C/C++, Java, JavaScript, Python  | No            | No**              |
 
 **Note**: P10 checks are only applicable to C/C++ analysis.
 
