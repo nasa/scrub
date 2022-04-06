@@ -11,7 +11,9 @@ After SCRUB has been installed, it can be run using the command line interface. 
                 Default value: ./scrub.cfg
             - tools: Tools to run during analysis [string] [optional]
             - targets: Targets to run during results export [string] [optional]
-            - clean: Remove all previous analysis
+            - clean: Remove all previous analysis [optional]
+            - debug: Print verbose execution information to the console [optional]
+            - quiet: Print minimal execution infromation to the console [optional]
 
 
     scrub run-tool
