@@ -26,10 +26,9 @@ then
     exit 1
 fi
 
-# Retrieve the results from the SonarQube server
-PAGE=1
-MORE_RESULTS=true
-while $MORE_RESULTS; do
+# Retrieve the results from the SonarQube server (limit is 20 pages/10000 results as set by SonarQube)
+for PAGE in {1..20}
+do
     # Get the page
     RESULTS_FILE=${{TOOL_ANALYSIS_DIR}}/sonarqube_warnings_$PAGE.json
     curl -u ${{SONARQUBE_TOKEN}}: "${{SONARQUBE_SERVER}}/api/issues/search?ps=500&componentKeys=${{SONARQUBE_PROJECT}}&p=$PAGE&${{SONARQUBE_CURL_FLAGS}}" -o $RESULTS_FILE
@@ -41,10 +40,8 @@ while $MORE_RESULTS; do
 
     # Check the contents
     if grep -q "\"issues\":\[\]" $RESULTS_FILE; then
-        rm -s $RESULTS_FILE
-        MORE_RESULTS=false
-    else
-        PAGE=$((PAGE+1))
+        rm -f $RESULTS_FILE
+        break
     fi
 done
 
