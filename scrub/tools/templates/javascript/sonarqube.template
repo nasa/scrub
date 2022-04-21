@@ -1,7 +1,10 @@
 #!/bin/bash -x
 
+# Change to the build directory
+cd ${{SONARQUBE_BUILD_DIR}}
+
 # Perform SonarQube analysis
-${{SONARQUBE_PATH}}/sonar-scanner ${{SONARQUBE_SCANNER_FLAGS}} -D sonar.sources=${{SOURCE_DIR}} -D sonar.inclusions=**/*.js -D sonar.host.url=${{SONARQUBE_SERVER}} -D sonar.projectKey=${{SONARQUBE_PROJECT}} -D sonar.login=${{SONARQUBE_TOKEN}} -D sonar.working.directory=${{TOOL_ANALYSIS_DIR}}
+${{SONARQUBE_PATH}}/sonar-scanner ${{SONARQUBE_SCANNER_FLAGS}} -D sonar.sources=${{SOURCE_DIR}} -D sonar.inclusions=**/*.js,**/*.ts -D sonar.host.url=${{SONARQUBE_SERVER}} -D sonar.projectKey=${{SONARQUBE_PROJECT}} -D sonar.login=${{SONARQUBE_TOKEN}} -D sonar.working.directory=${{TOOL_ANALYSIS_DIR}}
 
 # Wait for results to be finalized
 STATUS_URL=`tail -n 1 ${{TOOL_ANALYSIS_DIR}}/report-task.txt | cut -c11-`
