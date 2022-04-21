@@ -1,7 +1,8 @@
 #!/bin/bash -x
 
-# Generate a list of JavaScript files
+# Generate a list of JavaScript and TypeScript files
 find ${{SOURCE_DIR}} -name "*.js" >> ${{TOOL_ANALYSIS_DIR}}/source_file_list.txt
+find ${{SOURCE_DIR}} -name "*.ts" >> ${{TOOL_ANALYSIS_DIR}}/source_file_list.txt
 
 # Capture the build
 ${{COVERITY_PATH}}/cov-build --dir ${{TOOL_ANALYSIS_DIR}} ${{COVERITY_COVBUILD_FLAGS}} --no-command --fs-capture-list ${{TOOL_ANALYSIS_DIR}}/source_file_list.txt
