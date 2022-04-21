@@ -270,7 +270,7 @@ def parse_sarif(sarif_filename, source_root, id_prefix=None):
         updated_source_dir = source_root
 
         # Import the SARIF data
-        with open(sarif_filename, 'r') as sarif:
+        with open(sarif_filename, 'r', encoding='utf-8') as sarif:
             sarif_data = json.loads(sarif.read())
 
         if sarif_data:
