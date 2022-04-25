@@ -9,6 +9,9 @@ ${{SONARQUBE_CLEAN_CMD}}
 # Build the code
 ${{SONARQUBE_BUILD_CMD}}
 
+# Change to the source root directory
+cd ${{SOURCE_DIR}}
+
 # Perform SonarQube analysis
 ${{SONARQUBE_PATH}}/sonar-scanner ${{SONARQUBE_SCANNER_FLAGS}} -D sonar.sources=${{SOURCE_DIR}} -D sonar.inclusions=**/*.java -D sonar.host.url=${{SONARQUBE_SERVER}} -D sonar.projectKey=${{SONARQUBE_PROJECT}} -D sonar.login=${{SONARQUBE_TOKEN}} -D sonar.java.binaries=${{SOURCE_DIR}} -D sonar.working.directory=${{TOOL_ANALYSIS_DIR}}
 
