@@ -15,10 +15,10 @@ if not os.path.exists(log_dir):
     os.mkdir(log_dir)
 
 # Set the test directories
-test_dirs = ['/root/c_testcase',
-             '/root/java_testcase',
-             '/root/python_testcase',
-             '/root/javascript_testcase']
+test_dirs = ['./c_testcase',
+             './java_testcase',
+             './python_testcase',
+             './javascript_testcase']
 
 # Set the flags
 cli_options = [['--clean', '--debug'],
