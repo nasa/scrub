@@ -1,9 +1,0 @@
-# Comment line
-- .*testcasesupport.*
-+ .*testcasesupport/io.c
-+ .*testcasesupport/std_thread.h
-+
-#Another comment
--dummy
-dummy dummy
-

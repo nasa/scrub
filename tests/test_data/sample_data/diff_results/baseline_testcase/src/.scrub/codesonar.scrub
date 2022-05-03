@@ -1,4 +1,0 @@
-codesonar124 <Low> :main_linux.cpp:15: Cast Alters Value
-    time(__null) is cast from long to unsigned int.  - time(__null) could be -1 or lower.  - Negative values cannot be stored as unsigned int.  Casting them to unsigned int can cause data loss or sign change.The issue can occur if the highlighted code executes.
-    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/755450.html
-

@@ -1,5 +1,0 @@
-semmle:cpp/jpl-c/function-size-limits
-coverity:DC.WEAK_CRYPTO
-codeql:cpp/power-of-10/pointer-nesting
-codesonar:Negative Character Value
-klocwork:SV.FMT_STR.SCAN_FORMAT_MISMATCH.UNDESIRED

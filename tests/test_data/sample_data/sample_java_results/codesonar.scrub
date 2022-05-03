@@ -1,4 +1,0 @@
-codesonar001 <Low> :src/testcasesupport/IO.java:70: Empty database password
-    This code creates a database connect using a blank or empty password. This indicates that the database is not protected by a password.Full description: FB.SECURITY.DMI_EMPTY_DB_PASSWORD.
-    Codesonar viewer: https://fake-codesonar-hub.com/warninginstance/776477.html
-
