@@ -15,15 +15,15 @@ if not os.path.exists(log_dir):
     os.mkdir(log_dir)
 
 # Set the test directories
-test_dirs = ['./c_testcase',
-             './java_testcase',
-             './python_testcase',
-             './javascript_testcase']
+test_dirs = ['./tests/integration_tests/c_testcase',
+             './tests/integration_tests/java_testcase',
+             './tests/integration_tests/python_testcase',
+             './tests/integration_tests/javascript_testcase']
 
 # Set the flags
 cli_options = [['--clean', '--debug'],
-             ['--tools', 'filtering', '--targets', 'scrub_gui'],
-             ['--tools', 'coverity', '--targets', 'scrub_gui', '--quiet']]
+               ['--config', 'scrub_custom.cfg', '--targets', 'scrub_gui'],
+               ['--tools', 'coverity', '--targets', 'scrub_gui', '--quiet']]
 
 
 @pytest.mark.parametrize("test_dir", test_dirs)
@@ -38,7 +38,8 @@ def test_scrubme(test_dir, config_file, cli_flags, capsys):
         operation = 'nominal'
 
     # Create the log file
-    test_log_file = os.path.join(log_dir, 'scrub-run-' + language + '-' + operation + '_flags' + str(cli_options.index(cli_flags)) + '.log')
+    test_log_file = os.path.join(log_dir, 'scrub-run-' + language + '-' + operation + '_flags' +
+                                 str(cli_options.index(cli_flags)) + '.log')
 
     # Navigate to the test directory
     start_dir = os.getcwd()
