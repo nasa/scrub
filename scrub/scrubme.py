@@ -4,6 +4,7 @@ import os
 import re
 import shutil
 import sys
+import time
 import argparse
 import logging
 import traceback
@@ -113,6 +114,9 @@ def main(conf_file='./scrub.cfg', clean=False, console_logging=logging.INFO, too
 
         # Perform analysis using the template
         for analysis_template in analysis_templates:
+            # Initialize variables
+            execution_time = 0
+
             # Get the tool name
             tool_name = os.path.splitext(os.path.basename(analysis_template))[0]
 
@@ -167,6 +171,9 @@ def main(conf_file='./scrub.cfg', clean=False, console_logging=logging.INFO, too
                 # os.chmod(analysis_script, 0o777)
 
                 try:
+                    # Start the timer
+                    start_time = time.time()
+
                     # Set the environment for execution
                     user_env = os.environ.copy()
 
@@ -177,7 +184,7 @@ def main(conf_file='./scrub.cfg', clean=False, console_logging=logging.INFO, too
                     else:
                         user_env.update({'PYTHONPATH': os.path.normpath(scrub_path + '/../')})
 
-                    # Execute the analysis
+                    # Execute the analysis and track execution time
                     scrub_utilities.execute_command(analysis_script, user_env)
 
                     # Check the tool analysis directory
@@ -207,14 +214,19 @@ def main(conf_file='./scrub.cfg', clean=False, console_logging=logging.INFO, too
                     # Close the logger
                     logging.getLogger().handlers = []
 
-            # Update the execution status
-            execution_status.append([tool_name, tool_execution_status])
+                    # Calculate the execution time
+                    execution_time = time.time() - start_time
 
-        # Perform filtering
+            # Update the execution status
+            execution_status.append([tool_name, tool_execution_status, execution_time])
+
+        # Perform filtering and track execution time
+        start_time = time.time()
         filtering_status = do_filtering.run_analysis(scrub_conf_data)
+        execution_time = time.time() - start_time
 
         # Update the execution status
-        execution_status.append(['filtering', filtering_status])
+        execution_status.append(['filtering', filtering_status, execution_time])
 
     finally:
         # Move the results back with the source code if necessary
@@ -246,7 +258,10 @@ def main(conf_file='./scrub.cfg', clean=False, console_logging=logging.INFO, too
                 exit_code = 'Unknown error'
 
             # Print the status message
-            print('\t%s: %s' % (status[0], exit_code))
+            if len(status) == 3:
+                print('\t%s: %s (%s)' % (status[0], exit_code, time.strftime("%H:%M:%S", time.gmtime(status[2]))))
+            else:
+                print('\t%s: %s' % (status[0], exit_code))
 
     # Search for target modules
     available_target_modules = glob.glob(scrub_path + '/targets/*/do_*.py')
