@@ -9,11 +9,11 @@ ${{CODEQL_CLEAN_CMD}}
 ${{CODEQL_PATH}}/codeql database create --language cpp --source-root ${{SOURCE_DIR}} --working-dir ${{CODEQL_BUILD_DIR}} ${{CODEQL_DATABASECREATE_FLAGS}} --command "${{CODEQL_BUILD_CMD}}" ${{TOOL_ANALYSIS_DIR}}/codeql-database
 
 # Upgrade the database to make sure that it works with the queries
-${{CODEQL_PATH}}/codeql database upgrade --search-path ${{CODEQL_QUERY_PATH}}
+${{CODEQL_PATH}}/codeql database upgrade --search-path ${{CODEQL_QUERY_PATH}} ${{TOOL_ANALYSIS_DIR}}/codeql-database
 
 if [ ${{CODEQL_BASELINE_ANALYSIS}} ]; then
   # Preform the baseline analysis, if necessary
-  ${{CODEQL_PATH}}/codeql database analyze --format=sarif-latest --output=${{TOOL_ANALYSIS_DIR}}/codeql_raw.sarif ${{TOOL_ANALYSIS_DIR}}/codeql-database "${{CODEQL_QUERY_PATH}}/cpp/ql/src/codeql-suites/cpp-lgtm-full.qls" "${{CODEQL_QUERY_PATH}}/cpp/ql/src/AlertSuppression.ql"
+  ${{CODEQL_PATH}}/codeql database analyze --format=sarif-latest --output=${{TOOL_ANALYSIS_DIR}}/codeql_raw.sarif ${{TOOL_ANALYSIS_DIR}}/codeql-database "${{CODEQL_QUERY_PATH}}/cpp/ql/src/codeql-suites/cpp-code-scanning.qls" "${{CODEQL_QUERY_PATH}}/cpp/ql/src/AlertSuppression.ql"
 
   # Parse the SARIF baseline results output file into SCRUB format
   python3 -m scrub.tools.parsers.translate_results ${{TOOL_ANALYSIS_DIR}}/codeql_raw.sarif ${{RAW_RESULTS_DIR}}/codeql_raw.scrub ${{SOURCE_DIR}} scrub

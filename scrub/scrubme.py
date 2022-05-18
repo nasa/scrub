@@ -241,9 +241,12 @@ def main(conf_file='./scrub.cfg', clean=False, console_logging=logging.INFO, too
 
         # Print a status message
         tool_failure_count = 0
-        print('')
-        print('Tool Execution Status:')
+        total_execution_time = 0
+        print('\nTool Execution Status:\n')
         for status in execution_status:
+            # Track the execution time
+            total_execution_time = total_execution_time + status[2]
+
             # Decode the exit code
             if status[1] == 0:
                 exit_code = 'Completed successfully'
@@ -258,10 +261,11 @@ def main(conf_file='./scrub.cfg', clean=False, console_logging=logging.INFO, too
                 exit_code = 'Unknown error'
 
             # Print the status message
-            if len(status) == 3:
-                print('\t%s: %s (%s)' % (status[0], exit_code, time.strftime("%H:%M:%S", time.gmtime(status[2]))))
-            else:
-                print('\t%s: %s' % (status[0], exit_code))
+            print('\t%s | %s: %s' % (time.strftime("%H:%M:%S", time.gmtime(status[2])), status[0], exit_code))
+            print('\t--------------------------------------------------')
+
+        # Print the execution time
+        print('\n\tTotal Execution Time: %s\n' % time.strftime("%H:%M:%S", time.gmtime(total_execution_time)))
 
     # Search for target modules
     available_target_modules = glob.glob(scrub_path + '/targets/*/do_*.py')
