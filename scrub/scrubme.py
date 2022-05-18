@@ -63,7 +63,8 @@ def main(conf_file='./scrub.cfg', clean=False, console_logging=logging.INFO, too
     if os.path.exists(conf_file):
         scrub_conf_data = scrub_utilities.parse_common_configs(conf_file)
     else:
-        sys.exit('ERROR: Configuration file ' + conf_file + ' does not exist.')
+        print('ERROR: Configuration file ' + conf_file + ' does not exist.')
+        sys.exit(10)
 
     # Initialize variables
     execution_status = []

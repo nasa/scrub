@@ -35,20 +35,37 @@ python_testcase = os.path.abspath('./tests/integration_tests/python_testcase')
 #                ['--config', 'scrub_error.cfg', '--targets', 'scrub_gui'],
 #                ['--tools', 'coverity', '--targets', 'scrub_gui', '--quiet']]
 
-testcases = [[c_testcase, ['run', '--clean', '--debug']],                         # Testcase 0: Default C Execution
-             [java_testcase, ['run', '--clean', '--debug', '--config']],          # Testcase 1: Default Java Execution
-             [javascript_testcase, ['run', '--clean', '--debug']],                # Testcase 2: Default JavaScript Execution
-             [python_testcase, ['run', '--clean', '--debug']],                    # Testcase 3: Default Python Execution
-             [c_testcase, ['run', '--tools', 'filter']],                          # Testcase 4: Filtering Only Execution
-             [c_testcase, ['run', '--quiet', '--tools', 'coverity']],             # Testcase 5: Individual Tool Execution
-             [javascript_testcase, ['run', '--tools', 'coverity', 'sonarqube']],  # Testcase 6: Multiple Tool Execution
-             [java_testcase, ['run', '--config', 'scrub_error.cfg']],             # Testcase 6: Tool Error
-             [python_testcase, ['run', '--targets', 'collaborator']],             # Testcase 7: Collaborator Upload
-             [c_testcase, ['run', 'targets', 'scrub_gui']]                        # Testcase 8: SCRUB GUI Distribution
+# Testcase | Class       | Description            | Expected Outcome   |
+# -------- + ----------- + ---------------------- + ------------------ |
+# 0        | Error       | Missing config file    | Exit Code: 10      |
+# 1        | Error       | Broken tool execution  | Exit code: 1       |
+# 2        | Integration | C integration          | Exit Code: 0       |
+# 3        | Integration | Java integration       | Exit Code: 0       |
+# 4        | Integration | JavaScript integration | Exit Code: 0       |
+# 5        | Integration | Python integration     | Exit Code: 0       |
+# 6        | Integration | Filter only            | Exit Code: 0       |
+# 7        | Integration | Single tool            | Exit Code: 0       |
+# 8        | Integration | Multiple tools         | Exit Code: 0       |
+# 9        | Integration | Single target          | Exit Code: 0       |
+# 10       | Integration | Multiple targets       | Exit Code: 0       |
+
+
+testcases = [[java_testcase, ['run', '--config', 'missing_scrub.cfg'], 10],          # Testcase 0
+             [c_testcase, ['run', '--clean', '--config', 'bad_scrub.cfg'], 1],       # Testcase 1
+             [c_testcase, ['run', '--clean', '--debug'], 0],                         # Testcase 2
+             [java_testcase, ['run', '--clean', '--debug'], 0],                      # Testcase 3
+             [javascript_testcase, ['run', '--clean', '--debug'], 0],                # Testcase 4
+             [python_testcase, ['run', '--clean', '--debug'], 0],                    # Testcase 5
+             [c_testcase, ['run', '--tools', 'filter'], 0],                          # Testcase 6
+             [c_testcase, ['run', '--quiet', '--tools', 'coverity'], 0],             # Testcase 7
+             [javascript_testcase, ['run', '--tools', 'coverity', 'sonarqube'], 0],  # Testcase 8
+             [python_testcase, ['run', '--targets', 'collaborator'], 0],             # Testcase 9
+             [c_testcase, ['run', '--targets', 'collaborator', 'scrub_gui'], 0]      # Testcase 10
              ]
 
+
 @pytest.mark.parametrize("testcase", testcases)
-def test_scrubme(testcase, capsys):
+def test_scrub(testcase, capsys):
     # Create the log file
     test_log_file = os.path.join(log_dir, 'scrub-testcase-' + str(testcases.index(testcase)) + '.log')
 
@@ -72,8 +89,8 @@ def test_scrubme(testcase, capsys):
         sys_exit_text = traceback.format_exc()
         exit_code = int(list(filter(None, re.split('\n|:', sys_exit_text)))[-1])
 
-        # There should be no system exit
-        assert exit_code == 0
+        # Check the exit code
+        assert exit_code == testcase[2]
 
     finally:
         # Navigate to the start directory
