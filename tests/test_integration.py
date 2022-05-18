@@ -3,6 +3,7 @@ import re
 import sys
 import pytest
 import traceback
+from tests import verify_output
 from scrub import scrub_cli
 
 
@@ -15,39 +16,49 @@ if not os.path.exists(log_dir):
     os.mkdir(log_dir)
 
 # Set the test directories
-test_dirs = ['./tests/integration_tests/c_testcase',
-             './tests/integration_tests/java_testcase',
-             './tests/integration_tests/python_testcase',
-             './tests/integration_tests/javascript_testcase']
+c_testcase = os.path.abspath('./tests/integration_tests/c_testcase')
+java_testcase = os.path.abspath('./tests/integration_tests/java_testcase')
+javascript_testcase = os.path.abspath('./tests/integration_tests/javascript_testcase')
+python_testcase = os.path.abspath('./tests/integration_tests/python_testcase')
+# c_testcase = os.path.abspath('/root/c_testcase')
+# java_testcase = os.path.abspath('/root/java_testcase')
+# javascript_testcase = os.path.abspath('/root/javascript_testcase')
+# python_testcase = os.path.abspath('/root/python_testcase')
 
-# Set the flags
-cli_options = [['--clean', '--debug'],
-               ['--config', 'scrub_custom.cfg', '--targets', 'scrub_gui'],
-               ['--tools', 'coverity', '--targets', 'scrub_gui', '--quiet']]
+# test_dirs = ['./tests/integration_tests/c_testcase',
+#              './tests/integration_tests/java_testcase',
+#              './tests/integration_tests/python_testcase',
+#              './tests/integration_tests/javascript_testcase']
+#
+# # Set the flags
+# cli_options = [['--clean', '--debug'],
+#                ['--config', 'scrub_error.cfg', '--targets', 'scrub_gui'],
+#                ['--tools', 'coverity', '--targets', 'scrub_gui', '--quiet']]
 
+testcases = [[c_testcase, ['run', '--clean', '--debug']],                         # Testcase 0: Default C Execution
+             [java_testcase, ['run', '--clean', '--debug', '--config']],          # Testcase 1: Default Java Execution
+             [javascript_testcase, ['run', '--clean', '--debug']],                # Testcase 2: Default JavaScript Execution
+             [python_testcase, ['run', '--clean', '--debug']],                    # Testcase 3: Default Python Execution
+             [c_testcase, ['run', '--tools', 'filter']],                          # Testcase 4: Filtering Only Execution
+             [c_testcase, ['run', '--quiet', '--tools', 'coverity']],             # Testcase 5: Individual Tool Execution
+             [javascript_testcase, ['run', '--tools', 'coverity', 'sonarqube']],  # Testcase 6: Multiple Tool Execution
+             [java_testcase, ['run', '--config', 'scrub_error.cfg']],             # Testcase 6: Tool Error
+             [python_testcase, ['run', '--targets', 'collaborator']],             # Testcase 7: Collaborator Upload
+             [c_testcase, ['run', 'targets', 'scrub_gui']]                        # Testcase 8: SCRUB GUI Distribution
+             ]
 
-@pytest.mark.parametrize("test_dir", test_dirs)
-@pytest.mark.parametrize("config_file", ['scrub.cfg', 'scrub_custom.cfg'])
-@pytest.mark.parametrize("cli_flags", cli_options)
-def test_scrubme(test_dir, config_file, cli_flags, capsys):
-    # Initialize variables
-    language = os.path.basename(os.path.basename(test_dir)).split('_')[0]
-    if 'custom' in config_file:
-        operation = 'custom'
-    else:
-        operation = 'nominal'
-
+@pytest.mark.parametrize("testcase", testcases)
+def test_scrubme(testcase, capsys):
     # Create the log file
-    test_log_file = os.path.join(log_dir, 'scrub-run-' + language + '-' + operation + '_flags' +
-                                 str(cli_options.index(cli_flags)) + '.log')
+    test_log_file = os.path.join(log_dir, 'scrub-testcase-' + str(testcases.index(testcase)) + '.log')
 
     # Navigate to the test directory
     start_dir = os.getcwd()
-    os.chdir(test_dir)
+    os.chdir(testcase[0])
 
     try:
-        # Run scrubme
-        sys.argv = ['/opt/project/scrub/scrub_cli.py', 'run']
+        # Run scrub
+        sys.argv = ['/opt/project/scrub/scrub_cli.py'] +testcase[1]
         scrub_cli.main()
 
     except SystemExit:
