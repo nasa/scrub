@@ -38,10 +38,19 @@ def parse_findings(findings_file, parsed_output_file, source_root):
         else:
             warning_line = 0
 
+        # Check to see if the warning should be suppressed
+        if 'resolution' in finding.keys():
+            if 'WONTFIX' or 'FALSE-POSITIVE' in finding['resolution']:
+                suppression = True
+            else:
+                suppression = False
+        else:
+            suppression = False
+
         # Add to the warning dictionary
         raw_warnings.append(translate_results.create_warning(warning_id, warning_file, warning_line,
                                                              warning_message, ID_PREFIX, WARNING_LEVEL,
-                                                             warning_query))
+                                                             warning_query, suppression))
 
         # Increment the warning count
         warning_count = warning_count + 1
