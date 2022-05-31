@@ -58,16 +58,16 @@ testcases = [[java_testcase, ['run', '--config', 'missing_scrub.cfg'], 10],     
              [c_testcase, ['run', '--clean', '--config', 'bad_scrub.cfg'], 1],       # Testcase 1
              [c_testcase, ['dummy'], 0],                                             # Testcase 2
              [c_testcase, ['--help'], 0],                                            # Testcase 3
-             [c_testcase, ['get-conf'], 0],                                          # Testcase 3
-             [c_testcase, ['run', '--clean', '--debug'], 0],                         # Testcase 4
-             [java_testcase, ['run', '--clean', '--debug'], 0],                      # Testcase 5
-             [javascript_testcase, ['run', '--clean', '--debug'], 0],                # Testcase 6
-             [python_testcase, ['run', '--clean', '--debug'], 0],                    # Testcase 7
-             [c_testcase, ['run', '--tools', 'filter'], 0],                          # Testcase 8
-             [c_testcase, ['run', '--quiet', '--tools', 'coverity'], 0],             # Testcase 9
-             [javascript_testcase, ['run', '--tools', 'coverity', 'sonarqube'], 0],  # Testcase 10
-             [python_testcase, ['run', '--targets', 'collaborator'], 0],             # Testcase 11
-             [c_testcase, ['run', '--targets', 'collaborator', 'scrub_gui'], 0]      # Testcase 12
+             [c_testcase, ['get-conf'], 0],                                          # Testcase 4
+             [c_testcase, ['run', '--clean', '--debug'], 0],                         # Testcase 5
+             [java_testcase, ['run', '--clean', '--debug'], 0],                      # Testcase 6
+             [javascript_testcase, ['run', '--clean', '--debug'], 0],                # Testcase 7
+             [python_testcase, ['run', '--clean', '--debug'], 0],                    # Testcase 8
+             [c_testcase, ['run', '--tools', 'filter'], 0],                          # Testcase 9
+             [c_testcase, ['run', '--quiet', '--tools', 'coverity'], 0],             # Testcase 10
+             [javascript_testcase, ['run', '--tools', 'coverity', 'sonarqube'], 0],  # Testcase 11
+             [python_testcase, ['run', '--targets', 'collaborator'], 0],             # Testcase 12
+             [c_testcase, ['run', '--targets', 'collaborator', 'scrub_gui'], 0]      # Testcase 13
              ]
 
 
@@ -97,8 +97,7 @@ def test_scrub(testcase, capsys):
         exit_code = int(list(filter(None, re.split('\n|:', sys_exit_text)))[-1])
 
         # Check the exit code or other condition
-        if testcase[2].isdigit():
-            assert exit_code == testcase[2]
+        assert exit_code == testcase[2]
 
 
     finally:
