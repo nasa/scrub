@@ -30,13 +30,24 @@ then
 fi
 
 # Retrieve the results from the SonarQube server
-RESULTS_FILE=${{TOOL_ANALYSIS_DIR}}/sonarqube_warnings.json
-curl -u ${{SONARQUBE_TOKEN}}: "${{SONARQUBE_SERVER}}/api/projects/export_findings?project=${{SONARQUBE_PROJECT}}&${{SONARQUBE_CURL_FLAGS}}" -o $RESULTS_FILE
-
-# Check the contents of the results file
-if grep -q "\"project not found\":\[\]" $RESULTS_FILE; then
-    exit 1
-fi
+PAGE=1
+MORE_RESULTS=true
+while $MORE_RESULTS; do
+    # Get the page
+    RESULTS_FILE=${{TOOL_ANALYSIS_DIR}}/sonarqube_warnings_$PAGE.json
+    curl -u ${{SONARQUBE_TOKEN}}: "${{SONARQUBE_SERVER}}/api/issues/search?ps=500&componentKeys=${{SONARQUBE_PROJECT}}&p=$PAGE&${{SONARQUBE_CURL_FLAGS}}" -o $RESULTS_FILE
+    # Check to see if the file is empty
+    if [ ! -s "$RESULTS_FILE" ]; then
+        exit 1
+    fi
+    # Check the contents
+    if grep -q "\"issues\":\[\]" $RESULTS_FILE; then
+       rm -f $RESULTS_FILE
+       MORE_RESULTS=false
+    else
+       PAGE=$((PAGE+1))
+    fi
+done
 
 # Parse the results
 python3 -m scrub.tools.parsers.get_sonarqube_warnings $RESULTS_FILE ${{RAW_RESULTS_DIR}}/sonarqube_raw.scrub ${{SOURCE_DIR}}
