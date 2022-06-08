@@ -50,4 +50,4 @@ while $MORE_RESULTS; do
 done
 
 # Parse the results
-python3 -m scrub.tools.parsers.get_sonarqube_warnings $RESULTS_FILE ${{RAW_RESULTS_DIR}}/sonarqube_raw.scrub ${{SOURCE_DIR}}
+python3 -m scrub.tools.parsers.get_sonarqube_warnings ${{TOOL_ANALYSIS_DIR}} ${{RAW_RESULTS_DIR}}/sonarqube_raw.scrub ${{SOURCE_DIR}}
