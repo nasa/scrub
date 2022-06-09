@@ -58,5 +58,25 @@ while $MORE_RESULTS; do
     fi
 done
 
+# Retrieve the hotspots from the SonarQube server
+PAGE=1
+MORE_RESULTS=true
+while $MORE_RESULTS; do
+    # Get the page
+    RESULTS_FILE=${{TOOL_ANALYSIS_DIR}}/sonarqube_hotspots_$PAGE.json
+    curl -u ${{SONARQUBE_TOKEN}}: "${{SONARQUBE_SERVER}}/api/hotspots/search?ps=500&projectKey=${{SONARQUBE_PROJECT}}&p=$PAGE&${{SONARQUBE_CURL_FLAGS}}" -o $RESULTS_FILE
+    # Check to see if the file is empty
+    if [ ! -s "$RESULTS_FILE" ]; then
+        exit 1
+    fi
+    # Check the contents
+    if grep -q "\"hotspots\":\[\]" $RESULTS_FILE; then
+       rm -f $RESULTS_FILE
+       MORE_RESULTS=false
+    else
+       PAGE=$((PAGE+1))
+    fi
+done
+
 # Parse the results
 python3 -m scrub.tools.parsers.get_sonarqube_warnings ${{TOOL_ANALYSIS_DIR}} ${{RAW_RESULTS_DIR}}/sonarqube_raw.scrub ${{SOURCE_DIR}}
