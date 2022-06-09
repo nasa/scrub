@@ -43,7 +43,7 @@ PAGE=1
 MORE_RESULTS=true
 while $MORE_RESULTS; do
     # Get the page
-    RESULTS_FILE=${{TOOL_ANALYSIS_DIR}}/sonarqube_warnings_$PAGE.json
+    RESULTS_FILE=${{TOOL_ANALYSIS_DIR}}/sonarqube_issues_$PAGE.json
     curl -u ${{SONARQUBE_TOKEN}}: "${{SONARQUBE_SERVER}}/api/issues/search?ps=500&componentKeys=${{SONARQUBE_PROJECT}}&p=$PAGE&${{SONARQUBE_CURL_FLAGS}}" -o $RESULTS_FILE
     # Check to see if the file is empty
     if [ ! -s "$RESULTS_FILE" ]; then
