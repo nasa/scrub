@@ -322,14 +322,13 @@ def parse_common_configs(user_conf_file, scrub_keys=[]):
 
     # Update the configuration data
     for key in scrub_conf_data.keys():
-        # Expand environment variables
         scrub_conf_data.update({key: os.path.expandvars(scrub_conf_data.get(key))})
 
-        # Update boolean values
+        # # Update boolean values
         if scrub_conf_data.get(key).lower() == 'true':
-            scrub_conf_data.update({key: True})
+            scrub_conf_data.update({key: 'true'})
         elif scrub_conf_data.get(key).lower() == 'false':
-            scrub_conf_data.update({key: False})
+            scrub_conf_data.update({key: 'false'})
 
     # Make the source root absolute
     scrub_conf_data.update({'source_dir': os.path.abspath(os.path.expanduser(scrub_conf_data.get('source_dir')))})

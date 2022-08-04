@@ -6,7 +6,7 @@ cd ${{CODESONAR_BUILD_DIR}}
 ${{CODESONAR_CLEAN_CMD}}
 
 # Select the analysis preset
-if [ ${{CODESONAR_P10_ANALYSIS}} ]; then
+if ${{CODESONAR_P10_ANALYSIS}}; then
   preset='-preset pow10'
 else
   # Blank preset indicates baseline analysis
