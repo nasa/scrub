@@ -5,6 +5,10 @@ To install SCRUB, run this command in your terminal:
 
     pip install nasa-scrub
     
+To install SCRUB only for the current user, user the `--user` flag during installation:
+
+    pip install --user nasa-scrub
+
 To upgrade your existing version to the latest version of SCRUB, run this command in your terminal:
 
     pip install --upgrade nasa-scrub
