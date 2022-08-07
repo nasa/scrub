@@ -60,7 +60,10 @@ def parse_template(template_file, output_file, conf_data):
 
     # Replace all of the variables with config data
     for key in conf_data.keys():
-        template_data = template_data.replace('${{' + key.upper() + '}}', str(conf_data.get(key)))
+        if isinstance(conf_data.get(key), bool)
+            template_data = template_data.replace('${{' + key.upper() + '}}', str(conf_data.get(key)).lower())
+        else:
+            template_data = template_data.replace('${{' + key.upper() + '}}', str(conf_data.get(key)))
 
     # Write out the completed template
     if os.path.exists(output_file):
@@ -326,9 +329,9 @@ def parse_common_configs(user_conf_file, scrub_keys=[]):
 
         # # Update boolean values
         if scrub_conf_data.get(key).lower() == 'true':
-            scrub_conf_data.update({key: 'true'})
+            scrub_conf_data.update({key: True})
         elif scrub_conf_data.get(key).lower() == 'false':
-            scrub_conf_data.update({key: 'false'})
+            scrub_conf_data.update({key: False})
 
     # Make the source root absolute
     scrub_conf_data.update({'source_dir': os.path.abspath(os.path.expanduser(scrub_conf_data.get('source_dir')))})
