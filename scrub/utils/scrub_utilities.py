@@ -60,7 +60,7 @@ def parse_template(template_file, output_file, conf_data):
 
     # Replace all of the variables with config data
     for key in conf_data.keys():
-        if isinstance(conf_data.get(key), bool)
+        if isinstance(conf_data.get(key), bool):
             template_data = template_data.replace('${{' + key.upper() + '}}', str(conf_data.get(key)).lower())
         else:
             template_data = template_data.replace('${{' + key.upper() + '}}', str(conf_data.get(key)))
