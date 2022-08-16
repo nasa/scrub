@@ -234,6 +234,10 @@ def main(conf_file='./scrub.cfg', clean=False, console_logging=logging.INFO, too
         if scrub_conf_data.get('scrub_working_dir') != scrub_conf_data.get('scrub_analysis_dir'):
             # Move every item in the directory
             for item in os.listdir(scrub_conf_data.get('scrub_working_dir')):
+                # Remove the destination directory
+                shutil.rmtree(scrub_conf_data.get('scrub_analysis_dir') + '/' + item)
+
+                # Move the contents
                 shutil.move(scrub_conf_data.get('scrub_working_dir') + '/' + item,
                             scrub_conf_data.get('scrub_analysis_dir') + '/' + item)
 
