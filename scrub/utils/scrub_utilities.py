@@ -423,8 +423,9 @@ def initialize_storage_dir(scrub_conf_data):
     # Create the analysis directory if it doesn't exist
     if scrub_conf_data.get('scrub_working_dir') != scrub_conf_data.get('scrub_analysis_dir'):
         if os.path.exists(scrub_conf_data.get('scrub_working_dir')):
-            sys.exit('ERROR: SCRUB storage directory ' + scrub_conf_data.get('scrub_working_dir') +
-                     ' already exists. Aborting analysis.')
+            print('ERROR: SCRUB storage directory ' + scrub_conf_data.get('scrub_working_dir') +
+                  ' already exists. Aborting analysis.')
+            sys.exit(403)
         else:
             # Create the scrub working dir
             os.mkdir(scrub_conf_data.get('scrub_working_dir'))
