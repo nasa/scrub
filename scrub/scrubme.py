@@ -128,7 +128,7 @@ def main(conf_file='./scrub.cfg', clean=False, console_logging=logging.INFO, too
                 # Initialize variables
                 analysis_scripts_dir = os.path.normpath(scrub_conf_data.get('scrub_analysis_dir') + '/analysis_scripts')
                 analysis_script = os.path.normpath(analysis_scripts_dir + '/' + tool_name + '.sh')
-                tool_analysis_dir = os.path.normpath(scrub_conf_data.get('scrub_analysis_dir') + '/' + tool_name +
+                tool_analysis_dir = os.path.normpath(scrub_conf_data.get('scrub_working_dir') + '/' + tool_name +
                                                      '_analysis')
 
                 # Add derived values to configuration values
