@@ -66,6 +66,9 @@ jobs:
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v2
       
+    - run: |
+        codeql database interpret-results --threads=2 --format=csv -v --output=../results/python.csv /home/runner/work/_temp/codeql_databases/python
+      
     - name: Upload CodeQL Artifacts
       uses: actions/upload-artifact@v3
       with:
