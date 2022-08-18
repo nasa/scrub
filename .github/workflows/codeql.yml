@@ -69,6 +69,7 @@ jobs:
     - run: |
         pip install nasa-scrub
         python3 -m scrub.tools.parsers.translate_results /home/runner/work/scrub/results/*.sarif /home/runner/work/scrub/results/codeql.scrub ${{ github.workspace }} scrub
+        python3 -m scrub.tools.parsers.csv_parser /home/runner/work/scrub/results
       
     - name: Upload CodeQL Artifacts
       uses: actions/upload-artifact@v3
