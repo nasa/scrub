@@ -67,10 +67,11 @@ jobs:
       uses: github/codeql-action/analyze@v2
       
     - run: |
-        codeql database interpret-results --threads=2 --format=csv -v --output=../results/python.csv /home/runner/work/_temp/codeql_databases/python
+        pip install nasa-scrub
+        python3 -m scrub.tools.parsers.translate_results /home/runner/work/scrub/results/*.sarif /home/runner/work/scrub/results/codeql.scrub ${{ github.workspace }} scrub
       
     - name: Upload CodeQL Artifacts
       uses: actions/upload-artifact@v3
       with:
         name: codeql-artifacts
-        path: /home/runner/work/scrub/results/*.sarif
+        path: /home/runner/work/scrub/results/*
