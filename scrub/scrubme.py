@@ -81,15 +81,8 @@ def main(conf_file='./scrub.cfg', clean=False, console_logging=logging.INFO, too
     shutil.copyfile(conf_file, os.path.normpath(scrub_conf_data.get('scrub_analysis_dir') + '/scrub.cfg'))
 
     try:
-        # Handle legacy language selections
-        if scrub_conf_data.get('source_lang') == 'j':
-            scrub_conf_data.update({'source_lang': 'java'})
-        if scrub_conf_data.get('source_lang') == 'p':
-            scrub_conf_data.update({'source_lang': 'python'})
-
-        # Get the templates for the language
-        available_analysis_templates = glob.glob(scrub_path + '/tools/templates/' + scrub_conf_data.get('source_lang') +
-                                                 '/*.template')
+        # Get the templates
+        available_analysis_templates = glob.glob(scrub_path + '/tools/templates/*template')
 
         # Append the custom templates if provided
         if scrub_conf_data.get('custom_templates'):
@@ -101,8 +94,11 @@ def main(conf_file='./scrub.cfg', clean=False, console_logging=logging.INFO, too
             print('WARNING: No analysis templates have been found.')
 
         # Update the analysis templates to be run
-        if tools == 'filter' or tools == 'filtering':
+        if ('filter' in tools) or ('filtering' in tools):
             analysis_templates = []
+        elif 'none' in tools:
+            analysis_templates = []
+            perform_filtering = False
         elif tools:
             analysis_templates = []
             for template in available_analysis_templates:
@@ -168,9 +164,6 @@ def main(conf_file='./scrub.cfg', clean=False, console_logging=logging.INFO, too
                 # Create the analysis template
                 scrub_utilities.parse_template(analysis_template, analysis_script, scrub_conf_data)
 
-                # Update the permissions of the analysis script
-                # os.chmod(analysis_script, 0o777)
-
                 try:
                     # Start the timer
                     start_time = time.time()
@@ -221,13 +214,14 @@ def main(conf_file='./scrub.cfg', clean=False, console_logging=logging.INFO, too
             # Update the execution status
             execution_status.append([tool_name, tool_execution_status, execution_time])
 
-        # Perform filtering and track execution time
-        start_time = time.time()
-        filtering_status = do_filtering.run_analysis(scrub_conf_data)
-        execution_time = time.time() - start_time
+        # Perform filtering and track execution time, if necessary
+        if perform_filtering:
+            start_time = time.time()
+            filtering_status = do_filtering.run_analysis(scrub_conf_data)
+            execution_time = time.time() - start_time
 
-        # Update the execution status
-        execution_status.append(['filtering', filtering_status, execution_time])
+            # Update the execution status
+            execution_status.append(['filtering', filtering_status, execution_time])
 
     finally:
         # Move the results back with the source code if necessary
@@ -290,6 +284,7 @@ def main(conf_file='./scrub.cfg', clean=False, console_logging=logging.INFO, too
                 if target in os.path.basename(module_path):
                     target_modules.append(module_path)
                     scrub_conf_data.update({target.lower() + '_export': True})
+                    scrub_conf_data.update({target.lower() + '_upload': True})
     else:
         target_modules = available_target_modules
 
