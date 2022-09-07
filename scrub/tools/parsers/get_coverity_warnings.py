@@ -1,255 +1,51 @@
-import re
-import os
 import sys
-import logging
-from distutils.version import StrictVersion
+import json
+from scrub.tools.parsers import translate_results
 
 WARNING_LEVEL = 'Low'
 ID_PREFIX = 'coverity'
 
 
-def get_error_indices(raw_input_file):
-    """This function gets the indices of the first line of all Coverity warnings.
-
+def parse_json(raw_input_file, parsed_output_file):
+    """This function parses the Coverity internal JSON results format into SCRUB formatted results.
     Inputs:
-        - raw_input_file: Full path to the file containing raw Coverity warnings [string]
-
-    Outputs:
-        - error_indices: List of warning indices [list of int]
-    """
-
-    # Initialize variables
-    error_indices = []
-
-    # Import the input data file
-    with open(raw_input_file, 'r') as input_fh:
-        input_data = input_fh.readlines()
-
-    # Iterate through every line of the input file
-    for i in range(0, len(input_data)):
-        # Get the line
-        line = input_data[i].strip()
-
-        if ('Error:' in line) or ('Checker:' in line) or ('Type:' in line):
-            error_indices.append(i)
-
-    return error_indices
-
-
-def parse_warnings_2019_12(raw_input_file, parsed_output_file):
-    """This function parses the raw Coverity warnings (version 2019.12) into the SCRUB format.
-
-    Inputs:
-        - input_file: Absolute path to the file containing raw Coverity warnings [string]
+        - raw_input_file: Absolute path to the file containing raw Coverity warnings [string]
         - parsed_output_file: Absolute path to the file where the parsed warnings will be stored [string]
     """
 
-    # Print status message
-    logging.info('')
-    logging.info('\t>> Executing command: get_coverity_warnings.parse_warnings_2019_12(%s, %s)',
-                 raw_input_file, parsed_output_file)
-    logging.info('\t>> From directory: %s', os.getcwd())
+    # Initialize variables
+    coverity_issues = []
+    warning_count = 1
 
-    # Import the input data file
+    # Read in the input file
     with open(raw_input_file, 'r') as input_fh:
-        input_data = input_fh.readlines()
+        input_data = json.load(input_fh)
+
+    # Iterate through every issue
+    for issue in input_data['issues']:
+        # Parse issue data
+        warning_id = '%s%03d' % (ID_PREFIX, warning_count)
+        warning_file = issue['mainEventFilePathname']
+        warning_line = int(issue['mainEventLineNumber'])
+        warning_checker = issue['checkerName']
+        warning_description = []
+
+        # Get the warning description
+        for event in issue['events']:
+            if event['eventTag'] != 'caretline':
+                warning_description.append('%s:%s:' % (event['strippedFilePathname'], event['lineNumber']))
+                warning_description.append('%s: %s' % (event['eventTag'], event['eventDescription']))
+
+        coverity_issues.append(translate_results.create_warning(warning_id, warning_file, warning_line,
+                                                                warning_description, 'coverity', WARNING_LEVEL,
+                                                                warning_checker))
+
+        # Increment the warning count
+        warning_count = warning_count + 1
 
     # Create the output file
-    with open(parsed_output_file, 'w+') as output_fh:
-        # Iterate through every line of the input file
-        error_indices = get_error_indices(raw_input_file)
-
-        # Iterate through every line of the input file and parse warnings
-        for i in range(0, len(error_indices)):
-            # Initialize variables
-            warning_text = []
-
-            # Get the index line
-            error_index = error_indices[i]
-
-            # Get the name of the warnings
-            warning_name = list(filter(None, re.split('[()]', input_data[error_index].strip())))[-1].strip()
-
-            # Get the location information
-            line = input_data[error_index - 1].strip()
-            line_split = list(filter(None, re.split(':', line)))
-            warning_file = line_split[-2]
-            warning_line = int(line_split[-1])
-
-            # Increment the warning count
-            warning_count = i + 1
-
-            # Get the warning text
-            if i < len(error_indices) - 1:
-                warning_index_end = error_indices[i + 1] - 2
-            else:
-                warning_index_end = len(input_data)
-
-            for j in range(error_index + 1, warning_index_end):
-                # Add the line ot the list, if it's not blank
-                if not input_data[j].strip() == '':
-                    warning_text.append(input_data[j].strip())
-
-            # Write the data to the output file
-            output_fh.write('%s%03d <%s> :%s:%d: %s\n' % (ID_PREFIX, warning_count, WARNING_LEVEL, warning_file,
-                                                          warning_line, warning_name))
-            for line in warning_text:
-                output_fh.write('    %s\n' % line)
-            output_fh.write('\n')
-
-    # Change the permissions of the output file
-    os.chmod(parsed_output_file, 438)
-
-
-def parse_warnings_2019_06(raw_input_file, parsed_output_file):
-    """This function parses the raw Coverity warnings (version 2019.06) into the SCRUB format.
-
-    Inputs:
-        - raw_input_file: Full path to the file containing raw Coverity warnings [string]
-        - parsed_output_file: Full path to the file where the parsed warnings will be stored [string]
-    """
-
-    # Print status message
-    logging.info('')
-    logging.info('\tParsing results...')
-    logging.info('\t>> Executing command: get_coverity_warnings.parse_warnings_2019_06(%s, %s)',
-                 raw_input_file, parsed_output_file)
-    logging.info('\t>> From directory: %s', os.getcwd())
-
-    # Import the input data file
-    with open(raw_input_file, 'r') as input_fh:
-        input_data = input_fh.readlines()
-
-    # Create the output file
-    with open(parsed_output_file, 'w+') as output_fh:
-        # Iterate through every line of the input file
-        error_indices = get_error_indices(raw_input_file)
-
-        # Iterate through every line of the input file and parse warnings
-        for i in range(0, len(error_indices)):
-            # Initialize variables
-            warning_text = []
-
-            # Get the index line
-            error_index = error_indices[i]
-
-            # Get the name of the warnings
-            warning_name = list(filter(None, re.split(':', input_data[error_index].strip())))[-1].strip()
-
-            # Get the location information
-            line = input_data[error_index - 1].strip()
-            line_split = list(filter(None, re.split(':', line)))
-            warning_file = line_split[-2]
-            warning_line = int(line_split[-1])
-
-            # Increment the warning count
-            warning_count = i + 1
-
-            # Get the warning text
-            if i < len(error_indices) - 1:
-                warning_index_end = error_indices[i + 1] - 2
-            else:
-                warning_index_end = len(input_data)
-
-            for j in range(error_index + 1, warning_index_end):
-                # Add the line ot the list, if it's not blank
-                if not input_data[j].strip() == '':
-                    warning_text.append(input_data[j].strip())
-
-            # Write the data to the output file
-            output_fh.write('%s%03d <%s> :%s:%d: %s\n' % (ID_PREFIX, warning_count, WARNING_LEVEL, warning_file,
-                                                          warning_line, warning_name))
-            for line in warning_text:
-                output_fh.write('    %s\n' % line)
-            output_fh.write('\n')
-
-    # Change the permissions of the output file
-    os.chmod(parsed_output_file, 438)
-
-
-def parse_warnings_legacy(raw_input_file, parsed_output_file):
-    """This function parses the raw Coverity warnings (version 2018.09 and older) into the SCRUB format.
-
-    Inputs:
-        - raw_input_file: Full path to the file containing raw Coverity warnings [string]
-        - parsed_output_file: Full path to the file where the parsed warnings will be stored [string]
-    """
-
-    # Print status message
-    logging.info('')
-    logging.info('\tParsing results...')
-    logging.info('\t>> Executing command: get_coverity_warnings.parse_warnings_legacy(%s, %s)',
-                 raw_input_file, parsed_output_file)
-    logging.info('\t>> From directory: %s', os.getcwd())
-
-    # Import the input data file
-    with open(raw_input_file, 'r') as input_fh:
-        input_data = input_fh.readlines()
-
-    # Create the output file
-    with open(parsed_output_file, 'w+') as output_fh:
-        # Iterate through every line of the input file
-        error_indices = get_error_indices(raw_input_file)
-
-        # Iterate through every line of the input file and parse warnings
-        for i in range(0, len(error_indices)):
-            # Initialize variables
-            warning_text = []
-
-            # Get the index line
-            error_index = error_indices[i]
-
-            # Get the name of the warnings
-            warning_name = list(filter(None, re.split(':', input_data[error_index].strip())))[-1].strip()
-
-            # Get the location information
-            line = input_data[error_index + 1].strip()
-            line_split = list(filter(None, re.split(':', line)))
-            warning_file = line_split[-2]
-            warning_line = int(line_split[-1])
-
-            # Increment the warning count
-            warning_count = i + 1
-
-            # Get the warning text
-            if i < len(error_indices)-1:
-                warning_index_end = error_indices[i+1]-1
-            else:
-                warning_index_end = len(input_data)
-
-            for j in range(error_index+1, warning_index_end):
-                # Add the line ot the list
-                warning_text.append(input_data[j].strip())
-
-            # Write the data to the output file
-            output_fh.write('%s%03d <%s> :%s:%d: %s\n' % (ID_PREFIX, warning_count, WARNING_LEVEL, warning_file,
-                                                          warning_line, warning_name))
-            for line in warning_text:
-                output_fh.write('    %s\n' % line)
-            output_fh.write('\n')
-
-    # Change the permissions of the output file
-    os.chmod(parsed_output_file, 438)
-
-
-def parse_warnings(raw_input_file, parsed_output_file, coverity_version_number):
-    """This function will examine the raw_input_file to determine which parser will be used.
-
-    Inputs:
-        - raw_input_file: Full path to the file containing raw Coverity warnings [string]
-        - parsed_output_file: Full path to the file where the parsed warnings will be stored [string]
-        - version_number: Version number for Coverity instance being used [string]
-    """
-
-    # Select which parser should be used
-    if StrictVersion(coverity_version_number) >= StrictVersion('2019.12'):
-        parse_warnings_2019_12(raw_input_file, parsed_output_file)
-    elif (StrictVersion(coverity_version_number) >= StrictVersion('2019.06')) and \
-            (StrictVersion(coverity_version_number) < StrictVersion('2019.12')):
-        parse_warnings_2019_06(raw_input_file, parsed_output_file)
-    else:
-        parse_warnings_legacy(raw_input_file, parsed_output_file)
+    translate_results.create_scrub_output_file(coverity_issues, parsed_output_file)
 
 
 if __name__ == '__main__':
-    parse_warnings(sys.argv[1], sys.argv[2], sys.argv[3])
+    parse_json(sys.argv[1], sys.argv[2])

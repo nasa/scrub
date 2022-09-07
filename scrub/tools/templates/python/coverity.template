@@ -10,10 +10,7 @@ ${{COVERITY_PATH}}/cov-build --dir ${{TOOL_ANALYSIS_DIR}} ${{COVERITY_COVBUILD_F
 ${{COVERITY_PATH}}/cov-analyze --dir ${{TOOL_ANALYSIS_DIR}} ${{COVERITY_COVANALYZE_FLAGS}}
 
 # Generate the Coverity output file
-${{COVERITY_PATH}}/cov-format-errors --dir ${{TOOL_ANALYSIS_DIR}} ${{COVERITY_COVFORMATERRORS_FLAGS}} -x -X --emacs-style > ${{TOOL_ANALYSIS_DIR}}/coverity.out
-
-# Get the version number
-version=`head -n 1 ${{COVERITY_PATH}}/../VERSION | cut -d'=' -f2`
+${{COVERITY_PATH}}/cov-format-errors --dir ${{TOOL_ANALYSIS_DIR}} ${{COVERITY_COVFORMATERRORS_FLAGS}} -x -X --json-output-v7 ${{TOOL_ANALYSIS_DIR}}/coverity.json
 
 # Parse the results into SCRUB format
-python3 -m scrub.tools.parsers.get_coverity_warnings ${{TOOL_ANALYSIS_DIR}}/coverity.out ${{RAW_RESULTS_DIR}}/coverity_raw.scrub $version
+python3 -m scrub.tools.parsers.get_coverity_warnings ${{TOOL_ANALYSIS_DIR}}/coverity.json ${{RAW_RESULTS_DIR}}/coverity_raw.scrub
