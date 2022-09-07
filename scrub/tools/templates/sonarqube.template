@@ -15,7 +15,7 @@ if [ ${{SONARQUBE_BUILD_CMD}} ]; then
     cd ${{SOURCE_DIR}}
 
     # Perform SonarQube analysis
-    ${{SONARQUBE_PATH}}/sonar-scanner ${{SONARQUBE_SCANNER_FLAGS}} -X -D sonar.cfamily.threads=1 -D sonar.cfamily.cache.enabled=false -D sonar.host.url=${{SONARQUBE_SERVER}} -D sonar.projectKey=${{SONARQUBE_PROJECT}} -D sonar.login=${{SONARQUBE_TOKEN}} -D sonar.cfamily.build-wrapper-output=${{TOOL_ANALYSIS_DIR}}/build_wrapper_output -D sonar.working.directory=${{TOOL_ANALYSIS_DIR}}/scanner_output
+    ${{SONARQUBE_PATH}}/sonar-scanner ${{SONARQUBE_SCANNER_FLAGS}} -X -D sonar.cfamily.cache.enabled=false -D sonar.host.url=${{SONARQUBE_SERVER}} -D sonar.projectKey=${{SONARQUBE_PROJECT}} -D sonar.login=${{SONARQUBE_TOKEN}} -D sonar.cfamily.build-wrapper-output=${{TOOL_ANALYSIS_DIR}}/build_wrapper_output -D sonar.working.directory=${{TOOL_ANALYSIS_DIR}}/scanner_output
 
 # Capture all other languages
 else
