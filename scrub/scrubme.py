@@ -24,7 +24,7 @@ def parse_arguments():
     parser.add_argument('--clean', action='store_true')
     parser.add_argument('--debug', action='store_true')
     parser.add_argument('--quiet', action='store_true')
-    parser.add_argument('--tools', nargs='+', default=None)
+    parser.add_argument('--tools', nargs='+', default=[])
     parser.add_argument('--targets', nargs='+', default=None)
 
     # Parse the arguments
@@ -96,11 +96,13 @@ def main(conf_file='./scrub.cfg', clean=False, console_logging=logging.INFO, too
         # Update the analysis templates to be run
         if ('filter' in tools) or ('filtering' in tools):
             analysis_templates = []
+            perform_filtering = True
         elif 'none' in tools:
             analysis_templates = []
             perform_filtering = False
         elif tools:
             analysis_templates = []
+            perform_filtering = True
             for template in available_analysis_templates:
                 for tool in tools:
                     if template.endswith(tool + '.template'):
