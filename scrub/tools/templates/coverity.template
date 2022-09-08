@@ -9,11 +9,11 @@ ${{COVERITY_CLEAN_CMD}}
 # Capture the codebase
 if [ ${{COVERITY_BUILD_CMD}} ];then
     # Capture the compiled languages
-    ${{COVERITY_PATH}}/cov-build --dir ${{TOOL_ANALYSIS_DIR}} ${{COVERITY_COVBUILD_FLAGS}} ${{COVERITY_BUILD_CMD}} --fs-capture-search ${{SOURCE_DIR}}
-else
-    # Capture interpreted languages
-    ${{COVERITY_PATH}}/cov-build --dir ${{TOOL_ANALYSIS_DIR}} ${{COVERITY_COVBUILD_FLAGS}} --no-command --fs-capture-search ${{SOURCE_DIR}}
+    ${{COVERITY_PATH}}/cov-build --dir ${{TOOL_ANALYSIS_DIR}} ${{COVERITY_COVBUILD_FLAGS}} ${{COVERITY_BUILD_CMD}}
 fi
+
+# Capture interpreted languages
+${{COVERITY_PATH}}/cov-build --dir ${{TOOL_ANALYSIS_DIR}} ${{COVERITY_COVBUILD_FLAGS}} --no-command --fs-capture-search ${{SOURCE_DIR}}
 
 # Perform analysis
 ${{COVERITY_PATH}}/cov-analyze --dir ${{TOOL_ANALYSIS_DIR}} ${{COVERITY_COVANALYZE_FLAGS}}
