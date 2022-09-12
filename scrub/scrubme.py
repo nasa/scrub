@@ -77,6 +77,11 @@ def main(conf_file='./scrub.cfg', clean=False, console_logging=logging.INFO, too
     # Initialize the SCRUB storage directory
     scrub_utilities.initialize_storage_dir(scrub_conf_data)
 
+    # Make sure the working directory exists
+    if not os.path.exists(scrub_conf_data.get('scrub_working_dir')):
+        print('ERROR: Working directory ' + scrub_conf_data.get('scrub_working_dir') + ' does not exist.')
+        sys.exit(10)
+
     # Make a copy of the scrub.cfg file and add it to the log
     shutil.copyfile(conf_file, os.path.normpath(scrub_conf_data.get('scrub_analysis_dir') + '/scrub.cfg'))
 
@@ -94,15 +99,14 @@ def main(conf_file='./scrub.cfg', clean=False, console_logging=logging.INFO, too
             print('WARNING: No analysis templates have been found.')
 
         # Update the analysis templates to be run
+        perform_filtering = True
         if ('filter' in tools) or ('filtering' in tools):
             analysis_templates = []
-            perform_filtering = True
         elif 'none' in tools:
             analysis_templates = []
             perform_filtering = False
         elif tools:
             analysis_templates = []
-            perform_filtering = True
             for template in available_analysis_templates:
                 for tool in tools:
                     if template.endswith(tool + '.template'):

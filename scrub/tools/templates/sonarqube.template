@@ -1,7 +1,7 @@
 #!/bin/bash -x
 
 # Capture C/C++ code
-if [ ${{SONARQUBE_BUILD_CMD}} ]; then
+if [ "${{SONARQUBE_BUILD_CMD}}" ]; then
     # Change to the build directory
     cd ${{SONARQUBE_BUILD_DIR}}
 
@@ -15,12 +15,15 @@ if [ ${{SONARQUBE_BUILD_CMD}} ]; then
     cd ${{SOURCE_DIR}}
 
     # Perform SonarQube analysis
-    ${{SONARQUBE_PATH}}/sonar-scanner ${{SONARQUBE_SCANNER_FLAGS}} -X -D sonar.cfamily.cache.enabled=false -D sonar.host.url=${{SONARQUBE_SERVER}} -D sonar.projectKey=${{SONARQUBE_PROJECT}} -D sonar.login=${{SONARQUBE_TOKEN}} -D sonar.cfamily.build-wrapper-output=${{TOOL_ANALYSIS_DIR}}/build_wrapper_output -D sonar.working.directory=${{TOOL_ANALYSIS_DIR}}/scanner_output
+    ${{SONARQUBE_PATH}}/sonar-scanner ${{SONARQUBE_SCANNER_FLAGS}} -X -D sonar.java.binaries=${{SOURCE_DIR}} -D sonar.cfamily.cache.enabled=false -D sonar.host.url=${{SONARQUBE_SERVER}} -D sonar.projectKey=${{SONARQUBE_PROJECT}} -D sonar.login=${{SONARQUBE_TOKEN}} -D sonar.cfamily.build-wrapper-output=${{TOOL_ANALYSIS_DIR}}/build_wrapper_output -D sonar.working.directory=${{TOOL_ANALYSIS_DIR}}/scanner_output
 
 # Capture all other languages
 else
+    # Change to the source root directory
+    cd ${{SOURCE_DIR}}
+
     # Perform SonarQube analysis
-    ${{SONARQUBE_PATH}}/sonar-scanner ${{SONARQUBE_SCANNER_FLAGS}} -X -D sonar.host.url=${{SONARQUBE_SERVER}} -D sonar.projectKey=${{SONARQUBE_PROJECT}} -D sonar.login=${{SONARQUBE_TOKEN}} -D sonar.working.directory=${{TOOL_ANALYSIS_DIR}}/scanner_output
+    ${{SONARQUBE_PATH}}/sonar-scanner ${{SONARQUBE_SCANNER_FLAGS}} -X -D sonar.java.binaries=${{SOURCE_DIR}} -D sonar.host.url=${{SONARQUBE_SERVER}} -D sonar.projectKey=${{SONARQUBE_PROJECT}} -D sonar.login=${{SONARQUBE_TOKEN}} -D sonar.working.directory=${{TOOL_ANALYSIS_DIR}}/scanner_output
 fi
 
 # Wait for results to be finalized

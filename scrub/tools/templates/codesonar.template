@@ -8,7 +8,7 @@ ${{CODESONAR_CLEAN_CMD}}
 # Perform P10 analysis?
 if ${{CODESONAR_P10_ANALYSIS}}; then
   presets='-preset pow10'
-else:
+else
   presets=''
 fi
 
