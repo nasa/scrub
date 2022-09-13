@@ -264,7 +264,8 @@ def create_batch_xml_defect_upload(output_file, file_list, defect_list, review_i
                 if int(defect.get('line')) > 0:
                     output_fh.write('        <line-number>{}</line-number>\n'.format(defect.get('line')))
 
-                output_fh.write('        <comment>{}</comment>\n'.format(defect.get('description')))
+                output_fh.write('        <comment>{}: {}</comment>\n'.format(defect.get('tool'),
+                                                                             defect.get('description')))
 
                 if finding_level.lower() == 'defect':
                     output_fh.write('    </admin_review_defect_create>')
@@ -426,7 +427,7 @@ def run_analysis(baseline_conf_data, override=False):
 
     # Initialize variables
     collaborator_exit_code = 2
-    attempt_analysis = tool_conf_data.get('collaborator_upload') or override
+    attempt_analysis = tool_conf_data.get('collaborator_export') or override
 
     # Determine if Collaborator upload can be run
     if attempt_analysis:
@@ -436,7 +437,7 @@ def run_analysis(baseline_conf_data, override=False):
 
             # Print a status message
             logging.info('')
-            logging.info('Perform Collaborator upload...')
+            logging.info('Perform Collaborator export...')
 
             # Prepare for the upload
             initialize_upload(tool_conf_data)
@@ -449,7 +450,7 @@ def run_analysis(baseline_conf_data, override=False):
 
         except scrub_utilities.CommandExecutionError:
             # Print a warning message
-            logging.warning('Collaborator upload could not be performed. Please see log file %s for more information.',
+            logging.warning('Collaborator export could not be performed. Please see log file %s for more information.',
                             tool_conf_data.get('collaborator_log_file'))
 
             # Print the exception traceback
@@ -460,7 +461,7 @@ def run_analysis(baseline_conf_data, override=False):
 
         except:     # lgtm [py/catch-base-exception]
             # Print a warning message
-            logging.warning('Collaborator upload could not be performed. Please see log file %s for more information.',
+            logging.warning('Collaborator export could not be performed. Please see log file %s for more information.',
                             tool_conf_data.get('collaborator_log_file'))
 
             # Print the exception traceback
@@ -518,8 +519,9 @@ def initialize_analysis(tool_conf_data):
     # Determine if Collaborator can be run
     if not (tool_conf_data.get('collaborator_server')):
         # Update the analysis flag if necessary
-        if tool_conf_data.get('collaborator_upload'):
-            tool_conf_data.update({'collaborator_upload': False})
+        if tool_conf_data.get('collaborator_export'):
+            tool_conf_data.update({'collaborator_export': False})
 
             # Print a status message
-            print('\nWARNING: Unable to perform Collaborator upload. Required configuration inputs are missing.\n')
+            print('\nWARNING: Unable to perform Collaborator export. Required configuration inputs are missing.')
+            print('\tRequired inputs: COLLABORATOR_SERVER\n')

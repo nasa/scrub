@@ -8,6 +8,7 @@ ID_PREFIX = 'coverity'
 
 def parse_json(raw_input_file, parsed_output_file):
     """This function parses the Coverity internal JSON results format into SCRUB formatted results.
+
     Inputs:
         - raw_input_file: Absolute path to the file containing raw Coverity warnings [string]
         - parsed_output_file: Absolute path to the file where the parsed warnings will be stored [string]

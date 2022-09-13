@@ -5,14 +5,18 @@ cd ${{CODESONAR_BUILD_DIR}}
 # Clean the build
 ${{CODESONAR_CLEAN_CMD}}
 
-# Change to the source root
-cd ${{SOURCE_DIR}}
+# Perform P10 analysis?
+if ${{CODESONAR_P10_ANALYSIS}}; then
+  presets='-preset pow10'
+else
+  presets=''
+fi
 
 # Capture build artifacts
 ${{CODESONAR_PATH}}/codesonar build ${{TOOL_ANALYSIS_DIR}}/SCRUBAnalysis -project ${{CODESONAR_PROJ_NAME}} ${{CODESONAR_BUILD_FLAGS}} -foreground -auth certificate -hubcert ${{CODESONAR_CERT}} -hubkey ${{CODESONAR_KEY}} ${{CODESONAR_HUB}} ${{CODESONAR_BUILD_CMD}}
 
-# Perform the analysis
-${{CODESONAR_PATH}}/codesonar analyze ${{TOOL_ANALYSIS_DIR}}/SCRUBAnalysis -project ${{CODESONAR_PROJ_NAME}} ${{CODESONAR_ANALYZE_FLAGS}} -foreground -auth certificate -hubcert ${{CODESONAR_CERT}} -hubkey ${{CODESONAR_KEY}} ${{CODESONAR_HUB}}
+# Perform CodeSonar analysis
+${{CODESONAR_PATH}}/codesonar analyze ${{TOOL_ANALYSIS_DIR}}/SCRUBAnalysis -project ${{CODESONAR_PROJ_NAME}} ${{CODESONAR_ANALYZE_FLAGS}} -foreground $presets -auth certificate -hubcert ${{CODESONAR_CERT}} -hubkey ${{CODESONAR_KEY}} ${{CODESONAR_HUB}}
 
 # Get the analysis ID from the analysis artifacts
 aid=`cat ${{TOOL_ANALYSIS_DIR}}/*/aid.txt`
@@ -25,13 +29,13 @@ results_template='${{CODESONAR_RESULTS_TEMPLATE}}'
 re='^[0-9]+$'
 if [[ $results_template =~ $re ]] ; then
     # Get the results from the CodeSonar Hub
-    ${{CODESONAR_PATH}}/codesonar get ${{CODESONAR_GET_FLAGS}} -auth certificate -hubcert ${{CODESONAR_CERT}} -hubkey ${{CODESONAR_KEY}} ${{CODESONAR_HUB}}/report/aid-$aid-$results_template.xml
+    ${{CODESONAR_PATH}}/codesonar get -auth certificate -hubcert ${{CODESONAR_CERT}} -hubkey ${{CODESONAR_KEY}} ${{CODESONAR_GET_FLAGS}} ${{CODESONAR_HUB}}/report/aid-$aid-$results_template.xml
 
     # Parse the results into SCRUB format
     python3 -m scrub.tools.parsers.get_codesonar_warnings ${{TOOL_ANALYSIS_DIR}}/*.xml ${{RAW_RESULTS_DIR}}/codesonar_raw.scrub
 else
     # Get the results from the CodeSonar Hub
-    ${{CODESONAR_PATH}}/codesonar get ${{CODESONAR_GET_FLAGS}} -auth certificate -hubcert ${{CODESONAR_CERT}} -hubkey ${{CODESONAR_KEY}} ${{CODESONAR_HUB}}/analysis/$aid-allwarnings.sarif
+    ${{CODESONAR_PATH}}/codesonar get -auth certificate -hubcert ${{CODESONAR_CERT}} -hubkey ${{CODESONAR_KEY}} ${{CODESONAR_GET_FLAGS}} ${{CODESONAR_HUB}}/analysis/$aid-allwarnings.sarif
 
     # Parse the results into SCRUB format
     python3 -m scrub.tools.parsers.translate_results ${{TOOL_ANALYSIS_DIR}}/*.sarif ${{RAW_RESULTS_DIR}}/codesonar_raw.scrub ${{SOURCE_DIR}} scrub

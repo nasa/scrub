@@ -333,6 +333,19 @@ def parse_common_configs(user_conf_file, scrub_keys=[]):
         elif scrub_conf_data.get(key).lower() == 'false':
             scrub_conf_data.update({key: False})
 
+    # Process the language data to a standard format
+    source_langs = list(filter(None, scrub_conf_data.get('source_lang').replace(' ', '').split(',')))
+    for i, source_lang in enumerate(source_langs):
+        if source_lang == 'c':
+            source_langs[i] = 'cpp'
+        elif source_lang == 'j':
+            source_langs[i] = 'java'
+        elif source_lang == 'p':
+            source_langs[i] = 'python'
+        elif source_lang == 'js':
+            source_langs[i] = 'javascript'
+    scrub_conf_data.update({'source_lang': ', '.join(source_langs)})
+
     # Make the source root absolute
     scrub_conf_data.update({'source_dir': os.path.abspath(os.path.expanduser(scrub_conf_data.get('source_dir')))})
 
