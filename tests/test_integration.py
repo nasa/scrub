@@ -20,6 +20,7 @@ c_testcase = os.path.abspath('./tests/integration_tests/c_testcase')
 java_testcase = os.path.abspath('./tests/integration_tests/java_testcase')
 javascript_testcase = os.path.abspath('./tests/integration_tests/javascript_testcase')
 python_testcase = os.path.abspath('./tests/integration_tests/python_testcase')
+multilang_testcase = os.path.abspath('./tests/integration_tests/multilang_testcase')
 # c_testcase = os.path.abspath('/root/c_testcase')
 # java_testcase = os.path.abspath('/root/java_testcase')
 # javascript_testcase = os.path.abspath('/root/javascript_testcase')
@@ -51,23 +52,24 @@ python_testcase = os.path.abspath('./tests/integration_tests/python_testcase')
 # 11       | Integration | Multiple tools         | Exit Code: 0       |
 # 12       | Integration | Single target          | Exit Code: 0       |
 # 13       | Integration | Multiple targets       | Exit Code: 0       |
-# 14       | Integration | Diff utility           | Exit Code: 0       |
+# 14       | Integration | Multilang integration  | Exit Code: 0       |
 
 
-testcases = [[java_testcase, ['run', '--config', 'missing_scrub.cfg'], 10],          # Testcase 0
-             [c_testcase, ['run', '--clean', '--config', 'bad_scrub.cfg'], 1],       # Testcase 1
-             [c_testcase, ['dummy'], 0],                                             # Testcase 2
-             [c_testcase, ['--help'], 0],                                            # Testcase 3
-             [c_testcase, ['get-conf'], 0],                                          # Testcase 4
-             [c_testcase, ['run', '--clean', '--debug'], 0],                         # Testcase 5
-             [java_testcase, ['run', '--clean', '--debug'], 0],                      # Testcase 6
-             [javascript_testcase, ['run', '--clean', '--debug'], 0],                # Testcase 7
-             [python_testcase, ['run', '--clean', '--debug'], 0],                    # Testcase 8
-             [c_testcase, ['run', '--tools', 'filter'], 0],                          # Testcase 9
-             [c_testcase, ['run', '--quiet', '--tools', 'coverity'], 0],             # Testcase 10
-             [javascript_testcase, ['run', '--tools', 'coverity', 'sonarqube'], 0],  # Testcase 11
-             [python_testcase, ['run', '--targets', 'collaborator'], 0],             # Testcase 12
-             [c_testcase, ['run', '--targets', 'collaborator', 'scrub_gui'], 0]      # Testcase 13
+testcases = [[java_testcase, ['run', '--config', 'missing_scrub.cfg'], 10],                          # Testcase 0
+             [c_testcase, ['run', '--clean', '--config', 'bad_scrub.cfg'], 1],                       # Testcase 1
+             [c_testcase, ['dummy'], 0],                                                             # Testcase 2
+             [c_testcase, ['--help'], 0],                                                            # Testcase 3
+             [c_testcase, ['get-conf'], 0],                                                          # Testcase 4
+             [c_testcase, ['run', '--clean', '--debug'], 0],                                         # Testcase 5
+             [java_testcase, ['run', '--clean', '--debug'], 0],                                      # Testcase 6
+             [javascript_testcase, ['run', '--clean', '--debug'], 0],                                # Testcase 7
+             [python_testcase, ['run', '--clean', '--debug'], 0],                                    # Testcase 8
+             [c_testcase, ['run', '--tools', 'filter'], 0],                                          # Testcase 9
+             [c_testcase, ['run', '--quiet', '--tools', 'coverity'], 0],                             # Testcase 10
+             [javascript_testcase, ['run', '--tools', 'coverity', 'sonarqube'], 0],                  # Testcase 11
+             [python_testcase, ['run', '--tools', 'none', '--targets', 'collaborator'], 0],          # Testcase 12
+             [c_testcase, ['run', '--targets', 'collaborator', 'scrub_gui'], 0],                     # Testcase 13
+             [multilang_testcase, ['run', '--debug'], 0]                                             # Testcase 14
              ]
 
 
