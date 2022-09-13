@@ -264,7 +264,8 @@ def create_batch_xml_defect_upload(output_file, file_list, defect_list, review_i
                 if int(defect.get('line')) > 0:
                     output_fh.write('        <line-number>{}</line-number>\n'.format(defect.get('line')))
 
-                output_fh.write('        <comment>{}</comment>\n'.format(defect.get('description')))
+                output_fh.write('        <comment>{}: {}</comment>\n'.format(defect.get('tool'),
+                                                                             defect.get('description')))
 
                 if finding_level.lower() == 'defect':
                     output_fh.write('    </admin_review_defect_create>')
