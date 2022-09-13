@@ -20,7 +20,7 @@ c_testcase = os.path.abspath('./tests/integration_tests/c_testcase')
 java_testcase = os.path.abspath('./tests/integration_tests/java_testcase')
 javascript_testcase = os.path.abspath('./tests/integration_tests/javascript_testcase')
 python_testcase = os.path.abspath('./tests/integration_tests/python_testcase')
-multilang_testcase = os.path.abspath('./tests/integration_tests/multilang_testcase')
+multi_lang_testcase = os.path.abspath('./tests/integration_tests/multi_lang_testcase')
 # c_testcase = os.path.abspath('/root/c_testcase')
 # java_testcase = os.path.abspath('/root/java_testcase')
 # javascript_testcase = os.path.abspath('/root/javascript_testcase')
@@ -69,7 +69,7 @@ testcases = [[java_testcase, ['run', '--config', 'missing_scrub.cfg'], 10],     
              [javascript_testcase, ['run', '--tools', 'coverity', 'sonarqube'], 0],                  # Testcase 11
              [python_testcase, ['run', '--tools', 'none', '--targets', 'collaborator'], 0],          # Testcase 12
              [c_testcase, ['run', '--targets', 'collaborator', 'scrub_gui'], 0],                     # Testcase 13
-             [multilang_testcase, ['run', '--debug'], 0]                                             # Testcase 14
+             [multi_lang_testcase, ['run', '--debug'], 0]                                             # Testcase 14
              ]
 
 
