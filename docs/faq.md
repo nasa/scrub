@@ -20,6 +20,9 @@ The list of supported analysis tools can be found on the [Usage](usage.md) page.
 
 SCRUB is language independent. The only limitation is the analysis capabilities of the individual tools.
 
+**How can I see version information?**
+
+Version information can be seen by running the command `pip show nasa-scrub`.
 
 ## Configuration
 
