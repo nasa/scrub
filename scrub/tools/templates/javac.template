@@ -1,5 +1,12 @@
 #!/bin/bash -x
+# Change to the build directory
 cd ${{JAVAC_BUILD_DIR}}
+
+# Clean the build
 ${{JAVAC_CLEAN_CMD}}
+
+# Build and capture the output
 ${{JAVAC_BUILD_CMD}} > ${{TOOL_ANALYSIS_DIR}}/javac_build.log 2>&1
+
+# Parse the output file into SCRUB format
 python3 -m scrub.tools.parsers.get_javac_warnings ${{TOOL_ANALYSIS_DIR}}/javac_build.log ${{RAW_RESULTS_DIR}}/javac_compiler_raw.scrub
