@@ -118,6 +118,7 @@ Each table below represents a portion of the complete `scrub.cfg` file.
 **Note**: For more information on generating CodeSonar certificates and keys, please refer to the CodeSonar documentation.
 
 ### SonarQube Variables
+
 | Variable Name               | Format     | Required? | Description                                                   | Default Value |
 | --------------------------- | ---------- | --------- | ------------------------------------------------------------- | ------------- |
 | SONARQUBE_WARNINGS          | True/False | Yes       | Should SonarQube analysis be performed?                       | False         |
