@@ -4,6 +4,11 @@ Filtering in SCRUB allows users to remove sets of warnings that they don't care 
 are always stored, in addition to the filtered results. The two types of filtering available in SCRUB are described
 below.
 
+- [Macro Filtering](#macro-filtering)
+- [Micro Filtering](#micro-filtering)
+- [Custom Filtering](#custom-filtering)
+- [Tool Based Filtering](#tool-based-filtering)
+
 
 ## Macro Filtering
 
