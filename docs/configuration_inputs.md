@@ -1,6 +1,6 @@
 # Detailed Configuration
 
-The information below provides a detailed description of each `scrub.cfg` value. A blank `scrub.cfg` file containing all of these values can be generated using the command:  
+The information below provides a detailed description of each `scrub.cfg` input. A blank `scrub.cfg` file containing all of these values can be generated using the command:  
 
     scrub generate-conf
 
@@ -16,7 +16,7 @@ Each table below represents a portion of the complete `scrub.cfg` file.
 | Variable Name     | Format | Required? | Description                                                                    | Default Value       |
 | ----------------- | ------ | --------- | ------------------------------------------------------------------------------ | ------------------- |
 | SOURCE_DIR        | String | Yes       | Define the root location of the source code                                    | N/A                 |
-| SOURCE_LANG       | String | Yes       | Define the language of the source code                                         | N/A                 |
+| SOURCE_LANG       | String | Yes       | Comma-separated list of languages to be analyzed                               | N/A                 |
 | SCRUB_WORKING_DIR | String | Optional  | Define the location of the SCRUB output files.                                 | `SOURCE_DIR/.scrub` |
 | CUSTOM_TEMPLATES  | String | Optional  | Comma-separated list of custom templates to be executed during SCRUB execution | ''                  |
 
