@@ -1,6 +1,5 @@
 ![CodeQL](https://github.com/nasa/scrub/actions/workflows/codeql.yml/badge.svg)
 [![PyPI version shields.io](https://img.shields.io/pypi/v/nasa-scrub.svg)](https://pypi.python.org/pypi/nasa-scrub/)
-[![GitHub license](https://badgen.net/github/license/nasa/scrub)](https://github.com/nasa/scrub/blob/master/LICENSE)
 
 # SCRUB
 
