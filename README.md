@@ -1,3 +1,6 @@
+![CodeQL](https://github.com/nasa/scrub/actions/workflows/codeql.yml/badge.svg)
+![PyPi](https://github.com/nasa/scrub/actions/workflows/python-publish.yml/badge.svg)
+
 # SCRUB
 
 SCRUB is an orchestration and aggregation platform for static code analysis tools.
