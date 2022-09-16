@@ -20,10 +20,10 @@ Occasionally, the codebase of interest may contain more than a single language. 
 *\**Coverity requires a pre-configuration step to be performed in order to properly recognized interpreted languages. Please refer to the Coverity manual for more information.*
 
 ### 4. If desired, customize optional analysis parameters
-By default, SCRUB will perform a default analysis based on the languages that have been selected. Configuration values marked as optional on the [detailed configuration](#configuration-inputs.md) page can modified to perform a project specific analysis. Many of these configuration values act as pass-through commands into the underlying analysis tool commands. Users should refer to the tool-specific documentation for more information about valid input values. Some common examples are shown below.
+By default, SCRUB will perform a default analysis based on the languages that have been selected. Configuration values marked as optional on the [detailed configuration](configuration-inputs.md) page can modified to perform a project specific analysis. Many of these configuration values act as pass-through commands into the underlying analysis tool commands. Users should refer to the tool-specific documentation for more information about valid input values. Some common examples are shown below.
 
 ## Command Line Configurations
-There are several flags that can be used to modify the execution of SCRUB without modifying `scrub.cfg` itself. These options are outlined in detail in the [usage](#usage.md) section of this document.
+There are several flags that can be used to modify the execution of SCRUB without modifying `scrub.cfg` itself. These options are outlined in detail in the [usage](usage.md) section of this document.
 
 ## External Configurations
 SCRUB supports the use of all standard shell environment configuration values as well as analyzer specific configuration options. Please refer to the tool's documentation for more specific information.
