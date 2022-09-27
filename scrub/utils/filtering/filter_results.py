@@ -29,7 +29,10 @@ def micro_filter_check(source_file, warning_line, valid_warning_types):
         # Get the line of interest
         with open(source_file, 'r', errors='ignore') as input_fh:
             # Read the lines
-            line = input_fh.readlines()[warning_line - 1]
+            if warning_line == 0:
+                line = input_fh.readlines()[warning_line - 1]
+            else:
+                line = input_fh.readlines()[1]
 
         # Check for suppression syntax
         if (ignore_base in line.lower()) or ('@suppress' in line.lower()):
