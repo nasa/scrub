@@ -168,11 +168,12 @@ def generate_sarif(scrub_conf_data):
                                               'sarifv2.1.0')
 
 
-def run_analysis(scrub_conf_data, override=False):
+def run_analysis(scrub_conf_data, console_logging=logging.INFO, override=False):
     """This function performs results filtering of raw analysis results.
 
     Inputs:
         - baseline_conf_data: Dictionary of raw scrub.cfg configuration parameters [dict]
+        - console_logging: Level of console logging information to print to console [optional] [enum]
         - override: Force tool execution? [optional] [bool]
 
     Outputs:
@@ -191,7 +192,7 @@ def run_analysis(scrub_conf_data, override=False):
     if attempt_analysis:
         try:
             # Create the logger
-            scrub_utilities.create_logger(filtering_conf_data.get('filtering_log_file'))
+            scrub_utilities.create_logger(filtering_conf_data.get('filtering_log_file'), console_logging)
 
             # Print a status message
             logging.info('')

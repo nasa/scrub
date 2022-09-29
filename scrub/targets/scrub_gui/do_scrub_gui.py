@@ -91,11 +91,12 @@ def initialize_analysis(tool_conf_data):
     tool_conf_data.update({'gui_log_file': gui_log_file})
 
 
-def run_analysis(baseline_conf_data, override=False):
+def run_analysis(baseline_conf_data, console_logging=logging.INFO, override=False):
     """This function runs this module based on input from the scrub.cfg file
 
     Inputs:
         - baseline_conf_data: Dictionary of raw scrub.cfg configuration parameters [dict]
+        - console_logging: Level of console logging information to print to console [optional] [enum]
         - override: Force tool execution? [optional] [bool]
     """
 
@@ -111,7 +112,7 @@ def run_analysis(baseline_conf_data, override=False):
     if attempt_analysis:
         try:
             # Create the logging file, if it doesn't already exist
-            scrub_utilities.create_logger(tool_conf_data.get('gui_log_file'))
+            scrub_utilities.create_logger(tool_conf_data.get('gui_log_file'), console_logging)
 
             # Print a status message
             logging.info('')

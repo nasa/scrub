@@ -223,7 +223,7 @@ def main(conf_file='./scrub.cfg', clean=False, console_logging=logging.INFO, too
         # Perform filtering and track execution time, if necessary
         if perform_filtering:
             start_time = time.time()
-            filtering_status = do_filtering.run_analysis(scrub_conf_data)
+            filtering_status = do_filtering.run_analysis(scrub_conf_data, console_logging)
             execution_time = time.time() - start_time
 
             # Update the execution status
@@ -303,7 +303,7 @@ def main(conf_file='./scrub.cfg', clean=False, console_logging=logging.INFO, too
         module_object = importlib.import_module(module_name)
 
         # Call the analysis
-        getattr(module_object, "run_analysis")(scrub_conf_data)
+        getattr(module_object, "run_analysis")(scrub_conf_data, console_logging)
 
     # Set the exit code
     sys.exit(tool_failure_count)
