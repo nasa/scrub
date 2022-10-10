@@ -3,24 +3,25 @@ import sys
 import glob
 import datetime
 import shutil
+import pathlib
 from scrub.tools.parsers import translate_results
 
 
 def parse_warnings(input_dir):
     # Initialize variables
-    source_dir = os.path.dirname(input_dir)
-    output_dir = os.path.normpath(input_dir + '/csv_output')
+    source_dir = pathlib.Path(input_dir).parent
+    output_dir = (pathlib.Path(input_dir) / 'csv_output').resolve()
 
     # Make the output directory if it doesn't already exist
-    if os.path.exists(output_dir):
-        shutil.rmtree(output_dir)
-    os.mkdir(output_dir)
+    if output_dir.exists():
+        shutil.rmtree(str(output_dir))
+    output_dir.mkdir()
 
     # Get a list of all the scrub files in the directory
     input_files = glob.glob(input_dir + '/*.scrub')
 
     # Create the output file path
-    output_file = (output_dir + '/' + datetime.datetime.utcnow().strftime("%m-%d-%Y") + '.csv')
+    output_file = (output_dir / datetime.datetime.utcnow().strftime("%m-%d-%Y") + '.csv').resolve()
 
     # Write the results out to the csv file
     with open(output_file, 'w') as output_fh:

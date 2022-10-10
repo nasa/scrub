@@ -195,7 +195,7 @@ def filter_results(warning_list, output_file, filtering_file, ignore_query_file,
 
     # Initialize the variables
     filtered_warnings = []
-    if output_file.endswith('p10.scrub'):
+    if output_file.stem == 'p10':
         valid_warning_types.append('p10')
 
     # Import the ignore data

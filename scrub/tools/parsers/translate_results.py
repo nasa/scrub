@@ -416,7 +416,6 @@ def create_sarif_output_file(results_list, sarif_version, output_file, source_ro
         file_index = 0
 
         # Set the priority level
-        #result_item['level'] = warning['priority']
         result_item['level'] = 'warning'
 
         # Set the rule ID
@@ -428,9 +427,9 @@ def create_sarif_output_file(results_list, sarif_version, output_file, source_ro
             }
         if sarif_version == '2.0.0':
             # TODO: CAREFUL USING 2.0.0, STRUCT IS NOT COMPLETELY DEPENDABLE, NEEDS WORK
-            sarif_output['runs'][0]['resources'] = {'rules': rules_list}
+            sarif_output['runs'][0].update({'resources': rules_list})
 
-            sarif_output['runs'][0]['tool'] = results_list[0]['toolName']
+            sarif_output['runs'][0].update({'tool': results_list[0]['tool']})
             # TODO: get the logic right for deciding mime type... pass file_list like rules_list
             sarif_output['runs'][0]['files'] = [{
                 "mimeType": "text/c",
@@ -473,7 +472,7 @@ def create_sarif_output_file(results_list, sarif_version, output_file, source_ro
                 'physicalLocation': {
                     'artifactLocation': {
                         'uri': os.path.relpath(warning['file'], source_root),
-                        'uriBaseId': source_root
+                        'uriBaseId': str(source_root)
                     },
                     'region': {
                         'startLine': warning['line']
@@ -513,10 +512,10 @@ def perform_translation(input_file, output_file, source_root, output_format):
 
     try:
         # Parse the input file
-        if input_file.endswith('.scrub'):
+        if input_file.suffix == '.scrub':
             parsed_results = parse_scrub(input_file, source_root)
 
-        elif input_file.endswith('.sarif'):
+        elif input_file.suffix == '.sarif':
             parsed_results = parse_sarif(input_file, source_root)
 
         else:

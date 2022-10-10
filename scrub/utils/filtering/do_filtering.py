@@ -1,6 +1,7 @@
 import re
 import os
 import glob
+import pathlib
 import logging
 import traceback
 from scrub.utils.filtering import create_file_list
@@ -18,7 +19,7 @@ def initialize_analysis(scrub_conf_data):
     """
 
     scrub_conf_data.update({'filter_warnings': True})
-    scrub_conf_data.update({'filtering_log_file': scrub_conf_data.get('scrub_log_dir') + '/filtering.log'})
+    scrub_conf_data.update({'filtering_log_file': scrub_conf_data.get('scrub_log_dir').joinpath('filtering.log')})
 
     return scrub_conf_data
 
@@ -36,16 +37,16 @@ def filter_scrub_results(scrub_conf_data):
                                       scrub_conf_data.get('analysis_filters'))
 
     # Get the list of SCRUB files
-    results_files = glob.glob(scrub_conf_data.get('raw_results_dir') + '/*.scrub')
+    results_files = scrub_conf_data.get('raw_results_dir').glob('*.scrub')
 
     # Sort the files into groups
     raw_compiler_files = []
     raw_p10_files = []
     raw_generic_files = []
     for results_file in results_files:
-        if re.search(r'compiler_raw\.scrub', results_file):
+        if 'compiler_raw' in results_file.stem:
             raw_compiler_files.append(results_file)
-        elif re.search(r'p10_raw\.scrub', results_file):
+        elif 'p10_raw' in results_file.stem:
             raw_p10_files.append(results_file)
         else:
             raw_generic_files.append(results_file)
@@ -54,16 +55,15 @@ def filter_scrub_results(scrub_conf_data):
     if raw_compiler_files:
         try:
             # Set the compiler output file path
-            filtered_compiler_results_file = scrub_conf_data.get('scrub_analysis_dir') + '/compiler.scrub'
+            filtered_compiler_results_file = scrub_conf_data.get('scrub_analysis_dir').joinpath('compiler.scrub')
 
             # Parse all of the input files
             compiler_results = []
             valid_warning_types = []
             for results_file in raw_compiler_files:
                 # Append the results file
-                compiler_results = (compiler_results +
-                                    translate_results.parse_scrub(results_file,
-                                                                  scrub_conf_data.get('source_dir')))
+                compiler_results = (compiler_results + translate_results.parse_scrub(results_file,
+                                                                                     scrub_conf_data.get('source_dir')))
 
                 # Append to the valid warning types
                 valid_warning_types.append(os.path.basename(results_file).split('_')[0])
@@ -79,7 +79,7 @@ def filter_scrub_results(scrub_conf_data):
 
         except:      # lgtm [py/catch-base-exception]
             # Print a status message
-            logging.warning("Could not generate output file %s", filtered_compiler_results_file)
+            logging.warning("Could not generate output file %s", str(filtered_compiler_results_file))
 
             # Print the exception traceback
             logging.debug(traceback.format_exc())
@@ -88,7 +88,7 @@ def filter_scrub_results(scrub_conf_data):
     if raw_p10_files:
         try:
             # Set the output file path
-            filtered_p10_results = scrub_conf_data.get('scrub_analysis_dir') + '/p10.scrub'
+            filtered_p10_results = scrub_conf_data.get('scrub_analysis_dir').joinpath('p10.scrub')
 
             # Parse all of the input files
             p10_results = []
@@ -111,7 +111,7 @@ def filter_scrub_results(scrub_conf_data):
 
         except:     # lgtm [py/catch-base-exception]
             # Print a status message
-            logging.warning("Could not generate output file %s", filtered_p10_results)
+            logging.warning("Could not generate output file %s", str(filtered_p10_results))
 
             # Print the exception traceback
             logging.debug(traceback.format_exc())
@@ -126,7 +126,7 @@ def filter_scrub_results(scrub_conf_data):
 
                 # Get the output file name
                 tool_name = os.path.basename(raw_generic_file).split('_')[0]
-                filtered_generic_results = scrub_conf_data.get('scrub_analysis_dir') + '/' + tool_name + '.scrub'
+                filtered_generic_results = scrub_conf_data.get('scrub_analysis_dir').joinpath(tool_name + '.scrub')
 
                 filter_results.filter_results(raw_generic_warnings, filtered_generic_results,
                                               scrub_conf_data.get('filtering_output_file'),
@@ -138,14 +138,14 @@ def filter_scrub_results(scrub_conf_data):
 
             except:     # lgtm [py/catch-base-exception]
                 # Print a status message
-                logging.warning("Could not generate output file %s", filtered_generic_results)
+                logging.warning("Could not generate output file %s", str(filtered_generic_results))
 
                 # Print the exception traceback
                 logging.debug(traceback.format_exc())
 
     # Execute the custom filtering command if it exists
     if scrub_conf_data.get('custom_filter_cmd'):
-        scrub_utilities.execute_command(scrub_conf_data.get('custom_filter_cmd'), os.environ.copy())
+        scrub_utilities.execute_command(str(scrub_conf_data.get('custom_filter_cmd')), os.environ.copy())
 
 
 def generate_sarif(scrub_conf_data):
@@ -156,12 +156,11 @@ def generate_sarif(scrub_conf_data):
     """
 
     # Find all of the SCRUB output files
-    scrub_files = glob.glob(scrub_conf_data.get('scrub_analysis_dir') + '/*.scrub')
+    scrub_files = scrub_conf_data.get('scrub_analysis_dir').glob('*.scrub')
 
     for scrub_file in scrub_files:
         # Create the SARIF output file path
-        sarif_output_file = (scrub_conf_data.get('sarif_results_dir') + '/' +
-                             os.path.splitext(os.path.basename(scrub_file))[0] + '.sarif')
+        sarif_output_file = scrub_conf_data.get('sarif_results_dir').joinpath(scrub_file.stem + '.sarif')
 
         # Create a SARIF output file
         translate_results.perform_translation(scrub_file, sarif_output_file, scrub_conf_data.get('source_dir'),
@@ -205,14 +204,14 @@ def run_analysis(scrub_conf_data, console_logging=logging.INFO, override=False):
             filter_scrub_results(scrub_conf_data)
 
             # Check the status of all the filtered SCRUB output files
-            for output_file in glob.glob(os.path.join(scrub_conf_data['scrub_analysis_dir'], '*.scrub')):
+            for output_file in scrub_conf_data.get('scrub_analysis_dir').glob('*.scrub'):
                 scrub_utilities.check_artifact(output_file, False)
 
             # Convert the results into SARIF format
             generate_sarif(scrub_conf_data)
 
             # Check the status of all the filtered SARIF output files
-            for output_file in glob.glob(os.path.join(scrub_conf_data['scrub_analysis_dir'], 'sarif_results/*.sarif')):
+            for output_file in scrub_conf_data.get('scrub_analysis_dir').glob('sarif_results/*.sarif'):
                 scrub_utilities.check_artifact(output_file, False)
 
             # Set the exit code
@@ -222,7 +221,7 @@ def run_analysis(scrub_conf_data, console_logging=logging.INFO, override=False):
             # Print a warning message
             logging.warning('Filtering and distribution could not be completed. '
                             'Please see log file %s for more information.',
-                            filtering_conf_data.get('filtering_log_file'))
+                            str(filtering_conf_data.get('filtering_log_file')))
 
             # Print the exception traceback
             logging.warning(traceback.format_exc())
