@@ -19,13 +19,13 @@ def distribute_warnings(warning_file, source_dir):
     """
 
     # Initialize the variables
-    warning_type = warning_file.split(os.sep)[-1].strip()
+    warning_type = warning_file.name
 
     # Print a status message
     logging.info('')
     logging.info('\tMoving results...')
     logging.info('\t>> Executing command: do_gui.distribute_warnings(%s, %s)', str(warning_file), str(source_dir))
-    logging.info('\t>> From directory: %s', os.getcwd())
+    logging.info('\t>> From directory: %s', str(pathlib.Path().absolute()))
 
     # Import the warning file
     with open(warning_file, 'r') as input_fh:

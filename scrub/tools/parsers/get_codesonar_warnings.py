@@ -82,7 +82,7 @@ def parse_warnings(input_file, output_file, exclude_p10=False):
 
     # Print a status message
     logging.info('\t>> Executing command: get_codesonar_warnings.parse_warnings(%s, %s)', input_file, output_file)
-    logging.info('\t>> From directory: %s', os.getcwd())
+    logging.info('\t>> From directory: %s', str(pathlib.Path().absolute()))
 
     # Initialize the variables
     warning_level = 'Low'
@@ -126,7 +126,7 @@ def parse_warnings(input_file, output_file, exclude_p10=False):
                    "Warnings Not Treated As Errors"]  # P10: Rule 10
 
     # Determine if the output is P10 results
-    if 'p10' in os.path.basename(output_file).lower():
+    if 'p10' in output_file.stem:
         p10_only = True
 
     # Get the header indices

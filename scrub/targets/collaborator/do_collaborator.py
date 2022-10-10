@@ -348,12 +348,17 @@ def perform_upload(tool_conf_data):
             tool_name = results_file[0:-6]
             tool_defect_types.append(tool_name)
     else:
-        # UPDATE FOR PATHLIB
-        for root, dirs, files in os.walk(tool_conf_data.get('scrub_analysis_dir')):
-            for filename in files:
-                if filename.endswith('.scrub') and 'raw' not in filename:
-                    tool_name = filename[0:-6]
-                    tool_defect_types.append(tool_name)
+        for filename in tool_conf_data.get('scrub_analysis_dir').glob('*.scrub'):
+            if 'raw' not in filename.stem:
+                tool_name = filename.stem
+                tool_defect_types.append(tool_name)
+
+
+        # for root, dirs, files in os.walk(tool_conf_data.get('scrub_analysis_dir')):
+        #     for filename in files:
+        #         if filename.endswith('.scrub') and 'raw' not in filename:
+        #             tool_name = filename[0:-6]
+        #             tool_defect_types.append(tool_name)
 
     # Get the defects
     for tool_name in tool_defect_types:
@@ -490,7 +495,8 @@ def run_analysis(baseline_conf_data, console_logging=logging.INFO, override=Fals
 
                 # Move the log file to line up with the review id, if it exists
                 if tool_conf_data.get('collaborator_review_id') > 0:
-                    shutil.move(tool_conf_data.get('scrub_log_dir').joinpath('collaborator_' + str(tool_conf_data.get('collaborator_review_id')) + '.log'))
+                    shutil.move(tool_conf_data.get('collaborator_log_file'),
+                                tool_conf_data.get('scrub_log_dir').joinpath('collaborator_' + str(tool_conf_data.get('collaborator_review_id')) + '.log'))
 
     # Return the exit code
     return collaborator_exit_code
