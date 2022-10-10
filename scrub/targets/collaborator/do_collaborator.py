@@ -140,7 +140,7 @@ def get_defects(scrub_file):
             # Get tool abbrv, defect num, severity, file name, line num, description
             raw_defect = re.match(r'(\D+\d*\D+)(\d*) <(\D+)> :(\S+):(\d+): (.+)', raw_defect)
 
-            if 'p10' in str(pathlib.Path(scrub_file).parent):
+            if 'p10' in pathlib.Path(scrub_file).parent:
                 defect.update({'tool': 'p10_' + raw_defect.group(1)})
             else:
                 defect.update({'tool': raw_defect.group(1)})
@@ -353,13 +353,6 @@ def perform_upload(tool_conf_data):
                 tool_name = filename.stem
                 tool_defect_types.append(tool_name)
 
-
-        # for root, dirs, files in os.walk(tool_conf_data.get('scrub_analysis_dir')):
-        #     for filename in files:
-        #         if filename.endswith('.scrub') and 'raw' not in filename:
-        #             tool_name = filename[0:-6]
-        #             tool_defect_types.append(tool_name)
-
     # Get the defects
     for tool_name in tool_defect_types:
         scrub_file = tool_conf_data.get('scrub_analysis_dir').joinpath(tool_name + '.scrub')
@@ -386,7 +379,7 @@ def perform_upload(tool_conf_data):
 
     # Perform all the batch commands
     for xml_file in xml_files:
-        subcommand = ('admin batch ' + xml_file)
+        subcommand = ('admin batch ' + str(xml_file))
         execute_ccollab(tool_conf_data.get('collaborator_ccollab_location'), subcommand)
 
 
@@ -401,7 +394,7 @@ def create_filtering_files(tool_conf_data):
     logging.info('\t>> Checking analysis filtering output file.')
 
     # Determine if the baseline filtering list exists, or should be created
-    if not pathlib.Path(tool_conf_data.get('filtering_output_file')).exists():
+    if not tool_conf_data.get('filtering_output_file').exists():
         # Print a status message
         logging.info('\t>> No analysis filtering output was found. Creating output now.')
 

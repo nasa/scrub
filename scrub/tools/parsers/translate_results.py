@@ -49,7 +49,7 @@ def format_scrub_warning(warning):
     """
 
     # Format the warning
-    scrub_warning = (warning.get('id') + ' <' + warning.get('priority') + '> :' + warning.get('file') + ':' +
+    scrub_warning = (warning.get('id') + ' <' + warning.get('priority') + '> :' + str(warning.get('file')) + ':' +
                      str(warning.get('line')) + ': ' + warning.get('query') + '\n')
 
     # Add the description
