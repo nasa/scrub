@@ -490,9 +490,7 @@ def run_analysis(baseline_conf_data, console_logging=logging.INFO, override=Fals
 
                 # Move the log file to line up with the review id, if it exists
                 if tool_conf_data.get('collaborator_review_id') > 0:
-                    shutil.move(tool_conf_data.get('collaborator_log_file'),
-                                tool_conf_data.get('scrub_log_dir') + '/collaborator_' +
-                                str(tool_conf_data.get('collaborator_review_id')) + '.log')
+                    shutil.move(tool_conf_data.get('scrub_log_dir').joinpath('collaborator_' + str(tool_conf_data.get('collaborator_review_id')) + '.log'))
 
     # Return the exit code
     return collaborator_exit_code
