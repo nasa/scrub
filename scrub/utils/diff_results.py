@@ -1,6 +1,6 @@
-import os
 import sys
 import glob
+import pathlib
 import argparse
 from scrub.tools.parsers import translate_results
 
@@ -78,7 +78,7 @@ def make_warning_relative(warning, source_root):
     relative_warning = warning.copy()
 
     # Update the file path
-    relative_warning['file'] = os.path.relpath(relative_warning['file'], source_root)
+    relative_warning['file'] = relative_warning['file'].relative_to(source_root)
 
     # Update the description
     for line in relative_warning['description']:
@@ -181,10 +181,10 @@ def diff(baseline_source_root, baseline_scrub_root, comparison_source_root, comp
         comparison_warnings_diff = comparison_warnings.copy()
 
         # Find the corresponding baseline results file
-        baseline_scrub_file = os.path.normpath(baseline_scrub_root + '/' + os.path.basename(comparison_scrub_file))
+        baseline_scrub_file = baseline_scrub_root.joinpath(comparison_scrub_file.name)
 
         # Check to make sure the baseline file exists
-        if os.path.exists(baseline_scrub_file):
+        if baseline_scrub_file.exists():
             # Import the baseline results
             baseline_warnings = translate_results.parse_scrub(baseline_scrub_file, baseline_source_root)
 
@@ -228,8 +228,7 @@ def diff(baseline_source_root, baseline_scrub_root, comparison_source_root, comp
             print('    >> All results are new.')
 
         # Create the output file path
-        diff_output_file = (comparison_scrub_root + '/' +
-                            os.path.basename(comparison_scrub_file).replace('.scrub', '') + '_diff.scrub')
+        diff_output_file = comparison_scrub_root.joinpath(comparison_scrub_file.stem + '_diff.scrub')
 
         # Write out the results
         translate_results.create_scrub_output_file(comparison_warnings_diff, diff_output_file)

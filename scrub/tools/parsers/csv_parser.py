@@ -1,4 +1,3 @@
-import os
 import sys
 import glob
 import datetime
@@ -39,7 +38,7 @@ def parse_warnings(input_dir):
                 output_fh.write('{},{},{},{},{},{}\n' .format(result.get('id'), result.get('query'),
                                                               ' '.join(result.get('description')).replace(',', ''),
                                                               result.get('priority'),
-                                                              os.path.relpath(result.get('file'), source_dir),
+                                                              result.get('file').relative_to(source_dir),
                                                               result.get('line')))
 
 

@@ -198,7 +198,7 @@ def parse_warnings(input_file, output_file, exclude_p10=False):
                         warning_count = warning_count + 1
 
     # Update the permissions of the output file
-    os.chmod(output_file, 438)
+    output_file.chmod(0o666)
 
 
 if __name__ == '__main__':

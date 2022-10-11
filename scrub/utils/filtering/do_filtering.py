@@ -66,7 +66,7 @@ def filter_scrub_results(scrub_conf_data):
                                                                                      scrub_conf_data.get('source_dir')))
 
                 # Append to the valid warning types
-                valid_warning_types.append(os.path.basename(results_file).split('_')[0])
+                valid_warning_types.append(results_file.stem.split('_')[0])
 
             # Filter the results file
             filter_results.filter_results(compiler_results, filtered_compiler_results_file,
@@ -79,7 +79,7 @@ def filter_scrub_results(scrub_conf_data):
 
         except:      # lgtm [py/catch-base-exception]
             # Print a status message
-            logging.warning("Could not generate output file %s", str(filtered_compiler_results_file))
+            logging.warning("Could not generate output file %s", filtered_compiler_results_file)
 
             # Print the exception traceback
             logging.debug(traceback.format_exc())
@@ -99,7 +99,7 @@ def filter_scrub_results(scrub_conf_data):
                                                                            scrub_conf_data.get('source_dir')))
 
                 # Append to the valid warning types
-                valid_warning_types.append(os.path.basename(results_file).split('_')[0])
+                valid_warning_types.append(results_file.stem.split('_')[0])
 
             filter_results.filter_results(p10_results, filtered_p10_results,
                                           scrub_conf_data.get('filtering_output_file'),
@@ -111,7 +111,7 @@ def filter_scrub_results(scrub_conf_data):
 
         except:     # lgtm [py/catch-base-exception]
             # Print a status message
-            logging.warning("Could not generate output file %s", str(filtered_p10_results))
+            logging.warning("Could not generate output file %s", filtered_p10_results)
 
             # Print the exception traceback
             logging.debug(traceback.format_exc())
@@ -125,7 +125,7 @@ def filter_scrub_results(scrub_conf_data):
                                                                      scrub_conf_data.get('source_dir'))
 
                 # Get the output file name
-                tool_name = os.path.basename(raw_generic_file).split('_')[0]
+                tool_name = raw_generic_file.stem.split('_')[0]
                 filtered_generic_results = scrub_conf_data.get('scrub_analysis_dir').joinpath(tool_name + '.scrub')
 
                 filter_results.filter_results(raw_generic_warnings, filtered_generic_results,
@@ -138,7 +138,7 @@ def filter_scrub_results(scrub_conf_data):
 
             except:     # lgtm [py/catch-base-exception]
                 # Print a status message
-                logging.warning("Could not generate output file %s", str(filtered_generic_results))
+                logging.warning("Could not generate output file %s", filtered_generic_results)
 
                 # Print the exception traceback
                 logging.debug(traceback.format_exc())

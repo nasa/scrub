@@ -1,5 +1,4 @@
 import re
-import os
 import glob
 import pathlib
 import logging
@@ -19,7 +18,7 @@ def distribute_warnings(warning_file, source_dir):
     """
 
     # Initialize the variables
-    warning_type = warning_file.name
+    warning_type = warning_file.stem
 
     # Print a status message
     logging.info('')
@@ -45,7 +44,7 @@ def distribute_warnings(warning_file, source_dir):
             warning = line
 
             # Get the warning file
-            warning_file = line.split(":")[1].strip()
+            warning_file = pathlib.Path(line.split(":")[1].strip())
             warning_file_absolute = source_dir.joinpath(warning_file)
 
             # Make sure the warning file is within the source root, but not at the source root
@@ -71,10 +70,10 @@ def distribute_warnings(warning_file, source_dir):
 
                 # Write the warning to the output file
                 with open(local_scrub_warning_file, 'a') as output_fh:
-                    output_fh.write('%s\n' % (warning.replace(warning_file, str(warning_file.parent))))
+                    output_fh.write('%s\n' % warning_file.name)
 
                 # Change the permissions of the output file
-                os.chmod(local_scrub_warning_file, 438)
+                local_scrub_warning_file.chmod(0o666)
 
 
 def initialize_analysis(tool_conf_data):
@@ -145,7 +144,7 @@ def run_analysis(baseline_conf_data, console_logging=logging.INFO, override=Fals
 
             # Update the permissions of the log file if it exists
             if tool_conf_data.get('gui_log_file').exists():
-                os.chmod(tool_conf_data.get('gui_log_file'), 438)
+                tool_conf_data.get('gui_log_file').chmod(0o666)
 
     # Return the exit code
     return gui_exit_code

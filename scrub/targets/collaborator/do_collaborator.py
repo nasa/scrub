@@ -484,7 +484,7 @@ def run_analysis(baseline_conf_data, console_logging=logging.INFO, override=Fals
 
             # Update the permissions of the log file if it exists
             if tool_conf_data.get('collaborator_log_file').exists():
-                os.chmod(tool_conf_data.get('collaborator_log_file'), 438)
+                tool_conf_data.get('collaborator_log_file').chmod(0o666)
 
                 # Move the log file to line up with the review id, if it exists
                 if tool_conf_data.get('collaborator_review_id') > 0:

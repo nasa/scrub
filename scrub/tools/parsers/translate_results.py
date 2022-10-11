@@ -1,5 +1,4 @@
 import re
-import os
 import sys
 import json
 import pathlib
@@ -83,7 +82,7 @@ def create_scrub_output_file(warnings, output_file):
                 output_fh.write(scrub_warning)
 
     # Change the permissions of the output file
-    os.chmod(output_file, 438)
+    output_file.chmod(0o666)
 
 
 def verify_sarif(sarif_data):
@@ -470,7 +469,7 @@ def create_sarif_output_file(results_list, sarif_version, output_file, source_ro
             result_item['locations'] = [{
                 'physicalLocation': {
                     'artifactLocation': {
-                        'uri': os.path.relpath(str(warning['file']), source_root),
+                        'uri': str(warning['file'].relative_to(source_root)),
                         'uriBaseId': str(source_root)
                     },
                     'region': {
@@ -489,7 +488,7 @@ def create_sarif_output_file(results_list, sarif_version, output_file, source_ro
         json.dump(sarif_output, output_fh, indent=4)
 
     # Change the permissions of the output file
-    os.chmod(output_file, 438)
+    output_file.chmod(0o666)
 
 
 def perform_translation(input_file, output_file, source_root, output_format):

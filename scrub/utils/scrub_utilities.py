@@ -68,7 +68,7 @@ def parse_template(template_file, output_file, conf_data):
 
     # Write out the completed template
     with open(output_file, 'w') as output_fh:
-        os.chmod(output_file, 0o777)
+        output_file.chmod(0o777)
         output_fh.write('%s' % template_data)
 
     # Check the contents of the analysis script file
@@ -195,7 +195,7 @@ def execute_command(call_string, my_env, output_file=None, interactive=False):
     # Write out a logging message
     logging.info('')
     logging.info('    >> Executing command: %s', call_string)
-    logging.info('    >> From directory: %s', os.getcwd())
+    logging.info('    >> From directory: %s', str(pathlib.Path().absolute()))
     logging.debug('    Console output:')
 
     # Execute the call string and capture the output
@@ -273,7 +273,7 @@ def create_conf_file(output_path=None):
         output_path = args['output']
 
     # Initialize variables
-    default_config_file = os.path.dirname(__file__) + '/scrub_defaults.cfg'
+    default_config_filepathlib.Path(__file__).parent.joinpath('scrub_defaults.cfg').resolve()
 
     # Copy the default configuration file
     shutil.copyfile(default_config_file, output_path)
@@ -412,32 +412,32 @@ def initialize_storage_dir(scrub_conf_data):
     """
 
     # Create the .scrub analysis directory
-    if not os.path.exists(scrub_conf_data.get('scrub_analysis_dir')):
-        os.mkdir(scrub_conf_data.get('scrub_analysis_dir'))
-        os.chmod(scrub_conf_data.get('scrub_analysis_dir'), 511)
+    if not scrub_conf_data.get('scrub_analysis_dir').exists():
+        scrub_conf_data.get('scrub_analysis_dir').mkdir()
+        scrub_conf_data.get('scrub_analysis_dir').chmod(0o666)
 
     # Create the logging directory
-    if not os.path.exists(scrub_conf_data.get('scrub_log_dir')):
-        os.mkdir(scrub_conf_data.get('scrub_log_dir'))
-        os.chmod(scrub_conf_data.get('scrub_log_dir'), 511)
+    if not scrub_conf_data.get('scrub_log_dir').exists():
+        scrub_conf_data.get('scrub_log_dir').mkdir()
+        scrub_conf_data.get('scrub_log_dir').chmod(0o666)
 
     # Create the output directory
-    if not os.path.exists(scrub_conf_data.get('raw_results_dir')):
-        os.mkdir(scrub_conf_data.get('raw_results_dir'))
-        os.chmod(scrub_conf_data.get('raw_results_dir'), 511)
+    if not scrub_conf_data.get('raw_results_dir').exists():
+        scrub_conf_data.get('raw_results_dir').mkdir()
+        scrub_conf_data.get('raw_results_dir').chmod(0o666)
 
     # Create the SARIF results directory
-    if not os.path.exists(scrub_conf_data.get('sarif_results_dir')):
-        os.mkdir(scrub_conf_data.get('sarif_results_dir'))
-        os.chmod(scrub_conf_data.get('sarif_results_dir'), 511)
+    if not scrub_conf_data.get('sarif_results_dir').exists():
+        scrub_conf_data.get('sarif_results_dir').mkdir()
+        scrub_conf_data.get('sarif_results_dir').chmod(0o666)
 
     # Create the analysis directory if it doesn't exist
     if scrub_conf_data.get('scrub_working_dir') != scrub_conf_data.get('scrub_analysis_dir'):
-        if os.path.exists(scrub_conf_data.get('scrub_working_dir')):
-            print('ERROR: SCRUB storage directory ' + scrub_conf_data.get('scrub_working_dir') +
+        if scrub_conf_data.get('scrub_working_dir').exists():
+            print('ERROR: SCRUB storage directory ' + str(scrub_conf_data.get('scrub_working_dir')) +
                   ' already exists. Aborting analysis.')
             sys.exit(10)
         else:
             # Create the scrub working dir
-            os.mkdir(scrub_conf_data.get('scrub_working_dir'))
-            os.chmod(scrub_conf_data.get('scrub_working_dir'), 511)
+            scrub_conf_data.get('scrub_working_dir').mkdir()
+            scrub_conf_data.get('scrub_working_dir').chmod(0o666)

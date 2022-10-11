@@ -1,5 +1,6 @@
 import os
 import re
+import pathlib
 import logging
 
 
@@ -49,28 +50,25 @@ def create_file_list(source_root_dir, filtering_output_file, filtering_options_f
     logging.info('\tCreating analysis filtering list...')
     logging.info('\t>> Executing command: create_file_list.create_file_list(%s, %s, %s, %s)', source_root_dir,
                  filtering_output_file, filtering_options_file, initial_filtering_list)
-    logging.info('\t>> From directory: %s', os.getcwd())
+    logging.info('\t>> From directory: %s', pathlib.Path.cwd())
 
     # Initialize the variables
     # filtering_options = []
     raw_file_list = []
-    default_filtering_options_file = os.path.abspath(os.path.dirname(os.path.abspath(__file__)) + '/FilteringDefaults')
+    default_filtering_options_file = pathlib.Path(__file__).parent.joinpath('FilteringDefaults').resolve()
 
     # Create the list of all available files, if necessary
-    if os.path.isfile(initial_filtering_list):
+    if initial_filtering_list:
         # Read in the list
         with open(initial_filtering_list, 'r') as input_fh:
             raw_file_list = [line.strip() for line in input_fh.readlines()]
     else:
-        for root, dir_names, file_names, in os.walk(source_root_dir):
-            for file_name in file_names:
-                raw_file_list.append(os.path.join(root, file_name))
-
-    # # Read in the default filtering options
-    # filtering_options = filtering_options + parse_filtering_file(default_filtering_options_file)
+        for item in source_root_dir.rglob('*'):
+            if item.is_file():
+                raw_file_list.append(item)
 
     # Read in the values from the filtering file and add them to the list
-    if os.path.isfile(filtering_options_file):
+    if filtering_options_file.is_file():
         # Print a status message
         logging.info('')
         logging.info('\tParsing input file.')
@@ -91,17 +89,17 @@ def create_file_list(source_root_dir, filtering_output_file, filtering_options_f
     filtered_file_list = raw_file_list.copy()
     for filtering_option in filtering_options:
         for file_path in raw_file_list:
-            if re.search(filtering_option[1], file_path) and filtering_option[0] == '-' and file_path in filtered_file_list:
+            if re.search(filtering_option[1], str(file_path)) and filtering_option[0] == '-' and file_path in filtered_file_list:
                 filtered_file_list.remove(file_path)
 
-            elif re.search(filtering_option[1], file_path) and filtering_option[0] == '+' and file_path not in filtered_file_list:
+            elif re.search(filtering_option[1], str(file_path)) and filtering_option[0] == '+' and file_path not in filtered_file_list:
                 filtered_file_list.append(file_path)
 
     # Print the results to the output file
     with open(filtering_output_file, 'w') as output_fh:
         for filtered_file in filtered_file_list:
-            if filtered_file.startswith('/'):
-                relative_path = os.path.relpath(filtered_file, source_root_dir)
+            if filtered_file.anchor == '/':
+                relative_path = filtered_file.relative_to(source_root_dir)
             else:
                 relative_path = filtered_file
             output_fh.write('%s\n' % relative_path)

@@ -231,7 +231,7 @@ def main(conf_file=pathlib.Path('./scrub.cfg').resolve(), clean=False, console_l
         # Move the results back with the source code if necessary
         if scrub_conf_data.get('scrub_working_dir') != scrub_conf_data.get('scrub_analysis_dir'):
             # Move every item in the directory
-            for item in os.listdir(scrub_conf_data.get('scrub_working_dir')):
+            for item in scrub_conf_data.get('scrub_working_dir').itedir():
                 # Remove the destination directory, if it exists
                 if scrub_conf_data.get('scrub_analysis_dir').joinpath(item).exists():
                     shutil.rmtree(scrub_conf_data.get('scrub_analysis_dir').joinpath(item))
@@ -295,7 +295,7 @@ def main(conf_file=pathlib.Path('./scrub.cfg').resolve(), clean=False, console_l
     # Loop through every tool and perform
     for target_module in target_modules:
         # Form the call string
-        module_name = 'scrub.' + os.path.relpath(target_module, scrub_path)[0:-3].replace('/', '.')
+        module_name = 'scrub.' + str(target_module.relative_to(scrub_path))[0:-3].replace('/', '.')
 
         # Import the module
         module_object = importlib.import_module(module_name)
