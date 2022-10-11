@@ -228,18 +228,17 @@ def parse_scrub(scrub_file, source_root):
 
         # Get the values of interest
         warning_id = warning_info[0].split()[0]
-        warning_file = warning_info[1]
+        warning_file = pathlib.Path(warning_info[1])
         warning_line = int(warning_info[2])
         warning_tool = re.sub(r'[0-9]', '', warning_id)
         warning_priority = re.sub('[<>]', '', warning_info[0].split()[-1])
 
         # Update the file path, if necessary
         if not warning_file.startswith('/'):
-            warning_file = os.path.join(source_root, warning_file)
-        warning_file = os.path.realpath(warning_file)
+            warning_file = source_root.joinpath(warning_file).resolve()
 
         # Add the warning to the dictionary
-        warning_list.append(create_warning(warning_id, warning_file, warning_line, warning_description, warning_tool,
+        warning_list.append(create_warning(warning_id, warning_file.resolve(), warning_line, warning_description, warning_tool,
                                            warning_priority, warning_query))
 
     return warning_list
@@ -284,7 +283,7 @@ def parse_sarif(sarif_filename, source_root, id_prefix=None):
             # Update the source root if it can be found in the SARIF data
             if "originalUriBaseIds" in sarif_data:
                 for item in sarif_data.get("originalUriBaseIds").items():
-                    updated_source_dir = os.path.realpath(item[-1]['uri'].replace('file://', ''))
+                    updated_source_dir = pathlib.Path(item[-1]['uri'].replace('file://', '')).resolve()
 
             # TODO: replace key checks with booleans for all optional SARIF fields
             tool_name, analysis_rules, locations = '', [], []
@@ -359,15 +358,14 @@ def parse_sarif(sarif_filename, source_root, id_prefix=None):
                     # Fix the filepath
                     warning_file = warning_file.replace('file://', '')
                     if not warning_file.startswith('/'):
-                        warning_file = os.path.join(updated_source_dir, warning_file)
-                    warning_file = os.path.realpath(warning_file)
+                        warning_file = updated_source_dir.joinpath(warning_file)
 
                     # Set the warning ID
                     warning_id = tool_name + str(warning_count).zfill(3)
 
                     # Add to the warning dictionary
-                    results.append(create_warning(warning_id, warning_file, warning_line, warning_description, tool_name,
-                                                  'Low', warning_query, suppress_warning))
+                    results.append(create_warning(warning_id, warning_file.resolve(), warning_line, warning_description,
+                                                  tool_name, 'Low', warning_query, suppress_warning))
 
                     # Update the warning count
                     warning_count = warning_count + 1
@@ -471,7 +469,7 @@ def create_sarif_output_file(results_list, sarif_version, output_file, source_ro
             result_item['locations'] = [{
                 'physicalLocation': {
                     'artifactLocation': {
-                        'uri': os.path.relpath(warning['file'], source_root),
+                        'uri': os.path.relpath(str(warning['file']), source_root),
                         'uriBaseId': str(source_root)
                     },
                     'region': {
@@ -552,4 +550,4 @@ def perform_translation(input_file, output_file, source_root, output_format):
 
 
 if __name__ == '__main__':
-    perform_translation(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4])
+    perform_translation(pathlib.Path(sys.argv[1]), pathlib.Path(sys.argv[2]), pathlib.Path(sys.argv[3]), sys.argv[4])

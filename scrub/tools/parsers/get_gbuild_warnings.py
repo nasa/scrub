@@ -1,6 +1,7 @@
 import re
 import os
 import sys
+import pathlib
 import logging
 from scrub.tools.parsers import translate_results
 
@@ -207,4 +208,4 @@ def parse_warnings(raw_input_file, parsed_output_file):
 
 
 if __name__ == '__main__':
-    parse_warnings(sys.argv[1], sys.argv[2])
+    parse_warnings(pathlib.Path(sys.argv[1]), pathlib.Path(sys.argv[2]))

@@ -1,6 +1,6 @@
 import re
-import os
 import sys
+import pathlib
 import logging
 from scrub.tools.parsers import translate_results
 
@@ -22,9 +22,9 @@ def parse_warnings(raw_input_file, parsed_output_file):
     # Print a status message
     logging.info('')
     logging.info('\tParsing results...')
-    logging.info('\t>> Executing command: get_javac_warnings.parse_warnings(%s, %s)', raw_input_file,
-                 parsed_output_file)
-    logging.info('\t>> From directory: %s', os.getcwd())
+    logging.info('\t>> Executing command: get_javac_warnings.parse_warnings(%s, %s)', str(raw_input_file),
+                 str(parsed_output_file))
+    logging.info('\t>> From directory: %s', str(pathlib.Path().absolute()))
 
     # Import the data from the input file
     with open(raw_input_file, 'r') as input_fh:
@@ -37,7 +37,7 @@ def parse_warnings(raw_input_file, parsed_output_file):
         if (' warning: ' in line) or (' error: ' in line):
             # Split the line and store the file name and line
             line_split = list(filter(None, re.split('[ :]', line.strip())))
-            warning_file = os.path.abspath(line_split[0])
+            warning_file = pathlib.Path(line_split[0]).resolve()
             warning_line = line_split[1]
 
             # Split the line and store the message and type of warning
@@ -59,4 +59,4 @@ def parse_warnings(raw_input_file, parsed_output_file):
 
 
 if __name__ == '__main__':
-    parse_warnings(sys.argv[1], sys.argv[2])
+    parse_warnings(pathlib.Path(sys.argv[1]), pathlib.Path(sys.argv[2]))

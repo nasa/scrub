@@ -1,5 +1,6 @@
 import sys
 import json
+import pathlib
 from scrub.tools.parsers import translate_results
 
 WARNING_LEVEL = 'Low'
@@ -26,7 +27,7 @@ def parse_json(raw_input_file, parsed_output_file):
     for issue in input_data['issues']:
         # Parse issue data
         warning_id = '%s%03d' % (ID_PREFIX, warning_count)
-        warning_file = issue['mainEventFilePathname']
+        warning_file = pathlib.Path(issue['mainEventFilePathname'])
         warning_line = int(issue['mainEventLineNumber'])
         warning_checker = issue['checkerName']
         warning_description = []
@@ -49,4 +50,4 @@ def parse_json(raw_input_file, parsed_output_file):
 
 
 if __name__ == '__main__':
-    parse_json(sys.argv[1], sys.argv[2])
+    parse_json(pathlib.Path(sys.argv[1]), pathlib.Path(sys.argv[2]))

@@ -1,5 +1,6 @@
 import sys
 import xml.etree.ElementTree
+import pathlib
 import os
 import re
 import logging
@@ -201,8 +202,4 @@ def parse_warnings(input_file, output_file, exclude_p10=False):
 
 
 if __name__ == '__main__':
-    # Store input variables
-    codesonar_file = sys.argv[1]
-    scrub_file = sys.argv[2]
-
-    parse_warnings(codesonar_file, scrub_file)
+    parse_warnings(pathlib.Path(sys.argv[1]), pathlib.Path(sys.argv[2]))

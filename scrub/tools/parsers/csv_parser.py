@@ -10,7 +10,7 @@ from scrub.tools.parsers import translate_results
 def parse_warnings(input_dir):
     # Initialize variables
     source_dir = pathlib.Path(input_dir).parent
-    output_dir = (pathlib.Path(input_dir) / 'csv_output').resolve()
+    output_dir = input_dir.joinpath(csv_output)
 
     # Make the output directory if it doesn't already exist
     if output_dir.exists():
@@ -18,10 +18,10 @@ def parse_warnings(input_dir):
     output_dir.mkdir()
 
     # Get a list of all the scrub files in the directory
-    input_files = glob.glob(input_dir + '/*.scrub')
+    input_files = input_dir.glob('*.scrub')
 
     # Create the output file path
-    output_file = (output_dir / datetime.datetime.utcnow().strftime("%m-%d-%Y") + '.csv').resolve()
+    output_file = output_dir.joinpath(datetime.datetime.utcnow().strftime("%m-%d-%Y") + '.csv')
 
     # Write the results out to the csv file
     with open(output_file, 'w') as output_fh:

@@ -1,7 +1,7 @@
-import os
 import sys
 import json
 import glob
+import pathlib
 from scrub.tools.parsers import translate_results
 
 WARNING_LEVEL = 'Low'
@@ -21,7 +21,7 @@ def parse_warnings(results_dir, parsed_output_file, source_root):
     raw_warnings = []
 
     # Find all the raw findings results files in the directory
-    findings_results_files = glob.glob(results_dir + '/*.json')
+    findings_results_files = results_dir.joinpath('*.json')
 
     # Iterate through every issues results file
     for raw_findings_file in findings_results_files:
@@ -42,7 +42,7 @@ def parse_warnings(results_dir, parsed_output_file, source_root):
                 suppression = False
 
             # Parse the finding
-            warning_file = os.path.normpath(source_root + '/' + finding['component'].split(':')[-1])
+            warning_file = source_root.joinpath(finding['component'].split(':')[-1]).resolve()
             warning_message = finding['message'].splitlines()
             warning_id = ID_PREFIX + str(warning_count).zfill(3)
 
@@ -72,4 +72,4 @@ def parse_warnings(results_dir, parsed_output_file, source_root):
 
 
 if __name__ == '__main__':
-    parse_warnings(sys.argv[1], sys.argv[2], sys.argv[3])
+    parse_warnings(pathlib.Path(sys.argv[1]), pathlib.Path(sys.argv[2]), pathlib.Path(sys.argv[3]))
