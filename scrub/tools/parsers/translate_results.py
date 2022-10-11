@@ -235,7 +235,7 @@ def parse_scrub(scrub_file, source_root):
         warning_priority = re.sub('[<>]', '', warning_info[0].split()[-1])
 
         # Update the file path, if necessary
-        if not warning_file.startswith('/'):
+        if warning_file.anchor != '/':
             warning_file = source_root.joinpath(warning_file).resolve()
 
         # Add the warning to the dictionary
@@ -357,8 +357,8 @@ def parse_sarif(sarif_filename, source_root, id_prefix=None):
                         warning_line = 0
 
                     # Fix the filepath
-                    warning_file = warning_file.replace('file://', '')
-                    if not warning_file.startswith('/'):
+                    warning_file = pathlib.Path(warning_file.replace('file://', ''))
+                    if warning_file.anchor != '/':
                         warning_file = updated_source_dir.joinpath(warning_file)
 
                     # Set the warning ID
