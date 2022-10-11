@@ -21,7 +21,7 @@ def parse_warnings(results_dir, parsed_output_file, source_root):
     raw_warnings = []
 
     # Find all the raw findings results files in the directory
-    findings_results_files = results_dir.joinpath('*.json')
+    findings_results_files = results_dir.glob('*.json')
 
     # Iterate through every issues results file
     for raw_findings_file in findings_results_files:
