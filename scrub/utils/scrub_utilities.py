@@ -273,7 +273,7 @@ def create_conf_file(output_path=None):
         output_path = args['output']
 
     # Initialize variables
-    default_config_filepathlib.Path(__file__).parent.joinpath('scrub_defaults.cfg').resolve()
+    default_config_file = pathlib.Path(__file__).parent.joinpath('scrub_defaults.cfg').resolve()
 
     # Copy the default configuration file
     shutil.copyfile(default_config_file, output_path)
