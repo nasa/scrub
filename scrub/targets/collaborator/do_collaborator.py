@@ -140,7 +140,7 @@ def get_defects(scrub_file):
             # Get tool abbrv, defect num, severity, file name, line num, description
             raw_defect = re.match(r'(\D+\d*\D+)(\d*) <(\D+)> :(\S+):(\d+): (.+)', raw_defect)
 
-            if 'p10' in pathlib.Path(scrub_file).parent:
+            if 'p10' in scrub_file.stem:
                 defect.update({'tool': 'p10_' + raw_defect.group(1)})
             else:
                 defect.update({'tool': raw_defect.group(1)})

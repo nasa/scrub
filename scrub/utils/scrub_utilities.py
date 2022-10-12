@@ -356,6 +356,9 @@ def parse_common_configs(user_conf_file, scrub_keys=[]):
     if scrub_conf_data.get('query_filters') == '':
         analysis_filters_file = user_conf_file.parent.joinpath('SCRUBExcludeQueries')
         scrub_conf_data.update({'query_filters': analysis_filters_file})
+    if scrub_conf_data.get('collaborator_filters') == '':
+        collaborator_filters = user_conf_file.parent.joinpath('SCRUBCollaboratorFilters')
+        scrub_conf_data.update({'collaborator_filters': collaborator_filters})
 
     # Set the SCRUB working directory
     if (scrub_conf_data.get('scrub_working_dir') is None) or (scrub_conf_data.get('scrub_working_dir') == ''):

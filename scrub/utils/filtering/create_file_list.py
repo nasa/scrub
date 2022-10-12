@@ -61,14 +61,15 @@ def create_file_list(source_root_dir, filtering_output_file, filtering_options_f
     if initial_filtering_list:
         # Read in the list
         with open(initial_filtering_list, 'r') as input_fh:
-            raw_file_list = [line.strip() for line in input_fh.readlines()]
+            raw_file_list = [pathlib.Path(line.strip()) for line in input_fh.readlines()]
+
     else:
         for item in source_root_dir.rglob('*'):
             if item.is_file():
                 raw_file_list.append(item)
 
     # Read in the values from the filtering file and add them to the list
-    if filtering_options_file.is_file():
+    if filtering_options_file.exists():
         # Print a status message
         logging.info('')
         logging.info('\tParsing input file.')
