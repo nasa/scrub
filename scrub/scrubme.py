@@ -80,7 +80,7 @@ def main(conf_file=pathlib.Path('./scrub.cfg').resolve(), clean=False, console_l
     scrub_utilities.initialize_storage_dir(scrub_conf_data)
 
     # Make sure the working directory exists
-    if not scrub_conf_data.get('scrub_working_dir').exists():
+    if scrub_conf_data.get('scrub_working_dir').exists():
         print('ERROR: Working directory ' + str(scrub_conf_data.get('scrub_working_dir')) + ' does not exist.')
         sys.exit(10)
 
