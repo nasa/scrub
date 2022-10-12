@@ -60,7 +60,7 @@ multi_lang_testcase = os.path.abspath('./tests/integration_tests/multi_lang_test
 testcases = [[java_testcase, ['run', '--config', 'missing_scrub.cfg'], 10],                          # Testcase 0
              [c_testcase, ['run', '--clean', '--config', 'bad_scrub.cfg'], 1],                       # Testcase 1
              [c_testcase, ['dummy'], 0],                                                             # Testcase 2
-             [c_testcase, 'run', '--config', 'bad_dir_scrub.cfg', 10],                               # Testcase 3
+             [c_testcase, ['run', '--config', 'bad_dir_scrub.cfg'], 10],                             # Testcase 3
              [c_testcase, ['--help'], 0],                                                            # Testcase 4
              [c_testcase, ['get-conf'], 0],                                                          # Testcase 5
              [c_testcase, ['run', '--clean', '--debug'], 0],                                         # Testcase 6
