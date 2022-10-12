@@ -43,4 +43,4 @@ def parse_warnings(input_dir):
 
 
 if __name__ == '__main__':
-    parse_warnings(sys.argv[1])
+    parse_warnings(sys.argv[0])
