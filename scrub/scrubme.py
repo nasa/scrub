@@ -231,14 +231,13 @@ def main(conf_file=pathlib.Path('./scrub.cfg').resolve(), clean=False, console_l
         # Move the results back with the source code if necessary
         if scrub_conf_data.get('scrub_working_dir') != scrub_conf_data.get('scrub_analysis_dir'):
             # Move every item in the directory
-            for item in scrub_conf_data.get('scrub_working_dir').itedir():
+            for item in scrub_conf_data.get('scrub_working_dir').iterdir():
                 # Remove the destination directory, if it exists
-                if scrub_conf_data.get('scrub_analysis_dir').joinpath(item).exists():
-                    shutil.rmtree(scrub_conf_data.get('scrub_analysis_dir').joinpath(item))
+                if scrub_conf_data.get('scrub_analysis_dir').joinpath(item.stem).exists():
+                    shutil.rmtree(scrub_conf_data.get('scrub_analysis_dir').joinpath(item.stem))
 
                 # Move the contents
-                shutil.move(scrub_conf_data.get('scrub_working_dir').joinpath(item),
-                            scrub_conf_data.get('scrub_analysis_dir').joinpath(item))
+                shutil.move(item, scrub_conf_data.get('scrub_analysis_dir').joinpath(item.stem))
 
             # Remove the working directory
             shutil.rmtree(scrub_conf_data.get('scrub_working_dir'))
