@@ -192,9 +192,6 @@ def execute_command(call_string, my_env, output_file=None, interactive=False):
     # Initialize variables
     output_data = ''
 
-    # Add the current working directory to the path
-    my_env['PATH'] = my_env['PATH'] + ':' + str(pathlib.Path().resolve())
-
     # Write out a logging message
     logging.info('')
     logging.info('    >> Executing command: %s', call_string)
@@ -348,6 +345,10 @@ def parse_common_configs(user_conf_file, scrub_keys=[]):
 
     # Make the source root absolute
     scrub_conf_data.update({'source_dir': pathlib.Path(scrub_conf_data.get('source_dir')).expanduser().resolve()})
+
+    # Make access tokens absolute
+    scrub_conf_data.update({'codesonar_cert': pathlib.Path(scrub_conf_data.get('codesonar_cert')).resolve()})
+    scrub_conf_data.update({'codesonar_key': pathlib.Path(scrub_conf_data.get('codesonar_key')).resolve()})
 
     # Set the SCRUB analysis directory
     scrub_conf_data.update({'scrub_analysis_dir': scrub_conf_data.get('source_dir').joinpath('.scrub')})
