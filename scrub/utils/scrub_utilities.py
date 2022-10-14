@@ -192,6 +192,9 @@ def execute_command(call_string, my_env, output_file=None, interactive=False):
     # Initialize variables
     output_data = ''
 
+    # Add the current working directory to the path
+    my_env['PATH'] = my_env['PATH'] + ':' + str(pathlib.Path().resolve())
+
     # Write out a logging message
     logging.info('')
     logging.info('    >> Executing command: %s', call_string)

@@ -134,7 +134,7 @@ def filter_scrub_results(scrub_conf_data):
                                               scrub_conf_data.get('source_dir'),
                                               scrub_conf_data.get('enable_micro_filter'),
                                               scrub_conf_data.get('enable_ext_warnings'),
-                                              tool_name)
+                                              [tool_name])
 
             except:     # lgtm [py/catch-base-exception]
                 # Print a status message
