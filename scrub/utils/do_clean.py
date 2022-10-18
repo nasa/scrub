@@ -23,7 +23,7 @@ def clean_directory(directory):
     """
 
     # Print a status message
-    print('\tRemoving previous SCRUB results from source tree...')
+    print('\tRemoving previous SCRUB results from source tree...\n')
 
     # Remove the root directory
     if directory.joinpath('.scrub').exists():
