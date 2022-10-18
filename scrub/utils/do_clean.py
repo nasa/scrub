@@ -22,6 +22,9 @@ def clean_directory(directory):
         - directory: Full path to the top-level source code directory [string]
     """
 
+    # Print a status message
+    print('\tRemoving previous SCRUB results from source tree...')
+
     # Remove the root directory
     if directory.joinpath('.scrub').exists():
         shutil.rmtree(directory.joinpath('.scrub'))
