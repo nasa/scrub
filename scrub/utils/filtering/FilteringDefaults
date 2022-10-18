@@ -5,7 +5,7 @@
 - \.pyc$
 - .*\.git.*
 - .*\.svn.*
-- .*\.scrub.*
+- .*scrub_analysis.*
 - .*\.DS_Store.*
 - .*scrub_log.*
 - .*SCRUBFilters

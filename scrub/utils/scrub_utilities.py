@@ -351,7 +351,7 @@ def parse_common_configs(user_conf_file, scrub_keys=[]):
     scrub_conf_data.update({'codesonar_key': pathlib.Path(scrub_conf_data.get('codesonar_key')).resolve()})
 
     # Set the SCRUB analysis directory
-    scrub_conf_data.update({'scrub_analysis_dir': scrub_conf_data.get('source_dir').joinpath('.scrub')})
+    scrub_conf_data.update({'scrub_analysis_dir': scrub_conf_data.get('source_dir').joinpath('scrub_output')})
 
     # Set the default filtering file locations
     if scrub_conf_data.get('analysis_filters') == '':
@@ -418,7 +418,7 @@ def initialize_storage_dir(scrub_conf_data):
         - scrub_conf_data: Dictionary of values read from configuration file [dict]
     """
 
-    # Create the .scrub analysis directory
+    # Create the scrub_output analysis directory
     if not scrub_conf_data.get('scrub_analysis_dir').exists():
         scrub_conf_data.get('scrub_analysis_dir').mkdir()
         scrub_conf_data.get('scrub_analysis_dir').chmod(0o666)
