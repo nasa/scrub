@@ -1,6 +1,5 @@
 import sys
 import json
-import glob
 import pathlib
 from scrub.tools.parsers import translate_results
 
@@ -8,12 +7,13 @@ WARNING_LEVEL = 'Low'
 ID_PREFIX = 'sonarqube'
 
 
-def parse_warnings(results_dir, parsed_output_file, source_root):
+def parse_warnings(results_dir, parsed_output_file, source_root, sonarqube_url):
     """This function parses the raw SonarQube warnings into the SCRUB format.
         Inputs:
             - results_dir: Absolute path to the raw SonarQube output file directory [string]
             - parsed_output_file: Absolute path to the file where the parsed warnings will be stored [string]
-            - source_root: Absolute pth to the source root directory [string]
+            - source_root: Absolute path to the source root directory [string]
+            - sonarqube_url: URL of the SonarQube server [string]
         """
 
     # Initialize the variables
@@ -45,7 +45,12 @@ def parse_warnings(results_dir, parsed_output_file, source_root):
             warning_file = source_root.joinpath(finding['component'].split(':')[-1]).resolve()
             warning_message = finding['message'].splitlines()
             warning_id = ID_PREFIX + str(warning_count).zfill(3)
+            warning_link = sonarqube_url + '/project/issues?id=' + finding['project'] + '&open=' + finding['key']
 
+            # Add the link to the warning message
+            warning_message.append(warning_link)
+
+            # Parse the query if it exists
             if 'rule' in finding.keys():
                 warning_query = finding['rule'].replace(':', '-')
             else:
@@ -72,4 +77,4 @@ def parse_warnings(results_dir, parsed_output_file, source_root):
 
 
 if __name__ == '__main__':
-    parse_warnings(pathlib.Path(sys.argv[1]), pathlib.Path(sys.argv[2]), pathlib.Path(sys.argv[3]))
+    parse_warnings(pathlib.Path(sys.argv[1]), pathlib.Path(sys.argv[2]), pathlib.Path(sys.argv[3]), sys.argv[4])
