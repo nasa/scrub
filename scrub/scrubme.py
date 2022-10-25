@@ -88,9 +88,6 @@ def main(conf_file=pathlib.Path('./scrub.cfg').resolve(), clean=False, console_l
     shutil.copyfile(conf_file, str(scrub_conf_data.get('scrub_analysis_dir').joinpath('scrub.cfg')))
 
     try:
-        # Create a symlink for ease of use
-        scrub_conf_data.get('source_dir').joinpath('scrub_output').symlink_to(scrub_conf_data.get('scrub_analysis_dir'))
-
         # Get the templates
         available_analysis_templates = list(scrub_path.glob('tools/templates/*template'))
 
@@ -244,6 +241,20 @@ def main(conf_file=pathlib.Path('./scrub.cfg').resolve(), clean=False, console_l
 
             # Remove the working directory
             shutil.rmtree(scrub_conf_data.get('scrub_working_dir'))
+
+        # Create a visible directory of results
+        viewable_results_dir = scrub_conf_data.get('source_dir').joinpath('scrub_results')
+        if viewable_results_dir.exists():
+            shutil.rmtree(viewable_results_dir)
+        viewable_results_dir.mkdir()
+
+        # Copy SCRUB format output files
+        for scrub_file in scrub_conf_data.get('scrub_analysis_dir').glob('*.scrub'):
+            shutil.copy(scrub_file, viewable_results_dir.joinpath(scrub_file.name))
+
+        # Copy the SARIF format output files
+        for sarif_file in scrub_conf_data.get('sarif_results_dir').glob('*.sarif'):
+            shutil.copy(sarif_file, viewable_results_dir.joinpath(sarif_file.name))
 
         # Print a status message
         tool_failure_count = 0
