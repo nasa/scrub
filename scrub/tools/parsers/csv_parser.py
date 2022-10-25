@@ -7,7 +7,7 @@ from scrub.tools.parsers import translate_results
 
 def parse_warnings(input_dir):
     # Initialize variables
-    source_dir = pathlib.Path(input_dir).parent
+    source_dir = pathlib.Path(input_dir)
     output_dir = source_dir.joinpath('csv_output')
 
     # Make the output directory if it doesn't already exist
@@ -20,6 +20,8 @@ def parse_warnings(input_dir):
 
     # Create the output file path
     output_file = output_dir.joinpath(datetime.datetime.utcnow().strftime("%m-%d-%Y") + '.csv')
+
+    print(output_file)
 
     # Write the results out to the csv file
     with open(output_file, 'w') as output_fh:
