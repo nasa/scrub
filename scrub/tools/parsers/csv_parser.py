@@ -1,5 +1,4 @@
 import sys
-import glob
 import datetime
 import shutil
 import pathlib
@@ -9,7 +8,7 @@ from scrub.tools.parsers import translate_results
 def parse_warnings(input_dir):
     # Initialize variables
     source_dir = pathlib.Path(input_dir).parent
-    output_dir = input_dir.joinpath(csv_output)
+    output_dir = source_dir.joinpath('csv_output')
 
     # Make the output directory if it doesn't already exist
     if output_dir.exists():
@@ -43,4 +42,4 @@ def parse_warnings(input_dir):
 
 
 if __name__ == '__main__':
-    parse_warnings(sys.argv[0])
+    parse_warnings(pathlib.Path(sys.argv[1]).resolve())
