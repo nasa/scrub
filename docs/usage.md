@@ -56,9 +56,11 @@ Running SCRUB is a relatively straightforward process after it has been configur
 
 During execution SCRUB will print various status messages to the console. Additionally, log information and results will be stored in a hidden directory named `.scrub` located at `SOURCE_DIR` as defined in the scrub.cfg file used during execution.
 
-Tools can also be run individuall by using using the `run --tools` command. An example is provided below for CodeQL execution:
+A subset of tools can also be run by using using the `run --tools` command. The tools flag expects a space-separated list of tools to be provided.
 
     scrub run --tools codeql --config scrub.cfg --quiet
+    
+    scrub run --tools coverity codesonar --debug
 
 
 ## Dependencies
