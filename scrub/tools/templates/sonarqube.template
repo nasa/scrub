@@ -64,7 +64,7 @@ while $MORE_RESULTS; do
     if grep -q "Can return only the first 10000 results" $RESULTS_FILE; then
         echo "WARNING: Not all results have been retrieved."
         MORE_RESULTS=false
-    elif $PAGE > 20; then
+    elif [ $PAGE -gt 20 ]; then
         MORE_RESULTS=false
     elif grep -q "\"issues\":\[\]" $RESULTS_FILE; then
        rm -f $RESULTS_FILE
@@ -89,7 +89,7 @@ while $MORE_RESULTS; do
     if grep -q "Can return only the first 10000 results" $RESULTS_FILE; then
         echo "WARNING: Not all results have been retrieved."
         MORE_RESULTS=false
-    elif $PAGE > 20; then
+    elif [ $PAGE -gt 20 ]; then
         MORE_RESULTS=false
     elif grep -q "\"hotspots\":\[\]" $RESULTS_FILE; then
        rm -f $RESULTS_FILE
