@@ -68,8 +68,19 @@ jobs:
       
     - run: |
         pip install nasa-scrub
-        python3 -m scrub.tools.parsers.translate_results /home/runner/work/scrub/results/*.sarif /home/runner/work/scrub/results/codeql.scrub ${{ github.workspace }} scrub
-        python3 -m scrub.tools.parsers.csv_parser /home/runner/work/scrub/results
+        
+        results_dir=${{ github.workspace }}/results -name
+        sarif_files=`find $results_dir '*.sarif'`
+        
+        for sarif_file in sarif_files
+        do
+          output_file="$results_dir/$(basename $sarif_file .sarif).scrub"
+          
+          python3 -m scrub.tools.parsers.translate_results $sarif_file $output_file ${{ github.workspace }} scrub
+        done
+        
+        python3 -m scrub.tools.parsers.csv_parser ${{ github.workspace }}/results
+        
       
     - name: Upload CodeQL Artifacts
       uses: actions/upload-artifact@v3
