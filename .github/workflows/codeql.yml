@@ -69,8 +69,8 @@ jobs:
     - run: |
         pip install nasa-scrub
         
-        results_dir=${{ github.workspace }}/results -name
-        sarif_files=`find $results_dir '*.sarif'`
+        results_dir=${{ github.workspace }}/results
+        sarif_files=`find $results_dir -name '*.sarif'`
         
         for sarif_file in sarif_files
         do
