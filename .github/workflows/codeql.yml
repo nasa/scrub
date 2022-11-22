@@ -69,7 +69,7 @@ jobs:
     - run: |
         pip install nasa-scrub
         
-        results_dir=${{ github.workspace }}/../results
+        results_dir=$`realpath {{ github.workspace }}/../results`
         sarif_files=`find $results_dir -name '*.sarif'`
         
         for sarif_file in $sarif_files
@@ -81,9 +81,11 @@ jobs:
         
         python3 -m scrub.tools.parsers.csv_parser $results_dir
         
+        echo "RESULTS_DIR=$results_dir" >> $GITHUB_ENV
+        
       
     - name: Upload CodeQL Artifacts
       uses: actions/upload-artifact@v3
       with:
         name: codeql-artifacts
-        path: ~/**/results/*
+        path: ${{ env.RESULTS_DIR }}
