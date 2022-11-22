@@ -72,7 +72,7 @@ jobs:
         results_dir=${{ github.workspace }}/../results
         sarif_files=`find $results_dir -name '*.sarif'`
         
-        for sarif_file in sarif_files
+        for sarif_file in $sarif_files
         do
           output_file="$results_dir/$(basename $sarif_file .sarif).scrub"
           
