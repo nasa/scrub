@@ -60,4 +60,7 @@ def parse_warnings(input_dir, output_format='legacy'):
 
 
 if __name__ == '__main__':
-    parse_warnings(pathlib.Path(sys.argv[1]).resolve(), sys.argv[2])
+    if len(sys.argv) == 2:
+        parse_warnings(pathlib.Path(sys.argv[1]).resolve())
+    else:
+        parse_warnings(pathlib.Path(sys.argv[1]).resolve(), sys.argv[2])
