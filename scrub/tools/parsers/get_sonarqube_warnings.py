@@ -48,7 +48,7 @@ def parse_warnings(results_dir, parsed_output_file, source_root, sonarqube_url):
 
             # Get a link to the finding
             if 'sonarqube_hotspots' in raw_findings_file.stem:
-                warning_link = sonarqube_url + 'security_hotspots?id=' + finding['project'] + '&hotspots=' + finding['key']
+                warning_link = sonarqube_url + '/security_hotspots?id=' + finding['project'] + '&hotspots=' + finding['key']
             else:
                 warning_link = sonarqube_url + '/project/issues?id=' + finding['project'] + '&open=' + finding['key']
 
