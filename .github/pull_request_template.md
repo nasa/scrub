@@ -3,6 +3,9 @@ The purpose of this document is to establish a process and checklist for new SCR
 all code changes have been completed and is ready for testing and subsequent release
 
 ## Checklist
+- [ ] Rev the version information
+    - [ ] VERSION file
+    - [ ] PIP setup.cfg file   
 - [ ] Review [CodeQL results](https://github.com/nasa/scrub/security/code-scanning)
     - [ ] Check for commented out/debugging code
     - [ ] Make necessary code changes based on findings
