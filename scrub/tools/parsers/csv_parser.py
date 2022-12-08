@@ -9,6 +9,7 @@ def parse_warnings(input_dir, output_format='legacy'):
     # Initialize variables
     source_dir = pathlib.Path(input_dir)
     output_dir = source_dir.joinpath('csv_output')
+    timestamp = datetime.datetime.utcnow()
 
     # Make the output directory if it doesn't already exist
     if output_dir.exists():
@@ -19,7 +20,7 @@ def parse_warnings(input_dir, output_format='legacy'):
     input_files = input_dir.glob('*.scrub')
 
     # Create the output file path
-    output_file = output_dir.joinpath(datetime.datetime.utcnow().strftime("%m-%d-%Y") + '.csv')
+    output_file = output_dir.joinpath(timestamp.strftime("%m-%d-%Y") + '.csv')
 
     # Write the results out to the csv file
     with open(output_file, 'w') as output_fh:
@@ -51,9 +52,10 @@ def parse_warnings(input_dir, output_format='legacy'):
                 # Iterate through every result
                 for result in scrub_results:
                     description_text = ' '.join(result.get('description')).replace(',', '').replace('\t', '').strip()
-                    output_fh.write('{},{},{},{},{},{},{},{},{},{}\n'.format(result.get('query'), description_text,
+                    output_fh.write('{},{},{},{},{},{}/{},{},{},{},{}\n'.format(result.get('query'), description_text,
                                                                              result.get('priority'), description_text,
                                                                              result.get('file').relative_to(source_dir),
+                                                                             timestamp.strftime("%Y-%B-%d--%H-%M-%S"),
                                                                              result.get('file').relative_to(source_dir),
                                                                              result.get('line'), result.get('line'), 0,
                                                                              0))
