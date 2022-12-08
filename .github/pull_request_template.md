@@ -4,7 +4,7 @@ all code changes have been completed and is ready for testing and subsequent rel
 
 ## Checklist
 - [ ] Rev the version information
-    - [ ] VERSION file
+    - [ ] Local VERSION file
     - [ ] PIP setup.cfg file   
 - [ ] Review [CodeQL results](https://github.com/nasa/scrub/security/code-scanning)
     - [ ] Check for commented out/debugging code
