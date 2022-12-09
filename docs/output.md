@@ -52,6 +52,7 @@ An example of a set of two warnings that adhere to this format:
 The following section provides a description of the structure of the .scrub output directory located at `SOURCE_DIR` as specified in the `scrub.cfg` configuration file:
 
     .scrub
+    |  VERSION                          (Version of SCRUB that generated results)
     |  scrub.cfg                        (Copy of user-provided configuration file)
     |  SCRUBAnalysisFilteringList       (List of source files that will be included in analysis)
     |  SCRUBCollaboratorFiltering List  (List of source files that will be uploaded to Collaborator)
