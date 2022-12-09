@@ -9,6 +9,7 @@ import argparse
 import logging
 import traceback
 import pathlib
+from scrub import __version__
 from scrub.utils.filtering import do_filtering
 from scrub.utils import do_clean
 from scrub.utils import scrub_utilities
@@ -86,6 +87,10 @@ def main(conf_file=pathlib.Path('./scrub.cfg').resolve(), clean=False, console_l
 
     # Make a copy of the scrub.cfg file and add it to the log
     shutil.copyfile(conf_file, str(scrub_conf_data.get('scrub_analysis_dir').joinpath('scrub.cfg')))
+
+    # Create a VERSION file
+    with open(str(scrub_conf_data.get('scrub_analysis_dir').joinpath('VERSION')), 'w') as output_fh:
+        output_fh.write(__version__)
 
     try:
         # Get the templates

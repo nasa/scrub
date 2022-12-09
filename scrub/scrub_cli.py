@@ -1,5 +1,6 @@
 import sys
 
+from scrub import __version__
 from scrub import scrubme
 from scrub.utils import diff_results
 from scrub.utils import scrub_utilities
@@ -44,6 +45,10 @@ def main():
         elif 'get-conf' in sys.argv:
             # Run analysis
             scrub_utilities.create_conf_file()
+
+        elif 'version' in sys.argv:
+            # Print the version number
+            print('SCRUB Version: ' + __version__)
 
         else:
             print(help_message)
