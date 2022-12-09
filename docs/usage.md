@@ -42,6 +42,13 @@ After SCRUB has been installed, it can be run using the command line interface. 
 
         Inputs:
             - output: Path to desired output location [string] [optional]
+            
+    scrub version
+    
+        This function prints the current SCRUB version information to the console
+        
+        Inputs:
+            - None
 
 **Note**: `scrub run-tool` is a legacy command and only included for backwards compatability. Users are incouraged to use the `scrub run` command and `--tools` flag to run individual tools.
 
