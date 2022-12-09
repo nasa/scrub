@@ -1,4 +1,4 @@
-import os
+import pathlib
 import shutil
 
 
@@ -10,22 +10,9 @@ def clean_subdirs(root_dir):
     """
 
     # Find all the files and directories of interest
-    root_sub_dir = True
-    for root, dir_names, file_names in os.walk(root_dir):
-        # Update the dir list only the first time
-        if root_sub_dir:
-            # Remove .scrub from the list, if it exists
-            if '.scrub' in dir_names:
-                dir_names.remove('.scrub')
-
-            # Update the flag
-            root_sub_dir = False
-
-        # Remove any .scrub directories
-        for dir_name in dir_names:
-            if '.scrub' in dir_name:
-                dir_path = os.path.join(root, dir_name)
-                shutil.rmtree(dir_path)
+    for scrub_dir in list(root_dir.rglob('.scrub')):
+        if scrub_dir != root_dir.joinpath('.scrub'):
+            shutil.rmtree(scrub_dir)
 
 
 def clean_directory(directory):
@@ -35,9 +22,12 @@ def clean_directory(directory):
         - directory: Full path to the top-level source code directory [string]
     """
 
+    # Print a status message
+    print('\tRemoving previous SCRUB results from source tree...\n')
+
     # Remove the root directory
-    if os.path.exists(directory + '/.scrub'):
-        shutil.rmtree(directory + '/.scrub')
+    if directory.joinpath('.scrub').exists():
+        shutil.rmtree(directory.joinpath('.scrub'))
 
     # Remove all of the sub-directories
     clean_subdirs(directory)

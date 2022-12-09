@@ -8,6 +8,8 @@ import time
 import argparse
 import logging
 import traceback
+import pathlib
+from scrub import __version__
 from scrub.utils.filtering import do_filtering
 from scrub.utils import do_clean
 from scrub.utils import scrub_utilities
@@ -39,15 +41,16 @@ def parse_arguments():
         logging_level = logging.INFO
 
     # Run analysis
-    main(args['config'], args['clean'], logging_level, args['tools'], args['targets'])
+    main(pathlib.Path(args['config']).resolve(), args['clean'], logging_level, args['tools'], args['targets'])
 
 
-def main(conf_file='./scrub.cfg', clean=False, console_logging=logging.INFO, tools=None, targets=None):
+def main(conf_file=pathlib.Path('./scrub.cfg').resolve(), clean=False, console_logging=logging.INFO, tools=None,
+         targets=None):
     """
     This function runs all applicable tools present within the configuration file.
 
     Inputs:
-        - config: Path to SCRUB configuration file [string] [optional]
+        - config: Path to SCRUB configuration file [Path object] [optional]
             Default value: ./scrub.cfg
         - clean: Should SCRUB clean existing results? [bool]
             Default value: False
@@ -60,15 +63,15 @@ def main(conf_file='./scrub.cfg', clean=False, console_logging=logging.INFO, too
     """
 
     # Read in the configuration data
-    if os.path.exists(conf_file):
+    if conf_file.exists():
         scrub_conf_data = scrub_utilities.parse_common_configs(conf_file)
     else:
-        print('ERROR: Configuration file ' + conf_file + ' does not exist.')
+        print('ERROR: Configuration file ' + str(conf_file) + ' does not exist.')
         sys.exit(10)
 
     # Initialize variables
     execution_status = []
-    scrub_path = os.path.dirname(os.path.realpath(__file__))
+    scrub_path = pathlib.Path(__file__).resolve().parent
 
     # Clean the previous SCRUB data from the current directory
     if clean:
@@ -78,16 +81,20 @@ def main(conf_file='./scrub.cfg', clean=False, console_logging=logging.INFO, too
     scrub_utilities.initialize_storage_dir(scrub_conf_data)
 
     # Make sure the working directory exists
-    if not os.path.exists(scrub_conf_data.get('scrub_working_dir')):
-        print('ERROR: Working directory ' + scrub_conf_data.get('scrub_working_dir') + ' does not exist.')
+    if not scrub_conf_data.get('scrub_working_dir').exists():
+        print('ERROR: Working directory ' + str(scrub_conf_data.get('scrub_working_dir')) + ' does not exist.')
         sys.exit(10)
 
     # Make a copy of the scrub.cfg file and add it to the log
-    shutil.copyfile(conf_file, os.path.normpath(scrub_conf_data.get('scrub_analysis_dir') + '/scrub.cfg'))
+    shutil.copyfile(conf_file, str(scrub_conf_data.get('scrub_analysis_dir').joinpath('scrub.cfg')))
+
+    # Create a VERSION file
+    with open(str(scrub_conf_data.get('scrub_analysis_dir').joinpath('VERSION')), 'w') as output_fh:
+        output_fh.write(__version__)
 
     try:
         # Get the templates
-        available_analysis_templates = glob.glob(scrub_path + '/tools/templates/*template')
+        available_analysis_templates = list(scrub_path.glob('tools/templates/*template'))
 
         # Append the custom templates if provided
         if scrub_conf_data.get('custom_templates'):
@@ -109,7 +116,7 @@ def main(conf_file='./scrub.cfg', clean=False, console_logging=logging.INFO, too
             analysis_templates = []
             for template in available_analysis_templates:
                 for tool in tools:
-                    if template.endswith(tool + '.template'):
+                    if template.name  == tool + '.template':
                         analysis_templates.append(template)
                         scrub_conf_data.update({tool.lower() + '_warnings': True})
         else:
@@ -121,32 +128,31 @@ def main(conf_file='./scrub.cfg', clean=False, console_logging=logging.INFO, too
             execution_time = 0
 
             # Get the tool name
-            tool_name = os.path.splitext(os.path.basename(analysis_template))[0]
+            tool_name = analysis_template.stem
 
             # Initialize execution status
             tool_execution_status = 2
 
             if scrub_conf_data.get(tool_name.lower() + '_warnings'):
                 # Initialize variables
-                analysis_scripts_dir = os.path.normpath(scrub_conf_data.get('scrub_analysis_dir') + '/analysis_scripts')
-                analysis_script = os.path.normpath(analysis_scripts_dir + '/' + tool_name + '.sh')
-                tool_analysis_dir = os.path.normpath(scrub_conf_data.get('scrub_working_dir') + '/' + tool_name +
-                                                     '_analysis')
+                analysis_scripts_dir = scrub_conf_data.get('scrub_analysis_dir').joinpath('analysis_scripts')
+                analysis_script = analysis_scripts_dir.joinpath(tool_name + '.sh')
+                tool_analysis_dir = scrub_conf_data.get('scrub_working_dir').joinpath(tool_name + '_analysis')
 
                 # Add derived values to configuration values
                 scrub_conf_data.update({'tool_analysis_dir': tool_analysis_dir})
 
                 # Create the analysis scripts directory
-                if not os.path.exists(analysis_scripts_dir):
-                    os.mkdir(analysis_scripts_dir)
+                if not analysis_scripts_dir.exists():
+                    analysis_scripts_dir.mkdir()
 
                 # Create the tool analysis directory
-                if os.path.exists(tool_analysis_dir):
+                if tool_analysis_dir.exists():
                     shutil.rmtree(tool_analysis_dir)
-                os.mkdir(tool_analysis_dir)
+                tool_analysis_dir.mkdir()
 
                 # Create the log file
-                analysis_log_file = scrub_conf_data.get('scrub_log_dir') + '/' + tool_name + '.log'
+                analysis_log_file = scrub_conf_data.get('scrub_log_dir').joinpath(tool_name + '.log')
                 scrub_utilities.create_logger(analysis_log_file, console_logging)
 
                 # Print a status message
@@ -154,9 +160,8 @@ def main(conf_file='./scrub.cfg', clean=False, console_logging=logging.INFO, too
                 logging.info('  Configuration values...')
 
                 # Print general configuration values
-                logging.info('    SOURCE_DIR: ' + scrub_conf_data.get('source_dir'))
-                logging.info('    TOOL_ANALYSIS_DIR: ' + scrub_conf_data.get('scrub_working_dir') + '/' + tool_name +
-                             '_analysis')
+                logging.info('    SOURCE_DIR: ' + str(scrub_conf_data.get('source_dir')))
+                logging.info('    TOOL_ANALYSIS_DIR: ' + str(tool_analysis_dir))
 
                 # Print tool specific configuration values
                 for config_value in scrub_conf_data.keys():
@@ -179,20 +184,18 @@ def main(conf_file='./scrub.cfg', clean=False, console_logging=logging.INFO, too
 
                     # Update the environment
                     if 'PYTHONPATH' in user_env.keys():
-                        user_env.update({'PYTHONPATH': user_env.get('PYTHONPATH') + ':' +
-                                        os.path.normpath(scrub_path + '/../')})
+                        user_env.update({'PYTHONPATH': user_env.get('PYTHONPATH') + ':' + str(scrub_path.parent)})
                     else:
-                        user_env.update({'PYTHONPATH': os.path.normpath(scrub_path + '/../')})
+                        user_env.update({'PYTHONPATH': str(scrub_path.parent)})
 
                     # Execute the analysis and track execution time
-                    scrub_utilities.execute_command(analysis_script, user_env)
+                    scrub_utilities.execute_command(str(analysis_script), user_env)
 
                     # Check the tool analysis directory
                     scrub_utilities.check_artifact(tool_analysis_dir, True)
 
                     # Check the raw results files
-                    for raw_results_file in glob.glob(os.path.join(scrub_conf_data['raw_results_dir'],
-                                                                   tool_name + '_*.scrub')):
+                    for raw_results_file in scrub_conf_data.get('raw_results_dir').glob(tool_name + '_*.scrub'):
                         scrub_utilities.check_artifact(raw_results_file, False)
 
                     # Check the log file
@@ -233,17 +236,30 @@ def main(conf_file='./scrub.cfg', clean=False, console_logging=logging.INFO, too
         # Move the results back with the source code if necessary
         if scrub_conf_data.get('scrub_working_dir') != scrub_conf_data.get('scrub_analysis_dir'):
             # Move every item in the directory
-            for item in os.listdir(scrub_conf_data.get('scrub_working_dir')):
+            for item in scrub_conf_data.get('scrub_working_dir').iterdir():
                 # Remove the destination directory, if it exists
-                if os.path.exists(scrub_conf_data.get('scrub_analysis_dir') + '/' + item):
-                    shutil.rmtree(scrub_conf_data.get('scrub_analysis_dir') + '/' + item)
+                if scrub_conf_data.get('scrub_analysis_dir').joinpath(item.stem).exists():
+                    shutil.rmtree(scrub_conf_data.get('scrub_analysis_dir').joinpath(item.stem))
 
                 # Move the contents
-                shutil.move(scrub_conf_data.get('scrub_working_dir') + '/' + item,
-                            scrub_conf_data.get('scrub_analysis_dir') + '/' + item)
+                shutil.move(item, scrub_conf_data.get('scrub_analysis_dir').joinpath(item.stem))
 
             # Remove the working directory
             shutil.rmtree(scrub_conf_data.get('scrub_working_dir'))
+
+        # Create a visible directory of results
+        viewable_results_dir = scrub_conf_data.get('source_dir').joinpath('scrub_results')
+        if viewable_results_dir.exists():
+            shutil.rmtree(viewable_results_dir)
+        viewable_results_dir.mkdir()
+
+        # Copy SCRUB format output files
+        for scrub_file in scrub_conf_data.get('scrub_analysis_dir').glob('*.scrub'):
+            shutil.copy(scrub_file, viewable_results_dir.joinpath(scrub_file.name))
+
+        # Copy the SARIF format output files
+        for sarif_file in scrub_conf_data.get('sarif_results_dir').glob('*.sarif'):
+            shutil.copy(sarif_file, viewable_results_dir.joinpath(sarif_file.name))
 
         # Print a status message
         tool_failure_count = 0
@@ -274,7 +290,7 @@ def main(conf_file='./scrub.cfg', clean=False, console_logging=logging.INFO, too
         print('\n\tTotal Execution Time: %s\n' % time.strftime("%H:%M:%S", time.gmtime(total_execution_time)))
 
     # Search for target modules
-    available_target_modules = glob.glob(scrub_path + '/targets/*/do_*.py')
+    available_target_modules = scrub_path.glob('targets/*/do_*.py')
 
     # Handle legacy Collaborator tag
     if 'collaborator_upload' in scrub_conf_data.keys():
@@ -287,7 +303,7 @@ def main(conf_file='./scrub.cfg', clean=False, console_logging=logging.INFO, too
         target_modules = []
         for module_path in available_target_modules:
             for target in targets:
-                if target in os.path.basename(module_path):
+                if target in str(module_path.parent):
                     target_modules.append(module_path)
                     scrub_conf_data.update({target.lower() + '_export': True})
                     scrub_conf_data.update({target.lower() + '_upload': True})
@@ -297,7 +313,7 @@ def main(conf_file='./scrub.cfg', clean=False, console_logging=logging.INFO, too
     # Loop through every tool and perform
     for target_module in target_modules:
         # Form the call string
-        module_name = 'scrub.' + re.split('\\.py', os.path.relpath(target_module, scrub_path))[0].replace('/', '.')
+        module_name = 'scrub.' + str(target_module.relative_to(scrub_path))[0:-3].replace('/', '.')
 
         # Import the module
         module_object = importlib.import_module(module_name)

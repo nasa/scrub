@@ -1,6 +1,6 @@
 import re
-import os
 import glob
+import pathlib
 import logging
 import traceback
 from scrub.utils import scrub_utilities
@@ -18,20 +18,20 @@ def distribute_warnings(warning_file, source_dir):
     """
 
     # Initialize the variables
-    warning_type = warning_file.split(os.sep)[-1].strip()
+    warning_type = warning_file.stem
 
     # Print a status message
     logging.info('')
     logging.info('\tMoving results...')
-    logging.info('\t>> Executing command: do_gui.distribute_warnings(%s, %s)', warning_file, source_dir)
-    logging.info('\t>> From directory: %s', os.getcwd())
+    logging.info('\t>> Executing command: do_gui.distribute_warnings(%s, %s)', str(warning_file), str(source_dir))
+    logging.info('\t>> From directory: %s', str(pathlib.Path().absolute()))
 
     # Import the warning file
     with open(warning_file, 'r') as input_fh:
         input_data = input_fh.readlines()
 
     # Update the source root to make it absolute
-    source_dir = os.path.abspath(source_dir)
+    source_dir = source_dir.resolve()
 
     # Iterate through every line of the file
     for i in range(0, len(input_data)):
@@ -44,11 +44,11 @@ def distribute_warnings(warning_file, source_dir):
             warning = line
 
             # Get the warning file
-            warning_file = line.split(":")[1].strip()
-            warning_file_absolute = os.path.normpath(source_dir + '/' + warning_file)
+            warning_file = pathlib.Path(line.split(":")[1].strip())
+            warning_file_absolute = source_dir.joinpath(warning_file)
 
             # Make sure the warning file is within the source root, but not at the source root
-            if os.path.exists(warning_file_absolute) and (source_dir != os.path.dirname(warning_file_absolute)):
+            if warning_file_absolute.exists() and (source_dir != warning_file_absolute.parent):
                 # Get the rest of the warning text
                 j = i + 1
                 while input_data[j].strip() != '':
@@ -58,23 +58,22 @@ def distribute_warnings(warning_file, source_dir):
                     j = j + 1
 
                 # Get the warning directory
-                warning_directory = os.path.dirname(warning_file_absolute)
+                warning_directory = warning_file_absolute.parent
 
                 # Create the scrub output paths
-                local_scrub_directory = os.path.normpath(warning_directory + '/.scrub')
-                local_scrub_warning_file = os.path.normpath(local_scrub_directory + '/' + warning_type)
+                local_scrub_directory = warning_directory.joinpath('.scrub')
+                local_scrub_warning_file = local_scrub_directory.joinpath(warning_type)
 
                 # Create a .scrub directory if it doesn't already exists
-                if not os.path.exists(local_scrub_directory):
-                    os.mkdir(local_scrub_directory)
-                    os.chmod(local_scrub_directory, 511)
+                if not local_scrub_directory.exists():
+                    local_scrub_directory.mkdir(mode=511)
 
                 # Write the warning to the output file
                 with open(local_scrub_warning_file, 'a') as output_fh:
-                    output_fh.write('%s\n' % (warning.replace(warning_file, os.path.basename(warning_file))))
+                    output_fh.write('%s\n' % warning_file.name)
 
                 # Change the permissions of the output file
-                os.chmod(local_scrub_warning_file, 438)
+                local_scrub_warning_file.chmod(0o666)
 
 
 def initialize_analysis(tool_conf_data):
@@ -85,7 +84,7 @@ def initialize_analysis(tool_conf_data):
     """
 
     # Initialize the derived variables
-    gui_log_file = os.path.normpath(tool_conf_data.get('scrub_log_dir') + '/gui.log')
+    gui_log_file = tool_conf_data.get('scrub_log_dir').joinpath('gui.log')
 
     # Add derived values to the dictionary
     tool_conf_data.update({'gui_log_file': gui_log_file})
@@ -119,7 +118,7 @@ def run_analysis(baseline_conf_data, console_logging=logging.INFO, override=Fals
             logging.info('Perform GUI export...')
 
             # Get a list of the filtered SCRUB output files
-            filtered_output_files = glob.glob(tool_conf_data.get('scrub_analysis_dir') + '/*.scrub')
+            filtered_output_files = tool_conf_data.get('scrub_analysis_dir').glob('*.scrub')
 
             # Move the warnings to the appropriate directories
             for filtered_output_file in filtered_output_files:
@@ -131,7 +130,7 @@ def run_analysis(baseline_conf_data, console_logging=logging.INFO, override=Fals
         except:     # lgtm [py/catch-base-exception]
             # Print a warning message
             logging.warning('GUI export could not be performed. Please see log file %s for more information.',
-                            tool_conf_data.get('gui_log_file'))
+                            str(tool_conf_data.get('gui_log_file')))
 
             # Print the exception traceback
             logging.warning(traceback.format_exc())
@@ -144,8 +143,8 @@ def run_analysis(baseline_conf_data, console_logging=logging.INFO, override=Fals
             logging.getLogger().handlers = []
 
             # Update the permissions of the log file if it exists
-            if os.path.exists(tool_conf_data.get('gui_log_file')):
-                os.chmod(tool_conf_data.get('gui_log_file'), 438)
+            if tool_conf_data.get('gui_log_file').exists():
+                tool_conf_data.get('gui_log_file').chmod(0o666)
 
     # Return the exit code
     return gui_exit_code

@@ -5,6 +5,7 @@ import pwd
 import traceback
 import shutil
 import subprocess
+import pathlib
 from scrub.utils import scrub_utilities
 from scrub.utils.filtering import create_file_list
 
@@ -139,7 +140,7 @@ def get_defects(scrub_file):
             # Get tool abbrv, defect num, severity, file name, line num, description
             raw_defect = re.match(r'(\D+\d*\D+)(\d*) <(\D+)> :(\S+):(\d+): (.+)', raw_defect)
 
-            if 'p10' in os.path.basename(scrub_file):
+            if 'p10' in scrub_file.stem:
                 defect.update({'tool': 'p10_' + raw_defect.group(1)})
             else:
                 defect.update({'tool': raw_defect.group(1)})
@@ -313,8 +314,10 @@ def initialize_upload(tool_conf_data):
     tool_conf_data.update({'collaborator_review_id': int(review_id)})
 
     # Set the review xml file path
-    files_xml = tool_conf_data.get('scrub_analysis_dir') + '/collaborator_review_' + str(review_id) + '_files.xml'
-    comments_xml = tool_conf_data.get('scrub_analysis_dir') + '/collaborator_review_' + str(review_id) + '_comments.xml'
+    files_xml = tool_conf_data.get('scrub_analysis_dir').joinpath('collaborator_review_' + str(review_id) +
+                                                                  '_files.xml')
+    comments_xml = tool_conf_data.get('scrub_analysis_dir').joinpath('collaborator_review_' + str(review_id) +
+                                                                     '_comments.xml')
     tool_conf_data.update({'collaborator_review_xml_files': files_xml})
     tool_conf_data.update({'collaborator_review_xml_comments': comments_xml})
 
@@ -345,15 +348,14 @@ def perform_upload(tool_conf_data):
             tool_name = results_file[0:-6]
             tool_defect_types.append(tool_name)
     else:
-        for root, dirs, files in os.walk(tool_conf_data.get('scrub_analysis_dir')):
-            for filename in files:
-                if filename.endswith('.scrub') and 'raw' not in filename:
-                    tool_name = filename[0:-6]
-                    tool_defect_types.append(tool_name)
+        for filename in tool_conf_data.get('scrub_analysis_dir').glob('*.scrub'):
+            if 'raw' not in filename.stem:
+                tool_name = filename.stem
+                tool_defect_types.append(tool_name)
 
     # Get the defects
     for tool_name in tool_defect_types:
-        scrub_file = os.path.normpath(tool_conf_data.get('scrub_analysis_dir') + '/' + tool_name + '.scrub')
+        scrub_file = tool_conf_data.get('scrub_analysis_dir').joinpath(tool_name + '.scrub')
 
         # Add the defects to the review
         defect_list = defect_list + get_defects(scrub_file)
@@ -377,7 +379,7 @@ def perform_upload(tool_conf_data):
 
     # Perform all the batch commands
     for xml_file in xml_files:
-        subcommand = ('admin batch ' + xml_file)
+        subcommand = ('admin batch ' + str(xml_file))
         execute_ccollab(tool_conf_data.get('collaborator_ccollab_location'), subcommand)
 
 
@@ -392,7 +394,7 @@ def create_filtering_files(tool_conf_data):
     logging.info('\t>> Checking analysis filtering output file.')
 
     # Determine if the baseline filtering list exists, or should be created
-    if not os.path.exists(tool_conf_data.get('filtering_output_file')):
+    if not tool_conf_data.get('filtering_output_file').exists():
         # Print a status message
         logging.info('\t>> No analysis filtering output was found. Creating output now.')
 
@@ -452,7 +454,7 @@ def run_analysis(baseline_conf_data, console_logging=logging.INFO, override=Fals
         except scrub_utilities.CommandExecutionError:
             # Print a warning message
             logging.warning('Collaborator export could not be performed. Please see log file %s for more information.',
-                            tool_conf_data.get('collaborator_log_file'))
+                            str(tool_conf_data.get('collaborator_log_file')))
 
             # Print the exception traceback
             logging.warning(traceback.format_exc())
@@ -463,7 +465,7 @@ def run_analysis(baseline_conf_data, console_logging=logging.INFO, override=Fals
         except:     # lgtm [py/catch-base-exception]
             # Print a warning message
             logging.warning('Collaborator export could not be performed. Please see log file %s for more information.',
-                            tool_conf_data.get('collaborator_log_file'))
+                            str(tool_conf_data.get('collaborator_log_file')))
 
             # Print the exception traceback
             logging.warning(traceback.format_exc())
@@ -475,20 +477,19 @@ def run_analysis(baseline_conf_data, console_logging=logging.INFO, override=Fals
             # Delete the review if necessary
             if (collaborator_exit_code > 0) and (tool_conf_data.get('collaborator_review_id') > 0):
                 subcommand = ('admin review delete ' + str(tool_conf_data.get('collaborator_review_id')))
-                execute_ccollab(tool_conf_data.get('collaborator_ccollab_location'), subcommand)
+                execute_ccollab(str(tool_conf_data.get('collaborator_ccollab_location')), subcommand)
 
             # Close the loggers
             logging.getLogger().handlers = []
 
             # Update the permissions of the log file if it exists
-            if os.path.exists(tool_conf_data.get('collaborator_log_file')):
-                os.chmod(tool_conf_data.get('collaborator_log_file'), 438)
+            if tool_conf_data.get('collaborator_log_file').exists():
+                tool_conf_data.get('collaborator_log_file').chmod(0o666)
 
                 # Move the log file to line up with the review id, if it exists
                 if tool_conf_data.get('collaborator_review_id') > 0:
                     shutil.move(tool_conf_data.get('collaborator_log_file'),
-                                tool_conf_data.get('scrub_log_dir') + '/collaborator_' +
-                                str(tool_conf_data.get('collaborator_review_id')) + '.log')
+                                tool_conf_data.get('scrub_log_dir').joinpath('collaborator_' + str(tool_conf_data.get('collaborator_review_id')) + '.log'))
 
     # Return the exit code
     return collaborator_exit_code
@@ -503,10 +504,8 @@ def initialize_analysis(tool_conf_data):
 
     # Initialize the derived variables
     current_user = pwd.getpwuid(os.getuid()).pw_name
-    collaborator_log_file = os.path.normpath(tool_conf_data.get('scrub_log_dir') + '/collaborator_' +
-                                             current_user + '.log')
-    collaborator_filtering_output_file = os.path.normpath(tool_conf_data.get('scrub_analysis_dir') +
-                                                          '/SCRUBCollaboratorFilteringList')
+    collaborator_log_file = tool_conf_data.get('scrub_log_dir').joinpath('collaborator_' + current_user + '.log')
+    collaborator_filtering_output_file = tool_conf_data.get('scrub_analysis_dir').joinpath('SCRUBCollaboratorFilteringList')
 
     # Add derived values to the dictionary
     tool_conf_data.update({'collaborator_log_file': collaborator_log_file})

@@ -1,19 +1,19 @@
-import os
 import sys
 import json
-import glob
+import pathlib
 from scrub.tools.parsers import translate_results
 
 WARNING_LEVEL = 'Low'
 ID_PREFIX = 'sonarqube'
 
 
-def parse_warnings(results_dir, parsed_output_file, source_root):
+def parse_warnings(results_dir, parsed_output_file, source_root, sonarqube_url):
     """This function parses the raw SonarQube warnings into the SCRUB format.
         Inputs:
             - results_dir: Absolute path to the raw SonarQube output file directory [string]
             - parsed_output_file: Absolute path to the file where the parsed warnings will be stored [string]
-            - source_root: Absolute pth to the source root directory [string]
+            - source_root: Absolute path to the source root directory [string]
+            - sonarqube_url: URL of the SonarQube server [string]
         """
 
     # Initialize the variables
@@ -21,7 +21,7 @@ def parse_warnings(results_dir, parsed_output_file, source_root):
     raw_warnings = []
 
     # Find all the raw findings results files in the directory
-    findings_results_files = glob.glob(results_dir + '/*.json')
+    findings_results_files = results_dir.glob('*.json')
 
     # Iterate through every issues results file
     for raw_findings_file in findings_results_files:
@@ -42,12 +42,24 @@ def parse_warnings(results_dir, parsed_output_file, source_root):
                 suppression = False
 
             # Parse the finding
-            warning_file = os.path.normpath(source_root + '/' + finding['component'].split(':')[-1])
+            warning_file = source_root.joinpath(finding['component'].split(':')[-1]).resolve()
             warning_message = finding['message'].splitlines()
             warning_id = ID_PREFIX + str(warning_count).zfill(3)
 
+            # Get a link to the finding
+            if 'sonarqube_hotspots' in raw_findings_file.stem:
+                warning_link = sonarqube_url + '/security_hotspots?id=' + finding['project'] + '&hotspots=' + finding['key']
+            else:
+                warning_link = sonarqube_url + '/project/issues?id=' + finding['project'] + '&open=' + finding['key']
+
+            # Add the link to the warning message
+            warning_message.append(warning_link)
+
+            # Parse the query if it exists
             if 'rule' in finding.keys():
                 warning_query = finding['rule'].replace(':', '-')
+            elif 'securityCategory' in finding.keys():
+                warning_query = finding['securityCategory']
             else:
                 warning_query = ''
 
@@ -72,4 +84,4 @@ def parse_warnings(results_dir, parsed_output_file, source_root):
 
 
 if __name__ == '__main__':
-    parse_warnings(sys.argv[1], sys.argv[2], sys.argv[3])
+    parse_warnings(pathlib.Path(sys.argv[1]), pathlib.Path(sys.argv[2]), pathlib.Path(sys.argv[3]), sys.argv[4])

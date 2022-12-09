@@ -1,5 +1,6 @@
 import os
 import re
+import pathlib
 import logging
 from scrub.tools.parsers import translate_results
 
@@ -70,10 +71,9 @@ def ignore_query_check(warning_tool, warning_query, ignore_queries_file):
     skip = False
 
     # Import the ignore data
-    if os.path.isfile(ignore_queries_file):
-        ignore_fh = open(ignore_queries_file, 'r')
-        ignore_queries = ignore_fh.readlines()
-        ignore_fh.close()
+    if ignore_queries_file.is_file():
+        with open(ignore_queries_file, 'r') as ignore_fh:
+            ignore_queries = ignore_fh.readlines()
 
         # Iterate through every line of the ignore data
         for ignore_line in ignore_queries:
@@ -105,7 +105,7 @@ def external_warning_check(warning_file, source_root):
     """
 
     # Check to see if the file exists outside the source root
-    if not warning_file.startswith(source_root):
+    if source_root not in warning_file.parents:
         skip = True
 
         # Print a status message
@@ -144,12 +144,12 @@ def check_filtering_file(filtering_file, create):
     """
 
     # Check to see if all the files exist
-    if not os.path.isfile(filtering_file):
-        logging.info('No %s file exists.', filtering_file)
+    if not filtering_file.is_file():
+        logging.info('No %s file exists.', str(filtering_file))
 
         # Create the file if necessary
         if create:
-            logging.info('\tCreating blank filtering file %s.', filtering_file)
+            logging.info('\tCreating blank filtering file %s.', str(filtering_file))
             logging.info('\tPlease add filtering patterns to this file.')
             open(filtering_file, 'w+').close()
 
@@ -195,7 +195,7 @@ def filter_results(warning_list, output_file, filtering_file, ignore_query_file,
 
     # Initialize the variables
     filtered_warnings = []
-    if output_file.endswith('p10.scrub'):
+    if output_file.stem == 'p10':
         valid_warning_types.append('p10')
 
     # Import the ignore data
@@ -208,10 +208,10 @@ def filter_results(warning_list, output_file, filtering_file, ignore_query_file,
     logging.info('\t>> Executing command: filter_results.filter_results(<warning_list>, %s, %s, %s, %s, %r, %r)',
                  output_file, filtering_file, ignore_query_file, source_root, enable_micro_filtering,
                  enable_external_warnings)
-    logging.info('\t>> From directory: %s', os.getcwd())
+    logging.info('\t>> From directory: %s', str(pathlib.Path().absolute()))
 
     # Update the source root to make it absolute
-    source_root = os.path.abspath(source_root)
+    source_root = source_root.resolve()
 
     # Iterate through every warning in the list
     for warning in warning_list:
@@ -234,7 +234,7 @@ def filter_results(warning_list, output_file, filtering_file, ignore_query_file,
 
         # If we made it here we want the warning.
         # Make the warning file path relative and append to filtered list
-        warning['file'] = warning['file'].replace(os.path.normpath(source_root) + '/', '')
+        warning['file'] = warning['file'].relative_to(source_root)
         filtered_warnings.append(warning)
 
     # Write out the results

@@ -1,6 +1,7 @@
 import re
 import os
 import sys
+import pathlib
 import logging
 from scrub.tools.parsers import translate_results
 
@@ -200,11 +201,11 @@ def parse_warnings(raw_input_file, parsed_output_file):
     logging.info('\tParsing results...')
     logging.info('\t>> Executing command: get_gbuild_warnings.parse_warnings(%s, %s)', raw_input_file,
                  parsed_output_file)
-    logging.info('\t>> From directory: %s', os.getcwd())
+    logging.info('\t>> From directory: %s', str(pathlib.Path().absolute()))
 
     # Search for DoubleCheck warnings in the log file
     parse_doublecheck_warnings(raw_input_file, parsed_output_file)
 
 
 if __name__ == '__main__':
-    parse_warnings(sys.argv[1], sys.argv[2])
+    parse_warnings(pathlib.Path(sys.argv[1]), pathlib.Path(sys.argv[2]))

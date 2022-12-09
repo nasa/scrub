@@ -1,5 +1,6 @@
 import sys
 import xml.etree.ElementTree
+import pathlib
 import os
 import re
 import logging
@@ -82,7 +83,7 @@ def parse_warnings(input_file, output_file, exclude_p10=False):
 
     # Print a status message
     logging.info('\t>> Executing command: get_codesonar_warnings.parse_warnings(%s, %s)', input_file, output_file)
-    logging.info('\t>> From directory: %s', os.getcwd())
+    logging.info('\t>> From directory: %s', str(pathlib.Path().absolute()))
 
     # Initialize the variables
     warning_level = 'Low'
@@ -126,7 +127,7 @@ def parse_warnings(input_file, output_file, exclude_p10=False):
                    "Warnings Not Treated As Errors"]  # P10: Rule 10
 
     # Determine if the output is P10 results
-    if 'p10' in os.path.basename(output_file).lower():
+    if 'p10' in output_file.stem:
         p10_only = True
 
     # Get the header indices
@@ -197,12 +198,8 @@ def parse_warnings(input_file, output_file, exclude_p10=False):
                         warning_count = warning_count + 1
 
     # Update the permissions of the output file
-    os.chmod(output_file, 438)
+    output_file.chmod(0o666)
 
 
 if __name__ == '__main__':
-    # Store input variables
-    codesonar_file = sys.argv[1]
-    scrub_file = sys.argv[2]
-
-    parse_warnings(codesonar_file, scrub_file)
+    parse_warnings(pathlib.Path(sys.argv[1]), pathlib.Path(sys.argv[2]))

@@ -1,5 +1,6 @@
 import sys
 import json
+import pathlib
 from scrub.tools.parsers import translate_results
 
 WARNING_LEVEL = 'Low'
@@ -25,7 +26,7 @@ def parse_warnings(raw_input_file, parsed_output_file):
     raw_warnings = []
     for finding in input_data:
         # Parse the finding
-        warning_file = finding['path']
+        warning_file = pathlib.Path(finding['path']).resolve()
         warning_line = int(finding['line'])
         warning_description = finding['message'].splitlines()
         warning_message = ['[Type: ' + finding['message-id'] + ']' + ' [' + finding['type'] + ']'] + warning_description
@@ -44,4 +45,4 @@ def parse_warnings(raw_input_file, parsed_output_file):
 
 
 if __name__ == '__main__':
-    parse_warnings(sys.argv[1], sys.argv[2])
+    parse_warnings(pathlib.Path(sys.argv[1]), pathlib.Path(sys.argv[2]))

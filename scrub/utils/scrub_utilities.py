@@ -3,6 +3,7 @@ import os
 import sys
 import time
 import shutil
+import pathlib
 import logging
 import threading
 import subprocess
@@ -49,8 +50,8 @@ def parse_template(template_file, output_file, conf_data):
     """This function parsers analysis templates and populates them with configuration values.
 
     Inputs:
-        - template_file: Absolute path to analysis template file [string]
-        - output_file: Absolute path to output analysis script [string]
+        - template_file: Absolute path to analysis template file [Path object]
+        - output_file: Absolute path to output analysis script [Path object]
         - conf_data: Dictionary of values read from configuration file [dict]
     """
 
@@ -66,16 +67,12 @@ def parse_template(template_file, output_file, conf_data):
             template_data = template_data.replace('${{' + key.upper() + '}}', str(conf_data.get(key)))
 
     # Write out the completed template
-    if os.path.exists(output_file):
-        os.remove(output_file)
     with open(output_file, 'w') as output_fh:
+        output_file.chmod(0o777)
         output_fh.write('%s' % template_data)
 
     # Check the contents of the analysis script file
     check_artifact(output_file, True)
-
-    # Update the permissions to allow for execution
-    os.chmod(output_file, 0o777)
 
 
 class CommandExecutionError(Exception):
@@ -92,19 +89,19 @@ def check_artifact(input_artifact, critical=False):
     """
 
     # Get the size of the item
-    if os.path.isfile(input_artifact):
-        size = os.path.getsize(input_artifact)
+    if input_artifact.is_file():
+        size = input_artifact.stat().st_size
     else:
-        size = len(os.listdir(input_artifact))
+        size = len(list(input_artifact.iterdir()))
 
     # Check to make sure the file isn't empty
     if size == 0:
         if critical:
-            message = os.path.basename(input_artifact) + ' is empty. This should not be empty.'
+            message = input_artifact.name + ' is empty. This should not be empty.'
             raise CommandExecutionError(message)
         else:
             logging.warning('')
-            logging.warning('\t%s is empty.', os.path.basename(input_artifact))
+            logging.warning('\t%s is empty.', str(input_artifact.name))
             logging.warning('\tThis may or may not be a problem.')
 
 
@@ -198,7 +195,7 @@ def execute_command(call_string, my_env, output_file=None, interactive=False):
     # Write out a logging message
     logging.info('')
     logging.info('    >> Executing command: %s', call_string)
-    logging.info('    >> From directory: %s', os.getcwd())
+    logging.info('    >> From directory: %s', str(pathlib.Path().absolute()))
     logging.debug('    Console output:')
 
     # Execute the call string and capture the output
@@ -242,7 +239,7 @@ def create_logger(log_file, console_logging=logging.INFO):
     # Create the logger, if it doesn't already exist
     logging.basicConfig(level=logging.DEBUG,
                         format='%(asctime)s %(levelname)-8s %(message)s',
-                        filename=log_file,
+                        filename=str(log_file),
                         filemode='w')
 
     # Start the console logger
@@ -276,7 +273,7 @@ def create_conf_file(output_path=None):
         output_path = args['output']
 
     # Initialize variables
-    default_config_file = os.path.dirname(__file__) + '/scrub_defaults.cfg'
+    default_config_file = pathlib.Path(__file__).parent.joinpath('scrub_defaults.cfg').resolve()
 
     # Copy the default configuration file
     shutil.copyfile(default_config_file, output_path)
@@ -295,7 +292,7 @@ def parse_common_configs(user_conf_file, scrub_keys=[]):
 
     # Initialize the variables
     scrub_conf_data = {}
-    scrub_init_path = os.path.dirname(__file__) + '/scrub_defaults.cfg'
+    scrub_init_path = pathlib.Path(__file__).parent.joinpath('scrub_defaults.cfg')
 
     # Read in the default config data
     scrub_init_data = configparser.ConfigParser()
@@ -347,60 +344,68 @@ def parse_common_configs(user_conf_file, scrub_keys=[]):
     scrub_conf_data.update({'source_lang': ', '.join(source_langs)})
 
     # Make the source root absolute
-    scrub_conf_data.update({'source_dir': os.path.abspath(os.path.expanduser(scrub_conf_data.get('source_dir')))})
+    scrub_conf_data.update({'source_dir': pathlib.Path(scrub_conf_data.get('source_dir')).expanduser().resolve()})
+
+    # Make access tokens absolute
+    scrub_conf_data.update({'codesonar_cert': pathlib.Path(scrub_conf_data.get('codesonar_cert')).resolve()})
+    scrub_conf_data.update({'codesonar_key': pathlib.Path(scrub_conf_data.get('codesonar_key')).resolve()})
 
     # Set the SCRUB analysis directory
-    scrub_conf_data.update({'scrub_analysis_dir': os.path.normpath(scrub_conf_data.get('source_dir') + '/.scrub')})
+    scrub_conf_data.update({'scrub_analysis_dir': scrub_conf_data.get('source_dir').joinpath('.scrub')})
 
     # Set the default filtering file locations
     if scrub_conf_data.get('analysis_filters') == '':
-        analysis_filters_file = os.path.normpath(os.path.dirname(os.path.abspath(user_conf_file)) + '/SCRUBFilters')
+        analysis_filters_file = user_conf_file.parent.joinpath('SCRUBFilters')
         scrub_conf_data.update({'analysis_filters': analysis_filters_file})
     if scrub_conf_data.get('query_filters') == '':
-        analysis_filters_file = os.path.normpath(os.path.dirname(os.path.abspath(user_conf_file)) +
-                                                 '/SCRUBExcludeQueries')
+        analysis_filters_file = user_conf_file.parent.joinpath('SCRUBExcludeQueries')
         scrub_conf_data.update({'query_filters': analysis_filters_file})
+    if scrub_conf_data.get('collaborator_filters') == '':
+        collaborator_filters = user_conf_file.parent.joinpath('SCRUBCollaboratorFilters')
+        scrub_conf_data.update({'collaborator_filters': collaborator_filters})
 
     # Set the SCRUB working directory
     if (scrub_conf_data.get('scrub_working_dir') is None) or (scrub_conf_data.get('scrub_working_dir') == ''):
         scrub_working_dir = scrub_conf_data.get('scrub_analysis_dir')
     else:
-        scrub_working_dir = os.path.abspath(os.path.expanduser(scrub_conf_data.get('scrub_working_dir')))
+        scrub_working_dir = pathlib.Path(scrub_conf_data.get('scrub_working_dir')).expanduser().resolve()
     scrub_conf_data.update({'scrub_working_dir': scrub_working_dir})
 
     # Make every *path variable absolute and make every *build_dir variable absolute
     for key in scrub_conf_data.keys():
         if re.search(r'.+path', key) and (scrub_conf_data.get(key) != ''):
             path_value = scrub_conf_data.get(key)
-            path_value = os.path.abspath(os.path.expanduser(path_value))
+            #path_value = os.path.abspath(os.path.expanduser(path_value))
+            path_value = pathlib.Path(path_value).expanduser().resolve()
             scrub_conf_data.update({key: path_value})
 
         elif re.search(r'.+build_dir', key):
             if scrub_conf_data.get(key) == '':
                 scrub_conf_data.update({key: scrub_conf_data.get('source_dir')})
-            elif not scrub_conf_data.get(key).startswith(scrub_conf_data.get('source_dir')):
+            elif not scrub_conf_data.get(key).startswith(str(scrub_conf_data.get('source_dir'))):
                 path_value = scrub_conf_data.get(key)
-                path_value = os.path.abspath(os.path.expanduser(path_value))
+                #path_value = os.path.abspath(os.path.expanduser(path_value))
+                path_value = pathlib.Path(path_value).expanduser().resolve()
                 scrub_conf_data.update({key: path_value})
 
     # Add SCRUB root path
-    scrub_path = os.path.abspath(os.path.dirname(os.path.realpath(__file__)) + '/..')
+    scrub_path = pathlib.Path(__file__).parents[1]
     scrub_conf_data.update({'scrub_path': scrub_path})
 
     # Add the log directory
-    scrub_log_dir = os.path.normpath(scrub_conf_data.get('scrub_analysis_dir') + '/log_files')
+    scrub_log_dir = scrub_conf_data.get('scrub_analysis_dir').joinpath('log_files')
     scrub_conf_data.update({'scrub_log_dir': scrub_log_dir})
 
     # Add the raw results directory
-    raw_results_dir = os.path.normpath(scrub_conf_data.get('scrub_analysis_dir') + '/raw_results')
+    raw_results_dir = scrub_conf_data.get('scrub_analysis_dir').joinpath('raw_results')
     scrub_conf_data.update({'raw_results_dir': raw_results_dir})
 
     # Add the SARIF results directory
-    sarif_results_dir = os.path.normpath(scrub_conf_data.get('scrub_analysis_dir') + '/sarif_results')
+    sarif_results_dir = scrub_conf_data.get('scrub_analysis_dir').joinpath('sarif_results')
     scrub_conf_data.update({'sarif_results_dir': sarif_results_dir})
 
     # Add the filtering output file
-    filtering_output_file = os.path.normpath(scrub_conf_data.get('scrub_analysis_dir') + '/SCRUBAnalysisFilteringList')
+    filtering_output_file = scrub_conf_data.get('scrub_analysis_dir').joinpath('SCRUBAnalysisFilteringList')
     scrub_conf_data.update({'filtering_output_file': filtering_output_file})
 
     return scrub_conf_data
@@ -414,32 +419,32 @@ def initialize_storage_dir(scrub_conf_data):
     """
 
     # Create the .scrub analysis directory
-    if not os.path.exists(scrub_conf_data.get('scrub_analysis_dir')):
-        os.mkdir(scrub_conf_data.get('scrub_analysis_dir'))
-        os.chmod(scrub_conf_data.get('scrub_analysis_dir'), 511)
+    if not scrub_conf_data.get('scrub_analysis_dir').exists():
+        scrub_conf_data.get('scrub_analysis_dir').mkdir()
+        scrub_conf_data.get('scrub_analysis_dir').chmod(0o666)
 
     # Create the logging directory
-    if not os.path.exists(scrub_conf_data.get('scrub_log_dir')):
-        os.mkdir(scrub_conf_data.get('scrub_log_dir'))
-        os.chmod(scrub_conf_data.get('scrub_log_dir'), 511)
+    if not scrub_conf_data.get('scrub_log_dir').exists():
+        scrub_conf_data.get('scrub_log_dir').mkdir()
+        scrub_conf_data.get('scrub_log_dir').chmod(0o666)
 
     # Create the output directory
-    if not os.path.exists(scrub_conf_data.get('raw_results_dir')):
-        os.mkdir(scrub_conf_data.get('raw_results_dir'))
-        os.chmod(scrub_conf_data.get('raw_results_dir'), 511)
+    if not scrub_conf_data.get('raw_results_dir').exists():
+        scrub_conf_data.get('raw_results_dir').mkdir()
+        scrub_conf_data.get('raw_results_dir').chmod(0o666)
 
     # Create the SARIF results directory
-    if not os.path.exists(scrub_conf_data.get('sarif_results_dir')):
-        os.mkdir(scrub_conf_data.get('sarif_results_dir'))
-        os.chmod(scrub_conf_data.get('sarif_results_dir'), 511)
+    if not scrub_conf_data.get('sarif_results_dir').exists():
+        scrub_conf_data.get('sarif_results_dir').mkdir()
+        scrub_conf_data.get('sarif_results_dir').chmod(0o666)
 
     # Create the analysis directory if it doesn't exist
     if scrub_conf_data.get('scrub_working_dir') != scrub_conf_data.get('scrub_analysis_dir'):
-        if os.path.exists(scrub_conf_data.get('scrub_working_dir')):
-            print('ERROR: SCRUB storage directory ' + scrub_conf_data.get('scrub_working_dir') +
+        if scrub_conf_data.get('scrub_working_dir').exists():
+            print('ERROR: SCRUB storage directory ' + str(scrub_conf_data.get('scrub_working_dir')) +
                   ' already exists. Aborting analysis.')
             sys.exit(10)
         else:
             # Create the scrub working dir
-            os.mkdir(scrub_conf_data.get('scrub_working_dir'))
-            os.chmod(scrub_conf_data.get('scrub_working_dir'), 511)
+            scrub_conf_data.get('scrub_working_dir').mkdir()
+            scrub_conf_data.get('scrub_working_dir').chmod(0o666)
