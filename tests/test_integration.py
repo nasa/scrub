@@ -4,7 +4,6 @@ import sys
 import pytest
 import pathlib
 import traceback
-from tests import verify_output
 from scrub import scrub_cli
 from scrub.tools.parsers import get_codesonar_warnings
 from scrub.tools.parsers import get_coverity_warnings
@@ -53,7 +52,7 @@ def test_parser(raw_file, capsys):
     elif 'pylint' in raw_file.stem:
         get_pylint_warnings.parse_warnings(raw_file, output_file)
     elif 'sonarqube' in raw_file.stem:
-        get_sonarqube_warnings.parse_warnings(raw_file.parent, output_file, pathlib.Path(c_testcase))
+        get_sonarqube_warnings.parse_warnings(raw_file.parent, output_file, pathlib.Path(c_testcase), os.getenv('SONARQUBE_SERVER'))
 
     # Verify output
     assert output_file.exists()
