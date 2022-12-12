@@ -5,7 +5,6 @@ import pwd
 import traceback
 import shutil
 import subprocess
-import pathlib
 from scrub.utils import scrub_utilities
 from scrub.utils.filtering import create_file_list
 

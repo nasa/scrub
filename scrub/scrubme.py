@@ -1,7 +1,5 @@
-import glob
 import importlib
 import os
-import re
 import shutil
 import sys
 import time
@@ -175,10 +173,10 @@ def main(conf_file=pathlib.Path('./scrub.cfg').resolve(), clean=False, console_l
                 # Create the analysis template
                 scrub_utilities.parse_template(analysis_template, analysis_script, scrub_conf_data)
 
-                try:
-                    # Start the timer
-                    start_time = time.time()
+                # Start the timer
+                start_time = time.time()
 
+                try:
                     # Set the environment for execution
                     user_env = os.environ.copy()
 

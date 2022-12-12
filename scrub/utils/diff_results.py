@@ -1,6 +1,5 @@
 import sys
 import glob
-import pathlib
 import argparse
 from scrub.tools.parsers import translate_results
 
