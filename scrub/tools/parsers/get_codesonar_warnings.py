@@ -1,7 +1,6 @@
 import sys
 import xml.etree.ElementTree
 import pathlib
-import os
 import re
 import logging
 

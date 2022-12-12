@@ -1,7 +1,4 @@
-import re
 import os
-import glob
-import pathlib
 import logging
 import traceback
 from scrub.utils.filtering import create_file_list
