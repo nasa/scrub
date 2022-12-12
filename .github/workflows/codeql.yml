@@ -72,9 +72,15 @@ jobs:
         results_dir=`realpath ${{ github.workspace }}/../results`
         sarif_files=`find $results_dir -name '*.sarif'`
         
+        echo "Results dir: $results_dir"
+        
         for sarif_file in $sarif_files
         do
+          echo "Parsing SARIF file: $sarif_file"
+        
           output_file="$results_dir/$(basename $sarif_file .sarif).scrub"
+          
+          echo "Creating output file: $output_file"
           
           python3 -m scrub.tools.parsers.translate_results $sarif_file $output_file ${{ github.workspace }} scrub
         done
