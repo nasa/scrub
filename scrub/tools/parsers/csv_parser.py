@@ -7,7 +7,7 @@ from scrub.tools.parsers import translate_results
 
 def parse_warnings(input_dir, output_format='legacy'):
     # Initialize variables
-    source_dir = pathlib.Path(input_dir)
+    source_dir = pathlib.Path(input_dir).joinpath('../').resolve()
     output_dir = source_dir.joinpath('csv_output')
     timestamp = datetime.datetime.utcnow()
 
@@ -39,7 +39,7 @@ def parse_warnings(input_dir, output_format='legacy'):
                     output_fh.write('{},{},{},{},{},{}\n'.format(result.get('id'), result.get('query'),
                                                                  ' '.join(result.get('description')).replace(',', ''),
                                                                  result.get('priority'),
-                                                                 result.get('file'),
+                                                                 result.get('file').relative_to(source_dir),
                                                                  result.get('line')))
 
         else:
@@ -54,9 +54,9 @@ def parse_warnings(input_dir, output_format='legacy'):
                     description_text = ' '.join(result.get('description')).replace(',', '').replace('\t', '').strip()
                     output_fh.write('{},{},{},{},{},{}/{},{},{},{},{}\n'.format(result.get('query'), description_text,
                                                                              result.get('priority'), description_text,
-                                                                             result.get('file'),
+                                                                             result.get('file').relative_to(source_dir),
                                                                              timestamp.strftime("%Y-%B-%d--%H-%M-%S"),
-                                                                             result.get('file'),
+                                                                             result.get('file').relative_to(source_dir),
                                                                              result.get('line'), result.get('line'), 0,
                                                                              0))
 
