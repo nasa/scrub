@@ -68,7 +68,7 @@ jobs:
     
     - name: Post-Process Output
       run: |
-        python3 -m pip install nasa-scrub
+        python3 -m pip install --index-url https://test.pypi.org/simple/ nasa-scrub
 
         results_dir=`realpath ${{ github.workspace }}/../results`
         sarif_files=`find $results_dir -name '*.sarif'`
