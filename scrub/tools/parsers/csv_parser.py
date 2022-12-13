@@ -8,7 +8,7 @@ from scrub.tools.parsers import translate_results
 def parse_warnings(input_dir, output_format='legacy'):
     # Initialize variables
     source_dir = pathlib.Path(input_dir).joinpath('../').resolve()
-    output_dir = source_dir.joinpath('csv_output')
+    output_dir = input_dir.joinpath('csv_output')
     timestamp = datetime.datetime.utcnow()
 
     # Make the output directory if it doesn't already exist
