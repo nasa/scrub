@@ -39,7 +39,7 @@ def parse_warnings(input_dir, output_format='legacy'):
                     output_fh.write('{},{},{},{},{},{}\n'.format(result.get('id'), result.get('query'),
                                                                  ' '.join(result.get('description')).replace(',', ''),
                                                                  result.get('priority'),
-                                                                 result.get('file').relative_to(source_dir),
+                                                                 result.get('file'),
                                                                  result.get('line')))
 
         else:
@@ -54,9 +54,9 @@ def parse_warnings(input_dir, output_format='legacy'):
                     description_text = ' '.join(result.get('description')).replace(',', '').replace('\t', '').strip()
                     output_fh.write('{},{},{},{},{},{}/{},{},{},{},{}\n'.format(result.get('query'), description_text,
                                                                              result.get('priority'), description_text,
-                                                                             result.get('file').relative_to(source_dir),
+                                                                             result.get('file'),
                                                                              timestamp.strftime("%Y-%B-%d--%H-%M-%S"),
-                                                                             result.get('file').relative_to(source_dir),
+                                                                             result.get('file'),
                                                                              result.get('line'), result.get('line'), 0,
                                                                              0))
 
