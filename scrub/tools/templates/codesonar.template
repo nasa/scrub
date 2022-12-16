@@ -1,4 +1,10 @@
 #!/bin/bash -x
+
+# Print out version information
+echo "CodeSonar Version Info:"
+${{CODESONAR_PATH}}codesonar --version
+echo ""
+
 # Change to the build directory
 cd ${{CODESONAR_BUILD_DIR}}
 
