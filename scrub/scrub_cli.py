@@ -46,7 +46,7 @@ def main():
             # Run analysis
             scrub_utilities.create_conf_file()
 
-        elif 'version' in sys.argv:
+        elif ('version' in sys.argv) or ('-version' in sys.argv) or ('-v' in sys.argv):
             # Print the version number
             print('SCRUB Version: ' + __version__)
 
