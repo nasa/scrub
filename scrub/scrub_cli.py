@@ -6,8 +6,8 @@ from scrub.utils import diff_results
 from scrub.utils import scrub_utilities
 
 
-help_message = ('User Documentation: https://nasa.github.io/scrub\n\n' +
-                'SCRUB Version: ' + __version__ +
+help_message = ('User Documentation: https://nasa.github.io/scrub\n' +
+                'SCRUB Version: ' + __version__ + '\n\n' +
                 'run\n' +
                 scrubme.main.__doc__ + '\n\n'
                 'diff\n' +
