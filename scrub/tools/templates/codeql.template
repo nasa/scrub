@@ -1,8 +1,5 @@
 #!/bin/bash -x
 
-# Print the version information
-echo "CodeQL Version Info:"
-
 # Change to the build directory
 cd ${{CODEQL_BUILD_DIR}}
 

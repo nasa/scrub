@@ -1,9 +1,7 @@
 #!/bin/bash -x
 
 # Print version information
-echo "Pylint Version Info:"
 pylint --version
-echo ""
 
 # Perform Pylint analysis
 find ${{SOURCE_DIR}} -type f -name '*.py' | xargs pylint ${{PYLINT_FLAGS}} --output ${{TOOL_ANALYSIS_DIR}}/pylint_output.json --output-format json
