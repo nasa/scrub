@@ -1,5 +1,8 @@
 #!/bin/bash -x
 
+# Print the version information
+${{SONARQUBE_PATH}}/sonar-scanner --version
+
 # Capture C/C++ code
 if [ -n "${{SONARQUBE_BUILD_CMD}}" ]; then
     # Change to the build directory

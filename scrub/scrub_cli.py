@@ -6,7 +6,8 @@ from scrub.utils import diff_results
 from scrub.utils import scrub_utilities
 
 
-help_message = ('User Documentation: https://nasa.github.io/scrub\n\n' +
+help_message = ('User Documentation: https://nasa.github.io/scrub\n' +
+                'SCRUB Version: ' + __version__ + '\n\n' +
                 'run\n' +
                 scrubme.main.__doc__ + '\n\n'
                 'diff\n' +
@@ -46,7 +47,7 @@ def main():
             # Run analysis
             scrub_utilities.create_conf_file()
 
-        elif 'version' in sys.argv:
+        elif ('version' in sys.argv) or ('-version' in sys.argv) or ('-v' in sys.argv):
             # Print the version number
             print('SCRUB Version: ' + __version__)
 

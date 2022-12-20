@@ -1,5 +1,8 @@
 #!/bin/bash -x
 
+# Print the version information
+${{COVERITY_PATH}}/coverity --version
+
 # Change to the build directory
 cd ${{COVERITY_BUILD_DIR}}
 

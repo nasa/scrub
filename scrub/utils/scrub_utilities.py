@@ -341,7 +341,7 @@ def parse_common_configs(user_conf_file, scrub_keys=[]):
             source_langs[i] = 'python'
         elif source_lang == 'js':
             source_langs[i] = 'javascript'
-    scrub_conf_data.update({'source_lang': ', '.join(source_langs)})
+    scrub_conf_data.update({'source_lang': ','.join(source_langs)})
 
     # Make the source root absolute
     scrub_conf_data.update({'source_dir': pathlib.Path(scrub_conf_data.get('source_dir')).expanduser().resolve()})
