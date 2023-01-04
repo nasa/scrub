@@ -421,22 +421,22 @@ def initialize_storage_dir(scrub_conf_data):
     # Create the .scrub analysis directory
     if not scrub_conf_data.get('scrub_analysis_dir').exists():
         scrub_conf_data.get('scrub_analysis_dir').mkdir()
-        scrub_conf_data.get('scrub_analysis_dir').chmod(0o666)
+        scrub_conf_data.get('scrub_analysis_dir').chmod(0o775)
 
     # Create the logging directory
     if not scrub_conf_data.get('scrub_log_dir').exists():
         scrub_conf_data.get('scrub_log_dir').mkdir()
-        scrub_conf_data.get('scrub_log_dir').chmod(0o666)
+        scrub_conf_data.get('scrub_log_dir').chmod(0o775)
 
     # Create the output directory
     if not scrub_conf_data.get('raw_results_dir').exists():
         scrub_conf_data.get('raw_results_dir').mkdir()
-        scrub_conf_data.get('raw_results_dir').chmod(0o666)
+        scrub_conf_data.get('raw_results_dir').chmod(0o775)
 
     # Create the SARIF results directory
     if not scrub_conf_data.get('sarif_results_dir').exists():
         scrub_conf_data.get('sarif_results_dir').mkdir()
-        scrub_conf_data.get('sarif_results_dir').chmod(0o666)
+        scrub_conf_data.get('sarif_results_dir').chmod(0o775)
 
     # Create the analysis directory if it doesn't exist
     if scrub_conf_data.get('scrub_working_dir') != scrub_conf_data.get('scrub_analysis_dir'):
@@ -447,4 +447,4 @@ def initialize_storage_dir(scrub_conf_data):
         else:
             # Create the scrub working dir
             scrub_conf_data.get('scrub_working_dir').mkdir()
-            scrub_conf_data.get('scrub_working_dir').chmod(0o666)
+            scrub_conf_data.get('scrub_working_dir').chmod(0o775)

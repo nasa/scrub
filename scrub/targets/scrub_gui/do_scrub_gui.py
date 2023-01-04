@@ -65,7 +65,8 @@ def distribute_warnings(warning_file, source_dir):
 
                 # Create a .scrub directory if it doesn't already exists
                 if not local_scrub_directory.exists():
-                    local_scrub_directory.mkdir(mode=511)
+                    local_scrub_directory.mkdir()
+                    local_scrub_directory.chmod(0o775)
 
                 # Write the warning to the output file
                 with open(local_scrub_warning_file, 'a') as output_fh:

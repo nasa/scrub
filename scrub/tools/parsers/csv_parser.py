@@ -53,7 +53,7 @@ def parse_warnings(input_dir, output_format='legacy'):
                 # Iterate through every result
                 for result in scrub_results:
                     description_text = ' '.join(result.get('description')).replace(',', '').replace('\t', '').strip()
-                    output_fh.write('{},{},{},{},{},{}/{},{},{},{},{}\n'.format(result.get('query'), description_text,
+                    output_fh.write('{},{},{},{},{},{}:{},{},{},{},{}\n'.format(result.get('query'), description_text,
                                                                              result.get('priority'), description_text,
                                                                              os.path.relpath(str(result.get('file')), str(source_dir)),
                                                                              timestamp.strftime("%Y-%B-%d--%H-%M-%S"),
