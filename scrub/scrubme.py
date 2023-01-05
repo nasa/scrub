@@ -252,6 +252,7 @@ def main(conf_file=pathlib.Path('./scrub.cfg').resolve(), clean=False, console_l
         if viewable_results_dir.exists():
             shutil.rmtree(viewable_results_dir)
         viewable_results_dir.mkdir()
+        viewable_results_dir.chmod(0o755)
 
         # Copy SCRUB format output files
         for scrub_file in scrub_conf_data.get('scrub_analysis_dir').glob('*.scrub'):

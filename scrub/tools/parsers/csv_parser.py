@@ -16,6 +16,7 @@ def parse_warnings(input_dir, output_format='legacy'):
     if output_dir.exists():
         shutil.rmtree(str(output_dir))
     output_dir.mkdir()
+    output_dir.chmod(0o755)
 
     # Get a list of all the scrub files in the directory
     input_files = input_dir.glob('*.scrub')
