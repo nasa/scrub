@@ -143,11 +143,13 @@ def main(conf_file=pathlib.Path('./scrub.cfg').resolve(), clean=False, console_l
                 # Create the analysis scripts directory
                 if not analysis_scripts_dir.exists():
                     analysis_scripts_dir.mkdir()
+                    analysis_scripts_dir.chmod(0o755)
 
                 # Create the tool analysis directory
                 if tool_analysis_dir.exists():
                     shutil.rmtree(tool_analysis_dir)
                 tool_analysis_dir.mkdir()
+                tool_analysis_dir.chmod(0o755)
 
                 # Create the log file
                 analysis_log_file = scrub_conf_data.get('scrub_log_dir').joinpath(tool_name + '.log')
