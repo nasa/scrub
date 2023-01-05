@@ -82,7 +82,7 @@ def create_scrub_output_file(warnings, output_file):
                 output_fh.write(scrub_warning)
 
     # Change the permissions of the output file
-    output_file.chmod(0o666)
+    output_file.chmod(0o644)
 
 
 def verify_sarif(sarif_data):
@@ -488,7 +488,7 @@ def create_sarif_output_file(results_list, sarif_version, output_file, source_ro
         json.dump(sarif_output, output_fh, indent=4)
 
     # Change the permissions of the output file
-    output_file.chmod(0o666)
+    output_file.chmod(0o644)
 
 
 def perform_translation(input_file, output_file, source_root, output_format):

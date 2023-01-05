@@ -65,14 +65,15 @@ def distribute_warnings(warning_file, source_dir):
 
                 # Create a .scrub directory if it doesn't already exists
                 if not local_scrub_directory.exists():
-                    local_scrub_directory.mkdir(mode=511)
+                    local_scrub_directory.mkdir()
+                    local_scrub_directory.chmod(0o755)
 
                 # Write the warning to the output file
                 with open(local_scrub_warning_file, 'a') as output_fh:
                     output_fh.write('%s\n' % warning_file.name)
 
                 # Change the permissions of the output file
-                local_scrub_warning_file.chmod(0o666)
+                local_scrub_warning_file.chmod(0o644)
 
 
 def initialize_analysis(tool_conf_data):
@@ -143,7 +144,7 @@ def run_analysis(baseline_conf_data, console_logging=logging.INFO, override=Fals
 
             # Update the permissions of the log file if it exists
             if tool_conf_data.get('gui_log_file').exists():
-                tool_conf_data.get('gui_log_file').chmod(0o666)
+                tool_conf_data.get('gui_log_file').chmod(0o644)
 
     # Return the exit code
     return gui_exit_code
