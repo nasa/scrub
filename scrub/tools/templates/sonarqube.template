@@ -1,15 +1,15 @@
 #!/bin/bash -x
 
 # Add language extensions
-file_extension_filters="sonar.inclusions="
+file_extension_filters="-Dsonar.inclusions="
 if [[ "${{SOURCE_LANG}}" == *"abap"* ]]; then
-    $file_extension_filters="$file_extension_filters,**/*.abap,**/*.ab4,**/*.flow,**/*.asprog"
+    file_extension_filters="$file_extension_filters,**/*.abap,**/*.ab4,**/*.flow,**/*.asprog"
 fi
 if [[ "${{SOURCE_LANG}}" == *"apex"* ]]; then
-    $file_extension_filters="$file_extension_filters,**/*.cls,**/*.trigger"
+    file_extension_filters="$file_extension_filters,**/*.cls,**/*.trigger"
 fi
 if [[ "${{SOURCE_LANG}}" == *"cpp"* ]]; then
-    $file_extension_filters="$file_extension_filters,**/*.c,**/*.h,**/*.cc,**/*.cpp,**/*.cxx,**/*.c++,**/*.hh,**/*.hpp,**/*.hxx,**/*.h++,**/*.ipp,**/*.m"
+    file_extension_filters="$file_extension_filters,**/*.c,**/*.h,**/*.cc,**/*.cpp,**/*.cxx,**/*.c++,**/*.hh,**/*.hpp,**/*.hxx,**/*.h++,**/*.ipp,**/*.m"
 fi
 if [[ "${{SOURCE_LANG}}" == *"csharp"* ]]; then
     file_extension_filters="$file_extension_filters,**/*.cs"
