@@ -1,5 +1,8 @@
 #!/bin/bash -x
 
+# Print the version information
+${{SONARQUBE_PATH}}/sonar-scanner --version
+
 # Add language extensions
 file_extension_filters="-Dsonar.inclusions="
 if [[ "${{SOURCE_LANG}}" == *"abap"* ]]; then
@@ -13,9 +16,6 @@ if [[ "${{SOURCE_LANG}}" == *"cpp"* ]]; then
 fi
 if [[ "${{SOURCE_LANG}}" == *"csharp"* ]]; then
     file_extension_filters="$file_extension_filters,**/*.cs"
-fi
-if [[ "${{SOURCE_LANG}}" == *"css"* ]]; then
-    file_extension_filters="$file_extension_filters,**/*.css,**/*.less,**/*.scss"
 fi
 if [[ "${{SOURCE_LANG}}" == *"css"* ]]; then
     file_extension_filters="$file_extension_filters,**/*.css,**/*.less,**/*.scss"
@@ -84,11 +84,8 @@ if [[ "${{SOURCE_LANG}}" == *"yaml"* ]]; then
     file_extension_filters="$file_extension_filters,**/*.yaml,**/*.yml"
 fi
 
-# Print the version information
-${{SONARQUBE_PATH}}/sonar-scanner --version
-
 # Capture C/C++ code
-if [ -n "${{SONARQUBE_BUILD_CMD}}" ]; then
+if [[ "${{SOURCE_LANG}}" == *"cpp"* ]]; then
     # Change to the build directory
     cd ${{SONARQUBE_BUILD_DIR}}
 
