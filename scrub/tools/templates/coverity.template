@@ -16,7 +16,7 @@ if [[ "${{SOURCE_LANG}}" == *"csharp"* ]]; then
 fi
 # Performed by build only
 if [[ "${{SOURCE_LANG}}" == *"go"* ]]; then
-    find ${{SOURCE_DIR}} -iname *.go" >> $file_list
+    find ${{SOURCE_DIR}} -iname "*.go" >> $file_list
 fi
 
 if [[ "${{SOURCE_LANG}}" == *"java"* ]]; then
