@@ -5,47 +5,48 @@ ${{COVERITY_PATH}}/coverity --version
 
 # Add language extensions
 file_list="${{TOOL_ANALYSIS_DIR}}/analysis_file_list.txt"
+touch "$file_list"
 # Performed by build only
 if [[ "${{SOURCE_LANG}}" == *"cpp"* ]]; then
-    find ${{SOURCE_DIR}} -iname "*.c" -o -iname "*.h"  -o -iname "*.cc"  -o -iname "*.cpp"  -o -iname "*.cxx"  -o -iname "*.c++"  -o -iname "*.hh"  -o -iname "*.hpp"  -o -iname "*.hxx"  -o -iname "*.h++"  -o -iname "*.ipp"  -o -iname "*.m" >> $file_list
+    find ${{SOURCE_DIR}} -iname "*.c" -o -iname "*.h"  -o -iname "*.cc"  -o -iname "*.cpp"  -o -iname "*.cxx"  -o -iname "*.c++"  -o -iname "*.hh"  -o -iname "*.hpp"  -o -iname "*.hxx"  -o -iname "*.h++"  -o -iname "*.ipp"  -o -iname "*.m" >> "$file_list"
 fi
 
 # Performed by build only
 if [[ "${{SOURCE_LANG}}" == *"csharp"* ]]; then
-    find ${{SOURCE_DIR}} -iname "*.cs" >> $file_list
+    find ${{SOURCE_DIR}} -iname "*.cs" >> "$file_list"
 fi
 # Performed by build only
 if [[ "${{SOURCE_LANG}}" == *"go"* ]]; then
-    find ${{SOURCE_DIR}} -iname "*.go" >> $file_list
+    find ${{SOURCE_DIR}} -iname "*.go" >> "$file_list"
 fi
 
 if [[ "${{SOURCE_LANG}}" == *"java"* ]]; then
-    find ${{SOURCE_DIR}} -iname "*.java" -o -iname "*.jav" >> $_file_list
+    find ${{SOURCE_DIR}} -iname "*.java" -o -iname "*.jav" >> "$file_list"
 fi
 if [[ "${{SOURCE_LANG}}" == *"javascript"* ]]; then
-    find ${{SOURCE_DIR}} -iname "*.js" -o -iname "*.jsx" -o -iname "*.cjs" -o -iname "*.mjs" -o -iname "*.vue" -o -iname "*.ts" -o -iname "*.tsx" -o -iname "*.cts" -o -iname "*.mts" >> $file_name
+    find ${{SOURCE_DIR}} -iname "*.js" -o -iname "*.jsx" -o -iname "*.cjs" -o -iname "*.mjs" -o -iname "*.vue" -o -iname "*.ts" -o -iname "*.tsx" -o -iname "*.cts" -o -iname "*.mts" >> "$file_list"
 fi
 if [[ "${{SOURCE_LANG}}" == *"kotlin"* ]]; then
-    find ${{SOURCE_DIR}} -iname "*.kt" >> $file_name
+    find ${{SOURCE_DIR}} -iname "*.kt" >> "$file_list"
 fi
 if [[ "${{SOURCE_LANG}}" == *"php"* ]]; then
-    find ${{SOURCE_DIR}} -iname "*.php" -o -iname "*.php3" -o -iname "*.php4" -o -iname "*.php5" -o -iname "*.phtml" -o -iname "*.inc" >> $file_list
+    find ${{SOURCE_DIR}} -iname "*.php" -o -iname "*.php3" -o -iname "*.php4" -o -iname "*.php5" -o -iname "*.phtml" -o -iname "*.inc" >> "$file_list"
 fi
 if [[ "${{SOURCE_LANG}}" == *"python"* ]]; then
-    find ${{SOURCE_DIR}} -iname "*.py" >> $file_name
+    find ${{SOURCE_DIR}} -iname "*.py" >> "$file_list"
 fi
 if [[ "${{SOURCE_LANG}}" == *"ruby"* ]]; then
-    find ${{SOURCE_DIR}} -iname "*.rb" >> $file_name
+    find ${{SOURCE_DIR}} -iname "*.rb" >> "$file_list"
 fi
 
 # Performed by build only
 if [[ "${{SOURCE_LANG}}" == *"swift"* ]]; then
-    find ${{SOURCE_DIR}} -iname "*.swift" >> $file_list
+    find ${{SOURCE_DIR}} -iname "*.swift" >> "$file_list"
 fi
 
 # Performed by build only
 if [[ "${{SOURCE_LANG}}" == *"vbnet"* ]]; then
-    find ${{SOURCE_DIR}} -iname "*.vb" >> $file_list
+    find ${{SOURCE_DIR}} -iname "*.vb" >> "$file_list"
 fi
 
 # Change to the build directory
