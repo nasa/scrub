@@ -198,11 +198,13 @@ def main(conf_file=pathlib.Path('./scrub.cfg').resolve(), clean=False, console_l
                     for raw_results_file in scrub_conf_data.get('raw_results_dir').glob(tool_name + '_*.scrub'):
                         scrub_utilities.check_artifact(raw_results_file, False)
 
-                    # Check the log file
-                    scrub_utilities.check_artifact(analysis_log_file, True)
-
-                    # Update the execution status
-                    tool_execution_status = 0
+                    # Check the log file for potential issues
+                    if scrub_utilities.check_log_file:
+                        # Update the execution status
+                        tool_execution_status = 3
+                    else:
+                        # Update the execution status
+                        tool_execution_status = 0
 
                 except scrub_utilities.CommandExecutionError:
                     logging.warning(tool_name + ' analysis could not be performed.')
@@ -216,10 +218,6 @@ def main(conf_file=pathlib.Path('./scrub.cfg').resolve(), clean=False, console_l
                 finally:
                     # Close the logger
                     logging.getLogger().handlers = []
-
-                    # Examine the log file for potential issues
-                    if not scrub_utilities.check_log_file(analysis_log_file):
-                        tool_execution_status = 3
 
                     # Calculate the execution time
                     execution_time = time.time() - start_time

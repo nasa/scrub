@@ -92,14 +92,16 @@ def check_log_file(log_file):
     # Initialize variables
     errors = False
 
+    # Check the size of the log file
+    if log_file.stat().st_size == 0:
+        errors = True
+
     # Import the log file
     with open(log_file, 'r') as input_fh:
         for line in input_fh:
             if 'ERROR:' in line:
                 # Update return value
                 errors = True
-
-                # No need to keep going
                 break
 
     return errors
