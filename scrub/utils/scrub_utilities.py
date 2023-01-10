@@ -79,6 +79,32 @@ class CommandExecutionError(Exception):
     pass
 
 
+def check_log_file(log_file):
+    """This function checks log files for potential issues in analysis log files
+
+    Inputs:
+        - log_file: Absolute path to the log file of interest [string]
+
+    Outputs:
+        - errors: Were errors found? [boolean]
+    """
+
+    # Initialize variables
+    errors = False
+
+    # Import the log file
+    with open(log_file, 'r') as input_fh:
+        for line in input_fh:
+            if 'ERROR:' in line:
+                # Update return value
+                errors = True
+
+                # No need to keep going
+                break
+
+    return errors
+
+
 def check_artifact(input_artifact, critical=False):
     """This function checks to ensure the given file is not empty.
 

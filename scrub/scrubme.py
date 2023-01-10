@@ -217,6 +217,10 @@ def main(conf_file=pathlib.Path('./scrub.cfg').resolve(), clean=False, console_l
                     # Close the logger
                     logging.getLogger().handlers = []
 
+                    # Examine the log file for potential issues
+                    if not scrub_utilities.check_log_file(analysis_log_file):
+                        tool_execution_status = 3
+
                     # Calculate the execution time
                     execution_time = time.time() - start_time
 
@@ -278,6 +282,8 @@ def main(conf_file=pathlib.Path('./scrub.cfg').resolve(), clean=False, console_l
                 tool_failure_count = tool_failure_count + 1
             elif status[1] == 2:
                 exit_code = 'Not attempted'
+            elif status[1] == 3:
+                exit_code = 'Attempted analysis, potential errors'
             elif status[1] == 100:
                 exit_code = 'Fatal error'
             else:
