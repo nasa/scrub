@@ -78,6 +78,7 @@ def test_parser(raw_file, capsys):
 # 14       | Integration | Single target          | Exit Code: 0       |
 # 15       | Integration | Multiple targets       | Exit Code: 0       |
 # 16       | Integration | Multilang integration  | Exit Code: 0       |
+# 17       | Integration | Multilang subset       | Exit Code: 0       |
 
 
 testcases = [[java_testcase, ['run', '--config', 'missing_scrub.cfg'], 10],                          # Testcase 0
@@ -96,8 +97,8 @@ testcases = [[java_testcase, ['run', '--config', 'missing_scrub.cfg'], 10],     
              [javascript_testcase, ['run', '--tools', 'coverity', 'sonarqube'], 0],                  # Testcase 13
              [python_testcase, ['run', '--tools', 'none', '--targets', 'collaborator'], 0],          # Testcase 14
              [c_testcase, ['run', '--targets', 'collaborator', 'scrub_gui'], 0],                     # Testcase 15
-             [multi_lang_testcase, ['run', '--debug'], 0]                                            # Testcase 16
-             ]
+             [multi_lang_testcase, ['run', '--debug'], 0],                                           # Testcase 16
+             [multi_lang_testcase, ['run', '--debug', '--config', 'scrub_subset.cfg'], 0]]           # Testcase 17
 
 
 @pytest.mark.parametrize("testcase", testcases)
