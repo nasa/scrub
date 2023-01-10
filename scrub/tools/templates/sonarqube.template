@@ -5,87 +5,87 @@ ${{SONARQUBE_PATH}}/sonar-scanner --version
 
 # Add language extensions
 file_extension_filters="-Dsonar.inclusions="
-if [[ "${{SOURCE_LANG}}" == *"abap"* ]]; then
+if [[ "${{SOURCE_LANG}}" =~ "abap" ]]; then
     file_extension_filters="$file_extension_filters,**/*.abap,**/*.ab4,**/*.flow,**/*.asprog"
 fi
-if [[ "${{SOURCE_LANG}}" == *"apex"* ]]; then
+if [[ "${{SOURCE_LANG}}" =~ "apex" ]]; then
     file_extension_filters="$file_extension_filters,**/*.cls,**/*.trigger"
 fi
-if [[ "${{SOURCE_LANG}}" == *"cpp"* ]]; then
+if [[ "${{SOURCE_LANG}}" =~ "cpp" ]]; then
     file_extension_filters="$file_extension_filters,**/*.c,**/*.h,**/*.cc,**/*.cpp,**/*.cxx,**/*.c++,**/*.hh,**/*.hpp,**/*.hxx,**/*.h++,**/*.ipp,**/*.m"
 fi
-if [[ "${{SOURCE_LANG}}" == *"csharp"* ]]; then
+if [[ "${{SOURCE_LANG}}" =~ "csharp" ]]; then
     file_extension_filters="$file_extension_filters,**/*.cs"
 fi
-if [[ "${{SOURCE_LANG}}" == *"css"* ]]; then
+if [[ "${{SOURCE_LANG}}" =~ "css" ]]; then
     file_extension_filters="$file_extension_filters,**/*.css,**/*.less,**/*.scss"
 fi
-if [[ "${{SOURCE_LANG}}" == *"flex"* ]]; then
+if [[ "${{SOURCE_LANG}}" =~ "flex" ]]; then
     file_extension_filters="$file_extension_filters,**/*.as"
 fi
-if [[ "${{SOURCE_LANG}}" == *"go"* ]]; then
+if [[ "${{SOURCE_LANG}}" =~ "go" ]]; then
     file_extension_filters="$file_extension_filters,**/*.go"
 fi
-if [[ "${{SOURCE_LANG}}" == *"html"* ]]; then
+if [[ "${{SOURCE_LANG}}" =~ "html" ]]; then
     file_extension_filters="$file_extension_filters,**/*.html,**/*.xhtml,**/*.cshtml,**/*.vbhtml,**/*.aspx,**/*.ascx,**/*.rhtml,**/*.erb,**/*.shtm,**/*.shtml,**/*.cmp,**/*.twig,**/*.jsp,**/*.jspf,**/*.jspx"
 fi
-if [[ "${{SOURCE_LANG}}" == *"java"* ]]; then
+if [[ "${{SOURCE_LANG}}" =~ "java" ]]; then
     file_extension_filters="$file_extension_filters,**/*.java,**/*.jav"
 fi
-if [[ "${{SOURCE_LANG}}" == *"javascript"* ]]; then
+if [[ "${{SOURCE_LANG}}" =~ "javascript" ]]; then
     file_extension_filters="$file_extension_filters,**/*.js,**/*.jsx,**/*.cjs,**/*.mjs,**/*.vue,**/*.ts,**/*.tsx,**/*.cts,**/*.mts"
 fi
-if [[ "${{SOURCE_LANG}}" == *"json"* ]]; then
+if [[ "${{SOURCE_LANG}}" =~ "json" ]]; then
     file_extension_filters="$file_extension_filters,**/*.json"
 fi
-if [[ "${{SOURCE_LANG}}" == *"kotlin"* ]]; then
+if [[ "${{SOURCE_LANG}}" =~ "kotlin" ]]; then
     file_extension_filters="$file_extension_filters,**/*.kt"
 fi
-if [[ "${{SOURCE_LANG}}" == *"php"* ]]; then
+if [[ "${{SOURCE_LANG}}" =~ "php" ]]; then
     file_extension_filters="$file_extension_filters,**/*.php,**/*.php3,**/*.php4,**/*.php5,**/*.phtml,**/*.inc"
 fi
-if [[ "${{SOURCE_LANG}}" == *"pli"* ]]; then
+if [[ "${{SOURCE_LANG}}" =~ "pli" ]]; then
     file_extension_filters="$file_extension_filters,**/*.pli"
 fi
-if [[ "${{SOURCE_LANG}}" == *"sql"* ]]; then
+if [[ "${{SOURCE_LANG}}" =~ "sql" ]]; then
     file_extension_filters="$file_extension_filters,**/*.sql,**/*.pks,**/*.pkb"
 fi
-if [[ "${{SOURCE_LANG}}" == *"python"* ]]; then
+if [[ "${{SOURCE_LANG}}" =~ "python" ]]; then
     file_extension_filters="$file_extension_filters,**/*.py"
 fi
-if [[ "${{SOURCE_LANG}}" == *"rpg"* ]]; then
+if [[ "${{SOURCE_LANG}}" =~ "rpg" ]]; then
     file_extension_filters="$file_extension_filters,**/*.rpg,**/*.rpgle,**/*.sqlrpgle,**/*.RPG,**/*.RPGLE,**/*.SQLRPGLE"
 fi
-if [[ "${{SOURCE_LANG}}" == *"ruby"* ]]; then
+if [[ "${{SOURCE_LANG}}" =~ "ruby" ]]; then
     file_extension_filters="$file_extension_filters,**/*.rb"
 fi
-if [[ "${{SOURCE_LANG}}" == *"scala"* ]]; then
+if [[ "${{SOURCE_LANG}}" =~ "scala" ]]; then
     file_extension_filters="$file_extension_filters,**/*.scala"
 fi
-if [[ "${{SOURCE_LANG}}" == *"swift"* ]]; then
+if [[ "${{SOURCE_LANG}}" =~ "swift" ]]; then
     file_extension_filters="$file_extension_filters,**/*.swift"
 fi
-if [[ "${{SOURCE_LANG}}" == *"tsql"* ]]; then
+if [[ "${{SOURCE_LANG}}" =~ "tsql" ]]; then
     file_extension_filters="$file_extension_filters,**/*.tsql"
 fi
-if [[ "${{SOURCE_LANG}}" == *"terraform"* ]]; then
+if [[ "${{SOURCE_LANG}}" =~ "terraform" ]]; then
     file_extension_filters="$file_extension_filters,**/*.tf"
 fi
-if [[ "${{SOURCE_LANG}}" == *"vbnet"* ]]; then
+if [[ "${{SOURCE_LANG}}" =~ "vbnet" ]]; then
     file_extension_filters="$file_extension_filters,**/*.vb"
 fi
-if [[ "${{SOURCE_LANG}}" == *"visualbasic"* ]]; then
+if [[ "${{SOURCE_LANG}}" =~ "visualbasic" ]]; then
     file_extension_filters="$file_extension_filters,**/*.bas,**/*.frm,**/*.cls,**/*.ctl,**/*.BAS,**/*.FRM,**/*.CLS,**/*.CTL"
 fi
-if [[ "${{SOURCE_LANG}}" == *"xml"* ]]; then
+if [[ "${{SOURCE_LANG}}" =~ "xml" ]]; then
     file_extension_filters="$file_extension_filters,**/*.xml,**/*.xsd,**/*.xsl"
 fi
-if [[ "${{SOURCE_LANG}}" == *"yaml"* ]]; then
+if [[ "${{SOURCE_LANG}}" =~ "yaml" ]]; then
     file_extension_filters="$file_extension_filters,**/*.yaml,**/*.yml"
 fi
 
 # Capture C/C++ code
-if [[ "${{SOURCE_LANG}}" == *"cpp"* ]]; then
+if [[ "${{SOURCE_LANG}}" =~ "cpp" ]]; then
     # Change to the build directory
     cd ${{SONARQUBE_BUILD_DIR}}
 
