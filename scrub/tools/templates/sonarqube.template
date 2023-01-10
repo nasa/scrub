@@ -85,7 +85,7 @@ if [[ "${{SOURCE_LANG}}" =~ "yaml" ]]; then
 fi
 
 # Capture C/C++ code
-if [[ "${{SOURCE_LANG}}" =~ "cpp" ]]; then
+if [ -n "${{TOOL_BUILD_CMD}}" ]; then
     # Change to the build directory
     cd ${{SONARQUBE_BUILD_DIR}}
 
