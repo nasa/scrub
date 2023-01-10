@@ -6,12 +6,9 @@ ${{COVERITY_PATH}}/coverity --version
 # Add language extensions
 file_list="${{TOOL_ANALYSIS_DIR}}/analysis_file_list.txt"
 touch "$file_list"
-# Performed by build only
 if [[ "${{SOURCE_LANG}}" =~ "cpp" ]]; then
     find ${{SOURCE_DIR}} -iname "*.c" -o -iname "*.h"  -o -iname "*.cc"  -o -iname "*.cpp"  -o -iname "*.cxx"  -o -iname "*.c++"  -o -iname "*.hh"  -o -iname "*.hpp"  -o -iname "*.hxx"  -o -iname "*.h++"  -o -iname "*.ipp"  -o -iname "*.m" >> "$file_list"
 fi
-
-# Performed by build only
 if [[ "${{SOURCE_LANG}}" =~ "csharp" ]]; then
     find ${{SOURCE_DIR}} -iname "*.cs" >> "$file_list"
 fi
@@ -19,7 +16,6 @@ fi
 if [[ "${{SOURCE_LANG}}" =~ "go" ]]; then
     find ${{SOURCE_DIR}} -iname "*.go" >> "$file_list"
 fi
-
 if [[ "${{SOURCE_LANG}}" =~ "java" ]]; then
     find ${{SOURCE_DIR}} -iname "*.java" -o -iname "*.jav" >> "$file_list"
 fi
@@ -38,13 +34,9 @@ fi
 if [[ "${{SOURCE_LANG}}" =~ "ruby" ]]; then
     find ${{SOURCE_DIR}} -iname "*.rb" >> "$file_list"
 fi
-
-# Performed by build only
 if [[ "${{SOURCE_LANG}}" =~ "swift" ]]; then
     find ${{SOURCE_DIR}} -iname "*.swift" >> "$file_list"
 fi
-
-# Performed by build only
 if [[ "${{SOURCE_LANG}}" =~ "vbnet" ]]; then
     find ${{SOURCE_DIR}} -iname "*.vb" >> "$file_list"
 fi
@@ -56,7 +48,7 @@ cd ${{COVERITY_BUILD_DIR}}
 ${{COVERITY_CLEAN_CMD}}
 
 # Capture the codebase
-if [ -n ${{TOOL_BUILD_CMD}} ]; then
+if [ -n "${{COVERITY_BUILD_CMD}}" ]; then
     # Capture the compiled languages
     ${{COVERITY_PATH}}/cov-build --dir ${{TOOL_ANALYSIS_DIR}} ${{COVERITY_COVBUILD_FLAGS}} ${{COVERITY_BUILD_CMD}}
 fi
