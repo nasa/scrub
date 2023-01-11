@@ -1,4 +1,5 @@
 import re
+import os
 import pathlib
 import logging
 
@@ -52,7 +53,6 @@ def create_file_list(source_root_dir, filtering_output_file, filtering_options_f
     logging.info('\t>> From directory: %s', pathlib.Path.cwd())
 
     # Initialize the variables
-    # filtering_options = []
     raw_file_list = []
     default_filtering_options_file = pathlib.Path(__file__).parent.joinpath('FilteringDefaults').resolve()
 
@@ -63,9 +63,10 @@ def create_file_list(source_root_dir, filtering_output_file, filtering_options_f
             raw_file_list = [pathlib.Path(line.strip()) for line in input_fh.readlines()]
 
     else:
-        for item in source_root_dir.rglob('*'):
-            if item.is_file():
-                raw_file_list.append(item)
+        for root, dir_names, file_names, in os.walk(source_root_dir, topdown=True):
+            dir_names[:] = [d for d in dir_names if d not in ['.scrub']]
+            for file_name in file_names:
+                raw_file_list.append(pathlib.Path(root).joinpath(file_name))
 
     # Read in the values from the filtering file and add them to the list
     if filtering_options_file.exists():
