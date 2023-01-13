@@ -66,7 +66,7 @@ def create_file_list(source_root_dir, filtering_output_file, filtering_options_f
         for root, dir_names, file_names, in os.walk(source_root_dir, topdown=True):
             dir_names[:] = [d for d in dir_names if d not in ['.scrub']]
             for file_name in file_names:
-                raw_file_list.append(pathlib.Path(root).joinpath(file_name))
+                raw_file_list.append(os.path.join(root, file_name))
 
     # Read in the values from the filtering file and add them to the list
     if filtering_options_file.exists():
@@ -89,18 +89,19 @@ def create_file_list(source_root_dir, filtering_output_file, filtering_options_f
     # Modify the list based on the include and exclude options
     filtered_file_list = raw_file_list.copy()
     for filtering_option in filtering_options:
-        for file_path in raw_file_list:
-            if re.search(filtering_option[1], str(file_path)) and filtering_option[0] == '-' and file_path in filtered_file_list:
+        for file_path in list(filter(re.compile(filtering_option[1]).match, raw_file_list)):
+            if filtering_option[0] == '-':
                 filtered_file_list.remove(file_path)
 
-            elif re.search(filtering_option[1], str(file_path)) and filtering_option[0] == '+' and file_path not in filtered_file_list:
+            elif filtering_option[0] == '+':
                 filtered_file_list.append(file_path)
 
     # Print the results to the output file
+    filtered_file_list.sort()
     with open(filtering_output_file, 'w') as output_fh:
         for filtered_file in filtered_file_list:
-            if filtered_file.anchor == '/':
-                relative_path = filtered_file.relative_to(source_root_dir)
+            if pathlib.Path(filtered_file).anchor == '/':
+                relative_path = pathlib.Path(filtered_file).relative_to(source_root_dir)
             else:
-                relative_path = filtered_file
+                relative_path = pathlib.Path(filtered_file)
             output_fh.write('%s\n' % relative_path)
