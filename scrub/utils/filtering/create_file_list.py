@@ -89,7 +89,7 @@ def create_file_list(source_root_dir, filtering_output_file, filtering_options_f
     # Modify the list based on the include and exclude options
     filtered_file_list = raw_file_list.copy()
     for filtering_option in filtering_options:
-        for file_path in list(filter(re.compile(filtering_option[1]).match, raw_file_list)):
+        for file_path in list(filter(re.compile(filtering_option[1]).search, raw_file_list)):
             if filtering_option[0] == '-':
                 filtered_file_list.remove(file_path)
 
