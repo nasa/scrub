@@ -199,7 +199,7 @@ def main(conf_file=pathlib.Path('./scrub.cfg').resolve(), clean=False, console_l
                         scrub_utilities.check_artifact(raw_results_file, False)
 
                     # Check the log file for potential issues
-                    if not scrub_utilities.check_log_file(analysis_log_file):
+                    if scrub_utilities.check_log_file(analysis_log_file):
                         # Update the execution status
                         tool_execution_status = 3
                     else:

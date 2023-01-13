@@ -60,7 +60,7 @@ def create_file_list(source_root_dir, filtering_output_file, filtering_options_f
     if initial_filtering_list:
         # Read in the list
         with open(initial_filtering_list, 'r') as input_fh:
-            raw_file_list = [pathlib.Path(line.strip()) for line in input_fh.readlines()]
+            raw_file_list = input_fh.readlines()
 
     else:
         for root, dir_names, file_names, in os.walk(source_root_dir, topdown=True):
