@@ -40,6 +40,7 @@ def filter_scrub_results(scrub_conf_data):
     raw_compiler_files = []
     raw_p10_files = []
     raw_autosar_files = []
+    raw_cert_files = []
     raw_generic_files = []
     for results_file in results_files:
         if 'compiler_raw' in results_file.stem:
@@ -47,6 +48,8 @@ def filter_scrub_results(scrub_conf_data):
         elif 'p10_raw' in results_file.stem:
             raw_p10_files.append(results_file)
         elif 'autosar_raw' in results_file.stem:
+            raw_autosar_files.append(results_file)
+        elif 'cert_raw' in results_file.stem:
             raw_autosar_files.append(results_file)
         else:
             raw_generic_files.append(results_file)
@@ -144,6 +147,38 @@ def filter_scrub_results(scrub_conf_data):
         except:     # lgtm [py/catch-base-exception]
             # Print a status message
             logging.warning("Could not generate output file %s", filtered_autosar_results)
+
+            # Print the exception traceback
+            logging.debug(traceback.format_exc())
+
+    # Filter CERT results
+    if raw_cert_files:
+        try:
+            # Set the output file path
+            filtered_cert_results = scrub_conf_data.get('scrub_analysis_dir').joinpath('cert.scrub')
+
+            # Parse all of the input files
+            cert_results = []
+            valid_warning_types = []
+            for results_file in raw_cert_files:
+                # Append the results file
+                cert_results = (cert_results + translate_results.parse_scrub(results_file,
+                                                                           scrub_conf_data.get('source_dir')))
+
+                # Append to the valid warning types
+                valid_warning_types.append(results_file.stem.split('_')[0])
+
+            filter_results.filter_results(cert_results, filtered_cert_results,
+                                          scrub_conf_data.get('filtering_output_file'),
+                                          scrub_conf_data.get('query_filters'),
+                                          scrub_conf_data.get('source_dir'),
+                                          scrub_conf_data.get('enable_micro_filter'),
+                                          scrub_conf_data.get('enable_ext_warnings'),
+                                          valid_warning_types)
+
+        except:     # lgtm [py/catch-base-exception]
+            # Print a status message
+            logging.warning("Could not generate output file %s", filtered_cert_results)
 
             # Print the exception traceback
             logging.debug(traceback.format_exc())
