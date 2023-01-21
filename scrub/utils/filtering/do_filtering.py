@@ -50,7 +50,7 @@ def filter_scrub_results(scrub_conf_data):
         elif 'autosar_raw' in results_file.stem:
             raw_autosar_files.append(results_file)
         elif 'cert_raw' in results_file.stem:
-            raw_autosar_files.append(results_file)
+            raw_cert_files.append(results_file)
         else:
             raw_generic_files.append(results_file)
 
