@@ -46,4 +46,12 @@ do
       python3 -m scrub.tools.parsers.translate_results ${{TOOL_ANALYSIS_DIR}}/codeql_p10_raw.sarif ${{RAW_RESULTS_DIR}}/codeql_p10_raw.scrub ${{SOURCE_DIR}} scrub
     fi
 
+      # Perform AUTOSAR analysis, if desired
+    if [ ${{CODEQL_AUTOSAR_ANALYSIS}} == true ] && [ $language == "cpp" ]; then
+      ${{CODEQL_PATH}}/codeql database analyze --format=sarif-latest --output=${{TOOL_ANALYSIS_DIR}}/codeql_autosar_raw.sarif $database "${{CODEQL_CODING_STANDARDS_PATH}}/cpp/autosar/src/codeql-suites/autosar-default.qls" "${{CODEQL_QUERY_PATH}}/cpp/ql/src/AlertSuppression.ql"
+
+      # Parse the SARIF AUTOSAR results output file into SCRUB format
+      python3 -m scrub.tools.parsers.translate_results ${{TOOL_ANALYSIS_DIR}}/codeql_autosar_raw.sarif ${{RAW_RESULTS_DIR}}/codeql_autosar_raw.scrub ${{SOURCE_DIR}} scrub
+    fi
+
 done
