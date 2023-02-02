@@ -184,7 +184,7 @@ while $MORE_RESULTS; do
 done
 
 # Gather the hotspot keys
-grep -h -o -E '\"key\":\"[a-zA-Z0-9_-]{20}\"' ${{TOOL_ANALYSIS_DIR}}/hotspot_search* | cut -c8-27 > ${{TOOL_ANALYSIS_DIR}}/hotspot_keys.txt
+grep -h -o -E '\"key\":\"[a-zA-Z0-9_-]{20}\",\"component' ${{TOOL_ANALYSIS_DIR}}/sonarqube_hotspots_search* | cut -c8-27 > ${{TOOL_ANALYSIS_DIR}}/sonarqube_hotspot_keys.txt
 
 # Get the hotspots
 count=1
