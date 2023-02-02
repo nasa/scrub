@@ -217,7 +217,7 @@ def parse_scrub(scrub_file, source_root):
 
         # Get the query name if it exists
         if len(warning_info) > 3:
-            warning_query = warning_info[-1].strip()
+            warning_query = list(warning_lines[0].strip().split(' '))[-1]
         else:
             warning_query = ''
 

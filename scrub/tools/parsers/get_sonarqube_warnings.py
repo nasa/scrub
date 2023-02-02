@@ -32,7 +32,6 @@ def parse_warnings(results_dir, parsed_output_file, source_root, sonarqube_url):
         # Parse the finding
         warning_file = source_root.joinpath(hotspot_data['component']['path'])
         warning_message = hotspot_data['rule']['name'].splitlines()
-        # warning_query = hotspot_data['rule']['key'].replace(':', '-')
         warning_query = hotspot_data['rule']['key']
         warning_id = ID_PREFIX + str(warning_count).zfill(3)
         warning_link = sonarqube_url + '/security_hotspots?id=' + hotspot_data['project']['key'] + '&hotspots=' + hotspot_data['key']
@@ -90,7 +89,6 @@ def parse_warnings(results_dir, parsed_output_file, source_root, sonarqube_url):
 
             # Parse the query if it exists
             if 'rule' in issue.keys():
-                # warning_query = issue['rule'].replace(':', '-')
                 warning_query = issue['rule']
             else:
                 warning_query = ''
