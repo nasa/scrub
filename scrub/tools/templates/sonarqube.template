@@ -138,7 +138,7 @@ PAGE=1
 MORE_RESULTS=true
 while $MORE_RESULTS; do
     # Get the page
-    RESULTS_FILE=${{TOOL_ANALYSIS_DIR}}/issues_$PAGE.json
+    RESULTS_FILE=${{TOOL_ANALYSIS_DIR}}/sonarqube_issues_$PAGE.json
     curl -u ${{SONARQUBE_TOKEN}}: "${{SONARQUBE_SERVER}}/api/issues/search?ps=500&componentKeys=${{SONARQUBE_PROJECT}}&p=$PAGE&${{SONARQUBE_CURL_FLAGS}}" -o $RESULTS_FILE
     # Check to see if the file is empty
     if [ ! -s "$RESULTS_FILE" ]; then
@@ -163,7 +163,7 @@ PAGE=1
 MORE_RESULTS=true
 while $MORE_RESULTS; do
     # Get the page
-    RESULTS_FILE=${{TOOL_ANALYSIS_DIR}}/hotspot_search_$PAGE.json
+    RESULTS_FILE=${{TOOL_ANALYSIS_DIR}}/sonarqube_hotspots_search_$PAGE.json
     curl -u ${{SONARQUBE_TOKEN}}: "${{SONARQUBE_SERVER}}/api/hotspots/search?ps=500&projectKey=${{SONARQUBE_PROJECT}}&p=$PAGE&${{SONARQUBE_CURL_FLAGS}}" -o $RESULTS_FILE
     # Check to see if the file is empty
     if [ ! -s "$RESULTS_FILE" ]; then
@@ -189,9 +189,9 @@ grep -h -o -E '\"key\":\"[a-zA-Z0-9_-]{20}\"' ${{TOOL_ANALYSIS_DIR}}/hotspot_sea
 # Get the hotspots
 count=1
 while read key; do
-    curl -u ${{SONARQUBE_TOKEN}}: "${{SONARQUBE_SERVER}}/api/hotspots/show?hotspot=$key" -o ${{TOOL_ANALYSIS_DIR}}/hotspot_$count.json
+    curl -u ${{SONARQUBE_TOKEN}}: "${{SONARQUBE_SERVER}}/api/hotspots/show?hotspot=$key" -o ${{TOOL_ANALYSIS_DIR}}/sonarqube_hotspot_$count.json
     (( count++ ))
-done < ${{TOOL_ANALYSIS_DIR}}/hotspot_keys.txt
+done < ${{TOOL_ANALYSIS_DIR}}/sonarqube_hotspot_keys.txt
 
 # Parse the results
 python3 -m scrub.tools.parsers.get_sonarqube_warnings ${{TOOL_ANALYSIS_DIR}} ${{RAW_RESULTS_DIR}}/sonarqube_raw.scrub ${{SOURCE_DIR}} ${{SONARQUBE_SERVER}}

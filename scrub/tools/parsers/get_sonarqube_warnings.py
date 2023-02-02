@@ -21,7 +21,7 @@ def parse_warnings(results_dir, parsed_output_file, source_root, sonarqube_url):
     raw_warnings = []
 
     # Find all of the hotspot files
-    hotspot_files = results_dir.glob('hotspot_[0-9]*.json')
+    hotspot_files = results_dir.glob('sonarqube_hotspot_[0-9]*.json')
 
     # Iterate through every hotspot file
     for hotspot_file in hotspot_files:
@@ -60,7 +60,7 @@ def parse_warnings(results_dir, parsed_output_file, source_root, sonarqube_url):
         warning_count = warning_count + 1
 
     # Find all of the issues files
-    issues_files = results_dir.glob('issues_[0-9]*.json')
+    issues_files = results_dir.glob('sonarqube_issues_[0-9]*.json')
 
     # Iterate through every issues results file
     for issues_file in issues_files:
