@@ -2,6 +2,7 @@ import re
 import os
 import sys
 import time
+import json
 import shutil
 import pathlib
 import logging
@@ -9,6 +10,7 @@ import threading
 import subprocess
 import configparser
 import argparse
+import urllib.request
 from scrub.tools.parsers import translate_results
 
 
@@ -44,6 +46,22 @@ class Spinner:
         time.sleep(self.delay)
         if exception is not None:
             return False
+
+
+def get_pip_version():
+    """This function gets the latest available version number from pip.
+
+    Inputs:
+        - None
+
+    Outputs:
+        - version_number: Latest pip version that is available [string]
+    """
+
+    # Get the API data
+    api_data = json.loads(urllib.request.urlopen('https://pypi.org/pypi/nasa-scrub/json').read())
+
+    return api_data['info']['version']
 
 
 def parse_template(template_file, output_file, conf_data):

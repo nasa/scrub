@@ -86,6 +86,10 @@ def main(conf_file=pathlib.Path('./scrub.cfg').resolve(), clean=False, console_l
     # Make a copy of the scrub.cfg file and add it to the log
     shutil.copyfile(conf_file, str(scrub_conf_data.get('scrub_analysis_dir').joinpath('scrub.cfg')))
 
+    # PCheck to see if a newer version of SCRUB is available
+    if scrub_utilities.get_pip_version() != __version__:
+        print('NOTE: A newer version of SCRUB is available.')
+
     # Create a VERSION file
     with open(str(scrub_conf_data.get('scrub_analysis_dir').joinpath('VERSION')), 'w') as output_fh:
         output_fh.write(__version__)
