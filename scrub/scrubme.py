@@ -73,9 +73,9 @@ def main(conf_file=pathlib.Path('./scrub.cfg').resolve(), clean=False, console_l
 
     # Check to see if a newer version of SCRUB is available
     if (scrub_utilities.get_pip_version() != __version__) and (scrub_conf_data.get('version_check')):
-        print('       ##########################################')
-        print('       # A newer version of SCRUB is available. #')
-        print('       ##########################################\n')
+        print('        ##########################################')
+        print('        # A newer version of SCRUB is available. #')
+        print('        ##########################################\n')
 
     # Clean the previous SCRUB data from the current directory
     if clean:
