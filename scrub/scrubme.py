@@ -71,12 +71,6 @@ def main(conf_file=pathlib.Path('./scrub.cfg').resolve(), clean=False, console_l
     execution_status = []
     scrub_path = pathlib.Path(__file__).resolve().parent
 
-    # Check to see if a newer version of SCRUB is available
-    if (scrub_utilities.get_pip_version() != __version__) and (scrub_conf_data.get('version_check')):
-        print('        ##########################################')
-        print('        # A newer version of SCRUB is available. #')
-        print('        ##########################################\n')
-
     # Clean the previous SCRUB data from the current directory
     if clean:
         do_clean.clean_directory(scrub_conf_data.get('source_dir'))
@@ -264,11 +258,11 @@ def main(conf_file=pathlib.Path('./scrub.cfg').resolve(), clean=False, console_l
 
         # Copy SCRUB format output files
         for scrub_file in scrub_conf_data.get('scrub_analysis_dir').glob('*.scrub'):
-            shutil.copy(scrub_file, viewable_results_dir.joinpath(scrub_file.name))
+            os.symlink(scrub_file, viewable_results_dir.joinpath(scrub_file.name))
 
         # Copy the SARIF format output files
         for sarif_file in scrub_conf_data.get('sarif_results_dir').glob('*.sarif'):
-            shutil.copy(sarif_file, viewable_results_dir.joinpath(sarif_file.name))
+            os.symlink(sarif_file, viewable_results_dir.joinpath(sarif_file.name))
 
         # Print a status message
         tool_failure_count = 0
