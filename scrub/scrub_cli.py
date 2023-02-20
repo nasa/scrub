@@ -49,8 +49,8 @@ def main():
 
         elif ('version' in sys.argv) or ('-version' in sys.argv) or ('-v' in sys.argv):
             # Print the version numbers
-            print('Installed SCRUB Version: ' + __version__ + '\n')
-            print('Newest SCRUB Version:    ' + str(scrub_utilities.get_pip_version()) + '\n')
+            print('    Installed SCRUB Version: ' + __version__)
+            print('    Newest SCRUB Version:    ' + str(scrub_utilities.get_pip_version()))
 
         else:
             print(help_message)
