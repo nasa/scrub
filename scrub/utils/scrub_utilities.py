@@ -58,10 +58,14 @@ def get_pip_version():
         - version_number: Latest pip version that is available [string]
     """
 
-    # Get the API data
-    api_data = json.loads(urllib.request.urlopen('https://pypi.org/pypi/nasa-scrub/json').read())
+    # Get the version number
+    try:
+        api_data = json.loads(urllib.request.urlopen('https://pypi.org/pypi/nasa-scrub/json').read())
+        version_number = api_data['info']['version']
+    except:
+        version_number = 'Unknown'
 
-    return api_data['info']['version']
+    return version_number
 
 
 def parse_template(template_file, output_file, conf_data):
