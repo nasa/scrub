@@ -48,8 +48,9 @@ def main():
             scrub_utilities.create_conf_file()
 
         elif ('version' in sys.argv) or ('-version' in sys.argv) or ('-v' in sys.argv):
-            # Print the version number
-            print('SCRUB Version: ' + __version__)
+            # Print the version numbers
+            print('    Installed SCRUB Version: ' + __version__)
+            print('    Newest SCRUB Version:    ' + str(scrub_utilities.get_pip_version()))
 
         else:
             print(help_message)
