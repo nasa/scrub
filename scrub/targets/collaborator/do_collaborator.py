@@ -253,6 +253,7 @@ def create_batch_xml_defect_upload(output_file, file_list, defect_list, review_i
                         severity = 'Minor'
 
                     output_fh.write('    <admin_review_defect_create>\n')
+                    output_fh.write('        <custom-field>Sw Peer Review - Defect Types (All)=Reliability</custom-field>\n')
                     output_fh.write('        <custom-field>Severity={}</custom-field>\n'.format(severity))
                 else:
                     output_fh.write('    <admin_review_comment_create>\n')
