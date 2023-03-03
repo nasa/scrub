@@ -16,7 +16,7 @@ def find_table_indices(input_file):
     """
 
     # Initialize the variables
-    indices = [None, None, None, None]
+    indices = [None, None, None, None, None]
 
     # Import the input data
     codesonar_data = xml.etree.ElementTree.parse(input_file).getroot()
@@ -37,6 +37,8 @@ def find_table_indices(input_file):
                     indices[2] = index
                 elif header.attrib['name'] == 'Procedure':
                     indices[3] = index
+                elif header.attrib['name'] == 'Score':
+                    indices[4] = index
 
                 # Increment the index
                 index = index + 1
@@ -85,7 +87,6 @@ def parse_warnings(input_file, output_file, exclude_p10=False):
     logging.info('\t>> From directory: %s', str(pathlib.Path().absolute()))
 
     # Initialize the variables
-    warning_level = 'Low'
     warning_count = 1
     id_prefix = 'codesonar'
     p10_only = False
@@ -140,6 +141,7 @@ def parse_warnings(input_file, output_file, exclude_p10=False):
     line_index = header_indices[1]
     class_index = header_indices[2]
     procedure_index = header_indices[3]
+    score_index = header_indices[4]
 
     # Import the input data
     codesonar_data = xml.etree.ElementTree.parse(input_file).getroot()
@@ -163,6 +165,14 @@ def parse_warnings(input_file, output_file, exclude_p10=False):
                         warning_procedure = warning[procedure_index].text
                     warning_summary = warning_class + ' found in ' + warning_procedure
                     warning_link = codesonar_hub_location + '/warninginstance/' + warning_instance_id + '.html'
+
+                    # Get the ranking information
+                    if int(warning[score_index].text) > 56:
+                        warning_level = 'High'
+                    elif 21 < int(warning[score_index].text) <= 56:
+                        warning_level = 'Med'
+                    else:
+                        warning_level = 'Low'
 
                     # Check to see if the warnings should be filtered for P10 results
                     if p10_only:

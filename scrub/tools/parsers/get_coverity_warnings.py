@@ -35,6 +35,10 @@ def parse_json(raw_input_file, parsed_output_file):
             ranking = 'High'
         elif issue['checkerProperties']['impact'].lower() == 'medium':
             ranking = 'Med'
+        elif issue['checkerProperties']['impact'].lower() == 'low':
+            ranking = 'Low'
+        elif issue['checkerProperties']['impact'].lower() == 'audit':
+            ranking = 'Low'
         else:
             ranking = 'Low'
 
