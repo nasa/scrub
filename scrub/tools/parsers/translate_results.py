@@ -355,6 +355,17 @@ def parse_sarif(sarif_filename, source_root, id_prefix=None):
                     else:
                         warning_line = 0
 
+                    # Set the ranking
+                    if 'rank' in result.keys():
+                        if int(result['rank']) > 56:
+                            ranking = 'High'
+                        elif 21 < int(result['rank']) <= 56:
+                            ranking = 'Med'
+                        else:
+                            ranking = 'Low'
+                    else:
+                        ranking = 'Low'
+
                     # Fix the filepath
                     warning_file = pathlib.Path(warning_file.replace('file://', ''))
                     if warning_file.anchor != '/':
@@ -365,7 +376,7 @@ def parse_sarif(sarif_filename, source_root, id_prefix=None):
 
                     # Add to the warning dictionary
                     results.append(create_warning(warning_id, warning_file.resolve(), warning_line, warning_description,
-                                                  tool_name, 'Low', warning_query, suppress_warning))
+                                                  tool_name, ranking, warning_query, suppress_warning))
 
                     # Update the warning count
                     warning_count = warning_count + 1

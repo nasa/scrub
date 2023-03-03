@@ -3,7 +3,6 @@ import json
 import pathlib
 from scrub.tools.parsers import translate_results
 
-WARNING_LEVEL = 'Low'
 ID_PREFIX = 'sonarqube'
 
 
@@ -36,6 +35,20 @@ def parse_warnings(results_dir, parsed_output_file, source_root, sonarqube_url):
         warning_id = ID_PREFIX + str(warning_count).zfill(3)
         warning_link = sonarqube_url + '/security_hotspots?id=' + hotspot_data['project']['key'] + '&hotspots=' + hotspot_data['key']
 
+        # Get the ranking
+        if hotspot_data['rule']['vulnerabilityProbability'].lower() == 'blocker':
+            ranking = 'High'
+        elif hotspot_data['rule']['vulnerabilityProbability'].lower() == 'critical':
+            ranking = 'High'
+        elif hotspot_data['rule']['vulnerabilityProbability'].lower() == 'major':
+            ranking = 'Med'
+        elif hotspot_data['rule']['vulnerabilityProbability'].lower() == 'minor':
+            ranking = 'Low'
+        elif hotspot_data['rule']['vulnerabilityProbability'].lower() == 'info':
+            ranking = 'Low'
+        else:
+            ranking = 'Low'
+
         # Get the line
         if 'line' in hotspot_data.keys():
             warning_line = int(hotspot_data['line'])
@@ -53,7 +66,7 @@ def parse_warnings(results_dir, parsed_output_file, source_root, sonarqube_url):
 
         # Add to the warning dictionary
         raw_warnings.append(translate_results.create_warning(warning_id, warning_file, warning_line,
-                                                             warning_message, ID_PREFIX, WARNING_LEVEL,
+                                                             warning_message, ID_PREFIX, ranking,
                                                              warning_query, suppression))
 
         # Increment the warning count
@@ -81,6 +94,20 @@ def parse_warnings(results_dir, parsed_output_file, source_root, sonarqube_url):
             warning_message = issue['message'].splitlines()
             warning_id = ID_PREFIX + str(warning_count).zfill(3)
 
+            # Get the ranking
+            if issue['severity'].lower() == 'blocker':
+                ranking = 'High'
+            elif issue['severity'].lower() == 'critical':
+                ranking = 'High'
+            elif issue['severity'].lower() == 'major':
+                ranking = 'Med'
+            elif issue['severity'].lower() == 'minor':
+                ranking = 'Low'
+            elif issue['severity'].lower() == 'info':
+                ranking = 'Low'
+            else:
+                ranking = 'Low'
+
             # Get a link to the finding
             warning_link = sonarqube_url + '/project/issues?id=' + issue['project'] + '&open=' + issue['key']
 
@@ -101,7 +128,7 @@ def parse_warnings(results_dir, parsed_output_file, source_root, sonarqube_url):
 
             # Add to the warning dictionary
             raw_warnings.append(translate_results.create_warning(warning_id, warning_file, warning_line,
-                                                                 warning_message, ID_PREFIX, WARNING_LEVEL,
+                                                                 warning_message, ID_PREFIX, ranking,
                                                                  warning_query, suppression))
 
             # Increment the warning count

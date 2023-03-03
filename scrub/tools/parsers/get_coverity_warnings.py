@@ -3,7 +3,6 @@ import json
 import pathlib
 from scrub.tools.parsers import translate_results
 
-WARNING_LEVEL = 'Low'
 ID_PREFIX = 'coverity'
 
 
@@ -32,6 +31,13 @@ def parse_json(raw_input_file, parsed_output_file):
         warning_checker = issue['checkerName']
         warning_description = []
 
+        if issue['checkerProperties']['impact'].lower() == 'high':
+            ranking = 'High'
+        elif issue['checkerProperties']['impact'].lower() == 'medium':
+            ranking = 'Med'
+        else:
+            ranking = 'Low'
+
         # Get the warning description
         for event in issue['events']:
             if event['eventTag'] != 'caretline':
@@ -39,7 +45,7 @@ def parse_json(raw_input_file, parsed_output_file):
                 warning_description.append('%s: %s' % (event['eventTag'], event['eventDescription']))
 
         coverity_issues.append(translate_results.create_warning(warning_id, warning_file, warning_line,
-                                                                warning_description, 'coverity', WARNING_LEVEL,
+                                                                warning_description, 'coverity', ranking,
                                                                 warning_checker))
 
         # Increment the warning count
