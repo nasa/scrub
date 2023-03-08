@@ -1,4 +1,4 @@
-#!/bin/bash -x
+#!/bin/bash -ex
 # Change to the build directory
 cd ${{JAVAC_BUILD_DIR}}
 

@@ -1,4 +1,4 @@
-#!/bin/bash -x
+#!/bin/bash -ex
 
 # Print out version information
 ${{CODESONAR_PATH}}/codesonar --version
