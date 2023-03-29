@@ -1,4 +1,4 @@
-#!/bin/bash -ex
+#!/bin/bash -x
 # Change to the build directory
 cd ${{GCC_BUILD_DIR}}
 
