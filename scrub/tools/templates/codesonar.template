@@ -33,13 +33,13 @@ results_template='${{CODESONAR_RESULTS_TEMPLATE}}'
 re='^[0-9]+$'
 if [[ $results_template =~ $re ]] ; then
     # Get the results from the CodeSonar Hub
-    ${{CODESONAR_PATH}}/codesonar get -auth certificate -hubcert ${{CODESONAR_CERT}} -hubkey ${{CODESONAR_KEY}} ${{CODESONAR_GET_FLAGS}} ${{CODESONAR_HUB}}/report/aid-$aid-$results_template.xml
+    ${{CODESONAR_PATH}}/codesonar get -auth certificate -hubcert ${{CODESONAR_CERT}} -hubkey ${{CODESONAR_KEY}} ${{CODESONAR_GET_FLAGS}} "${{CODESONAR_HUB}}/search.xml?swarnings=%7B%0A%20%20%22visible%22%3A%20%7B%0A%20%20%20%20%22%2A%22%3A%20true%0A%20%20%7D%0A%7D&scope=aid%3A$aid&filter=%22active%22"
 
     # Parse the results into SCRUB format
-    python3 -m scrub.tools.parsers.get_codesonar_warnings ${{TOOL_ANALYSIS_DIR}}/*.xml ${{RAW_RESULTS_DIR}}/codesonar_raw.scrub
+    python3 -m scrub.tools.parsers.get_codesonar_warnings ${{TOOL_ANALYSIS_DIR}}/*.xml ${{RAW_RESULTS_DIR}}/codesonar_raw.scrub ${{CODESONAR_HUB}}
 else
     # Get the results from the CodeSonar Hub
-    ${{CODESONAR_PATH}}/codesonar get -auth certificate -hubcert ${{CODESONAR_CERT}} -hubkey ${{CODESONAR_KEY}} ${{CODESONAR_GET_FLAGS}} ${{CODESONAR_HUB}}/analysis/$aid-allwarnings.sarif
+    ${{CODESONAR_PATH}}/codesonar get -auth certificate -hubcert ${{CODESONAR_CERT}} -hubkey ${{CODESONAR_KEY}} ${{CODESONAR_GET_FLAGS}} "${{CODESONAR_HUB}}/warning_detail_search.sarif?scope=aid%3A$aid&filter=%22active%22"
 
     # Parse the results into SCRUB format
     python3 -m scrub.tools.parsers.translate_results ${{TOOL_ANALYSIS_DIR}}/*.sarif ${{RAW_RESULTS_DIR}}/codesonar_raw.scrub ${{SOURCE_DIR}} scrub
