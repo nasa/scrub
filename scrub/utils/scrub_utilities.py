@@ -155,78 +155,78 @@ def check_artifact(input_artifact, critical=False):
             logging.warning('\tThis may or may not be a problem.')
 
 
-def split_results(baseline_file, subset_file, remainder_file, queries):
-    """This function splits a baseline set of SCRUB results into two separate files based on a given query list.
-
-    Inputs:
-        - baseline_file: Absolute path to the baseline file containing SCRUB warnings [string]
-        - subset_file: Absolute path to the output file to contain filtered warnings [string]
-        - remainder_file: Absolute path to the output file to contain remaining warnings not filtered [string]
-        - query_list: List of query strings to filter on [list of strings]
-    """
-
-    # Import the contents of the baseline input file
-    with open(baseline_file, 'r') as input_fh:
-        baseline_data = input_fh.readlines()
-
-    try:
-        # Open the output files
-        subset_fh = open(subset_file, 'w')
-        remainder_fh = open(remainder_file, 'w')
-
-        # Iterate through every line of the baseline data
-        for i in range(0, len(baseline_data)):
-            line = baseline_data[i]
-
-            # Check to see if the line contains a warning header
-            if re.search(translate_results.WARNING_LINE_REGEX, line):
-                # Get the current warning query
-                warning_query = list(filter(None, re.split(":", line)))[-1].strip()
-
-                # Get the full warning content
-                current_warning = get_warning(baseline_data, i)
-
-                # Check to see if the query is in the queries list of interest
-                if warning_query in queries:
-                    # Write the query to the output file
-                    subset_fh.write('%s' % current_warning)
-
-                else:
-                    # If not, write the result to to remaining output file
-                    remainder_fh.write('%s' % current_warning)
-
-    finally:
-        # Close the files
-        subset_fh.close()
-        remainder_fh.close()
-
-
-def get_warning(warning_data, index):
-    """This function gets a complete warning when passed the index of a warning header.
-
-    Inputs:
-        - warning_data: List of lines of warning file contents [list of strings]
-        - index: Index of warning header of interest [int]
-
-    Outputs:
-        - warning_content: Full warnings contents including header data [string]
-    """
-
-    # Initialize variables
-    warning_content = warning_data[index]
-
-    # Get the warning content
-    for i in range(index + 1, len(warning_data)):
-        # Get the line content
-        line = warning_data[i]
-
-        # Make sure you haven't hit the next warning header
-        if re.search(translate_results.WARNING_LINE_REGEX, line):
-            break
-        else:
-            warning_content = warning_content + line
-
-    return warning_content
+# def split_results(baseline_file, subset_file, remainder_file, queries):
+#     """This function splits a baseline set of SCRUB results into two separate files based on a given query list.
+#
+#     Inputs:
+#         - baseline_file: Absolute path to the baseline file containing SCRUB warnings [string]
+#         - subset_file: Absolute path to the output file to contain filtered warnings [string]
+#         - remainder_file: Absolute path to the output file to contain remaining warnings not filtered [string]
+#         - query_list: List of query strings to filter on [list of strings]
+#     """
+#
+#     # Import the contents of the baseline input file
+#     with open(baseline_file, 'r') as input_fh:
+#         baseline_data = input_fh.readlines()
+#
+#     try:
+#         # Open the output files
+#         subset_fh = open(subset_file, 'w')
+#         remainder_fh = open(remainder_file, 'w')
+#
+#         # Iterate through every line of the baseline data
+#         for i in range(0, len(baseline_data)):
+#             line = baseline_data[i]
+#
+#             # Check to see if the line contains a warning header
+#             if re.search(translate_results.WARNING_LINE_REGEX, line):
+#                 # Get the current warning query
+#                 warning_query = list(filter(None, re.split(":", line)))[-1].strip()
+#
+#                 # Get the full warning content
+#                 current_warning = get_warning(baseline_data, i)
+#
+#                 # Check to see if the query is in the queries list of interest
+#                 if warning_query in queries:
+#                     # Write the query to the output file
+#                     subset_fh.write('%s' % current_warning)
+#
+#                 else:
+#                     # If not, write the result to to remaining output file
+#                     remainder_fh.write('%s' % current_warning)
+#
+#     finally:
+#         # Close the files
+#         subset_fh.close()
+#         remainder_fh.close()
+#
+#
+# def get_warning(warning_data, index):
+#     """This function gets a complete warning when passed the index of a warning header.
+#
+#     Inputs:
+#         - warning_data: List of lines of warning file contents [list of strings]
+#         - index: Index of warning header of interest [int]
+#
+#     Outputs:
+#         - warning_content: Full warnings contents including header data [string]
+#     """
+#
+#     # Initialize variables
+#     warning_content = warning_data[index]
+#
+#     # Get the warning content
+#     for i in range(index + 1, len(warning_data)):
+#         # Get the line content
+#         line = warning_data[i]
+#
+#         # Make sure you haven't hit the next warning header
+#         if re.search(translate_results.WARNING_LINE_REGEX, line):
+#             break
+#         else:
+#             warning_content = warning_content + line
+#
+#     return warning_content
 
 
 def execute_command(call_string, my_env, output_file=None, interactive=False):
@@ -372,7 +372,8 @@ def parse_common_configs(user_conf_file, scrub_keys=[]):
 
     # Update the configuration data
     for key in scrub_conf_data.keys():
-        scrub_conf_data.update({key: os.path.expandvars(scrub_conf_data.get(key))})
+        if key != 'sonarqube_token':
+            scrub_conf_data.update({key: os.path.expandvars(scrub_conf_data.get(key))})
 
         # # Update boolean values
         if scrub_conf_data.get(key).lower() == 'true':
@@ -425,7 +426,6 @@ def parse_common_configs(user_conf_file, scrub_keys=[]):
     for key in scrub_conf_data.keys():
         if re.search(r'.+path', key) and (scrub_conf_data.get(key) != ''):
             path_value = scrub_conf_data.get(key)
-            #path_value = os.path.abspath(os.path.expanduser(path_value))
             path_value = pathlib.Path(path_value).expanduser().resolve()
             scrub_conf_data.update({key: path_value})
 
@@ -434,7 +434,6 @@ def parse_common_configs(user_conf_file, scrub_keys=[]):
                 scrub_conf_data.update({key: scrub_conf_data.get('source_dir')})
             elif not scrub_conf_data.get(key).startswith(str(scrub_conf_data.get('source_dir'))):
                 path_value = scrub_conf_data.get(key)
-                #path_value = os.path.abspath(os.path.expanduser(path_value))
                 path_value = pathlib.Path(path_value).expanduser().resolve()
                 scrub_conf_data.update({key: path_value})
 
