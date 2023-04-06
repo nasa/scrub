@@ -258,11 +258,13 @@ def main(conf_file=pathlib.Path('./scrub.cfg').resolve(), clean=False, console_l
 
         # Copy SCRUB format output files
         for scrub_file in scrub_conf_data.get('scrub_analysis_dir').glob('*.scrub'):
-            os.symlink(scrub_file, viewable_results_dir.joinpath(scrub_file.name))
+            os.symlink(os.path.relpath(str(scrub_file), str(viewable_results_dir)),
+                       viewable_results_dir.joinpath(scrub_file.name))
 
         # Copy the SARIF format output files
         for sarif_file in scrub_conf_data.get('sarif_results_dir').glob('*.sarif'):
-            os.symlink(sarif_file, viewable_results_dir.joinpath(sarif_file.name))
+            os.symlink(os.path.relpath(str(sarif_file), str(viewable_results_dir)),
+                       viewable_results_dir.joinpath(sarif_file.name))
 
         # Print a status message
         tool_failure_count = 0

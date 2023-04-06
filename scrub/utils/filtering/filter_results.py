@@ -219,8 +219,7 @@ def filter_results(warning_list, output_file, filtering_file, ignore_query_file,
             continue
 
         # Check to see if the warning is external to the source directory
-        if not enable_external_warnings \
-                and external_warning_check(warning['file'], source_root):
+        if not enable_external_warnings and external_warning_check(warning['file'], source_root):
             continue
 
         # Perform micro filtering checking
@@ -232,8 +231,10 @@ def filter_results(warning_list, output_file, filtering_file, ignore_query_file,
             continue
 
         # If we made it here we want the warning.
-        # Make the warning file path relative and append to filtered list
+        # Make the warning file path relative, make any description references relative, and append to filtered list
         warning['file'] = warning['file'].relative_to(source_root)
+        for i, line in enumerate(warning['description']):
+            warning['description'][i] = line.replace(str(source_root) + '/', '')
         filtered_warnings.append(warning)
 
     # Write out the results

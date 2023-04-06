@@ -163,7 +163,7 @@ PAGE=1
 MORE_RESULTS=true
 while $MORE_RESULTS; do
     # Get the page
-    RESULTS_FILE=${{TOOL_ANALYSIS_DIR}}/sonarqube_hotspots_search_$PAGE.json
+    RESULTS_FILE=${{TOOL_ANALYSIS_DIR}}/sonarqube_hotspots_$PAGE.json
     curl -u ${{SONARQUBE_TOKEN}}: "${{SONARQUBE_SERVER}}/api/hotspots/search?ps=500&projectKey=${{SONARQUBE_PROJECT}}&p=$PAGE&${{SONARQUBE_CURL_FLAGS}}" -o $RESULTS_FILE
     # Check to see if the file is empty
     if [ ! -s "$RESULTS_FILE" ]; then
@@ -182,16 +182,6 @@ while $MORE_RESULTS; do
        PAGE=$((PAGE+1))
     fi
 done
-
-# Gather the hotspot keys
-grep -h -o -E '\"key\":\"[a-zA-Z0-9_-]{20}\",\"component' ${{TOOL_ANALYSIS_DIR}}/sonarqube_hotspots_search* | cut -c8-27 > ${{TOOL_ANALYSIS_DIR}}/sonarqube_hotspot_keys.txt
-
-# Get the hotspots
-count=1
-while read key; do
-    curl -u ${{SONARQUBE_TOKEN}}: "${{SONARQUBE_SERVER}}/api/hotspots/show?hotspot=$key" -o ${{TOOL_ANALYSIS_DIR}}/sonarqube_hotspot_$count.json
-    (( count++ ))
-done < ${{TOOL_ANALYSIS_DIR}}/sonarqube_hotspot_keys.txt
 
 # Parse the results
 python3 -m scrub.tools.parsers.get_sonarqube_warnings ${{TOOL_ANALYSIS_DIR}} ${{RAW_RESULTS_DIR}}/sonarqube_raw.scrub ${{SOURCE_DIR}} ${{SONARQUBE_SERVER}}

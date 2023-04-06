@@ -90,10 +90,12 @@ def create_file_list(source_root_dir, filtering_output_file, filtering_options_f
     filtered_file_list = raw_file_list.copy()
     for filtering_option in filtering_options:
         for file_path in list(filter(re.compile(filtering_option[1]).search, raw_file_list)):
-            if filtering_option[0] == '-':
+            if filtering_option[0] == '-' and os.path.exists(file_path):
+                logging.debug('\tRemoving file from filtering list: %s', file_path)
                 filtered_file_list.remove(file_path)
 
-            elif filtering_option[0] == '+':
+            elif filtering_option[0] == '+' and os.path.exists(file_path):
+                logging.debug('\tAdding file to filtering list: %s', file_path)
                 filtered_file_list.append(file_path)
 
     # Print the results to the output file
