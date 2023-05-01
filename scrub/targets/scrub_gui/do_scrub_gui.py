@@ -3,6 +3,7 @@ import pathlib
 import logging
 import traceback
 from scrub.utils import scrub_utilities
+from scrub.tools.parsers import translate_results
 
 
 def distribute_warnings(warning_file, source_dir):
@@ -25,55 +26,34 @@ def distribute_warnings(warning_file, source_dir):
     logging.info('\t>> Executing command: do_gui.distribute_warnings(%s, %s)', str(warning_file), str(source_dir))
     logging.info('\t>> From directory: %s', str(pathlib.Path().absolute()))
 
-    # Import the warning file
-    with open(warning_file, 'r') as input_fh:
-        input_data = input_fh.readlines()
-
     # Update the source root to make it absolute
     source_dir = source_dir.resolve()
 
-    # Iterate through every line of the file
-    for i in range(0, len(input_data)):
-        # Set the line
-        line = input_data[i]
+    # Parse all the findings from the warning file
+    warnings = translate_results.parse_scrub(warning_file, source_dir)
 
-        # Check to see if the line contains a warning
-        if re.search(r'<.*>.*:.*:.*:', line):
-            # Add the line to the warning text
-            warning = line
+    # Iterate through everything warning
+    for warning in warnings:
+        # Make sure the warning file is within the source root, but not at the source root
+        if warning['file'].exists() and (source_dir != warning['file'].parent):
+            # Get the warning directory
+            warning_directory = warning['file'].parent
 
-            # Get the warning file
-            warning_file = pathlib.Path(line.split(":")[1].strip())
-            warning_file_absolute = source_dir.joinpath(warning_file)
+            # Create the scrub output paths
+            local_scrub_directory = warning_directory.joinpath('.scrub')
+            local_scrub_warning_file = local_scrub_directory.joinpath(warning_type + '.scrub')
 
-            # Make sure the warning file is within the source root, but not at the source root
-            if warning_file_absolute.exists() and (source_dir != warning_file_absolute.parent):
-                # Get the rest of the warning text
-                j = i + 1
-                while input_data[j].strip() != '':
-                    warning = warning + input_data[j]
+            # Create a .scrub directory if it doesn't already exists
+            if not local_scrub_directory.exists():
+                local_scrub_directory.mkdir()
+                local_scrub_directory.chmod(0o755)
 
-                    # Increment the line
-                    j = j + 1
+            # Write the warning to the output file
+            with open(local_scrub_warning_file, 'a') as output_fh:
+                output_fh.write('%s\n' % translate_results.format_scrub_warning(warning))
 
-                # Get the warning directory
-                warning_directory = warning_file_absolute.parent
-
-                # Create the scrub output paths
-                local_scrub_directory = warning_directory.joinpath('.scrub')
-                local_scrub_warning_file = local_scrub_directory.joinpath(warning_type)
-
-                # Create a .scrub directory if it doesn't already exists
-                if not local_scrub_directory.exists():
-                    local_scrub_directory.mkdir()
-                    local_scrub_directory.chmod(0o755)
-
-                # Write the warning to the output file
-                with open(local_scrub_warning_file, 'a') as output_fh:
-                    output_fh.write('%s\n' % warning_file.name)
-
-                # Change the permissions of the output file
-                local_scrub_warning_file.chmod(0o644)
+            # Change the permissions of the output file
+            local_scrub_warning_file.chmod(0o644)
 
 
 def initialize_analysis(tool_conf_data):
