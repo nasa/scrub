@@ -183,104 +183,96 @@ def construct_xml_global_options(url, username):
     return global_options_string
 
 
-def create_batch_xml_file_upload(output_file, file_list, review_id, url, username, source_root):
+def create_batch_xml_file_upload(file_list, review_id, source_root):
     """This function creates the XML file that is used to upload review files to Collaborator.
 
     Inputs:
-        - output_file: Absolute path to the desired XML output file location [string]
         - file_list: List of files to be uploaded to Collaborator [list of strings]
         - review_id: ID of review to upload files [string]
-        - url: URL of the Collaborator server [string]
-        - username: Username for the Collaborator user [string]
         - source_root: Absolute path to the source code root directory [string]
     """
 
-    with open(output_file, 'w') as output_fh:
-        # Start the XML
-        output_fh.write('<batch-commands>\n')
+    # Initialize the variables
+    file_upload_xml_batch = ('    <addfiles>\n' +
+                             '        <review>{}</review>\n'.format(review_id) +
+                             '        <relative-to>{}</relative-to>\n'.format(source_root) +
+                             '        <upload-comment>Initial SCRUB upload</upload-comment>\n')
 
-        # Write out the global options
-        output_fh.write('{}'.format(construct_xml_global_options(url, username)))
+    # Iterate through every file and add it to the upload
+    for file in file_list:
+        file_upload_xml_batch = file_upload_xml_batch + '        <file-path>{}</file-path>\n'.format(file.strip())
 
-        # Write out all of the file upload commands
-        output_fh.write('    <addfiles>\n')
-        output_fh.write('        <review>{}</review>\n'.format(review_id))
-        output_fh.write('        <relative-to>{}</relative-to>\n'.format(source_root))
-        output_fh.write('        <upload-comment>Initial SCRUB upload</upload-comment>\n')
+    file_upload_xml_batch = file_upload_xml_batch + '    </addfiles>\n'
 
-        for file in file_list:
-            output_fh.write('        <file-path>{}</file-path>\n'.format(file.strip()))
-
-        output_fh.write('    </addfiles>\n')
-
-        # Close out the file
-        output_fh.write('</batch-commands>\n')
+    return file_upload_xml_batch
 
 
-def create_batch_xml_defect_upload(output_file, file_list, defect_list, review_id, finding_level, url, username):
-    """This function creates the XML file that is used to upload review defects to Collaborator.
+def create_batch_xml_comment_upload(file_list, comment_list, review_id):
+    """This function creates the XML snippet that is used to upload review comments to Collaborator.
 
     Inputs:
-        - output_file: Absolute path to the desired XML output file location [string]
+        - file_list: List of files that are present within the review [list of string]
         - defect_list: List of defects to be uploaded to the Collaborator review [list of dicts]
         - review_id: ID of review to upload files [string]
-        - finding_level: Should findings be uploaded as comments or defects? ['comment'/'defect']
-        - url: URL of the Collaborator server [string]
-        - username: Username for the Collaborator user [string]
     """
 
-    with open(output_file, 'w') as output_fh:
-        # Start the XML
-        output_fh.write('<batch-commands>\n')
+    # Initialize variables
+    comment_xml_list = ''
 
-        # Write out the global options
-        output_fh.write('{}'.format(construct_xml_global_options(url, username)))
-        
-        # Track if we're including any warnings
-        uploaded_warnings = False
+    # Write out every defect for files of interest
+    for comment in comment_list:
+        if comment.get('file') in file_list:
+            # Construct the comment xml
+            comment_xml = ('    <admin_review_comment_create>\n' +
+                           '        <review>{}</review>\n'.format(review_id) +
+                           '        <file>{}</file>\n'.format(comment.get('file')) +
+                           '        <line-number>{}</line-number>\n'.format(comment.get('line')) +
+                           '        <comment>{}: {}</comment>\n'.format(comment.get('tool'), comment.get('description')) +
+                           '    </admin_review_comment_create>\n')
 
-        # Write out every defect for files of interest
-        for defect in defect_list:
-            if defect.get('file') in file_list:
-                uploaded_warnings = True
-                if finding_level.lower() == 'defect':
-                    # Parse the priority level
-                    if defect.get('priority') == 'High':
-                        severity = 'Major'
-                    elif defect.get('priority') == 'Med':
-                        severity = 'Moderate'
-                    else:
-                        severity = 'Minor'
+            # Add it to the list
+            comment_xml_list = comment_xml_list + comment_xml
 
-                    output_fh.write('    <admin_review_defect_create>\n')
-                    output_fh.write('        <custom-field>Severity={}</custom-field>\n'.format(severity))
-                else:
-                    output_fh.write('    <admin_review_comment_create>\n')
+    return comment_xml_list
 
-                output_fh.write('        <review>{}</review>\n'.format(review_id))
-                output_fh.write('        <file>{}</file>\n'.format(defect.get('file')))
 
-                # Check for a line number
-                if int(defect.get('line')) > 0:
-                    output_fh.write('        <line-number>{}</line-number>\n'.format(defect.get('line')))
+def create_batch_xml_defect_upload(file_list, defect_list, review_id):
+    """This function creates the XML snippet that is used to upload review defects to Collaborator.
 
-                output_fh.write('        <comment>{}: {}</comment>\n'.format(defect.get('tool'),
-                                                                             defect.get('description')))
+    Inputs:
+        - file_list: List of files that are present within the review [list of string]
+        - defect_list: List of defects to be uploaded to the Collaborator review [list of dicts]
+        - review_id: ID of review to upload files [string]
+    """
 
-                if finding_level.lower() == 'defect':
-                    output_fh.write('    </admin_review_defect_create>')
-                else:
-                    output_fh.write('    </admin_review_comment_create>\n')
+    # Initialize variables
+    defect_xml_list = ''
 
-        # Add a general comment if there are no uploaded warnings
-        if not uploaded_warnings:
-            output_fh.write('    <admin_review_comment_create>\n')
-            output_fh.write('        <review>{}</review>\n'.format(review_id))
-            output_fh.write('        <comment>No warnings were found to include in this review.</comment>\n')
-            output_fh.write('    </admin_review_comment_create>\n')
-                    
-        # Close out the file
-        output_fh.write('</batch-commands>\n')
+    # Write out every defect for files of interest
+    for defect in defect_list:
+        if defect.get('file') in file_list:
+            # Parse the priority level
+            if defect.get('priority') == 'High':
+                severity = 'Major'
+            elif defect.get('priority') == 'Med':
+                severity = 'Moderate'
+            else:
+                severity = 'Minor'
+
+            # Create the defect XML
+            defect_xml = ('    <admin_review_defect_create>\n'+
+                                 '        <custom-field>Severity={}</custom-field>\n'.format(severity) +
+                                 '        <review>{}</review>\n'.format(review_id) +
+                                 '        <file>{}</file>\n'.format(defect.get('file')) +
+                                 '        <line-number>{}</line-number>\n'.format(defect.get('line')) +
+                                 '        <comment>{}: {}</comment>\n'.format(defect.get('tool'),
+                                                                              defect.get('description')) +
+                                 '    </admin_review_defect_create>\n')
+
+            # Update the list of defects
+            defect_xml_list = defect_xml_list + defect_xml
+
+    return defect_xml_list
 
 
 def initialize_upload(tool_conf_data):
@@ -313,12 +305,10 @@ def initialize_upload(tool_conf_data):
     tool_conf_data.update({'collaborator_review_id': int(review_id)})
 
     # Set the review xml file path
-    files_xml = tool_conf_data.get('scrub_analysis_dir').joinpath('collaborator_review_' + str(review_id) +
-                                                                  '_files.xml')
-    comments_xml = tool_conf_data.get('scrub_analysis_dir').joinpath('collaborator_review_' + str(review_id) +
-                                                                     '_comments.xml')
-    tool_conf_data.update({'collaborator_review_xml_files': files_xml})
-    tool_conf_data.update({'collaborator_review_xml_comments': comments_xml})
+    batch_command_file = tool_conf_data.get('collaborator_upload_dir').joinpath('collaborator_review_' +
+                                                                                str(review_id) + '_batch.xml')
+    tool_conf_data.update({'batch_command_file': batch_command_file})
+    # tool_conf_data.update({'collaborator_review_xml_comments': comments_xml})
 
     # Set the author of the review
     subcommand = ('admin review set-participants ' + review_id + ' --participant author=' +
@@ -359,27 +349,36 @@ def perform_upload(tool_conf_data):
         # Add the defects to the review
         defect_list = defect_list + get_defects(scrub_file)
 
-    # Create XML batch file for uploading files
-    create_batch_xml_file_upload(tool_conf_data.get('collaborator_review_xml_files'), file_list,
-                                 tool_conf_data.get('collaborator_review_id'),
-                                 tool_conf_data.get('collaborator_server'), tool_conf_data.get('collaborator_username'),
-                                 tool_conf_data.get('source_dir'))
+    # Create XML data for uploading files
+    file_xml_data = create_batch_xml_file_upload(file_list, tool_conf_data.get('collaborator_review_id'),
+                                                 tool_conf_data.get('source_dir'))
 
-    # Create the XML batch file for uploading defects
-    create_batch_xml_defect_upload(tool_conf_data.get('collaborator_review_xml_comments'), file_list, defect_list,
-                                   tool_conf_data.get('collaborator_review_id'),
-                                   tool_conf_data.get('collaborator_finding_level'),
-                                   tool_conf_data.get('collaborator_server'),
-                                   tool_conf_data.get('collaborator_username'))
+    if tool_conf_data.get('collaborator_finding_level').lower() == 'defect':
+        finding_xml_data = create_batch_xml_defect_upload(file_list, defect_list,
+                                                          tool_conf_data.get('collaborator_review_id'))
+    else:
+        finding_xml_data = create_batch_xml_comment_upload(file_list, defect_list,
+                                                           tool_conf_data.get('collaborator_review_id'))
 
-    # Find the xml files of interest
-    xml_files = [tool_conf_data.get('collaborator_review_xml_files'),
-                 tool_conf_data.get('collaborator_review_xml_comments')]
+    # Add a generic comment if the finding upload list is empty
+    if finding_xml_data == '':
+        finding_xml_data = ('    <admin_review_comment_create>\n' +
+                            '        <review>{}</review>\n'.format(tool_conf_data.get('collaborator_review_id')) +
+                            '        <comment>No findings were found to include in this review.</comment>\n' +
+                            '    </admin_review_comment_create>\n')
 
-    # Perform all the batch commands
-    for xml_file in xml_files:
-        subcommand = ('admin batch ' + str(xml_file))
-        execute_ccollab(tool_conf_data.get('collaborator_ccollab_location'), subcommand)
+    # Create the XML batch file
+    with open(tool_conf_data.get('batch_command_file'), 'w+') as output_fh:
+        output_fh.write('<batch-commands>\n')
+        output_fh.write('{}'.format(construct_xml_global_options(tool_conf_data.get('collaborator_server'),
+                                                                 tool_conf_data.get('collaborator_username'))))
+        output_fh.write('{}'.format(file_xml_data))
+        output_fh.write('{}'.format(finding_xml_data))
+        output_fh.write('</batch-commands>')
+
+    # Perform the upload
+    subcommand = ('admin batch ' + str(tool_conf_data.get('batch_command_file')))
+    execute_ccollab(tool_conf_data.get('collaborator_ccollab_location'), subcommand)
 
 
 def create_filtering_files(tool_conf_data):
@@ -503,17 +502,23 @@ def initialize_analysis(tool_conf_data):
 
     # Initialize the derived variables
     current_user = pwd.getpwuid(os.getuid()).pw_name
+    collaborator_upload_dir = tool_conf_data.get('scrub_analysis_dir').joinpath('collaborator_upload')
     collaborator_log_file = tool_conf_data.get('scrub_log_dir').joinpath('collaborator_' + current_user + '.log')
-    collaborator_filtering_output_file = tool_conf_data.get('scrub_analysis_dir').joinpath('SCRUBCollaboratorFilteringList')
+    collaborator_filtering_output_file = collaborator_upload_dir.joinpath('SCRUBCollaboratorFilteringList')
 
     # Add derived values to the dictionary
     tool_conf_data.update({'collaborator_log_file': collaborator_log_file})
+    tool_conf_data.update({'collaborator_upload_dir': collaborator_upload_dir})
     tool_conf_data.update({'collaborator_filtering_output_file': collaborator_filtering_output_file})
     tool_conf_data.update({'collaborator_review_id': 0})
 
     # Set the username if necessary
     if tool_conf_data.get('collaborator_username') == '':
         tool_conf_data.update({'collaborator_username': current_user})
+
+    # Create the working directory if it doesn't already exist
+    if not collaborator_upload_dir.exists():
+        collaborator_upload_dir.mkdir()
 
     # Determine if Collaborator can be run
     if not (tool_conf_data.get('collaborator_server')):
