@@ -19,6 +19,7 @@ def distribute_warnings(warning_file, source_dir):
 
     # Initialize the variables
     warning_type = warning_file.stem
+    distributed_files_list = []
 
     # Print a status message
     logging.info('')
@@ -50,10 +51,16 @@ def distribute_warnings(warning_file, source_dir):
 
             # Write the warning to the output file
             with open(local_scrub_warning_file, 'a') as output_fh:
-                output_fh.write('%s\n' % translate_results.format_scrub_warning(warning))
+                output_fh.write('%s' % translate_results.format_scrub_warning(warning))
+
+            # Add the file to the list if it hasn't been added already
+            if local_scrub_warning_file not in distributed_files_list:
+                distributed_files_list.append(local_scrub_warning_file)
 
             # Change the permissions of the output file
             local_scrub_warning_file.chmod(0o644)
+
+    return distributed_files_list
 
 
 def initialize_analysis(tool_conf_data):
@@ -102,7 +109,12 @@ def run_analysis(baseline_conf_data, console_logging=logging.INFO, override=Fals
 
             # Move the warnings to the appropriate directories
             for filtered_output_file in filtered_output_files:
-                distribute_warnings(filtered_output_file, tool_conf_data.get('source_dir'))
+                distributed_files = distribute_warnings(filtered_output_file, tool_conf_data.get('source_dir'))
+
+                # Check each of the generated files for formatting
+                for distributed_file in distributed_files:
+                    if len(translate_results.parse_scrub(distributed_file, tool_conf_data.get('source_dir'))) == 0:
+                        raise AssertionError
 
             # Set the exit code
             gui_exit_code = 0
