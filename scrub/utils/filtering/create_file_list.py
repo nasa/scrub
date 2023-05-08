@@ -64,7 +64,7 @@ def create_file_list(source_root_dir, filtering_output_file, filtering_options_f
 
     else:
         for root, dir_names, file_names, in os.walk(source_root_dir, topdown=True):
-            dir_names[:] = [d for d in dir_names if d not in ['.scrub']]
+            dir_names[:] = [d for d in dir_names if d not in ['.scrub', 'scrub_results']]
             for file_name in file_names:
                 raw_file_list.append(os.path.join(root, file_name))
 
