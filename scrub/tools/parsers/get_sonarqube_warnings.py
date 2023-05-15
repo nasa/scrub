@@ -31,8 +31,11 @@ def parse_warnings(results_dir, parsed_output_file, source_root, sonarqube_url):
         # Iterate through every finding in the input file
         if 'issues' in input_data.keys():
             findings = input_data['issues']
-        else:
+        elif 'hotspots' in input_data.keys():
             findings = input_data['hotspots']
+        else:
+            break
+
         for finding in findings:
             # Check to see if the warning should be suppressed
             if 'resolution' in finding.keys():
