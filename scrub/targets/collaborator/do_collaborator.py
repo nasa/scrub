@@ -5,6 +5,7 @@ import pwd
 import traceback
 import shutil
 import subprocess
+import pathlib
 from scrub.utils import scrub_utilities
 from scrub.utils.filtering import create_file_list
 
@@ -519,6 +520,9 @@ def initialize_analysis(tool_conf_data):
     # Create the working directory if it doesn't already exist
     if not collaborator_upload_dir.exists():
         collaborator_upload_dir.mkdir()
+
+    # Make sure all the path variables are pathlib objects
+    tool_conf_data.update({'collaborator_filters': pathlib.Path(tool_conf_data.get('collaborator_filters'))})
 
     # Determine if Collaborator can be run
     if not (tool_conf_data.get('collaborator_server')):
