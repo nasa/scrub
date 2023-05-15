@@ -521,7 +521,7 @@ def initialize_analysis(tool_conf_data):
     if not collaborator_upload_dir.exists():
         collaborator_upload_dir.mkdir()
 
-    # Make sure all the path variables are pathlib objects
+    # Resolve the COLLABORATOR_FILTERS variable
     tool_conf_data.update({'collaborator_filters': pathlib.Path(tool_conf_data.get('collaborator_filters'))})
 
     # Determine if Collaborator can be run
