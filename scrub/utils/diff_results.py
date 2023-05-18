@@ -229,7 +229,7 @@ def diff(baseline_source_root, baseline_scrub_root, comparison_source_root, comp
             print('    >> All results are new.')
 
         # Create the output file path
-        diff_output_file = comparison_scrub_root.joinpath(comparison_scrub_file.stem + '_diff.scrub')
+        diff_output_file = comparison_scrub_root.joinpath(comparison_scrub_file.stem + '.diff')
 
         # Write out the results
         translate_results.create_scrub_output_file(comparison_warnings_diff, diff_output_file)
