@@ -45,6 +45,12 @@ def create_file_list(source_root_dir, filtering_output_file, filtering_options_f
         - initial_filtering_list: Absolute path to the file containing an initial set of files [string]
     """
 
+    # Make sure the inputs are pathlib objects
+    source_root_dir = pathlib.Path(source_root_dir)
+    filtering_output_file = pathlib.Path(filtering_output_file)
+    filtering_options_file = pathlib.Path(filtering_options_file)
+    initial_filtering_list = pathlib.Path(initial_filtering_list)
+
     # Print a status message
     logging.info('')
     logging.info('\tCreating analysis filtering list...')
@@ -57,10 +63,16 @@ def create_file_list(source_root_dir, filtering_output_file, filtering_options_f
     default_filtering_options_file = pathlib.Path(__file__).parent.joinpath('FilteringDefaults').resolve()
 
     # Create the list of all available files, if necessary
-    if initial_filtering_list:
+    if initial_filtering_list.is_file():
         # Read in the list
         with open(initial_filtering_list, 'r') as input_fh:
-            raw_file_list = input_fh.readlines()
+            raw_input_data = input_fh.readlines()
+
+        # Strip whitespace from each element
+        raw_file_list = []
+        for index in range(len(raw_input_data)):
+            if raw_input_data[index] != '\n':
+                raw_file_list.append(raw_input_data[index].strip())
 
     else:
         for root, dir_names, file_names, in os.walk(source_root_dir, topdown=True):
@@ -89,14 +101,19 @@ def create_file_list(source_root_dir, filtering_output_file, filtering_options_f
     # Modify the list based on the include and exclude options
     filtered_file_list = raw_file_list.copy()
     for filtering_option in filtering_options:
-        for file_path in list(filter(re.compile(filtering_option[1]).search, raw_file_list)):
-            if filtering_option[0] == '-' and os.path.exists(file_path):
-                logging.debug('\tRemoving file from filtering list: %s', file_path)
-                filtered_file_list.remove(file_path)
+        try:
+            regex_option = re.compile(filtering_option[1]).search
+            for file_path in list(filter(regex_option, raw_file_list)):
+                if filtering_option[0] == '-' and os.path.exists(file_path):
+                    logging.debug('\tRemoving file from filtering list: %s', file_path)
+                    filtered_file_list.remove(file_path)
 
-            elif filtering_option[0] == '+' and os.path.exists(file_path):
-                logging.debug('\tAdding file to filtering list: %s', file_path)
-                filtered_file_list.append(file_path)
+                elif filtering_option[0] == '+' and os.path.exists(file_path):
+                    logging.debug('\tAdding file to filtering list: %s', file_path)
+                    filtered_file_list.append(file_path)
+        except:
+            logging.warning("\tUnable to process regex filter: {} {}".format(filtering_option[0], filtering_option[1]))
+            logging.warning("\t\tPlease ensure this is a valid regex format.")
 
     # Print the results to the output file
     filtered_file_list.sort()
