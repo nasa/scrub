@@ -1,5 +1,5 @@
+import os
 import sys
-import glob
 import argparse
 import pathlib
 from scrub.tools.parsers import translate_results
@@ -233,3 +233,9 @@ def diff(baseline_source_root, baseline_scrub_root, comparison_source_root, comp
 
         # Write out the results
         translate_results.create_scrub_output_file(comparison_warnings_diff, diff_output_file)
+
+        # Create a symlink if possible
+        viewable_results_dir = comparison_source_root.joinpath('scrub_results')
+        if viewable_results_dir.exists():
+            os.symlink(os.path.relpath(str(diff_output_file), str(viewable_results_dir)),
+                       viewable_results_dir.joinpath(diff_output_file.name))
