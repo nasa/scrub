@@ -20,8 +20,7 @@ def parse_filtering_file(file_path):
     # Read in the default filtering options
     with open(file_path, 'r') as input_fh:
         # Iterate through every line of the file
-        for line in input_fh.readlines():
-
+        for line in input_fh:
             # Check to make sure the line is formatted correctly
             if len(line.strip()) > 2 and line.startswith(('-', '+')):
                 # Append the filtering option
@@ -104,11 +103,13 @@ def create_file_list(source_root_dir, filtering_output_file, filtering_options_f
         try:
             regex_option = re.compile(filtering_option[1]).search
             for file_path in list(filter(regex_option, raw_file_list)):
-                if filtering_option[0] == '-' and os.path.exists(file_path):
+                # if filtering_option[0] == '-' and os.path.exists(file_path):
+                if filtering_option[0] == '-' and file_path in filtered_file_list:
                     logging.debug('\tRemoving file from filtering list: %s', file_path)
                     filtered_file_list.remove(file_path)
 
-                elif filtering_option[0] == '+' and os.path.exists(file_path):
+                # elif filtering_option[0] == '+' and os.path.exists(file_path):
+                elif filtering_option[0] == '+':
                     logging.debug('\tAdding file to filtering list: %s', file_path)
                     filtered_file_list.append(file_path)
         except:
