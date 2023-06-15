@@ -47,6 +47,31 @@ class Spinner:
             return False
 
 
+def create_dir(directory, required, overwrite=False, permissions=0o755):
+
+    try:
+        # Remove the directory if requested and it exists
+        if directory.exists():
+            if overwrite:
+                shutil.rmtree(directory)
+                directory.mkdir()
+
+            # Create the directory and update permissions
+            directory.chmod(permissions)
+
+        else:
+            # Create the directory and update permissions
+            directory.mkdir()
+            directory.chmod(permissions)
+
+    except PermissionError:
+        if required:
+            logging.error('Could not create directory {}. This directory is required for execution.'.format(directory))
+            raise
+        else:
+            logging.warning('Could not create directory {}'.format(directory))
+
+
 def get_pip_version():
     """This function gets the latest available version number from pip.
 
@@ -211,18 +236,38 @@ def create_logger(log_file, console_logging=logging.INFO):
     # Clear any existing loggers
     logging.getLogger().handlers = []
 
-    # Create the logger, if it doesn't already exist
-    logging.basicConfig(level=logging.DEBUG,
-                        format='%(asctime)s %(levelname)-8s %(message)s',
-                        filename=str(log_file),
-                        filemode='w')
+    # Check permissions
+    try:
+        # Try to open the desired logging file to make sure permissions are correct
+        open(log_file, 'w').close()
 
-    # Start the console logger
-    console = logging.StreamHandler()
-    formatter = logging.Formatter('%(asctime)s %(levelname)-8s %(message)s')
-    console.setFormatter(formatter)
-    logging.getLogger('').addHandler(console)
-    console.setLevel(console_logging)
+        # Create the logger, if it doesn't already exist
+        logging.basicConfig(level=logging.DEBUG,
+                            format='%(asctime)s %(levelname)-8s %(message)s',
+                            filename=str(log_file),
+                            filemode='w')
+
+        # Start the console logger
+        console = logging.StreamHandler()
+        formatter = logging.Formatter('%(asctime)s %(levelname)-8s %(message)s')
+        console.setFormatter(formatter)
+        logging.getLogger('').addHandler(console)
+        console.setLevel(console_logging)
+
+    except PermissionError:
+        print("\tWARNING: Could not create logging file {}".format(log_file))
+        print("\t\tLogging data will only print to console.")
+
+        # Create the console only logger
+        logging.basicConfig(level=logging.DEBUG,
+                            format='%(asctime)s %(levelname)-8s %(message)s')
+
+    # # Start the console logger
+    # console = logging.StreamHandler()
+    # formatter = logging.Formatter('%(asctime)s %(levelname)-8s %(message)s')
+    # console.setFormatter(formatter)
+    # logging.getLogger('').addHandler(console)
+    # console.setLevel(console_logging)
 
 
 def create_conf_file(output_path=None):
@@ -393,24 +438,28 @@ def initialize_storage_dir(scrub_conf_data):
     """
 
     # Create the .scrub analysis directory
-    if not scrub_conf_data.get('scrub_analysis_dir').exists():
-        scrub_conf_data.get('scrub_analysis_dir').mkdir()
-        scrub_conf_data.get('scrub_analysis_dir').chmod(0o755)
+    create_dir(scrub_conf_data.get('scrub_analysis_dir'), True)
+    # if not scrub_conf_data.get('scrub_analysis_dir').exists():
+    #     scrub_conf_data.get('scrub_analysis_dir').mkdir()
+    #     scrub_conf_data.get('scrub_analysis_dir').chmod(0o755)
 
     # Create the logging directory
-    if not scrub_conf_data.get('scrub_log_dir').exists():
-        scrub_conf_data.get('scrub_log_dir').mkdir()
-        scrub_conf_data.get('scrub_log_dir').chmod(0o755)
+    create_dir(scrub_conf_data.get('scrub_log_dir'), True)
+    # if not scrub_conf_data.get('scrub_log_dir').exists():
+    #     scrub_conf_data.get('scrub_log_dir').mkdir()
+    #     scrub_conf_data.get('scrub_log_dir').chmod(0o755)
 
     # Create the output directory
-    if not scrub_conf_data.get('raw_results_dir').exists():
-        scrub_conf_data.get('raw_results_dir').mkdir()
-        scrub_conf_data.get('raw_results_dir').chmod(0o755)
+    create_dir(scrub_conf_data.get('raw_results_dir'), True)
+    # if not scrub_conf_data.get('raw_results_dir').exists():
+    #     scrub_conf_data.get('raw_results_dir').mkdir()
+    #     scrub_conf_data.get('raw_results_dir').chmod(0o755)
 
     # Create the SARIF results directory
-    if not scrub_conf_data.get('sarif_results_dir').exists():
-        scrub_conf_data.get('sarif_results_dir').mkdir()
-        scrub_conf_data.get('sarif_results_dir').chmod(0o755)
+    create_dir(scrub_conf_data.get('sarif_results_dir'), True)
+    # if not scrub_conf_data.get('sarif_results_dir').exists():
+    #     scrub_conf_data.get('sarif_results_dir').mkdir()
+    #     scrub_conf_data.get('sarif_results_dir').chmod(0o755)
 
     # Create the analysis directory if it doesn't exist
     if scrub_conf_data.get('scrub_working_dir') != scrub_conf_data.get('scrub_analysis_dir'):
