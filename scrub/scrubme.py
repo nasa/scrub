@@ -148,16 +148,9 @@ def main(conf_file=pathlib.Path('./scrub.cfg').resolve(), clean=False, console_l
 
                 # Create the analysis scripts directory
                 scrub_utilities.create_dir(analysis_scripts_dir, True)
-                # if not analysis_scripts_dir.exists():
-                #     analysis_scripts_dir.mkdir()
-                #     analysis_scripts_dir.chmod(0o755)
 
                 # Create the tool analysis directory
                 scrub_utilities.create_dir(tool_analysis_dir, True, True)
-                # if tool_analysis_dir.exists():
-                #     shutil.rmtree(tool_analysis_dir)
-                # tool_analysis_dir.mkdir()
-                # tool_analysis_dir.chmod(0o755)
 
                 # Create the log file
                 analysis_log_file = scrub_conf_data.get('scrub_log_dir').joinpath(tool_name + '.log')
@@ -230,6 +223,17 @@ def main(conf_file=pathlib.Path('./scrub.cfg').resolve(), clean=False, console_l
                     # Calculate the execution time
                     execution_time = time.time() - start_time
 
+                    # # Move the directory contents back to the source root
+                    # if scrub_conf_data.get('scrub_working_dir') != scrub_conf_data.get('scrub_analysis_dir'):
+                    #     try:
+                    #         # Move the intermediary files
+                    #         shutil.move(tool_analysis_dir, scrub_conf_data.get('scrub_analysis_dir').joinpath(tool_analysis_dir.stem))
+                    #
+                    #     except PermissionError:
+                    #         print("\tWARNING: Could not move working directory from {} to {}".format(tool_analysis_dir),
+                    #               scrub_conf_data.get('scrub_analysis_dir').joinpath(tool_analysis_dir.stem))
+                    #         print("\t\tResults will remain at {}".format(tool_analysis_dir))
+
             # Update the execution status
             execution_status.append([tool_name, tool_execution_status, execution_time])
 
@@ -244,26 +248,27 @@ def main(conf_file=pathlib.Path('./scrub.cfg').resolve(), clean=False, console_l
 
     finally:
         # Move the results back with the source code if necessary
-        if scrub_conf_data.get('scrub_working_dir') != scrub_conf_data.get('scrub_analysis_dir'):
-            # Move every item in the directory
-            for item in scrub_conf_data.get('scrub_working_dir').iterdir():
-                # Remove the destination directory, if it exists
-                if scrub_conf_data.get('scrub_analysis_dir').joinpath(item.stem).exists():
-                    shutil.rmtree(scrub_conf_data.get('scrub_analysis_dir').joinpath(item.stem))
+        try:
+            if scrub_conf_data.get('scrub_working_dir') != scrub_conf_data.get('scrub_analysis_dir'):
+                # Move every item in the directory
+                for item in scrub_conf_data.get('scrub_working_dir').iterdir():
+                    # Remove the destination directory, if it exists
+                    if scrub_conf_data.get('scrub_analysis_dir').joinpath(item.stem).exists():
+                        shutil.rmtree(scrub_conf_data.get('scrub_analysis_dir').joinpath(item.stem))
 
-                # Move the contents
-                shutil.move(item, scrub_conf_data.get('scrub_analysis_dir').joinpath(item.stem))
+                    # Move the contents
+                    shutil.move(item, scrub_conf_data.get('scrub_analysis_dir').joinpath(item.stem))
 
-            # Remove the working directory
-            shutil.rmtree(scrub_conf_data.get('scrub_working_dir'))
+                # Remove the working directory
+                shutil.rmtree(scrub_conf_data.get('scrub_working_dir'))
+
+        except PermissionError:
+            print("\tWARNING: Could not move results from {} to {}".format(scrub_conf_data.get('scrub_working_dir'), scrub_conf_data.get('scrub_analysis_dir')))
+            print("\t\tResults will remain at {}".format(scrub_conf_data.get('scrub_working_dir')))
 
         # Create a visible directory of results, if it doesn't already exist
         viewable_results_dir = scrub_conf_data.get('source_dir').joinpath('scrub_results')
         scrub_utilities.create_dir(viewable_results_dir, False)
-        # if viewable_results_dir.exists():
-        #     shutil.rmtree(viewable_results_dir)
-        # viewable_results_dir.mkdir()
-        # viewable_results_dir.chmod(0o755)
 
         # Create symbolic links for the output files
         file_extensions = ['*.scrub', '*.sarif']
@@ -277,16 +282,6 @@ def main(conf_file=pathlib.Path('./scrub.cfg').resolve(), clean=False, console_l
                 except PermissionError:
                     logging.warning('Could not create symbolic link {}'.format(viewable_results_dir.joinpath(scrub_file.name)))
 
-
-        #
-        # for scrub_file in scrub_conf_data.get('scrub_analysis_dir').glob('*.scrub'):
-        #     os.symlink(os.path.relpath(str(scrub_file), str(viewable_results_dir)),
-        #                viewable_results_dir.joinpath(scrub_file.name))
-        #
-        # # Create symbolic links for the SARIF files
-        # for sarif_file in scrub_conf_data.get('sarif_results_dir').glob('*.sarif'):
-        #     os.symlink(os.path.relpath(str(sarif_file), str(viewable_results_dir)),
-        #                viewable_results_dir.joinpath(sarif_file.name))
 
         # Print a status message
         tool_failure_count = 0
