@@ -223,17 +223,6 @@ def main(conf_file=pathlib.Path('./scrub.cfg').resolve(), clean=False, console_l
                     # Calculate the execution time
                     execution_time = time.time() - start_time
 
-                    # # Move the directory contents back to the source root
-                    # if scrub_conf_data.get('scrub_working_dir') != scrub_conf_data.get('scrub_analysis_dir'):
-                    #     try:
-                    #         # Move the intermediary files
-                    #         shutil.move(tool_analysis_dir, scrub_conf_data.get('scrub_analysis_dir').joinpath(tool_analysis_dir.stem))
-                    #
-                    #     except PermissionError:
-                    #         print("\tWARNING: Could not move working directory from {} to {}".format(tool_analysis_dir),
-                    #               scrub_conf_data.get('scrub_analysis_dir').joinpath(tool_analysis_dir.stem))
-                    #         print("\t\tResults will remain at {}".format(tool_analysis_dir))
-
             # Update the execution status
             execution_status.append([tool_name, tool_execution_status, execution_time])
 

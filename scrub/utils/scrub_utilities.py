@@ -48,6 +48,16 @@ class Spinner:
 
 
 def create_dir(directory, required, overwrite=False):
+    """This function handles creation of directories.
+    
+    Inputs:
+        - directory: Absolute path to directory to be created [string]
+        - required: Is directory required for analysis? [bool]
+        - overwrite: Should existing directory be overwritten? [bool]
+
+    Outputs:
+        - None
+    """
 
     try:
         # Remove the directory if requested and it exists
@@ -56,13 +66,9 @@ def create_dir(directory, required, overwrite=False):
                 shutil.rmtree(directory)
                 directory.mkdir()
 
-            # # Create the directory and update permissions
-            # directory.chmod(permissions)
-
         else:
             # Create the directory and update permissions
             directory.mkdir()
-            # directory.chmod(permissions)
 
     except PermissionError:
         if required:
