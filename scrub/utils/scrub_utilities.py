@@ -62,7 +62,7 @@ def create_dir(directory, required, overwrite=False):
         else:
             # Create the directory and update permissions
             directory.mkdir()
-            directory.chmod(permissions)
+            # directory.chmod(permissions)
 
     except PermissionError:
         if required:
