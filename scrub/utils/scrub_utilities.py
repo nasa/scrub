@@ -47,7 +47,7 @@ class Spinner:
             return False
 
 
-def create_dir(directory, required, overwrite=False, permissions=0o755):
+def create_dir(directory, required, overwrite=False):
 
     try:
         # Remove the directory if requested and it exists
@@ -56,8 +56,8 @@ def create_dir(directory, required, overwrite=False, permissions=0o755):
                 shutil.rmtree(directory)
                 directory.mkdir()
 
-            # Create the directory and update permissions
-            directory.chmod(permissions)
+            # # Create the directory and update permissions
+            # directory.chmod(permissions)
 
         else:
             # Create the directory and update permissions
