@@ -481,14 +481,10 @@ def run_analysis(baseline_conf_data, console_logging=logging.INFO, override=Fals
             # Close the loggers
             logging.getLogger().handlers = []
 
-            # Update the permissions of the log file if it exists
-            if tool_conf_data.get('collaborator_log_file').exists():
-                tool_conf_data.get('collaborator_log_file').chmod(0o644)
-
-                # Move the log file to line up with the review id, if it exists
-                if tool_conf_data.get('collaborator_review_id') > 0:
-                    shutil.move(tool_conf_data.get('collaborator_log_file'),
-                                tool_conf_data.get('scrub_log_dir').joinpath('collaborator_' + str(tool_conf_data.get('collaborator_review_id')) + '.log'))
+            # Move the log file to line up with the review id, if it exists
+            if tool_conf_data.get('collaborator_log_file').exists() and tool_conf_data.get('collaborator_review_id') > 0:
+                shutil.move(tool_conf_data.get('collaborator_log_file'),
+                            tool_conf_data.get('scrub_log_dir').joinpath('collaborator_' + str(tool_conf_data.get('collaborator_review_id')) + '.log'))
 
     # Return the exit code
     return collaborator_exit_code
