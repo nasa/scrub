@@ -1,6 +1,7 @@
+import os
 import sys
-import glob
 import argparse
+import pathlib
 from scrub.tools.parsers import translate_results
 
 
@@ -20,7 +21,8 @@ def parse_arguments():
     args = vars(parser.parse_args(sys.argv[2:]))
 
     # Run analysis
-    diff(args['baseline_source'], args['baseline_scrub'], args['comparison_source'], args['comparison_scrub'])
+    diff(pathlib.Path(args['baseline_source']).resolve(), pathlib.Path(args['baseline_scrub']).resolve(),
+         pathlib.Path(args['comparison_source']).resolve(), pathlib.Path(args['comparison_scrub']).resolve())
 
 
 def get_lines(source_file, line):
@@ -81,8 +83,8 @@ def make_warning_relative(warning, source_root):
 
     # Update the description
     for line in relative_warning['description']:
-        relative_warning['description'][relative_warning['description'].index(line)] = line.replace(source_root + '/',
-                                                                                                    '')
+        relative_warning['description'][relative_warning['description'].index(line)] = line.replace(str(source_root) +
+                                                                                                    '/', '')
 
     return relative_warning
 
@@ -131,7 +133,7 @@ def find_probable_match(comparison_warning, baseline_warnings, comparison_source
     # Initialize variables
     probable_match = False
 
-    comparison_source_lines = get_lines(comparison_source_root + '/' + comparison_warning['file'],
+    comparison_source_lines = get_lines(comparison_source_root.joinpath(comparison_warning['file']),
                                         comparison_warning['line'])
 
     # Search through all of the baseline warnings and get the corresponding data
@@ -140,7 +142,7 @@ def find_probable_match(comparison_warning, baseline_warnings, comparison_source
         if ((baseline_warning['file'] == comparison_warning['file']) and
                 (baseline_warning['query'] == comparison_warning['query'])):
             # Get the baseline source file line
-            baseline_source_lines = get_lines(baseline_source_root + '/' + baseline_warning['file'],
+            baseline_source_lines = get_lines(baseline_source_root.joinpath(baseline_warning['file']),
                                               baseline_warning['line'])
 
             # Check to see if the source file lines match
@@ -166,7 +168,7 @@ def diff(baseline_source_root, baseline_scrub_root, comparison_source_root, comp
     """
 
     # Find all of the SCRUB files in comparison results
-    comparison_scrub_files = glob.glob(comparison_scrub_root + '/*[!_diff].scrub')
+    comparison_scrub_files = list(comparison_scrub_root.glob('*[!_diff].scrub'))
 
     # Iterate through every SCRUB file and remove baseline results
     for comparison_scrub_file in comparison_scrub_files:
@@ -227,7 +229,13 @@ def diff(baseline_source_root, baseline_scrub_root, comparison_source_root, comp
             print('    >> All results are new.')
 
         # Create the output file path
-        diff_output_file = comparison_scrub_root.joinpath(comparison_scrub_file.stem + '_diff.scrub')
+        diff_output_file = comparison_scrub_root.joinpath(comparison_scrub_file.stem + '.diff')
 
         # Write out the results
         translate_results.create_scrub_output_file(comparison_warnings_diff, diff_output_file)
+
+        # Create a symlink if possible
+        viewable_results_dir = comparison_source_root.joinpath('scrub_results')
+        if viewable_results_dir.exists():
+            os.symlink(os.path.relpath(str(diff_output_file), str(viewable_results_dir)),
+                       viewable_results_dir.joinpath(diff_output_file.name))

@@ -172,6 +172,7 @@ while $MORE_RESULTS; do
     # Check the contents, verify file is not empty, and make sure the max page hasn't been reached
     if grep -q "Can return only the first 10000 results" $RESULTS_FILE; then
         echo "WARNING: Not all results have been retrieved."
+        rm -f $RESULTS_FILE
         MORE_RESULTS=false
     elif [ $PAGE -gt 20 ]; then
         MORE_RESULTS=false

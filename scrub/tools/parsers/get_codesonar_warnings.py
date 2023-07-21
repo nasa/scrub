@@ -123,9 +123,6 @@ def parse_warnings(input_file, output_file, codesonar_hub, exclude_p10=False):
                 # Increase the warning_count
                 warning_count = warning_count + 1
 
-    # Update the permissions of the output file
-    output_file.chmod(0o644)
-
 
 if __name__ == '__main__':
     parse_warnings(pathlib.Path(sys.argv[1]), pathlib.Path(sys.argv[2]), sys.argv[3])

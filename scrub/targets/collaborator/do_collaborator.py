@@ -5,6 +5,7 @@ import pwd
 import traceback
 import shutil
 import subprocess
+import pathlib
 from scrub.utils import scrub_utilities
 from scrub.utils.filtering import create_file_list
 
@@ -480,14 +481,10 @@ def run_analysis(baseline_conf_data, console_logging=logging.INFO, override=Fals
             # Close the loggers
             logging.getLogger().handlers = []
 
-            # Update the permissions of the log file if it exists
-            if tool_conf_data.get('collaborator_log_file').exists():
-                tool_conf_data.get('collaborator_log_file').chmod(0o644)
-
-                # Move the log file to line up with the review id, if it exists
-                if tool_conf_data.get('collaborator_review_id') > 0:
-                    shutil.move(tool_conf_data.get('collaborator_log_file'),
-                                tool_conf_data.get('scrub_log_dir').joinpath('collaborator_' + str(tool_conf_data.get('collaborator_review_id')) + '.log'))
+            # Move the log file to line up with the review id, if it exists
+            if tool_conf_data.get('collaborator_log_file').exists() and tool_conf_data.get('collaborator_review_id') > 0:
+                shutil.move(tool_conf_data.get('collaborator_log_file'),
+                            tool_conf_data.get('scrub_log_dir').joinpath('collaborator_' + str(tool_conf_data.get('collaborator_review_id')) + '.log'))
 
     # Return the exit code
     return collaborator_exit_code
@@ -519,6 +516,9 @@ def initialize_analysis(tool_conf_data):
     # Create the working directory if it doesn't already exist
     if not collaborator_upload_dir.exists():
         collaborator_upload_dir.mkdir()
+
+    # Resolve the COLLABORATOR_FILTERS variable
+    tool_conf_data.update({'collaborator_filters': pathlib.Path(tool_conf_data.get('collaborator_filters'))})
 
     # Determine if Collaborator can be run
     if not (tool_conf_data.get('collaborator_server')):
