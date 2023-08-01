@@ -4,6 +4,7 @@ import json
 import pathlib
 import logging
 import traceback
+# from sarif import loader
 
 WARNING_LINE_REGEX = r'^[a-z]+[0-9]+ <.*>.*:.*:.*:'
 
@@ -130,59 +131,6 @@ def get_rules_list(warnings):
     return rules_list
 
 
-def run_sarif_merge(sarif_file1, sarif_file2, output_filename, sarif_version='sarifv2.1.0'):
-    """This function merges two SARIF files into a single set of results.
-
-    Inputs:
-        - sarif_file1: Relative path to the first .sarif file to merge [string]
-        - sarif_file2: Relative path to the second .sarif file to merge [string]
-        - output_filename: Relative path to the merged .sarif output file [string]
-        - sarif_version: Version to use for merged .sarif file, defaults to latest [string]
-
-    Outputs:
-        - exit_code: Exit code that represents whether the module completed with errors [int]
-                       1 - reports any kind of failure with the merge (i.e. read/write, and schema mismatch)
-                       2 - reports any unexpected errors that are not caught by exception handling
-    """
-
-    # Initialize variables
-    custom_exit_code = 2
-
-    try:
-        with open(sarif_file1, 'r') as sarif_one, open(sarif_file2, 'r') as sarif_two:
-            sarif_data1 = json.loads(sarif_one.read())
-            sarif_data2 = json.loads(sarif_two.read())
-
-        if sarif_data1 and sarif_data2:
-            sarif_version = sarif_version.strip('sarifv')
-
-            if (sarif_data1['version'] != sarif_version) or (sarif_data2['version'] != sarif_version):
-                logging.warning('SARIF versions mismatched, converting files to: ' + sarif_version)
-
-            merged_sarif = {
-                '$schema': sarif_data1['$schema'],
-                'version': sarif_version,
-                'runs': [
-                    sarif_data1['runs'][0],
-                    sarif_data2['runs'][0]
-                ]
-            }
-
-            with open(output_filename, 'w') as sarif_output:
-                sarif_output.write(json.dumps(merged_sarif))
-
-            # Update the exit code
-            custom_exit_code = 0
-
-    except:     # lgtm [py/catch-base-exception]
-        logging.warning('Failed to merge these SARIF results, check traceback error for more details.')
-        logging.warning(traceback.format_exc())
-        custom_exit_code = 1
-
-    finally:
-        return custom_exit_code
-
-
 def parse_scrub(scrub_file, source_root):
     """This function parses a scrub input file and returns a dictionary of findings.
 
@@ -261,132 +209,184 @@ def parse_sarif(sarif_filename, source_root, id_prefix=None):
     results = []
     warning_count = 1
 
-    try:
-        # Initialize variables
-        updated_source_dir = source_root
+    # Parse the SARIF file
+    sarif_data = loader.load_sarif_file(sarif_filename)
 
-        # Import the SARIF data
-        with open(sarif_filename, 'r', encoding='utf-8') as sarif:
-            sarif_data = json.loads(sarif.read())
+    # Get meta data
+    tool_name = sarif_data.get_distinct_tool_names()[0].lower()
 
-        if sarif_data:
-            # Create new dictionary item for each analysis result and append to results list
-            schema_version = sarif_data['version']
-            sarif_data = sarif_data.get('runs')[0]
+    # Update the source root, if applicable
+    if 'originalUriBaseIds' in sarif_data.runs[0].run_data.keys():
+        source_root = sarif_data.runs[0].run_data['originalUriBaseIds']['SRCROOT0']['uri'].replace('file://', '')
 
-            # Verify the results first
-            verify_sarif(sarif_data)
-
-            # Update the source root if it can be found in the SARIF data
-            if "originalUriBaseIds" in sarif_data:
-                for item in sarif_data.get("originalUriBaseIds").items():
-                    updated_source_dir = pathlib.Path(item[-1]['uri'].replace('file://', '')).resolve()
-
-            # TODO: replace key checks with booleans for all optional SARIF fields
-            tool_name, analysis_rules, locations = '', [], []
-            if schema_version == "2.1.0":
-                tool_name = sarif_data.get('tool')['driver']['name'].split(' ')[0].lower()
-                analysis_rules = {}
-                # grab full descriptions for each analysis rule or query (only exists in current SARIF`` schema)
-                if 'rules' in sarif_data['tool']['driver'].keys() and sarif_data['tool']['driver']['rules'] != []:
-                    rules = sarif_data['tool']['driver']['rules']
-                    for each in rules:
-                        analysis_rules[each['id']] = each['fullDescription']['text']
-                if 'artifacts' in sarif_data:
-                    for file in sarif_data['artifacts']:
-                        locations.append(file['location']['uri'])
-            elif schema_version == "2.0.0":
-                tool_name = sarif_data.get('tool')['name'].split(' ')[0].lower()
-                # Get the list of file locations
-                for file in sarif_data['files']:
-                    if isinstance(file, dict):
-                        locations.append(file['fileLocation']['uri'])  # TODO: duplicated code, modularize this task
-                    else:
-                        locations.append(file)
-            if id_prefix:
-                # prefer user defined tool name for scrub microfilter
-                tool_name = id_prefix
-
-            # Check to make sure there are results
-            if 'results' in sarif_data.keys():
-                # Iterate through the results
-                for result in sarif_data['results']:
-                    viewer_uri = ''
-                    if 'suppressions' in result.keys() and result["suppressions"] != []:
-                        suppress_warning = True
-                    else:
-                        suppress_warning = False
-
-                    if result.get('hostedViewerUri') is not None:
-                        viewer_uri = result['hostedViewerUri']
-
-                    if 'ruleId' in result.keys():
-                        warning_query = result['ruleId']
-
-                    warning_description = [(result['message']['text'].replace('\n', ''))]
-                    if 'codesonar' in tool_name.lower():
-                        warning_description.append('Codesonar viewer: ' + viewer_uri)
-
-                    location = result.get('locations')[0]['physicalLocation']  # this much is the same across versions
-                    if schema_version == "2.1.0":
-                        if 'rules' in sarif_data['tool']['driver'].keys() and sarif_data['tool']['driver']['rules'] != []:
-                            if 'ruleId' in result.keys():
-                                warning_description.append(analysis_rules[result['ruleId']].replace('\n', ''))
-
-                        if 'uri' in location['artifactLocation'].keys() and location['artifactLocation']['uri'] != '':
-                            warning_file = location['artifactLocation']['uri']
-                        else:
-                            file_index = result['locations'][0]['physicalLocation']['artifactLocation'].get('index')
-                            warning_file = locations[file_index]
-                        # TODO: use helper functions to do key checks? there are too many.
-                    elif schema_version == "2.0.0":
-                        if 'fileIndex' in location['fileLocation'].keys():
-                            file_index = location['fileLocation']['fileIndex']  # mostly for CodeSonar compatibility
-                            warning_file = locations[file_index]
-                        else:
-                            warning_file = location['fileLocation']['uri']
-
-                    # Find the line number
-                    if 'region' in location.keys():
-                        warning_line = location['region']['startLine']
-                    else:
-                        warning_line = 0
-
-                    # Set the ranking
-                    if 'rank' in result.keys():
-                        if int(result['rank']) > 56:
-                            ranking = 'High'
-                        elif 21 < int(result['rank']) <= 56:
-                            ranking = 'Med'
-                        else:
-                            ranking = 'Low'
-                    else:
-                        ranking = 'Low'
-
-                    # Fix the filepath
-                    warning_file = pathlib.Path(warning_file.replace('file://', ''))
-                    if warning_file.anchor != '/':
-                        warning_file = updated_source_dir.joinpath(warning_file)
-
-                    # Set the warning ID
-                    warning_id = tool_name + str(warning_count).zfill(3)
-
-                    # Add to the warning dictionary
-                    results.append(create_warning(warning_id, warning_file.resolve(), warning_line, warning_description,
-                                                  tool_name, ranking, warning_query, suppress_warning))
-
-                    # Update the warning count
-                    warning_count = warning_count + 1
-
+    # Iterate through every finding, pre-process the results
+    for finding in sarif_data.get_results():
+        # Check if a location is present
+        if 'locations' not in finding.keys():
+            logging.error('Could not parse warning {}'.format(finding['hostedViewerUri']))
+            continue
         else:
-            results = []
+    #                 results.append(create_warning(warning_id, warning_file.resolve(), warning_line, warning_description,
+    #                                               tool_name, ranking, warning_query, suppress_warning))
+            # Parse the finding
+            warning_id = tool_name + str(warning_count).zfill(3)
+            warning_query = finding['ruleId']
+            # warning_file
 
-    except UnboundLocalError:
-        logging.warning('Failed to parse file. SARIF schema version does not match SCRUB supported versions.')
-        logging.warning(traceback.format_exc())
+            # Set the ranking
+            if 'rank' in finding.keys():
+                if int(finding['rank']) > 56:
+                    ranking = 'High'
+                elif 21 < int(finding['rank']) <= 56:
+                    ranking = 'Med'
+                else:
+                    ranking = 'Low'
+            else:
+                ranking = 'Low'
 
-    except:      # lgtm [py/catch-base-exception]
-        raise Exception
+
+        # warning_file =
+
+
+
+        # # Add to the warning dictionary
+        # results.append(create_warning(warning_id, warning_file.resolve(), warning_line, warning_description,
+        #                               tool_name, ranking, warning_query, suppress_warning))
+        #
+        # # Update the warning count
+        # warning_count = warning_count + 1
+
+    # try:
+    #     # Initialize variables
+    #     updated_source_dir = source_root
+    #
+    #     # Import the SARIF data
+    #     with open(sarif_filename, 'r', encoding='utf-8') as sarif:
+    #         sarif_data = json.loads(sarif.read())
+    #
+    #     if sarif_data:
+    #         # Create new dictionary item for each analysis result and append to results list
+    #         schema_version = sarif_data['version']
+    #         sarif_data = sarif_data.get('runs')[0]
+    #
+    #         # Verify the results first
+    #         verify_sarif(sarif_data)
+    #
+    #         # Update the source root if it can be found in the SARIF data
+    #         if "originalUriBaseIds" in sarif_data:
+    #             for item in sarif_data.get("originalUriBaseIds").items():
+    #                 updated_source_dir = pathlib.Path(item[-1]['uri'].replace('file://', '')).resolve()
+    #
+    #         # TODO: replace key checks with booleans for all optional SARIF fields
+    #         tool_name, analysis_rules, locations = '', [], []
+    #         if schema_version == "2.1.0":
+    #             tool_name = sarif_data.get('tool')['driver']['name'].split(' ')[0].lower()
+    #             analysis_rules = {}
+    #             # grab full descriptions for each analysis rule or query (only exists in current SARIF`` schema)
+    #             if 'rules' in sarif_data['tool']['driver'].keys() and sarif_data['tool']['driver']['rules'] != []:
+    #                 rules = sarif_data['tool']['driver']['rules']
+    #                 for each in rules:
+    #                     analysis_rules[each['id']] = each['fullDescription']['text']
+    #             if 'artifacts' in sarif_data:
+    #                 for file in sarif_data['artifacts']:
+    #                     locations.append(file['location']['uri'])
+    #         elif schema_version == "2.0.0":
+    #             tool_name = sarif_data.get('tool')['name'].split(' ')[0].lower()
+    #             # Get the list of file locations
+    #             for file in sarif_data['files']:
+    #                 if isinstance(file, dict):
+    #                     locations.append(file['fileLocation']['uri'])  # TODO: duplicated code, modularize this task
+    #                 else:
+    #                     locations.append(file)
+    #         if id_prefix:
+    #             # prefer user defined tool name for scrub microfilter
+    #             tool_name = id_prefix
+    #
+    #         # Check to make sure there are results
+    #         if 'results' in sarif_data.keys():
+    #             # Iterate through the results
+    #             for result in sarif_data['results']:
+    #                 viewer_uri = ''
+    #                 if 'suppressions' in result.keys() and result["suppressions"] != []:
+    #                     suppress_warning = True
+    #                 else:
+    #                     suppress_warning = False
+    #
+    #                 if result.get('hostedViewerUri') is not None:
+    #                     viewer_uri = result['hostedViewerUri']
+    #
+    #                 if 'ruleId' in result.keys():
+    #                     warning_query = result['ruleId']
+    #
+    #                 warning_description = [(result['message']['text'].replace('\n', ''))]
+    #                 if 'codesonar' in tool_name.lower():
+    #                     warning_description.append('Codesonar viewer: ' + viewer_uri)
+    #
+    #                 # Check to see if location info is available
+    #                 if "locations" not in result.keys():
+    #                     logging.error('Could not parse warning {}'.format(result['hostedViewerUri']))
+    #                     continue
+    #
+    #                 location = result.get('locations')[0]['physicalLocation']  # this much is the same across versions
+    #                 if schema_version == "2.1.0":
+    #                     if 'rules' in sarif_data['tool']['driver'].keys() and sarif_data['tool']['driver']['rules'] != []:
+    #                         if 'ruleId' in result.keys():
+    #                             warning_description.append(analysis_rules[result['ruleId']].replace('\n', ''))
+    #
+    #                     if 'uri' in location['artifactLocation'].keys() and location['artifactLocation']['uri'] != '':
+    #                         warning_file = location['artifactLocation']['uri']
+    #                     else:
+    #                         file_index = result['locations'][0]['physicalLocation']['artifactLocation'].get('index')
+    #                         warning_file = locations[file_index]
+    #                     # TODO: use helper functions to do key checks? there are too many.
+    #                 elif schema_version == "2.0.0":
+    #                     if 'fileIndex' in location['fileLocation'].keys():
+    #                         file_index = location['fileLocation']['fileIndex']  # mostly for CodeSonar compatibility
+    #                         warning_file = locations[file_index]
+    #                     else:
+    #                         warning_file = location['fileLocation']['uri']
+    #
+    #                 # Find the line number
+    #                 if 'region' in location.keys():
+    #                     warning_line = location['region']['startLine']
+    #                 else:
+    #                     warning_line = 0
+    #
+    #                 # Set the ranking
+    #                 if 'rank' in result.keys():
+    #                     if int(result['rank']) > 56:
+    #                         ranking = 'High'
+    #                     elif 21 < int(result['rank']) <= 56:
+    #                         ranking = 'Med'
+    #                     else:
+    #                         ranking = 'Low'
+    #                 else:
+    #                     ranking = 'Low'
+    #
+    #                 # Fix the filepath
+    #                 warning_file = pathlib.Path(warning_file.replace('file://', ''))
+    #                 if warning_file.anchor != '/':
+    #                     warning_file = updated_source_dir.joinpath(warning_file)
+    #
+    #                 # Set the warning ID
+    #                 warning_id = tool_name + str(warning_count).zfill(3)
+    #
+    #                 # Add to the warning dictionary
+    #                 results.append(create_warning(warning_id, warning_file.resolve(), warning_line, warning_description,
+    #                                               tool_name, ranking, warning_query, suppress_warning))
+    #
+    #                 # Update the warning count
+    #                 warning_count = warning_count + 1
+    #
+    #     else:
+    #         results = []
+    #
+    # except UnboundLocalError:
+    #     logging.warning('Failed to parse file. SARIF schema version does not match SCRUB supported versions.')
+    #     logging.warning(traceback.format_exc())
+    #
+    # except:      # lgtm [py/catch-base-exception]
+    #     raise Exception
 
     return results
 
@@ -485,6 +485,45 @@ def create_sarif_output_file(results_list, sarif_version, output_file, source_ro
                     }
                 }
             }]
+
+        # Add Coverity code flow data
+        if 'coverity' in warning['id']:
+            thread_flows = []
+            thread_count = 1
+            for i in range(0, len(warning['description'])):
+                line = warning['description'][i]
+                if line.endswith(':'):
+                    thread_flows.append({
+                        "id": warning['id'] + '-' + str(thread_count),
+                        "message": {
+                            "text": warning['description'][i+1].strip()
+                        },
+                        "locations": [
+                            {
+                                "location": {
+                                    "physicalLocation": {
+                                        "artifactLocation": {
+                                            "uri": str(warning['file'].relative_to(source_root)),
+                                            "uriBaseId": str(source_root)
+                                        },
+                                        "region": {
+                                            "startLine": int(line.strip().split(':')[1])
+                                        }
+                                    }
+                                }
+                            }
+                        ]
+                    })
+                    thread_count = thread_count + 1
+
+            result_item['codeFlows'] = [
+                {
+                    "message": {
+                        "text": "Code Flow for finding {}".format(warning['id'])
+                    },
+                    "threadFlows": thread_flows
+                }
+            ]
 
         # append fixed warnings to results list and clean dict object
         sarif_output['runs'][0]['results'].append(result_item)
