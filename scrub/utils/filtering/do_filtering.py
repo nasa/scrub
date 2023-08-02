@@ -56,14 +56,14 @@ def filter_scrub_results(scrub_conf_data):
 
             # Parse all of the input files
             compiler_results = []
-            valid_warning_types = []
+            # valid_warning_types = []
             for results_file in raw_compiler_files:
                 # Append the results file
                 compiler_results = (compiler_results + translate_results.parse_scrub(results_file,
                                                                                      scrub_conf_data.get('source_dir')))
 
-                # Append to the valid warning types
-                valid_warning_types.append(results_file.stem.split('_')[0])
+                # # # Append to the valid warning types
+                # valid_warning_types.append(results_file.stem.split('_')[0])
 
             # Filter the results file
             filter_results.filter_results(compiler_results, filtered_compiler_results_file,
@@ -71,8 +71,7 @@ def filter_scrub_results(scrub_conf_data):
                                           scrub_conf_data.get('query_filters'),
                                           scrub_conf_data.get('source_dir'),
                                           scrub_conf_data.get('enable_micro_filter'),
-                                          scrub_conf_data.get('enable_ext_warnings'),
-                                          valid_warning_types)
+                                          scrub_conf_data.get('enable_ext_warnings'))
 
         except:      # lgtm [py/catch-base-exception]
             # Print a status message
@@ -89,22 +88,21 @@ def filter_scrub_results(scrub_conf_data):
 
             # Parse all of the input files
             p10_results = []
-            valid_warning_types = []
+            # valid_warning_types = []
             for results_file in raw_p10_files:
                 # Append the results file
                 p10_results = (p10_results + translate_results.parse_scrub(results_file,
                                                                            scrub_conf_data.get('source_dir')))
 
-                # Append to the valid warning types
-                valid_warning_types.append(results_file.stem.split('_')[0])
+                # # # Append to the valid warning types
+                # valid_warning_types.append(results_file.stem.split('_')[0])
 
             filter_results.filter_results(p10_results, filtered_p10_results,
                                           scrub_conf_data.get('filtering_output_file'),
                                           scrub_conf_data.get('query_filters'),
                                           scrub_conf_data.get('source_dir'),
                                           scrub_conf_data.get('enable_micro_filter'),
-                                          scrub_conf_data.get('enable_ext_warnings'),
-                                          valid_warning_types)
+                                          scrub_conf_data.get('enable_ext_warnings'))
 
         except:     # lgtm [py/catch-base-exception]
             # Print a status message
@@ -130,8 +128,7 @@ def filter_scrub_results(scrub_conf_data):
                                               scrub_conf_data.get('query_filters'),
                                               scrub_conf_data.get('source_dir'),
                                               scrub_conf_data.get('enable_micro_filter'),
-                                              scrub_conf_data.get('enable_ext_warnings'),
-                                              [tool_name])
+                                              scrub_conf_data.get('enable_ext_warnings'))
 
             except:     # lgtm [py/catch-base-exception]
                 # Print a status message

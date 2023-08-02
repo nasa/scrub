@@ -5,7 +5,15 @@ from scrub.tools.parsers import translate_results
 
 
 # Initialize variables
+# 'compiler': ['compiler', 'cmp', 'gbuild', 'dblchck', 'doublecheck', 'javac', 'pylint'],
 suppression_lines = []
+filtering_aliases = {'gcc': ['cmp', 'compiler', 'gcc'],
+                     'gbuild': ['cmp', 'compiler', 'gbuild', 'dblchck', 'doublecheck'],
+                     'javac': ['cmp', 'compiler', 'javac'],
+                     'pylint': ['cmp', 'compiler', 'pylint'],
+                     'coverity': ['coverity', 'cov'],
+                     'codesonar': ['codesonar', 'cdsnr']
+                     }
 
 
 def micro_filter_check(source_file, warning_line, valid_warning_types):
@@ -175,7 +183,7 @@ def duplicate_check(warning, warning_log):
 
 
 def filter_results(warning_list, output_file, filtering_file, ignore_query_file, source_root, enable_micro_filtering,
-                   enable_external_warnings, valid_warning_types):
+                   enable_external_warnings):
     """This function performs the filtering, including all other filtering functions.
 
     Inputs:
@@ -186,7 +194,6 @@ def filter_results(warning_list, output_file, filtering_file, ignore_query_file,
         - source_root: Absolute path to the top level directory of the source code [string]
         - enable_micro_filtering: Flag to enable/disable micro filtering [logical]
         - enable_external_warnings: Flag to enable/disable external warnings [logical]
-        - valid_warning_types: List that contains valid warning type tags [list of strings]
 
     Outputs:
         - output_file: All filtered results are written to the output_file
@@ -194,6 +201,7 @@ def filter_results(warning_list, output_file, filtering_file, ignore_query_file,
 
     # Initialize the variables
     filtered_warnings = []
+    valid_warning_types = []
     if output_file.stem == 'p10':
         valid_warning_types.append('p10')
 
@@ -212,8 +220,13 @@ def filter_results(warning_list, output_file, filtering_file, ignore_query_file,
     # Update the source root to make it absolute
     source_root = source_root.resolve()
 
+    # Add the filtering aliases
+    if warning_list[0]['tool'] in filtering_aliases.keys():
+        valid_warning_types.extend(filtering_aliases[warning_list[0]['tool']])
+
     # Iterate through every warning in the list
     for warning in warning_list:
+
         # Check to see if it should be ignored
         if baseline_filtering_check(warning['file'], excluded_files):
             continue
