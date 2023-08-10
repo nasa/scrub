@@ -24,13 +24,20 @@ if not os.path.exists(log_dir):
     os.mkdir(log_dir)
 
 # Set the test directories
-c_testcase = os.path.abspath('./tests/integration_tests/c_testcase')
-java_testcase = os.path.abspath('./tests/integration_tests/java_testcase')
-javascript_testcase = os.path.abspath('./tests/integration_tests/javascript_testcase')
-python_testcase = os.path.abspath('./tests/integration_tests/python_testcase')
-multi_lang_testcase = os.path.abspath('./tests/integration_tests/multi_lang_testcase')
-diff_testcase = os.path.abspath('./tests/integration_tests/diff_testcase')
-raw_files = pathlib.Path('./tests/integration_tests/parsers').resolve().glob('*')
+# c_testcase = os.path.abspath('./tests/integration_tests/c_testcase')
+# java_testcase = os.path.abspath('./tests/integration_tests/java_testcase')
+# javascript_testcase = os.path.abspath('./tests/integration_tests/javascript_testcase')
+# python_testcase = os.path.abspath('./tests/integration_tests/python_testcase')
+# multi_lang_testcase = os.path.abspath('./tests/integration_tests/multi_lang_testcase')
+# diff_testcase = os.path.abspath('./tests/integration_tests/diff_testcase')
+# raw_files = pathlib.Path('./tests/integration_tests/parsers').resolve().glob('*')
+c_testcase = pathlib.Path(__file__).parent.joinpath('integration_tests/c_testcase')
+java_testcase = pathlib.Path(__file__).parent.joinpath('integration_tests/java_testcase')
+javascript_testcase = pathlib.Path(__file__).parent.joinpath('integration_tests/javascript_testcase')
+python_testcase = pathlib.Path(__file__).parent.joinpath('integration_tests/python_testcase')
+multi_lang_testcase = pathlib.Path(__file__).parent.joinpath('integration_tests/multi_lang_testcase')
+diff_testcase = pathlib.Path(__file__).parent.joinpath('integration_tests/diff_testcase')
+raw_files = pathlib.Path(__file__).parent.joinpath('integration_tests/parsers').glob('*')
 
 @pytest.mark.parametrize("raw_file", raw_files)
 def test_parser(raw_file, capsys):
@@ -84,42 +91,189 @@ def test_parser(raw_file, capsys):
 # 19       | Integration | Multilang subset       | Exit Code: 0       |
 
 
-testcases = [[java_testcase, ['run', '--config', 'missing_scrub.cfg'], 10],                          # Testcase 0
-             [c_testcase, ['run', '--clean', '--config', 'bad_scrub.cfg'], 1],                       # Testcase 1
-             [c_testcase, ['dummy'], 0],                                                             # Testcase 2
-             [c_testcase, ['run', '--config', 'bad_dir_scrub.cfg'], 10],                             # Testcase 3
-             [c_testcase, ['--help'], 0],                                                            # Testcase 4
-             [c_testcase, ['get-conf'], 0],                                                          # Testcase 5
-             [c_testcase, ['-version'], 0],                                                          # Testcase 6
-             [diff_testcase, ['diff', '--baseline-source', 'results1', '--baseline-scrub',           # Testcase 7
-                              'results1/.scrub', '--comparison-source', 'results2',
-                              '--comparison-scrub', 'results2/.scrub'], 0],
-             [c_testcase, ['run', '--clean', '--debug'], 0],                                         # Testcase 8
-             [c_testcase, ['run', '--clean', '--debug', '--config', 'scrub_custom.cfg'], 0],         # Testcase 9
-             [java_testcase, ['run', '--clean', '--debug'], 0],                                      # Testcase 10
-             [javascript_testcase, ['run', '--clean', '--debug'], 0],                                # Testcase 11
-             [python_testcase, ['run', '--clean', '--debug'], 0],                                    # Testcase 12
-             [c_testcase, ['run', '--tools', 'filter'], 0],                                          # Testcase 13
-             [c_testcase, ['run', '--quiet', '--tools', 'coverity'], 0],                             # Testcase 14
-             [javascript_testcase, ['run', '--tools', 'coverity', 'sonarqube'], 0],                  # Testcase 15
-             [python_testcase, ['run', '--tools', 'none', '--targets', 'collaborator'], 0],          # Testcase 16
-             [c_testcase, ['run', '--targets', 'collaborator', 'scrub_gui'], 0],                     # Testcase 17
-             [multi_lang_testcase, ['run', '--debug'], 0],                                           # Testcase 18
-             [multi_lang_testcase, ['run', '--debug', '--config', 'scrub_subset.cfg'], 0]]           # Testcase 19
+# testcases = [[java_testcase, ['run', '--config', 'missing_scrub.cfg'], 10],                          # Testcase 0
+#              [c_testcase, ['run', '--clean', '--config', 'bad_scrub.cfg'], 1],                       # Testcase 1
+#              [c_testcase, ['dummy'], 0],                                                             # Testcase 2
+#              [c_testcase, ['run', '--config', 'bad_dir_scrub.cfg'], 10],                             # Testcase 3
+#              [c_testcase, ['--help'], 0],                                                            # Testcase 4
+#              [c_testcase, ['get-conf'], 0],                                                          # Testcase 5
+#              [c_testcase, ['-version'], 0],                                                          # Testcase 6
+#              [diff_testcase, ['diff', '--baseline-source', 'results1', '--baseline-scrub',           # Testcase 7
+#                               'results1/.scrub', '--comparison-source', 'results2',
+#                               '--comparison-scrub', 'results2/.scrub'], 0],
+#              [c_testcase, ['run', '--clean', '--debug'], 0],                                         # Testcase 8
+#              [c_testcase, ['run', '--clean', '--debug', '--config', 'scrub_custom.cfg'], 0],         # Testcase 9
+#              [java_testcase, ['run', '--clean', '--debug'], 0],                                      # Testcase 10
+#              [javascript_testcase, ['run', '--clean', '--debug'], 0],                                # Testcase 11
+#              [python_testcase, ['run', '--clean', '--debug'], 0],                                    # Testcase 12
+#              [c_testcase, ['run', '--tools', 'filter'], 0],                                          # Testcase 13
+#              [c_testcase, ['run', '--quiet', '--tools', 'coverity'], 0],                             # Testcase 14
+#              [javascript_testcase, ['run', '--tools', 'coverity', 'sonarqube'], 0],                  # Testcase 15
+#              [python_testcase, ['run', '--tools', 'none', '--targets', 'collaborator'], 0],          # Testcase 16
+#              [c_testcase, ['run', '--targets', 'collaborator', 'scrub_gui'], 0],                     # Testcase 17
+#              [multi_lang_testcase, ['run', '--debug'], 0],                                           # Testcase 18
+#              [multi_lang_testcase, ['run', '--debug', '--config', 'scrub_subset.cfg'], 0]           # Testcase 19
+
+testcases = [
+                {
+                    "name": "missing-configuration-file",
+                    "location": java_testcase,
+                    "subcommand": "run",
+                    "parameters": ['--clean', '--config', 'bad_scrub.cfg'],
+                    "exit-code": 10
+                },
+                {
+                    "name": "bad-config-file",
+                    "location": c_testcase,
+                    "subcommand": "run",
+                    "parameters": ['--clean', '--config', 'bad_scrub.cfg'],
+                    "exit-code": 1
+                },
+                {
+                    "name": "bad-subcommand",
+                    "location": c_testcase,
+                    "subcommand": "dummy",
+                    "parameters": [],
+                    "exit-code": 0
+                },
+                {
+                    "name": "bad-working-dir",
+                    "location": c_testcase,
+                    "subcommand": "run",
+                    "parameters": ['--config', 'bad_dir_scrub.cfg'],
+                    "exit-code": 10
+                },
+                {
+                    "name": "help-message",
+                    "location": c_testcase,
+                    "subcommand": "",
+                    "parameters": ['--help'],
+                    "exit-code": 0
+                },
+                {
+                    "name": "generate-config",
+                    "location": c_testcase,
+                    "subcommand": "get-conf",
+                    "parameters": [],
+                    "exit-code": 0
+                },
+                {
+                    "name": "check-version",
+                    "location": c_testcase,
+                    "subcommand": "",
+                    "parameters": ['-version'],
+                    "exit-code": 0
+                },
+                {
+                    "name": "diff-test",
+                    "location": diff_testcase,
+                    "subcommand": "diff",
+                    "parameters": ['--baseline-source', 'results1', '--baseline-scrub', 'results1/.scrub',
+                                   '--comparison-source', 'results2', '--comparison-scrub', 'results2/.scrub'],
+                    "exit-code": 0
+                },
+                {
+                    "name": "c-testcase",
+                    "location": c_testcase,
+                    "subcommand": "run",
+                    "parameters": ['--clean', '--debug'],
+                    "exit-code": 0
+                },
+                {
+                    "name": "c-custom-testcase",
+                    "location": c_testcase,
+                    "subcommand": "run",
+                    "parameters": ['--clean', '--debug', '--config', 'scrub_custom.cfg'],
+                    "exit-code": 0
+                },
+                {
+                    "name": "java-testcase",
+                    "location": java_testcase,
+                    "subcommand": "run",
+                    "parameters": ['--clean', '--debug'],
+                    "exit-code": 0
+                },
+                {
+                    "name": "javascript-testcase",
+                    "location": javascript_testcase,
+                    "subcommand": "run",
+                    "parameters": ['--clean', '--debug'],
+                    "exit-code": 0
+                },
+                {
+                    "name": "python-testcase",
+                    "location": python_testcase,
+                    "subcommand": "run",
+                    "parameters": ['--clean', '--debug'],
+                    "exit-code": 0
+                },
+                {
+                    "name": "filter-only-testcase",
+                    "location": c_testcase,
+                    "subcommand": "run",
+                    "parameters": ['--tools', 'filter'],
+                    "exit-code": 0
+                },
+                {
+                    "name": "single-tool-testcase",
+                    "location": c_testcase,
+                    "subcommand": "run",
+                    "parameters": ['--quiet', '--tools', 'coverity'],
+                    "exit-code": 0
+                },
+                {
+                    "name": "multi-tool-testcase",
+                    "location": javascript_testcase,
+                    "subcommand": "run",
+                    "parameters": ['--tools', 'coverity', 'sonarqube'],
+                    "exit-code": 0
+                },
+                {
+                    "name": "collaborator-upload-testcase",
+                    "location": python_testcase,
+                    "subcommand": "run",
+                    "parameters": ['--tools', 'none', '--targets', 'collaborator'],
+                    "exit-code": 0
+                },
+                {
+                    "name": "multi-target-testcase",
+                    "location": c_testcase,
+                    "subcommand": "run",
+                    "parameters": ['--targets', 'collaborator', 'scrub_gui'],
+                    "exit-code": 0
+                },
+                {
+                    "name": "multi-language-testcase",
+                    "location": multi_lang_testcase,
+                    "subcommand": "run",
+                    "parameters": ['--debug'],
+                    "exit-code": 0
+                },
+                {
+                    "name": "multi-language-subset-testcase",
+                    "location": multi_lang_testcase,
+                    "subcommand": "run",
+                    "parameters": ['--debug', '--config', 'scrub_subset.cfg'],
+                    "exit-code": 0
+                }
+             ]
 
 
 @pytest.mark.parametrize("testcase", testcases)
 def test_scrub(testcase, capsys):
     # Create the log file
-    test_log_file = os.path.join(log_dir, 'scrub-testcase-' + str(testcases.index(testcase)) + '.log')
+    # test_log_file = os.path.join(log_dir, 'scrub-testcase-' + str(testcases.index(testcase)) + '.log')
+    test_log_file = os.path.join(log_dir, testcase['name'] + '.log')
 
     # Navigate to the test directory
     start_dir = os.getcwd()
-    os.chdir(testcase[0])
+    # os.chdir(testcase[0])
+    os.chdir(testcase['location'])
 
     try:
         # Run scrub
-        sys.argv = ['/opt/project/scrub/scrub_cli.py'] +testcase[1]
+        # sys.argv = ['/opt/project/scrub/scrub_cli.py'] + testcase[1]
+        sys.argv = ['/opt/project/scrub/scrub_cli.py', testcase['subcommand']] + testcase['parameters']
         scrub_cli.main()
 
     except SystemExit:
@@ -134,7 +288,8 @@ def test_scrub(testcase, capsys):
         exit_code = int(list(filter(None, re.split('\n|:', sys_exit_text)))[-1])
 
         # Check the exit code or other condition
-        assert exit_code == testcase[2]
+        # assert exit_code == testcase[2]
+        assert exit_code == testcase['exit-code']
 
 
     finally:
