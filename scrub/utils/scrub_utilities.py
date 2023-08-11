@@ -305,12 +305,13 @@ def create_conf_file(output_path=None):
     shutil.copyfile(default_config_file, output_path)
 
 
-def parse_common_configs(user_conf_file, scrub_keys=[]):
+def parse_common_configs(user_conf_file, raw_override_values, scrub_keys=[]):
     """This function parses a SCRUB configuration file and adds default values.
 
     Inputs:
         - conf_file: Absolute path to the SCRUB configuration file [string]
         - scrub_keys: List of configuration file sections to be retrieved [list of strings]
+        - override_values: List of values that should override the config file values [list of strings]
 
     Outputs:
         - scrub_conf_data: Dictionary of values read from configuration file [dict]
@@ -320,16 +321,22 @@ def parse_common_configs(user_conf_file, scrub_keys=[]):
     scrub_conf_data = {}
     scrub_init_path = pathlib.Path(__file__).parent.joinpath('scrub_defaults.cfg')
 
+    # Convert override values into dictionary values
+    override_values = {}
+    if raw_override_values:
+        for value in raw_override_values:
+            override_values[value.split('=', 1)[0].lower()] = value.split('=', 1)[1]
+
     # Read in the default config data
     scrub_init_data = configparser.ConfigParser()
     scrub_init_data.read(scrub_init_path)
 
     # Set the keys, if necessary
-    if not scrub_keys:
-        scrub_keys = scrub_init_data.sections()
+    # if not scrub_keys:
+    #     scrub_keys = scrub_init_data.sections()
 
     # Convert to a dictionary
-    for key in scrub_keys:
+    for key in scrub_init_data.sections():
         scrub_conf_data.update(dict(scrub_init_data.items(key)))
 
     # Read in the values from the conf file
@@ -340,7 +347,9 @@ def parse_common_configs(user_conf_file, scrub_keys=[]):
     for user_section in user_conf_data.sections():
         for section_key in user_conf_data.options(user_section):
             # Update the value if the user conf has something
-            if user_conf_data.get(user_section, section_key):
+            if override_values.get(section_key):
+                scrub_conf_data.update({section_key: override_values.get(section_key)})
+            elif user_conf_data.get(user_section, section_key):
                 scrub_conf_data.update({section_key: user_conf_data.get(user_section, section_key)})
             elif section_key not in scrub_conf_data.keys():
                 # Add the key if it doesn't exist

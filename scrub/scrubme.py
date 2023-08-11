@@ -26,6 +26,7 @@ def parse_arguments():
     parser.add_argument('--quiet', action='store_true')
     parser.add_argument('--tools', nargs='+', default=[])
     parser.add_argument('--targets', nargs='+', default=None)
+    parser.add_argument('-d', '--define', action="append")
 
     # Parse the arguments
     args = vars(parser.parse_args(sys.argv[2:]))
@@ -39,11 +40,11 @@ def parse_arguments():
         logging_level = logging.INFO
 
     # Run analysis
-    main(pathlib.Path(args['config']).resolve(), args['clean'], logging_level, args['tools'], args['targets'])
+    main(pathlib.Path(args['config']).resolve(), args['clean'], logging_level, args['tools'], args['targets'], args['define'])
 
 
 def main(conf_file=pathlib.Path('./scrub.cfg').resolve(), clean=False, console_logging=logging.INFO, tools=None,
-         targets=None):
+         targets=None, override_values=None):
     """
     This function runs all applicable tools present within the configuration file.
 
@@ -58,11 +59,13 @@ def main(conf_file=pathlib.Path('./scrub.cfg').resolve(), clean=False, console_l
             Default value: None
         - targets: List of output targets for exporting the analysis results [list of strings] [optional]
             Default value: None
+        - define: List of override values for SCRUB analysis [list of strings] [optional]
+            Default value: None
     """
 
     # Read in the configuration data
     if conf_file.exists():
-        scrub_conf_data = scrub_utilities.parse_common_configs(conf_file)
+        scrub_conf_data = scrub_utilities.parse_common_configs(conf_file, override_values)
     else:
         print('ERROR: Configuration file ' + str(conf_file) + ' does not exist.')
         sys.exit(10)
