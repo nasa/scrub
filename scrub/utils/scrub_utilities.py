@@ -325,7 +325,7 @@ def parse_common_configs(user_conf_file, raw_override_values, scrub_keys=[]):
     override_values = {}
     if raw_override_values:
         for value in raw_override_values:
-            override_values[value.split('=', 1)[0]] = value.split('=', 1)[1]
+            override_values[value.split('=', 1)[0].lower()] = value.split('=', 1)[1]
 
     # Read in the default config data
     scrub_init_data = configparser.ConfigParser()
