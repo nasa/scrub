@@ -32,3 +32,12 @@ Please refer to the [Detailed Configuration](configuration.md) page for more inf
 ### Automated Invocation
 
 There is a section of the `scrub.cfg` file that can be used for pushing results to Collaborator automatically. For more information about the expected inputs for this process, please refer to the [Detailed Configuration](configuration.md) page. SCRUB analysis will be performed normally, but before execution is completed SCRUB will create a new Collaborator review that is initialized with all of the SCRUB results.
+
+### Collaborator Review Templates
+The Collaborator section of the `scrub.cfg` includes a section where users may define a review template to be used for Collaborator uploads. This can be any template on the Collaborator server, so long as it has the custom fields SCRUB expects. These fields are listed below, along with information to configure them on the Collaborator instance. Collaborator uploads may fail if these are not configured appropriately.
+
+| Collaborator Template Section | Field Name | Type                                                                | Default Value |
+| ----------------------------- | ---------- | ------------------------------------------------------------------- | ------------- |
+| Review Custom Fields          | Overview   | String (Multi-line)                                                 | None          |
+| Defect Custom Fields          | Severity   | Drop-down List (Blocker, Critical, Major, Moderate, Minor, Trivial) | Moderate      |
+

@@ -4,6 +4,7 @@ __author__ = """Lyle Barner"""
 __email__ = 'lyle.barner@jpl.nasa.gov'
 __version__ = '2.8'
 
+
 # Check the Python version for compatibility
 import sys
 if not sys.version_info >= (3, 6):
