@@ -19,7 +19,7 @@ def create_warning(scrub_id, file, line, description, tool, priority='Low', quer
         - tool: Tool that generated the finding [string]
         - priority: Priority marking for the finding [Low/Med/High]
         - query: Tool query name that generated the finding [string]
-        - suppress: Has this finding been supressed? [bool]
+        - suppress: Has this finding been suppressed? [bool]
 
     Outputs:
         - scrub_warning: Dictionary of warning data [dict]
