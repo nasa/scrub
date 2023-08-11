@@ -221,8 +221,9 @@ def filter_results(warning_list, output_file, filtering_file, ignore_query_file,
     source_root = source_root.resolve()
 
     # Add the filtering aliases
-    if warning_list[0]['tool'] in filtering_aliases.keys():
-        valid_warning_types.extend(filtering_aliases[warning_list[0]['tool']])
+    if len(warning_list) > 0:
+        if warning_list[0]['tool'] in filtering_aliases.keys():
+            valid_warning_types.extend(filtering_aliases[warning_list[0]['tool']])
 
     # Iterate through every warning in the list
     for warning in warning_list:
