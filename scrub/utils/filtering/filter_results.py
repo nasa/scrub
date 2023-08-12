@@ -45,7 +45,7 @@ def micro_filter_check(source_file, warning_line, valid_warning_types):
         # Check for suppression syntax
         if (ignore_base in line.lower()) or ('@suppress' in line.lower()):
             for check_type in valid_warning_types:
-                if check_type in line.lower():
+                if line.lower().strip().endswith(check_type):
                     # Print a status message
                     logging.debug('\tWarning removed - Warning has been marked as a false positive')
                     logging.debug('\t\t%s', line)
@@ -221,8 +221,9 @@ def filter_results(warning_list, output_file, filtering_file, ignore_query_file,
     source_root = source_root.resolve()
 
     # Add the filtering aliases
-    if warning_list[0]['tool'] in filtering_aliases.keys():
-        valid_warning_types.extend(filtering_aliases[warning_list[0]['tool']])
+    if len(warning_list) > 0:
+        if warning_list[0]['tool'] in filtering_aliases.keys():
+            valid_warning_types.extend(filtering_aliases[warning_list[0]['tool']])
 
     # Iterate through every warning in the list
     for warning in warning_list:

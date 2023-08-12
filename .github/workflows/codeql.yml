@@ -18,7 +18,7 @@ on:
     # The branches below must be a subset of the branches above
     branches: [ master ]
   schedule:
-    - cron: '0 5 * * *'
+    - cron: '0 5 * * 0'
 
 jobs:
   analyze:
@@ -65,14 +65,28 @@ jobs:
 
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v2
-      
-    - run: |
-        pip install nasa-scrub
-        python3 -m scrub.tools.parsers.translate_results /home/runner/work/scrub/results/*.sarif /home/runner/work/scrub/results/codeql.scrub ${{ github.workspace }} scrub
-        python3 -m scrub.tools.parsers.csv_parser /home/runner/work/scrub/results
+    
+    - name: Post-Process Output
+      run: |
+        python3 -m pip install nasa-scrub
+
+        results_dir=`realpath ${{ github.workspace }}/../results`
+        sarif_files=`find $results_dir -name '*.sarif'`
+
+        for sarif_file in $sarif_files
+        do
+          output_file="$results_dir/$(basename $sarif_file .sarif).scrub"
+
+          python3 -m scrub.tools.parsers.translate_results $sarif_file $output_file ${{ github.workspace }} scrub
+        done
+
+        python3 -m scrub.tools.parsers.csv_parser $results_dir
+
+        echo "RESULTS_DIR=$results_dir" >> $GITHUB_ENV
+        
       
     - name: Upload CodeQL Artifacts
       uses: actions/upload-artifact@v3
       with:
         name: codeql-artifacts
-        path: /home/runner/work/scrub/results/*
+        path: ${{ env.RESULTS_DIR }}

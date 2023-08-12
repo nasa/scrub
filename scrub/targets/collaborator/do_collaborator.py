@@ -117,7 +117,7 @@ def get_defects(scrub_file):
     defect_list = []
 
     # Import the defects from the file of interest
-    with open(scrub_file, 'r') as fh:
+    with open(scrub_file, 'r', encoding='UTF-8') as fh:
         results = fh.read()
 
     # Split the results into defects
