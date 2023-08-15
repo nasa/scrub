@@ -186,7 +186,11 @@ def parse_sarif(sarif_filename, source_root, id_prefix=None):
         sarif_data = loader.load_sarif_file(sarif_filename)
 
         # Get the tool name
-        tool_name = sarif_data.get_distinct_tool_names()[0].lower()
+        if sarif_data.get_distinct_tool_names():
+            tool_name = sarif_data.get_distinct_tool_names()[0].lower()
+        else:
+            print("ERROR: No run data found for results file {}".format(sarif_filename))
+            raise Exception
 
         # Update the source root if it can be found in the SARIF data
         if "originalUriBaseIds" in sarif_data.data['runs'][0]:
@@ -202,6 +206,12 @@ def parse_sarif(sarif_filename, source_root, id_prefix=None):
             # Get the rule ID
             warning_query = finding.get('ruleId')
 
+            # Check if the warning should be suppressed
+            if 'suppressions' in finding.keys() and finding.get("suppressions") != []:
+                suppress_warning = True
+            else:
+                suppress_warning = False
+
             # Get the warning file
             if finding.get('locations'):
                 location_data = finding.get('locations')[0].get('physicalLocation')
@@ -212,19 +222,32 @@ def parse_sarif(sarif_filename, source_root, id_prefix=None):
                     warning_file = pathlib.Path(source_root).joinpath(warning_file)
 
                 # Get the line number
-                warning_line = location_data.get('region').get('startLine')
-                if warning_line:
-                    warning_line = int(warning_line)
+                if location_data.get('region'):
+                    warning_line = int(location_data.get('region').get('startLine', 0))
                 else:
                     warning_line = 0
             else:
-                print('WARNING: Could not parse finding {}'.format(warning_query))
+                print('WARNING: Location data missing. Could not parse finding {}'.format(warning_query))
                 continue
 
             # Get the warning description
-            warning_description = [(finding.get('message').get('text').replace('\n', ''))]
-            if finding.get('hostedViewerUri'):
-                warning_description.append('Server Location: ' + finding.get('hostedViewerUri'))
+            if finding.get('message').get('text'):
+                warning_description = [(finding.get('message').get('text').replace('\n', ''))]
+                if finding.get('hostedViewerUri'):
+                    warning_description.append('Server Location: ' + finding.get('hostedViewerUri'))
+            else:
+                print('WARNING: Description data missing. Could not parse finding {}'.format(warning_query))
+                continue
+
+            # Get any code flow information that exists
+            if finding.get('codeFlows'):
+                for flow in finding.get('codeFlows'):
+                    if flow.get('message'):
+                        warning_description.append(flow.get('message').get('text'))
+                    for thread_location in flow.get('threadFlows')[0].get('locations'):
+                        if thread_location.get('location').get('message'):
+                            warning_description.append('{}:{}:'.format(thread_location.get('location').get('physicalLocation').get('artifactLocation').get('uri'), thread_location.get('location').get('physicalLocation').get('region').get('startLine')))
+                            warning_description.append(thread_location.get('location').get('message').get('text'))
 
             # Set the ranking
             if 'rank' in finding.keys():
@@ -236,12 +259,6 @@ def parse_sarif(sarif_filename, source_root, id_prefix=None):
                     ranking = 'Low'
             else:
                 ranking = 'Low'
-
-            # Check if the warning should be suppressed
-            if 'suppressions' in finding.keys() and finding.get("suppressions") != []:
-                suppress_warning = True
-            else:
-                suppress_warning = False
 
             # Add to the warning dictionary
             results.append(create_warning(warning_id, warning_file.resolve(), warning_line, warning_description,
