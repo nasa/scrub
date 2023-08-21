@@ -44,3 +44,7 @@ else
     # Parse the results into SCRUB format
     python3 -m scrub.tools.parsers.translate_results ${{TOOL_ANALYSIS_DIR}}/*.sarif ${{RAW_RESULTS_DIR}}/codesonar_raw.scrub ${{SOURCE_DIR}} scrub
 fi
+
+# Get the metrics
+${{CODESONAR_PATH}}/codesonar get -auth certificate -hubcert ${{CODESONAR_CERT}} -hubkey ${{CODESONAR_KEY}} "${{CODESONAR_HUB}}/metric_search.json?scope=aid%3A$aid&query=aid%3A$aid&metrics=LB%3A200%2CLCodeOnly%3A200%2CLComOnly%3A200%2CvG%3A200%2CTaintSink%3A200%2CTaintSource%3A200%2CLCode%3A200%2CLCom%3A200%2CLMCC%3A200%2CmvG%3A200%2CTaintProp%3A200%2CTL%3A200"
+python3 -m scrub.tools.parsers.parse_metrics "${{TOOL_ANALYSIS_DIR}}/metric_search.json" "${{SCRUB_ANALYSIS_DIR}}/codesonar_metrics.csv" "${{SOURCE_DIR}}" codesonar
