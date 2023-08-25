@@ -1,58 +1,68 @@
 # Usage
+## SCRUB Sub-Commands
+After SCRUB has been installed, it can be run using the command line interface. There are a few defined entry points:
 
-After SCRUB has been installed, it can be run using the command line interface. There are 3 defined entry points:
+### scrub run
+This function runs all applicable tools present within the configuration file.
 
-    scrub run
+    scrub run [--config <path>] [--tools <tools>] [--targets <targets>] [--clean] [--quiet/--debug] [--define <override values>]
 
-        This function runs all applicable tools present within the configuration file.
+| Flag                       | Description                                                  | Default Value  |
+| -------------------------- | ------------------------------------------------------------ | -------------- |
+| `--config [config path]`   | Path to SCRUB configuration file                             | `./scrub.cfg`  |
+| `--tools [tools list]`     | Tools to run during analysis (any supported tools)           | N/A            | 
+| `--targets [targets list]` | Targets to run during results export (any supported targets) | N/A            |
+| `--clean`                  | Remove all previous analysis artifacts                       | N/A            |
+| `--debug`                  | Print verbose execution information to the console           | N/A            |
+| `--quiet`                  | Print minimal execution information to the console           | N/A            |
+| `--define [define value]`  | Override values found in the configuration file              | N/A            |
 
-        Inputs:
-            - config: Path to SCRUB configuration file [string] [optional]
-                Default value: ./scrub.cfg
-            - tools: Tools to run during analysis [string] [optional]
-            - targets: Targets to run during results export [string] [optional]
-            - clean: Remove all previous analysis [optional]
-            - debug: Print verbose execution information to the console [optional]
-            - quiet: Print minimal execution infromation to the console [optional]
-            - define: Override values found in the configuration file [optional]
+Some sample usages are shown below:
 
+    scrub run --clean --debug
+    scrub run --tools coverity codesonar --targets collaborator
+    scrub run --quiet
+    scrub run --config /home/user/scrub.cfg --define "COVERITY_COVANALYZE_FLAGS=--aggressiveness-level=high"
 
-    scrub run-tool
+### scrub run-tool
+This function runs a single analysis module, while preserving existing analysis results. **Note**: `scrub run-tool` is a legacy command and only included for backwards compatability. Users are incouraged to use the `scrub run` command and `--tools` flag to run individual tools.
 
-        This function runs a single analysis module, while preserving existing analysis results.
+    scrub run-tool <module> [--config <path>]
 
-        Inputs:
-            - module: Tool import location of the form scrub.tools.<tool>.do_<tool> [string]
-            - config: Absolute path to the SCRUB configuration file to be used [string]
-
-
-    scrub diff
-
-        This function compares a set of static analysis results to a defined baseline set of results.
-
-        Inputs:
-            - baseline_source: Absolute path to baseline source root directory [string]
-            - baseline_scrub: Absolute path to the baseline SCRUB working directory [string]
-            - comparison_source: Absolute path to comparison source root directory [string]
-            - comparison_scrub: Absolute path to the comparison SCRUB working directory [string]
+| Flag/Positional Argument   | Description                                                       | Default Value  |
+| -------------------------- | ----------------------------------------------------------------- | -------------- |
+| `<module>`                 | Tool import location of the form scrub.tools.\<tool\>.do_\<tool\> | N/A            |
+| `--config [config path]`   | Path to SCRUB configuration file                                  | `./scrub.cfg`  |     
 
 
-    scrub get-conf
+### scrub diff
+This function compares a set of static analysis results to a defined baseline set of results.
 
-        This function generates a blank configuration file at the desired output location.
+    scrub diff --baseline_source <path> --baseline_scrub <path> --comparison_source <path> --comparison_scrub <path>
 
-        Inputs:
-            - output: Path to desired output location [string] [optional]
-            
+| Flag/Positional Argument     | Description                                             | Default Value  |
+| ---------------------------- | ------------------------------------------------------- | -------------- |
+| `--baseline_source <path>`   | Absolute path to baseline source root directory         | N/A            |
+| `--baseline_scrub <path>`    | Absolute path to the baseline SCRUB working directory   | N/A            |
+| `--comparison_source <path>` | Absolute path to comparison source root directory       | N/A            |
+| `--comparison_scrub <path>`  | Absolute path to the comparison SCRUB working directory | N/A            |
+
+### scrub get-conf
+This function generates a blank configuration file at the desired output location.
+
+    scrub get-conf [--output <path>]
+
+| Flag/Positional Argument | Description                     | Default Value          |
+| ------------------------ | ------------------------------- | ---------------------- |
+| `--output <path>`        | Path to desired output location | `./scrub_template.cfg` |
+
+### scrub version
+This function prints the current SCRUB version information and latest available version information to the console.
+
     scrub version
-    
-        This function prints the current SCRUB version information to the console
-        
-        Inputs:
-            - None
 
-**Note**: `scrub run-tool` is a legacy command and only included for backwards compatability. Users are incouraged to use the `scrub run` command and `--tools` flag to run individual tools.
 
+## Running SCRUB
 
 Running SCRUB is a relatively straightforward process after it has been configured properly. Users only need to perform the following steps.
 
