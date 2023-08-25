@@ -424,6 +424,12 @@ def create_sarif_output_file(results_list, sarif_version, output_file, source_ro
         # Set the priority level
         result_item['level'] = 'warning'
 
+        # Set the file path
+        if source_root in warning['file'].parents:
+            warning_file = str(warning['file'].relative_to(source_root))
+        else:
+            warning_file = str(warning['file'])
+
         # Set the rule ID
         result_item['ruleId'] = warning['query']
 
@@ -477,7 +483,7 @@ def create_sarif_output_file(results_list, sarif_version, output_file, source_ro
             result_item['locations'] = [{
                 'physicalLocation': {
                     'artifactLocation': {
-                        'uri': str(warning['file'].relative_to(source_root)),
+                        'uri': warning_file,
                         'uriBaseId': str(source_root)
                     },
                     'region': {
