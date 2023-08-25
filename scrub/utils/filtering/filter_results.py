@@ -246,7 +246,8 @@ def filter_results(warning_list, output_file, filtering_file, ignore_query_file,
 
         # If we made it here we want the warning.
         # Make the warning file path relative, make any description references relative, and append to filtered list
-        warning['file'] = warning['file'].relative_to(source_root)
+        if source_root in warning['file'].parents:
+            warning['file'] = warning['file'].relative_to(source_root)
         for i, line in enumerate(warning['description']):
             warning['description'][i] = line.replace(str(source_root) + '/', '')
         filtered_warnings.append(warning)
