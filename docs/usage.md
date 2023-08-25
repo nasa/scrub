@@ -14,6 +14,7 @@ After SCRUB has been installed, it can be run using the command line interface. 
             - clean: Remove all previous analysis [optional]
             - debug: Print verbose execution information to the console [optional]
             - quiet: Print minimal execution infromation to the console [optional]
+            - define: Override values found in the configuration file [optional]
 
 
     scrub run-tool
