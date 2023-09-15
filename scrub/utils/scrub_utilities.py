@@ -331,10 +331,6 @@ def parse_common_configs(user_conf_file, raw_override_values, scrub_keys=[]):
     scrub_init_data = configparser.ConfigParser()
     scrub_init_data.read(scrub_init_path)
 
-    # Set the keys, if necessary
-    # if not scrub_keys:
-    #     scrub_keys = scrub_init_data.sections()
-
     # Convert to a dictionary
     for key in scrub_init_data.sections():
         scrub_conf_data.update(dict(scrub_init_data.items(key)))
@@ -359,6 +355,10 @@ def parse_common_configs(user_conf_file, raw_override_values, scrub_keys=[]):
     for key in scrub_conf_data.keys():
         if key != 'sonarqube_token':
             scrub_conf_data.update({key: os.path.expandvars(scrub_conf_data.get(key))})
+
+        # Remove trailing slash on URL items if it exists
+        if ('hub' in key) or ('server' in key):
+            scrub_conf_data.update({key: scrub_conf_data.get(key).strip('/')})
 
         # # Update boolean values
         if scrub_conf_data.get(key).lower() == 'true':
