@@ -263,7 +263,7 @@ def main(conf_file=pathlib.Path('./scrub.cfg').resolve(), clean=False, console_l
         scrub_utilities.create_dir(viewable_results_dir, False)
 
         # Create symbolic links for the output files
-        file_extensions = ['*.scrub', '*.sarif']
+        file_extensions = ['*.scrub', 'sarif_results/*.sarif']
         for extension in file_extensions:
             for scrub_file in scrub_conf_data.get('scrub_analysis_dir').glob(extension):
                 symlink_path = viewable_results_dir.joinpath(scrub_file.name)
