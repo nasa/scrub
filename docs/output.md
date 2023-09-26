@@ -1,3 +1,9 @@
+---
+layout: default
+title: Output
+nav_order: 6
+---
+
 # Output
 
 ## SCRUB Output File Format

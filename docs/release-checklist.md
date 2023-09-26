@@ -1,3 +1,9 @@
+---
+layout: default
+title: Release Checklist
+nav_order: 13
+---
+
 # Release Checklist
 The purpose of this document is to establish a process and checklist for new SCRUB releases. The process assumes that
 all code changes have been completed and is ready for testing and subsequent release

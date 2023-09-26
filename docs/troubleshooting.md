@@ -1,3 +1,9 @@
+---
+layout: default
+title: Troubleshooting
+nav_order: 10
+---
+
 # Troubleshooting
 
 SCRUB produces a large number of intermediary files in an effort to make debugging errors easier. The following sections attempt to facilitate this process by providing the user with a trace of the output file production, a simplified programmatic flow, and a high level description of each routine.

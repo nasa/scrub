@@ -1,3 +1,9 @@
+---
+layout: default
+title: Contributing
+nav_order: 12
+---
+
 # Contributing
 
 Contributions to SCRUB are always welcome and credit will always be given. Guidelines for contributing are provided below.

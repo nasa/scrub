@@ -1,3 +1,9 @@
+---
+layout: default
+title: Frequently Asked Questions
+nav_order: 11
+---
+
 # Frequently Asked Questions
 
 - [Installation](#installation)
