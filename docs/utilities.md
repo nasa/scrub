@@ -1,3 +1,9 @@
+---
+layout: default
+title: Utilities
+nav_order: 9
+---
+
 # Utilities
 
 SCRUB provides several different utilities that can be used generically in many different scenarios.

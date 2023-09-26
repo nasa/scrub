@@ -1,3 +1,9 @@
+---
+layout: default
+title: Reviewing Results
+nav_order: 8
+---
+
 # Reviewing Results
 
 Viewing the results of SCRUB can be performed in three different ways: viewing the results directly in text format, utilizing the SCRUB GUI, or pushing the results to Collaborator for peer review. The following sections will provide more information about the SCRUB GUI and Collaborator review options.

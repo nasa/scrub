@@ -1,3 +1,9 @@
+---
+layout: default
+title: Detailed Configuration
+nav_order: 5
+---
+
 # Detailed Configuration
 
 The information below provides a detailed description of each `scrub.cfg` input. A blank `scrub.cfg` file containing all of these values can be generated using the command:  

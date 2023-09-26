@@ -1,3 +1,9 @@
+---
+layout: default
+title: Overview
+nav_order: 1
+---
+
 # Overview
 SCRUB is an orchestration and aggregation platform for static code analysis tools.
 

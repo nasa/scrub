@@ -1,3 +1,9 @@
+---
+layout: default
+title: Filtering
+nav_order: 7
+---
+
 # Filtering
 
 Filtering in SCRUB allows users to remove sets of warnings that they don't care about. The raw results of SCRUB analysis
