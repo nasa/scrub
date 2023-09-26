@@ -1,3 +1,9 @@
+---
+layout: default
+title: Navigation Structure
+nav_order: 2
+---
+
 # Usage
 ## SCRUB Sub-Commands
 After SCRUB has been installed, it can be run using the command line interface. There are a few defined entry points:
