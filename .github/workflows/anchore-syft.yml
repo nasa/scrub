@@ -28,8 +28,6 @@ jobs:
     steps:
     - name: Checkout the code
       uses: actions/checkout@v3
-    - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag localbuild/testimage:latest
     - name: Scan the image and upload dependency results
       uses: anchore/sbom-action@v0
       with:
