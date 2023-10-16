@@ -49,7 +49,7 @@ An example of a set of two warnings that adhere to this format:
 
 ## List of Output Files
 
-The following section provides a description of the structure of the .scrub output directory located at `SOURCE_DIR` as specified in the `scrub.cfg` configuration file:
+The following section provides a description of the structure of the `.scrub` and `scrub_results` output directories located at `SOURCE_DIR` as specified in the `scrub.cfg` configuration file:
 
     .scrub
     |  VERSION                          (Version of SCRUB that generated results)
@@ -79,5 +79,10 @@ The following section provides a description of the structure of the .scrub outp
     |
     |--sarif_files                      (Directory containing SARIF-formatted results files)
     |    [tool].sarif                   (Output file for analysis tool)
-    |
+
+    scrub_results
+    |  [tool].scrub
+    |  [tool].sarif
+    |  [tool]_metrics.csv
+    |  ...
 
