@@ -81,8 +81,8 @@ The following section provides a description of the structure of the `.scrub` an
     |    [tool].sarif                   (Output file for analysis tool)
 
     scrub_results
-    |  [tool].scrub
-    |  [tool].sarif
-    |  [tool]_metrics.csv
+    |  [tool].scrub                     (Symbolic link to tool results file from .scrub directory)
+    |  [tool].sarif                     (Symbolic link to tool results file from .scrub directory)
+    |  [tool]_metrics.csv               (Symbolic link to tool metrics file from .scrub directory)
     |  ...
 
