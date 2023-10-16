@@ -63,4 +63,4 @@ ${{COVERITY_PATH}}/cov-analyze --dir ${{TOOL_ANALYSIS_DIR}} ${{COVERITY_COVANALY
 ${{COVERITY_PATH}}/cov-format-errors --dir ${{TOOL_ANALYSIS_DIR}} ${{COVERITY_COVFORMATERRORS_FLAGS}} -x -X --json-output-v7 ${{TOOL_ANALYSIS_DIR}}/coverity.json
 
 # Parse the results into SCRUB format
-python3 -m scrub.tools.parsers.get_coverity_warnings ${{TOOL_ANALYSIS_DIR}}/coverity.json ${{RAW_RESULTS_DIR}}/coverity_raw.scrub
+python3 -m scrub.tools.parsers.get_coverity_warnings ${{TOOL_ANALYSIS_DIR}}/coverity.json ${{TOOL_ANALYSIS_DIR}}/output/FUNCTION.metrics.xml.gz ${{COVERITY_CC_THRESHOLD}} ${{RAW_RESULTS_DIR}}/coverity_raw.scrub
