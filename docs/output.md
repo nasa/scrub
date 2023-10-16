@@ -59,6 +59,7 @@ The following section provides a description of the structure of the .scrub outp
     |  compiler.scrub                   (Filtered, aggregate results from all compilers)
     |  p10.scrub                        (Filtered, aggregate results from all P10 analysis engines)
     |  [tool].scrub                     (Filtered results file for each tool)
+    |  [tool]_metrics.csv               (Metrics data file for each tool)
     |  ...
     |
     |--raw_results                      (Directory containing unfiltered, SCRUB-formatted results)
@@ -75,4 +76,8 @@ The following section provides a description of the structure of the .scrub outp
     |
     |--analysis_scripts                 (Directory containing parsed tool analysis scripts)
     |    [tool].sh
+    |
+    |--sarif_files                      (Directory containing SARIF-formatted results files)
+    |    [tool].sarif                   (Output file for analysis tool)
+    |
 
