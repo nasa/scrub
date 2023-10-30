@@ -109,6 +109,8 @@ identifier) to the line of source code called out by SCRUB will filter the warni
 
 **Note**: P10 warnings can be filtered by using the suppression value of the tool that generated the warning (Codesonar or CodeQL)
 
+You may also add an optional rationale for filtering individual warnings by adding any additional text to the end of the comment line. See the examples below for more information.
+
 For example, say you have received the following warning from SCRUB:
 
     cmp002 <Low> :helloworld.c:9:
@@ -126,7 +128,7 @@ of SCRUB:
       6     char x = 'x';
       7     printf("Hello World");
       8
-      9    int sum = 17, count = 5; //SCRUB_IGNORE_WARNING_CMP
+      9    int sum = 17, count = 5; //SCRUB_IGNORE_WARNING_CMP This warning should not be displayed.
       10    double mean;
       11
       12    mean = (double) sum / count;
@@ -147,7 +149,7 @@ SCRUB also supports the legacy SCRUB micro filtering format. See the code snippe
       6     char x = 'x';
       7     printf("Hello World");
       8
-      9    int sum = 17, count = 5; //@suppress cmp
+      9    int sum = 17, count = 5; //@suppress cmp This warning should not be displayed.
       10    double mean;
       11
       12    mean = (double) sum / count;
