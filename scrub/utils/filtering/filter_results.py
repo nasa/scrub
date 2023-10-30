@@ -5,7 +5,6 @@ from scrub.tools.parsers import translate_results
 
 
 # Initialize variables
-# 'compiler': ['compiler', 'cmp', 'gbuild', 'dblchck', 'doublecheck', 'javac', 'pylint'],
 suppression_lines = []
 filtering_aliases = {'gcc': ['cmp', 'compiler', 'gcc'],
                      'gbuild': ['cmp', 'compiler', 'gbuild', 'dblchck', 'doublecheck'],
@@ -43,9 +42,6 @@ def micro_filter_check(source_file, warning_line, valid_warning_types):
                 line = input_fh.readlines()[warning_line - 1]
 
         # Check for suppression syntax
-        # if (ignore_base in line.lower()) or ('@suppress' in line.lower()):
-        #     for check_type in valid_warning_types:
-        #         if line.lower().strip().endswith(check_type):
         l_line = line.lower().strip()
         if ignore_base in l_line or '@suppress' in l_line:
             for check_type in valid_warning_types:
