@@ -48,6 +48,7 @@ def micro_filter_check(source_file, warning_line, valid_warning_types):
                 if check_type in l_line:
                     # Print a status message
                     logging.debug('\tWarning removed - Warning has been marked as a false positive')
+                    logging.debug('\t\t{}: {}'.format(str(source_file), str(warning_line)))
                     logging.debug('\t\t%s', line)
 
                     # Update the output
