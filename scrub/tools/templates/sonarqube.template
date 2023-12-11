@@ -12,7 +12,7 @@ if [[ "${{SOURCE_LANG}}" =~ "apex" ]]; then
     file_extension_filters="$file_extension_filters,**/*.cls,**/*.trigger"
 fi
 if [[ "${{SOURCE_LANG}}" =~ "cpp" ]]; then
-    file_extension_filters="$file_extension_filters,**/*.c,**/*.h,**/*.cc,**/*.cpp,**/*.cxx,**/*.c++,**/*.hh,**/*.hpp,**/*.hxx,**/*.h++,**/*.ipp,**/*.m"
+    file_extension_filters="$file_extension_filters,**/*.c,**/*.h,**/*.cc,**/*.cpp,**/*.cxx,**/*.c++,**/*.hh,**/*.hpp,**/*.hxx,**/*.h++,**/*.ipp,**/*.m,**/*.C,**/*.H"
 fi
 if [[ "${{SOURCE_LANG}}" =~ "csharp" ]]; then
     file_extension_filters="$file_extension_filters,**/*.cs"
@@ -99,7 +99,7 @@ if [ -n "${{SONARQUBE_BUILD_CMD}}" ]; then
     cd ${{SOURCE_DIR}}
 
     # Perform SonarQube analysis
-    ${{SONARQUBE_PATH}}/sonar-scanner ${{SONARQUBE_SCANNER_FLAGS}} $file_extension_filters -X -D sonar.java.binaries=${{SOURCE_DIR}} -D sonar.cfamily.cache.enabled=false -D sonar.host.url=${{SONARQUBE_SERVER}} -D sonar.projectKey=${{SONARQUBE_PROJECT}} -D sonar.login=${{SONARQUBE_TOKEN}} -D sonar.cfamily.build-wrapper-output=${{TOOL_ANALYSIS_DIR}}/build_wrapper_output -D sonar.working.directory=${{TOOL_ANALYSIS_DIR}}/scanner_output
+    ${{SONARQUBE_PATH}}/sonar-scanner $file_extension_filters -X -D sonar.java.binaries=${{SOURCE_DIR}} -D sonar.cfamily.cache.enabled=false -D sonar.host.url=${{SONARQUBE_SERVER}} -D sonar.projectKey=${{SONARQUBE_PROJECT}} -D sonar.login=${{SONARQUBE_TOKEN}} -D sonar.cfamily.build-wrapper-output=${{TOOL_ANALYSIS_DIR}}/build_wrapper_output -D sonar.working.directory=${{TOOL_ANALYSIS_DIR}}/scanner_output ${{SONARQUBE_SCANNER_FLAGS}}
 
 # Capture all other languages
 else
@@ -107,7 +107,7 @@ else
     cd ${{SOURCE_DIR}}
 
     # Perform SonarQube analysis
-    ${{SONARQUBE_PATH}}/sonar-scanner ${{SONARQUBE_SCANNER_FLAGS}} $file_extension_filters -X -D sonar.java.binaries=${{SOURCE_DIR}} -D sonar.host.url=${{SONARQUBE_SERVER}} -D sonar.projectKey=${{SONARQUBE_PROJECT}} -D sonar.login=${{SONARQUBE_TOKEN}} -D sonar.working.directory=${{TOOL_ANALYSIS_DIR}}/scanner_output
+    ${{SONARQUBE_PATH}}/sonar-scanner $file_extension_filters -X -D sonar.java.binaries=${{SOURCE_DIR}} -D sonar.host.url=${{SONARQUBE_SERVER}} -D sonar.projectKey=${{SONARQUBE_PROJECT}} -D sonar.login=${{SONARQUBE_TOKEN}} -D sonar.working.directory=${{TOOL_ANALYSIS_DIR}}/scanner_output ${{SONARQUBE_SCANNER_FLAGS}}
 fi
 
 # Wait for results to be finalized
