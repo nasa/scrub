@@ -2,7 +2,51 @@ import sys
 import json
 import pathlib
 import traceback
+import csv
 import xml.etree.ElementTree as ET
+
+
+
+def parse_csv(input_file, source_root):
+    """This function parses a csv metrics file into a dictionary object.
+
+    Inputs:
+        - input_file: Absolute path to metrics csv file location [string]
+        - source_root: Absolute path to source code root directory [string]
+
+    Outputs:
+        - metrics_data: Dictionary of metrics values [dict]
+    """
+
+    # Initialize variables
+    metrics_data = {'project': {}}
+
+    # Read in the metrics data
+    with open(input_file) as input_fh:
+        raw_metrics_data = list(csv.reader(input_fh, delimiter=','))
+
+        # Get the project level metrics
+        for i in range(2, len(raw_metrics_data[0])):
+            metric_name = raw_metrics_data[0][i]
+            metric_value = raw_metrics_data[1][i]
+
+            # Add the metric as long as it has a value
+            if metric_value != 'N/A' and metric_value != '':
+                metrics_data['project'][metric_name] = float(metric_value)
+
+        # Get file level metrics
+        for i in range(2, len(raw_metrics_data)):
+            file_name = str(source_root.joinpath(raw_metrics_data[i][0]))
+            metrics_data[file_name] = {}
+            for j in range(3, len(raw_metrics_data[0])):
+                metric_name = raw_metrics_data[0][j]
+                metric_value = raw_metrics_data[i][j]
+
+                # Add the metric as long as it has a value
+                if metric_value != 'N/A' and metric_value != '':
+                    metrics_data[file_name][metric_name] = float(metric_value)
+
+    return metrics_data
 
 
 def create_output_file(metrics_data, output_file, tool_metrics_list, file_list):
@@ -58,6 +102,7 @@ def parse_codesonar_metrics(raw_metrics_file, parsed_output_file, source_root):
                     'Total Lines': 'Total Lines',
                     'Code Lines': 'Lines of Code',
                     'Comment Lines': 'Number of Comments',
+                    'Comment Density': 'Comment Density',
                     'Cyclomatic Complexity': 'Cyclomatic Complexity',
                     'Modified Cyclomatic Complexity': 'Modified Cyclomatic Complexity',
                     'Taint Propagator Total': 'Taint Propagator Total',
@@ -97,6 +142,13 @@ def parse_codesonar_metrics(raw_metrics_file, parsed_output_file, source_root):
                 # Add the metric to the dictionary
                 cleaned_metrics_data[file_path][metric.get('description')] = file_metric.get('value')
 
+    # Calculate comment density
+    for item in cleaned_metrics_data.keys():
+        comment_density = round(int(cleaned_metrics_data[item]['Comment Lines']) / int(cleaned_metrics_data['project_metrics']['Code Lines']) * 100, 2)
+        cleaned_metrics_data[item]['Comment Density'] = comment_density
+        if item != 'project_metrics':
+            cleaned_metrics_data[item]['Top-level file instances'] = 1
+
     # Generate the output file
     create_output_file(cleaned_metrics_data, parsed_output_file, metrics_list, file_list)
 
@@ -117,9 +169,10 @@ def parse_sonarqube_metrics(metrics_directory, parsed_output_file):
     # Initialize variables
     metrics_list = {'files': 'Number of Files',
                     'functions': 'Number of Functions',
+                    'lines': 'Total Lines',
                     'ncloc': 'Lines of Code',
-                    'comment_lines_density': 'Comment Density',
-                    'classes': 'Number of Classes',
+                    'comment_lines': 'Number of Comments',
+                    'comment_density': 'Comment Density',
                     'complexity': 'Cyclomatic Complexity',
                     'cognitive_complexity': 'Cognitive Complexity',
                     'violations': 'Number of Violations',
@@ -139,7 +192,11 @@ def parse_sonarqube_metrics(metrics_directory, parsed_output_file):
     # Parse the project level metrics
     cleaned_metrics_data = {'project_metrics': {}}
     for project_measures in project_metrics_data.get('baseComponent').get('measures'):
-        cleaned_metrics_data['project_metrics'][project_measures.get('metric')] = project_measures.get('value')
+        cleaned_metrics_data['project_metrics'][project_measures.get('metric')] = float(project_measures.get('value'))
+
+    # Add in the comment density information
+    comment_density = round(int(cleaned_metrics_data['project_metrics']['comment_lines']) / int(cleaned_metrics_data['project_metrics']['ncloc']) * 100, 2)
+    cleaned_metrics_data['project_metrics']['comment_density'] = comment_density
 
     # Find all of the file level metrics
     metrics_files = metrics_directory.glob('sonarqube_metrics_file_*.json')
@@ -156,7 +213,11 @@ def parse_sonarqube_metrics(metrics_directory, parsed_output_file):
                 if source_file.get('path') not in cleaned_metrics_data.keys():
                     cleaned_metrics_data[source_file.get('path')] = {}
                     file_list.append(source_file.get('path'))
-                cleaned_metrics_data[source_file.get('path')][file_metric.get('metric')] = file_metric.get('value')
+                cleaned_metrics_data[source_file.get('path')][file_metric.get('metric')] = float(file_metric.get('value'))
+
+            # Add in the comment density information
+            comment_density = round(int(cleaned_metrics_data[source_file['path']]['comment_lines']) / int(cleaned_metrics_data[source_file['path']]['ncloc']) * 100, 2)
+            cleaned_metrics_data[source_file.get('path')]['comment_density'] = comment_density
 
     # Generate the output file
     create_output_file(cleaned_metrics_data, parsed_output_file, metrics_list, file_list)

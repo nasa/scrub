@@ -188,14 +188,14 @@ done
 python3 -m scrub.tools.parsers.get_sonarqube_warnings "${{TOOL_ANALYSIS_DIR}}" "${{RAW_RESULTS_DIR}}/sonarqube_raw.scrub" "${{SOURCE_DIR}}" ${{SONARQUBE_SERVER}}
 
 # Get project metrics from the SonarQube server
-curl -u ${{SONARQUBE_TOKEN}}: "${{SONARQUBE_SERVER}}/api/measures/component_tree?component=${{SONARQUBE_PROJECT}}&ps=500&qualifiers=TRK&strategy=all&metricKeys=complexity,cognitive_complexity,violations,vulnerabilities,security_hotspots,files,ncloc,comment_lines_density,classes,functions,sqale_index,duplicated_lines_density,branch_coverage,line_coverage,coverage" -o "${{TOOL_ANALYSIS_DIR}}/sonarqube_metrics_project.json"
+curl -u ${{SONARQUBE_TOKEN}}: "${{SONARQUBE_SERVER}}/api/measures/component_tree?component=${{SONARQUBE_PROJECT}}&ps=500&qualifiers=TRK&metricKeys=files,functions,lines,ncloc,comment_lines,complexity,cognitive_complexity,violations,vulnerabilities,security_hotspots,coverage,line_coverage,branch_coverage,sqale_index,duplicated_lines_density" -o "${{TOOL_ANALYSIS_DIR}}/sonarqube_metrics_project.json"
 
 # Get the file level metrics from the SonarQube server
 PAGE=1
 MORE_RESULTS=true
 while $MORE_RESULTS; do
     METRICS_FILE="${{TOOL_ANALYSIS_DIR}}/sonarqube_metrics_file_$PAGE.json"
-    curl -u ${{SONARQUBE_TOKEN}}: "${{SONARQUBE_SERVER}}/api/measures/component_tree?component=${{SONARQUBE_PROJECT}}&ps=500&p=$PAGE&qualifiers=FIL&strategy=all&metricKeys=complexity,cognitive_complexity,violations,vulnerabilities,security_hotspots,files,ncloc,comment_lines_density,classes,functions,sqale_index,duplicated_lines_density,branch_coverage,line_coverage,coverage" -o "${{TOOL_ANALYSIS_DIR}}/sonarqube_metrics_file_$PAGE.json"
+    curl -u ${{SONARQUBE_TOKEN}}: "${{SONARQUBE_SERVER}}/api/measures/component_tree?component=${{SONARQUBE_PROJECT}}&ps=500&p=$PAGE&qualifiers=FIL&strategy=all&metricKeys=files,functions,lines,ncloc,comment_lines,complexity,cognitive_complexity,violations,vulnerabilities,security_hotspots,coverage,line_coverage,branch_coverage,sqale_index,duplicated_lines_density" -o "${{TOOL_ANALYSIS_DIR}}/sonarqube_metrics_file_$PAGE.json"
 
     # Check if there are more results
     if grep -q "\"components\":\[\]" $METRICS_FILE; then
