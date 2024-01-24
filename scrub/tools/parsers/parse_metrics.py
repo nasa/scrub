@@ -144,7 +144,7 @@ def parse_codesonar_metrics(raw_metrics_file, parsed_output_file, source_root):
 
     # Calculate comment density
     for item in cleaned_metrics_data.keys():
-        comment_density = round(int(cleaned_metrics_data[item]['Comment Lines']) / int(cleaned_metrics_data['project_metrics']['Code Lines']) * 100, 2)
+        comment_density = round(int(cleaned_metrics_data[item]['Comment Lines']) / int(cleaned_metrics_data[item]['Code Lines']) * 100, 2)
         cleaned_metrics_data[item]['Comment Density'] = comment_density
         if item != 'project_metrics':
             cleaned_metrics_data[item]['Top-level file instances'] = 1
@@ -218,6 +218,13 @@ def parse_sonarqube_metrics(metrics_directory, parsed_output_file):
             # Add in the comment density information
             comment_density = round(int(cleaned_metrics_data[source_file['path']]['comment_lines']) / int(cleaned_metrics_data[source_file['path']]['ncloc']) * 100, 2)
             cleaned_metrics_data[source_file.get('path')]['comment_density'] = comment_density
+
+            # Update complexity measurement if necessary
+            if 'complexity' not in cleaned_metrics_data[source_file.get('path')].keys():
+                cleaned_metrics_data[source_file.get('path')]['complexity'] = 0
+            # Update functions count measurement if necessary
+            if 'functions' not in cleaned_metrics_data[source_file.get('path')].keys():
+                cleaned_metrics_data[source_file.get('path')]['functions'] = 0
 
     # Generate the output file
     create_output_file(cleaned_metrics_data, parsed_output_file, metrics_list, file_list)
