@@ -6,7 +6,7 @@ from scrub.tools.parsers import translate_results
 ID_PREFIX = 'coverity'
 
 
-def parse_json(raw_input_file):
+def parse_json(raw_input_file, parsed_output_file):
     """This function parses the Coverity internal JSON results format into SCRUB formatted results.
 
     Inputs:
@@ -64,7 +64,8 @@ def parse_json(raw_input_file):
         # Increment the warning count
         warning_count = warning_count + 1
 
-    return coverity_issues
+    # Create the output file
+    translate_results.create_scrub_output_file(coverity_issues, parsed_output_file)
 
 
 if __name__ == '__main__':
