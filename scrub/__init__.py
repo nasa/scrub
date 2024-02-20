@@ -2,7 +2,7 @@
 
 __author__ = """Lyle Barner"""
 __email__ = 'lyle.barner@jpl.nasa.gov'
-__version__ = '2.8.3'
+__version__ = '2.8.4'
 
 
 # Check the Python version for compatibility
