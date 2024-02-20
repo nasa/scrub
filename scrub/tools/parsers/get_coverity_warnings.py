@@ -17,7 +17,7 @@ def parse_json(raw_input_file, parsed_output_file):
     """
 
     # Initialize variables
-    global warning_count
+    warning_count = 1
     coverity_issues = []
 
     # Read in the input file
