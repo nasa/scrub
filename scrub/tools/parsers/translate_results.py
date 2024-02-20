@@ -7,8 +7,27 @@ import traceback
 
 WARNING_LINE_REGEX = r'^[a-z]+[0-9]+ <.*>.*:.*:.*:'
 
+def create_code_flow(file, line, description):
+    """This function creates an internal representation of a code flow to be used by the
 
-def create_warning(scrub_id, file, line, description, tool, priority='Low', query='', suppress=False):
+    Inputs:
+        - file: Absolute path to the source file referenced by the finding [string]
+        - line: Line number of the source file being referenced by the findings [int]
+        - description: Finding description [list of strings]
+
+    Outputs:
+        - code_flow: Dictionary of code flow data [dict]
+
+    """
+
+    code_flow = {'file': file,
+                 'line': line,
+                 'description': description}
+
+    return code_flow
+
+
+def create_warning(scrub_id, file, line, description, tool, priority='Low', query='', suppress=False, code_flow=[]):
     """This function creates an internal representation of a warning t be used for processing.
 
     Inputs:
@@ -20,10 +39,15 @@ def create_warning(scrub_id, file, line, description, tool, priority='Low', quer
         - priority: Priority marking for the finding [Low/Med/High]
         - query: Tool query name that generated the finding [string]
         - suppress: Has this finding been suppressed? [bool]
+        - code_flows: List of code flows related to the finding [list of dict]
 
     Outputs:
         - scrub_warning: Dictionary of warning data [dict]
     """
+
+    # Do some type checking
+    if type(description) is not list:
+        description = [description]
 
     # Create the warning
     scrub_warning = {'id': scrub_id,
@@ -33,7 +57,8 @@ def create_warning(scrub_id, file, line, description, tool, priority='Low', quer
                      'tool': tool,
                      'priority': priority,
                      'query': query,
-                     'suppress': suppress}
+                     'suppress': suppress,
+                     'code_flow': code_flow}
 
     return scrub_warning
 
@@ -56,7 +81,19 @@ def format_scrub_warning(warning):
     description = ''
     for line in warning.get('description'):
         description = description + '    ' + line + '\n'
-    scrub_warning = scrub_warning + description + '\n'
+
+    # Add the code flow
+    if len(warning.get('code_flow')) > 0:
+        code_flow_description = '    Code flow data:\n'
+        for flow_step in warning.get('code_flow'):
+            code_flow_description = code_flow_description + '    {}\n    {}:{}\n'.format(flow_step.get('description'),
+                                                                                         flow_step.get('file'),
+                                                                                         flow_step.get('line'))
+    else:
+        code_flow_description = ''
+
+    # Add the description
+    scrub_warning = scrub_warning + description + code_flow_description + '\n'
 
     return scrub_warning
 
@@ -220,8 +257,27 @@ def parse_scrub(scrub_file, source_root):
 
         # Get the warning description
         warning_description = []
-        for line in warning_lines[1:]:
-            warning_description.append(line.rstrip())
+        code_flow_data = []
+        for i in range(1, len(warning_lines)):
+            description_line = warning_lines[i].rstrip().lstrip('    ')
+
+            # Parse code flow data if it exists
+            if description_line.lower() == 'code flow data:':
+                code_flow_line = i + 1
+
+                # Parse out the code flow if it exists
+                for j in range(code_flow_line, len(warning_lines), 2):
+                    code_flow_description = warning_lines[j].rstrip().lstrip('    ')
+                    code_flow_file = pathlib.Path(warning_lines[j + 1].strip().split(':')[0])
+                    code_flow_line = int(warning_lines[j + 1].strip().split(':')[-1])
+
+                    # Generate the code flow object
+                    code_flow_data.append(create_code_flow(code_flow_file, code_flow_line, code_flow_description))
+
+                break
+            else:
+                # Otherwise add the line to the description
+                warning_description.append(description_line)
 
         # Get the values of interest
         warning_id = warning_info[0].split()[0]
@@ -236,7 +292,7 @@ def parse_scrub(scrub_file, source_root):
 
         # Add the warning to the dictionary
         warning_list.append(create_warning(warning_id, warning_file.resolve(), warning_line, warning_description, warning_tool,
-                                           warning_priority, warning_query))
+                                           warning_priority, warning_query, code_flow=code_flow_data))
 
     return warning_list
 
@@ -491,6 +547,40 @@ def create_sarif_output_file(results_list, sarif_version, output_file, source_ro
                     }
                 }
             }]
+
+            if len(warning.get('code_flow')) > 0:
+                # Add the codeFlows data to the result
+                result_item['codeFlows'] = [{
+                                                'message': {
+                                                    'text': "Code flow information from {}".format(warning.get('tool'))
+                                                },
+                                                'threadFlows': [
+                                                    {
+                                                        'locations': []
+                                                    }
+                                                ]
+                                            }]
+
+                # Get all of the code flow data
+                for code_flow_item in warning.get('code_flow'):
+                    location_item = {
+                                        'location': {
+                                            'message': {
+                                                'text': code_flow_item.get('description')
+                                            },
+                                            'physicalLocation': {
+                                                'artifactLocation': {
+                                                    'uri': str(code_flow_item.get('file').relative_to(source_root))
+                                                },
+                                                'region': {
+                                                    'startLine': code_flow_item['line']
+                                                }
+                                            }
+                                        }
+                                    }
+
+                    # locations_list.append(location_item)
+                    result_item['codeFlows'][0]['threadFlows'][0]['locations'].append(location_item)
 
         # append fixed warnings to results list and clean dict object
         sarif_output['runs'][0]['results'].append(result_item)

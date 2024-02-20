@@ -6,17 +6,19 @@ from scrub.tools.parsers import translate_results
 ID_PREFIX = 'coverity'
 
 
-def parse_json(raw_input_file, parsed_output_file):
+def parse_json(raw_input_file):
     """This function parses the Coverity internal JSON results format into SCRUB formatted results.
 
     Inputs:
         - raw_input_file: Absolute path to the file containing raw Coverity warnings [string]
-        - parsed_output_file: Absolute path to the file where the parsed warnings will be stored [string]
+
+    Outputs:
+        - coverity_issues: List of SCRUB formatted Coverity issues [list of SCRUB]
     """
 
     # Initialize variables
+    global warning_count
     coverity_issues = []
-    warning_count = 1
 
     # Read in the input file
     with open(raw_input_file, 'r') as input_fh:
@@ -29,7 +31,8 @@ def parse_json(raw_input_file, parsed_output_file):
         warning_file = pathlib.Path(issue['mainEventFilePathname'])
         warning_line = int(issue['mainEventLineNumber'])
         warning_checker = issue['checkerName']
-        warning_description = []
+        warning_description = issue['checkerProperties']['subcategoryLongDescription']
+        warning_code_flow = []
 
         if issue['checkerProperties']['impact'].lower() == 'high':
             ranking = 'High'
@@ -45,18 +48,23 @@ def parse_json(raw_input_file, parsed_output_file):
         # Get the warning description
         for event in issue['events']:
             if event['eventTag'] != 'caretline':
-                warning_description.append('%s:%s:' % (event['strippedFilePathname'], event['lineNumber']))
-                warning_description.append('%s: %s' % (event['eventTag'], event['eventDescription']))
+                event_file =event['strippedFilePathname']
+                event_line = event['lineNumber']
+                event_description = '{}: {}'.format(event['eventTag'], event['eventDescription'])
+                # warning_description.append('{}:{}:'.format(event_file, event_line))
+                # warning_description.append(event_description)
+
+                # Add to the code flow
+                warning_code_flow.append(translate_results.create_code_flow(event_file, event_line, event_description))
 
         coverity_issues.append(translate_results.create_warning(warning_id, warning_file, warning_line,
                                                                 warning_description, 'coverity', ranking,
-                                                                warning_checker))
+                                                                warning_checker, code_flow=warning_code_flow))
 
         # Increment the warning count
         warning_count = warning_count + 1
 
-    # Create the output file
-    translate_results.create_scrub_output_file(coverity_issues, parsed_output_file)
+    return coverity_issues
 
 
 if __name__ == '__main__':
