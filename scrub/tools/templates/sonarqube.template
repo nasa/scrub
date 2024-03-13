@@ -133,55 +133,44 @@ then
     exit 1
 fi
 
-# Retrieve the results from the SonarQube server
-PAGE=1
-MORE_RESULTS=true
-while $MORE_RESULTS; do
+# Retrieve the issues from the SonarQube server
+# Get the first page
+RESULTS_FILE=${{TOOL_ANALYSIS_DIR}}/sonarqube_issues_1.json
+curl -u ${{SONARQUBE_TOKEN}}: "${{SONARQUBE_SERVER}}/api/issues/search?ps=500&componentKeys=${{SONARQUBE_PROJECT}}&p=1&${{SONARQUBE_CURL_FLAGS}}" -o $RESULTS_FILE
+
+# Get the number of remaining pages
+TOTAL_RESULTS=$(grep -E '[0-9]+' -m 1 -o -a $RESULTS_FILE | head -n1)
+TOTAL_PAGES=$(( ( TOTAL_RESULTS / 500) + ( TOTAL_RESULTS % 500 > 0 ) ))
+if (( TOTAL_PAGES > 20 )); then
+    TOTAL_PAGES=20
+fi
+
+# Get the rest of the issues
+for ((CURRENT_PAGE=2; CURRENT_PAGE <= TOTAL_PAGES; CURRENT_PAGE++));
+do
     # Get the page
-    RESULTS_FILE=${{TOOL_ANALYSIS_DIR}}/sonarqube_issues_$PAGE.json
-    curl -u ${{SONARQUBE_TOKEN}}: "${{SONARQUBE_SERVER}}/api/issues/search?ps=500&componentKeys=${{SONARQUBE_PROJECT}}&p=$PAGE&${{SONARQUBE_CURL_FLAGS}}" -o $RESULTS_FILE
-    # Check to see if the file is empty
-    if [ ! -s "$RESULTS_FILE" ]; then
-        exit 1
-    fi
-    # Check the contents, verify file is not empty, and make sure the max page hasn't been reached
-    if grep -q "Can return only the first 10000 results" $RESULTS_FILE; then
-        echo "WARNING: Not all results have been retrieved."
-        MORE_RESULTS=false
-    elif [ $PAGE -gt 20 ]; then
-        MORE_RESULTS=false
-    elif grep -q "\"issues\":\[\]" $RESULTS_FILE; then
-       rm -f $RESULTS_FILE
-       MORE_RESULTS=false
-    else
-       PAGE=$((PAGE+1))
-    fi
+    RESULTS_FILE=${{TOOL_ANALYSIS_DIR}}/sonarqube_issues_$CURRENT_PAGE.json
+    curl -u ${{SONARQUBE_TOKEN}}: "${{SONARQUBE_SERVER}}/api/issues/search?ps=500&componentKeys=${{SONARQUBE_PROJECT}}&p=$CURRENT_PAGE&${{SONARQUBE_CURL_FLAGS}}" -o $RESULTS_FILE
 done
 
 # Retrieve the hotspots from the SonarQube server
-PAGE=1
-MORE_RESULTS=true
-while $MORE_RESULTS; do
+# Get the first page
+RESULTS_FILE=${{TOOL_ANALYSIS_DIR}}/sonarqube_hotspots_$PAGE.json
+curl -u ${{SONARQUBE_TOKEN}}: "${{SONARQUBE_SERVER}}/api/hotspots/search?ps=500&projectKey=${{SONARQUBE_PROJECT}}&p=1&${{SONARQUBE_CURL_FLAGS}}" -o $RESULTS_FILE
+if (( TOTAL_PAGES > 20 )); then
+    TOTAL_PAGES=20
+fi
+
+# Get the number of remaining pages
+TOTAL_RESULTS=$(( $(grep -E '[0-9]+' -m 1 -o -a $RESULTS_FILE | head -n1) + 500 ))
+TOTAL_PAGES=$(( ( TOTAL_RESULTS / 500) + ( TOTAL_RESULTS % 500 > 0 ) ))
+
+# Get the rest of the hotspots
+for ((CURRENT_PAGE=2; CURRENT_PAGE <= TOTAL_PAGES; CURRENT_PAGE++));
+do
     # Get the page
     RESULTS_FILE=${{TOOL_ANALYSIS_DIR}}/sonarqube_hotspots_$PAGE.json
     curl -u ${{SONARQUBE_TOKEN}}: "${{SONARQUBE_SERVER}}/api/hotspots/search?ps=500&projectKey=${{SONARQUBE_PROJECT}}&p=$PAGE&${{SONARQUBE_CURL_FLAGS}}" -o $RESULTS_FILE
-    # Check to see if the file is empty
-    if [ ! -s "$RESULTS_FILE" ]; then
-        exit 1
-    fi
-    # Check the contents, verify file is not empty, and make sure the max page hasn't been reached
-    if grep -q "Can return only the first 10000 results" $RESULTS_FILE; then
-        echo "WARNING: Not all results have been retrieved."
-        rm -f $RESULTS_FILE
-        MORE_RESULTS=false
-    elif [ $PAGE -gt 20 ]; then
-        MORE_RESULTS=false
-    elif grep -q "\"hotspots\":\[\]" $RESULTS_FILE; then
-       rm -f $RESULTS_FILE
-       MORE_RESULTS=false
-    else
-       PAGE=$((PAGE+1))
-    fi
 done
 
 # Parse the results
