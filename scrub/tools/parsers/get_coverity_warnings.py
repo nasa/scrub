@@ -31,7 +31,7 @@ def parse_json(raw_input_file, parsed_output_file):
         warning_file = pathlib.Path(issue['mainEventFilePathname'])
         warning_line = int(issue['mainEventLineNumber'])
         warning_checker = issue['checkerName']
-        warning_description = issue['checkerProperties']['subcategoryLongDescription']
+        warning_description = issue['checkerProperties']['subcategoryLongDescription'].encode("unicode_escape").decode("utf-8")
         warning_code_flow = []
 
         if issue['checkerProperties']['impact'].lower() == 'high':
@@ -50,9 +50,8 @@ def parse_json(raw_input_file, parsed_output_file):
             if event['eventTag'] != 'caretline':
                 event_file =event['strippedFilePathname']
                 event_line = event['lineNumber']
-                event_description = '{}: {}'.format(event['eventTag'], event['eventDescription'])
-                # warning_description.append('{}:{}:'.format(event_file, event_line))
-                # warning_description.append(event_description)
+                event_description = '{}: {}'.format(event['eventTag'],
+                                                    event['eventDescription']).encode("unicode_escape").decode("utf-8")
 
                 # Add to the code flow
                 warning_code_flow.append(translate_results.create_code_flow(event_file, event_line, event_description))
