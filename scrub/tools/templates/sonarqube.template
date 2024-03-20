@@ -99,7 +99,7 @@ if [ -n "${{SONARQUBE_BUILD_CMD}}" ]; then
     cd ${{SOURCE_DIR}}
 
     # Perform SonarQube analysis
-    ${{SONARQUBE_PATH}}/sonar-scanner $file_extension_filters -X -D sonar.java.binaries=${{SOURCE_DIR}} -D sonar.cfamily.cache.enabled=false -D sonar.host.url=${{SONARQUBE_SERVER}} -D sonar.projectKey=${{SONARQUBE_PROJECT}} -D sonar.login=${{SONARQUBE_TOKEN}} -D sonar.cfamily.build-wrapper-output=${{TOOL_ANALYSIS_DIR}}/build_wrapper_output -D sonar.working.directory=${{TOOL_ANALYSIS_DIR}}/scanner_output ${{SONARQUBE_SCANNER_FLAGS}}
+    ${{SONARQUBE_PATH}}/sonar-scanner $file_extension_filters -X -D sonar.java.binaries=${{SOURCE_DIR}} -D sonar.host.url=${{SONARQUBE_SERVER}} -D sonar.projectKey=${{SONARQUBE_PROJECT}} -D sonar.login=${{SONARQUBE_TOKEN}} -D sonar.cfamily.build-wrapper-output=${{TOOL_ANALYSIS_DIR}}/build_wrapper_output -D sonar.working.directory=${{TOOL_ANALYSIS_DIR}}/scanner_output ${{SONARQUBE_SCANNER_FLAGS}}
 
 # Capture all other languages
 else

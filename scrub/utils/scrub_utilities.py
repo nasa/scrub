@@ -331,10 +331,6 @@ def parse_common_configs(user_conf_file, raw_override_values, scrub_keys=[]):
     scrub_init_data = configparser.ConfigParser()
     scrub_init_data.read(scrub_init_path)
 
-    # Set the keys, if necessary
-    # if not scrub_keys:
-    #     scrub_keys = scrub_init_data.sections()
-
     # Convert to a dictionary
     for key in scrub_init_data.sections():
         scrub_conf_data.update(dict(scrub_init_data.items(key)))
