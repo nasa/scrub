@@ -99,6 +99,12 @@ def main(conf_file=pathlib.Path('./scrub.cfg').resolve(), clean=False, console_l
     except PermissionError:
         logging.warning('Could not create VERSION file {}'.format(str(scrub_conf_data.get('scrub_analysis_dir').joinpath('VERSION'))))
 
+    # Check for SARIF import conflicts
+    if scrub_conf_data.get("sonarqube_import") and scrub_conf_data.get("codesonar_import"):
+        print("ERROR: Conflict in SARIF import instructions. SARIF results can only be imported into one tool at a time.")
+        print("  Please select SONARQUBE_IMPORT or CODESONAR_IMPORT, but not both.")
+        sys.exit(10)
+
     try:
         # Get the templates
         available_analysis_templates = list(scrub_path.glob('tools/templates/*template'))
@@ -107,6 +113,14 @@ def main(conf_file=pathlib.Path('./scrub.cfg').resolve(), clean=False, console_l
         if scrub_conf_data.get('custom_templates'):
             available_analysis_templates = (available_analysis_templates +
                                             scrub_conf_data.get('custom_templates').replace('\"', '').split(','))
+
+        # If we're doing SARIF import, we need to move that tool to the end
+        if scrub_conf_data.get('sonarqube_import'):
+            available_analysis_templates.remove(scrub_path.joinpath('tools/templates/sonarqube.template'))
+            available_analysis_templates.append(scrub_path.joinpath('tools/templates/sonarqube.template'))
+        elif scrub_conf_data.get('codesonar_import'):
+            available_analysis_templates.remove(scrub_path.joinpath('tools/templates/codesonar.template'))
+            available_analysis_templates.append(scrub_path.joinpath('tools/templates/codesonar.template'))
 
         # Check to make sure at least one possible template has been identified
         if len(available_analysis_templates) == 0:
@@ -123,7 +137,7 @@ def main(conf_file=pathlib.Path('./scrub.cfg').resolve(), clean=False, console_l
             analysis_templates = []
             for template in available_analysis_templates:
                 for tool in tools:
-                    if template.name  == tool + '.template':
+                    if template.name == tool + '.template':
                         analysis_templates.append(template)
                         scrub_conf_data.update({tool.lower() + '_warnings': True})
         else:
@@ -226,17 +240,17 @@ def main(conf_file=pathlib.Path('./scrub.cfg').resolve(), clean=False, console_l
                     # Calculate the execution time
                     execution_time = time.time() - start_time
 
-            # Update the execution status
-            execution_status.append([tool_name, tool_execution_status, execution_time])
+                    # Update the execution status
+                    execution_status.append([tool_name, tool_execution_status, execution_time])
 
-        # Perform filtering and track execution time, if necessary
-        if perform_filtering:
-            start_time = time.time()
-            filtering_status = do_filtering.run_analysis(scrub_conf_data, console_logging)
-            execution_time = time.time() - start_time
+                    # Perform filtering and track execution time, if necessary
+                    if perform_filtering:
+                        start_time = time.time()
+                        filtering_status = do_filtering.run_analysis(scrub_conf_data, console_logging)
+                        execution_time = time.time() - start_time
 
-            # Update the execution status
-            execution_status.append(['filtering', filtering_status, execution_time])
+                        # Update the execution status
+                        execution_status.append(['filtering', filtering_status, execution_time])
 
     finally:
         # Move the results back with the source code if necessary
@@ -274,8 +288,6 @@ def main(conf_file=pathlib.Path('./scrub.cfg').resolve(), clean=False, console_l
                 except PermissionError:
                     logging.warning('Could not create symbolic link {}'.format(viewable_results_dir.joinpath(scrub_file.name)))
 
-        # Check t
-
         # Print a status message
         tool_failure_count = 0
         total_execution_time = 0
@@ -300,8 +312,11 @@ def main(conf_file=pathlib.Path('./scrub.cfg').resolve(), clean=False, console_l
                 exit_code = 'Unknown error'
 
             # Print the status message
-            print('\t%s | %s: %s' % (time.strftime("%H:%M:%S", time.gmtime(status[2])), status[0], exit_code))
-            print('\t--------------------------------------------------')
+            if status[0] == 'filtering':
+                print('\t%s |     %s: %s' % (time.strftime("%H:%M:%S", time.gmtime(status[2])), status[0], exit_code))
+            else:
+                print('\t--------------------------------------------------')
+                print('\t%s | %s: %s' % (time.strftime("%H:%M:%S", time.gmtime(status[2])), status[0], exit_code))
 
         # Print the execution time
         print('\n\tTotal Execution Time: %s\n' % time.strftime("%H:%M:%S", time.gmtime(total_execution_time)))

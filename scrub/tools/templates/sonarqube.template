@@ -84,6 +84,9 @@ if [[ "${{SOURCE_LANG}}" =~ "yaml" ]]; then
     file_extension_filters="$file_extension_filters,**/*.yaml,**/*.yml"
 fi
 
+# Set the required analysis flags
+required_flags="-X -D sonar.host.url=${{SONARQUBE_SERVER}} -D sonar.projectKey=${{SONARQUBE_PROJECT}} -D sonar.login=${{SONARQUBE_TOKEN}} -D sonar.working.directory=${{TOOL_ANALYSIS_DIR}}/scanner_output -D sonar.java.binaries=${{SOURCE_DIR}}"
+
 # Capture C/C++ code
 if [ -n "${{SONARQUBE_BUILD_CMD}}" ]; then
     # Change to the build directory
@@ -95,20 +98,21 @@ if [ -n "${{SONARQUBE_BUILD_CMD}}" ]; then
     # Build the code using the SonarQube build wrapper
     ${{SONARQUBE_WRAPPER_PATH}}/build-wrapper* --out-dir ${{TOOL_ANALYSIS_DIR}}/build_wrapper_output ${{SONARQUBE_BUILD_CMD}}
 
-    # Change to the source root directory
-    cd ${{SOURCE_DIR}}
-
-    # Perform SonarQube analysis
-    ${{SONARQUBE_PATH}}/sonar-scanner ${{SONARQUBE_SCANNER_FLAGS}} $file_extension_filters -X -D sonar.java.binaries=${{SOURCE_DIR}} -D sonar.cfamily.cache.enabled=false -D sonar.host.url=${{SONARQUBE_SERVER}} -D sonar.projectKey=${{SONARQUBE_PROJECT}} -D sonar.login=${{SONARQUBE_TOKEN}} -D sonar.cfamily.build-wrapper-output=${{TOOL_ANALYSIS_DIR}}/build_wrapper_output -D sonar.working.directory=${{TOOL_ANALYSIS_DIR}}/scanner_output
-
-# Capture all other languages
-else
-    # Change to the source root directory
-    cd ${{SOURCE_DIR}}
-
-    # Perform SonarQube analysis
-    ${{SONARQUBE_PATH}}/sonar-scanner ${{SONARQUBE_SCANNER_FLAGS}} $file_extension_filters -X -D sonar.java.binaries=${{SOURCE_DIR}} -D sonar.host.url=${{SONARQUBE_SERVER}} -D sonar.projectKey=${{SONARQUBE_PROJECT}} -D sonar.login=${{SONARQUBE_TOKEN}} -D sonar.working.directory=${{TOOL_ANALYSIS_DIR}}/scanner_output
+    # Update the required flags
+    required_flags="$required_flags -D sonar.cfamily.build-wrapper-output=${{TOOL_ANALYSIS_DIR}}/build_wrapper_output -D sonar.cfamily.cache.enabled=false"
 fi
+
+# Add SARIF imports?
+if ${{SONARQUBE_IMPORT}}; then
+  sarif_reports=`find ${{SCRUB_WORKING_DIR}}/sarif_results/*.sarif | tr '\n' ','`
+  required_flags="$required_flags -D sonar.sarifReportPaths=\"$sarif_reports\""
+fi
+
+# Change to the source root directory
+cd ${{SOURCE_DIR}}
+
+# Perform analysis
+${{SONARQUBE_PATH}}/sonar-scanner ${{SONARQUBE_SCANNER_FLAGS}} $file_extension_filters $required_flags
 
 # Wait for results to be finalized
 STATUS_URL=`tail -n 1 ${{TOOL_ANALYSIS_DIR}}/scanner_output/report-task.txt | cut -c11-`

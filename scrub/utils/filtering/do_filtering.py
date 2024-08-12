@@ -34,7 +34,13 @@ def filter_scrub_results(scrub_conf_data):
                                       scrub_conf_data.get('analysis_filters'))
 
     # Get the list of SCRUB files
-    results_files = scrub_conf_data.get('raw_results_dir').glob('*.scrub')
+    results_files = list(scrub_conf_data.get('raw_results_dir').glob('*.scrub'))
+
+    # Remove files that have already been analyzed
+    for results_file in results_files:
+        tool_name = results_file.stem.split('_')[0]
+        if scrub_conf_data.get('scrub_working_dir').joinpath(tool_name + '.scrub').exists():
+            results_files.remove(results_file)
 
     # Sort the files into groups
     raw_compiler_files = []
@@ -161,7 +167,7 @@ def generate_sarif(scrub_conf_data):
                                               'sarifv2.1.0')
 
 
-def run_analysis(scrub_conf_data, console_logging=logging.INFO, override=False):
+def run_analysis(scrub_conf_data, file_list=[], console_logging=logging.INFO, override=False):
     """This function performs results filtering of raw analysis results.
 
     Inputs:
@@ -192,7 +198,8 @@ def run_analysis(scrub_conf_data, console_logging=logging.INFO, override=False):
             logging.info('Perform filtering and distribution...')
 
             # Remove distributed results
-            do_clean.clean_subdirs(scrub_conf_data.get('source_dir'))
+            # TODO: Can this be removed?
+            # do_clean.clean_subdirs(scrub_conf_data.get('source_dir'))
 
             # Filter the results
             filter_scrub_results(scrub_conf_data)
