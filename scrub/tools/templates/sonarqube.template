@@ -104,7 +104,7 @@ fi
 
 # Add SARIF imports?
 if ${{SONARQUBE_IMPORT}}; then
-  sarif_reports=`find ${{SCRUB_WORKING_DIR}}/sarif_results/*.sarif | tr '\n' ','`
+  sarif_reports=`find ${{SCRUB_WORKING_DIR}}/sarif_results/*.sarif | paste -s -d','`
   required_flags="$required_flags -D sonar.sarifReportPaths=\"$sarif_reports\""
 fi
 

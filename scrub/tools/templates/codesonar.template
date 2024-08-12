@@ -21,7 +21,7 @@ ${{CODESONAR_PATH}}/codesonar build ${{TOOL_ANALYSIS_DIR}}/SCRUBAnalysis -projec
 
 # Add SARIF imports?
 if ${{CODESONAR_IMPORT}}; then
-  ${{CODESONAR_PATH}}/codesonar build ${{TOOL_ANALYSIS_DIR}}/SCRUBAnalysis -project ${{CODESONAR_PROJ_NAME}} ${{CODESONAR_BUILD_FLAGS}} -foreground -auth certificate -hubcert ${{CODESONAR_CERT}} -hubkey ${{CODESONAR_KEY}} ${{CODESONAR_HUB}} ${{CODESONAR_PATH}}/codesonar import_sarif.py --require-source ${{SCRUB_DIR}}/sarif_results/*.sarif
+  ${{CODESONAR_PATH}}/codesonar build ${{TOOL_ANALYSIS_DIR}}/SCRUBAnalysis -project ${{CODESONAR_PROJ_NAME}} ${{CODESONAR_BUILD_FLAGS}} -foreground -auth certificate -hubcert ${{CODESONAR_CERT}} -hubkey ${{CODESONAR_KEY}} ${{CODESONAR_HUB}} ${{CODESONAR_PATH}}/codesonar import_sarif.py --require-source ${{SCRUB_WORKING_DIR}}/sarif_results/*.sarif
 fi
 
 # Perform CodeSonar analysis
