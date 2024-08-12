@@ -123,7 +123,7 @@ def parse_codesonar_metrics(raw_metrics_file, parsed_output_file, source_root):
     cleaned_metrics_data = {'project_metrics': {}}
     for metric in metrics_data.get('metrics'):
         if metric.get('granularity').lower() == 'analysis':
-            cleaned_metrics_data['project_metrics'][metric.get('description')] = metric.get('rows')[0].get('value')
+            cleaned_metrics_data['project_metrics'][metric.get('description')] = metric.get('rows')[0].get('metricValue')
         elif metric.get('granularity').lower() == 'file':
             for file_metric in metric.get('rows'):
                 # Find the file name in the source tree
