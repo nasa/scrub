@@ -69,13 +69,19 @@ if ${{COVERITY_JSON}}; then
 else
     # Get the GitHub data if it exists
     if [ -f "${{SOURCE_DIR}}/.git/config" ]; then
-        repo_name=`grep "url =" "${{SOURCE_DIR}}.git/config" | sed -E 's:.+com/::' | sed -E 's:.git::'`
+        repo_name=`grep "url =" "${{SOURCE_DIR}}/.git/config" | sed -E 's:.+com/::' | sed -E 's:.git::'`
     else
         repo_name="$(basename ${{SOURCE_DIR}})/$(basename ${{SOURCE_DIR}})"
     fi
+    if [ -f "${{SOURCE_DIR}}/.git/logs/HEAD" ]; then
+        commit_array=($(tail -n 1 "${{SOURCE_DIR}}/.git/logs/HEAD"))
+        commit_id=${commit_array[1]}
+    else
+        commit_id='0000000000000000000000000000000000000000'
+    fi
 
     # Generate the SARIF file
-    ${{COVERITY_PATH}}/../node/bin/node ${{COVERITY_PATH}}/../SARIF/cov-format-sarif-for-github.js --inputFile "${{TOOL_ANALYSIS_DIR}}/coverity.json" --outputFile "${{TOOL_ANALYSIS_DIR}}/coverity.sarif" --repoName $repo_name --checkoutPath $repo_name ${{SOURCE_DIR}} 123456789
+    ${{COVERITY_PATH}}/../node/bin/node ${{COVERITY_PATH}}/../SARIF/cov-format-sarif-for-github.js --inputFile "${{TOOL_ANALYSIS_DIR}}/coverity.json" --outputFile "${{TOOL_ANALYSIS_DIR}}/coverity.sarif" --repoName $repo_name --checkoutPath $repo_name ${{SOURCE_DIR}} $commit_id
 
     # Parse the results into SCRUB format
     python3 -m scrub.tools.parsers.translate_results ${{TOOL_ANALYSIS_DIR}}/*.sarif ${{RAW_RESULTS_DIR}}/coverity_raw.scrub ${{SOURCE_DIR}} scrub
