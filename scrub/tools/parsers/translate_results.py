@@ -452,6 +452,12 @@ def create_sarif_output_file(results_list, sarif_version, output_file, source_ro
 
                 # Get all of the code flow data
                 for code_flow_item in warning.get('code_flow'):
+                    # if str(code_flow_item.get('file')).startswith('/'):
+                    if source_root in code_flow_item.get('file').parents:
+                        artifact_location = str(code_flow_item.get('file').relative_to(source_root))
+                    else:
+                        artifact_location = str(code_flow_item.get('file'))
+
                     location_item = {
                                         'location': {
                                             'message': {
@@ -459,7 +465,7 @@ def create_sarif_output_file(results_list, sarif_version, output_file, source_ro
                                             },
                                             'physicalLocation': {
                                                 'artifactLocation': {
-                                                    'uri': str(code_flow_item.get('file').relative_to(source_root))
+                                                    'uri': artifact_location
                                                 },
                                                 'region': {
                                                     'startLine': code_flow_item['line']
