@@ -11,6 +11,7 @@ from scrub import __version__
 from scrub.utils.filtering import do_filtering
 from scrub.utils import do_clean
 from scrub.utils import scrub_utilities
+from scrub.tools.parsers import translate_results
 
 
 def parse_arguments():
@@ -159,6 +160,7 @@ def main(conf_file=pathlib.Path('./scrub.cfg').resolve(), clean=False, console_l
                 analysis_scripts_dir = scrub_conf_data.get('scrub_analysis_dir').joinpath('analysis_scripts')
                 analysis_script = analysis_scripts_dir.joinpath(tool_name + '.sh')
                 tool_analysis_dir = scrub_conf_data.get('scrub_working_dir').joinpath(tool_name + '_analysis')
+                sarif_import_dir = tool_analysis_dir.joinpath('sarif_imports')
 
                 # Add derived values to configuration values
                 scrub_conf_data.update({'tool_analysis_dir': tool_analysis_dir})
@@ -168,6 +170,18 @@ def main(conf_file=pathlib.Path('./scrub.cfg').resolve(), clean=False, console_l
 
                 # Create the tool analysis directory
                 scrub_utilities.create_dir(tool_analysis_dir, True, True)
+
+                # Is SARIF import being performed?
+                if scrub_conf_data.get(tool_name + '_import'):
+                    scrub_utilities.create_dir(sarif_import_dir, True, True)
+
+                    # Iterate through the existing SARIF files, process them, and drop them into the expected directory
+                    for sarif_file in list(scrub_conf_data.get('sarif_results_dir').glob('*.sarif')):
+                        if sarif_file.stem != tool_name:
+                            translate_results.format_sarif_for_upload(sarif_file,
+                                                                      sarif_import_dir.joinpath(sarif_file.name),
+                                                                      scrub_conf_data.get('source_dir'),
+                                                                      tool_name)
 
                 # Create the log file
                 analysis_log_file = scrub_conf_data.get('scrub_log_dir').joinpath(tool_name + '.log')

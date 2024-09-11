@@ -370,7 +370,7 @@ def parse_common_configs(user_conf_file, raw_override_values, scrub_keys=[]):
     source_langs = list(filter(None, scrub_conf_data.get('source_lang').replace(' ', '').split(',')))
     for i, source_lang in enumerate(source_langs):
         if source_lang == 'c':
-            source_langs[i] = 'cpp'
+            source_langs[i] = 'c,cpp'
         elif source_lang == 'j':
             source_langs[i] = 'java'
         elif source_lang == 'p':

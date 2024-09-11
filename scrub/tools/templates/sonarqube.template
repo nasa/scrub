@@ -104,8 +104,8 @@ fi
 
 # Add SARIF imports?
 if ${{SONARQUBE_IMPORT}}; then
-  sarif_reports=`find ${{SCRUB_WORKING_DIR}}/sarif_results/*.sarif | paste -s -d','`
-  required_flags="$required_flags -D sonar.sarifReportPaths=\"$sarif_reports\""
+  sarif_reports=`find ${{TOOL_ANALYSIS_DIR}}/sarif_imports/* | sed -e 's/^/"/g' -e 's/$/"/g' | paste -sd "," - `
+  required_flags="$required_flags -D sonar.sarifReportPaths=$sarif_reports"
 fi
 
 # Change to the source root directory
@@ -143,7 +143,7 @@ MORE_RESULTS=true
 while $MORE_RESULTS; do
     # Get the page
     RESULTS_FILE=${{TOOL_ANALYSIS_DIR}}/sonarqube_issues_$PAGE.json
-    curl -u ${{SONARQUBE_TOKEN}}: "${{SONARQUBE_SERVER}}/api/issues/search?ps=500&componentKeys=${{SONARQUBE_PROJECT}}&p=$PAGE&${{SONARQUBE_CURL_FLAGS}}" -o $RESULTS_FILE
+    curl -u ${{SONARQUBE_TOKEN}}: "${{SONARQUBE_SERVER}}/api/issues/search?ps=500&componentKeys=${{SONARQUBE_PROJECT}}&languages=${{SOURCE_LANG}}&p=$PAGE&${{SONARQUBE_CURL_FLAGS}}" -o $RESULTS_FILE
     # Check to see if the file is empty
     if [ ! -s "$RESULTS_FILE" ]; then
         exit 1

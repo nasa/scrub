@@ -4,6 +4,7 @@ import json
 import pathlib
 import logging
 import traceback
+import shutil
 from sarif import loader
 
 WARNING_LINE_REGEX = r'^[a-z]+[0-9]+ <.*>.*:.*:.*:'
@@ -220,6 +221,40 @@ def parse_scrub(scrub_file, source_root):
     return warning_list
 
 
+def format_sarif_for_upload(input_file, output_file, source_root, upload_format):
+    """This function pre-processes SARIF files in preparation for import into various tools.
+
+    Inputs:
+        - input_file: Absolute path to the SARIF input file to be parsed [string]
+        - output_file: Absolute path to output file to be created [string]
+        - upload_format: Format of the SARIF output file [string]
+    """
+
+    # Initialize variables
+    formatted_results = []
+
+    # Import the SARIF results
+    unformatted_results = parse_sarif(input_file, source_root)
+
+    if upload_format == 'sonarqube':
+        for warning in unformatted_results:
+            if input_file.stem == 'codesonar':
+                warning['description'] = [warning['query'] + " - (" + warning['description'][0].split('Server Location: ')[-1] + ")"]
+                formatted_results.append(warning)
+            elif input_file.stem == 'coverity':
+                warning['description'] = [warning['description'][0]]
+                formatted_results.append(warning)
+
+        create_sarif_output_file(formatted_results, '2.1.0', output_file, source_root)
+    elif upload_format == 'codesonar':
+        # shutil.copyfile(input_file, output_file)
+        for warning in unformatted_results:
+            # Add a prefix to the tool name to allow for filtering
+            warning['tool'] = 'external-' + warning['tool']
+            formatted_results.append(warning)
+        create_sarif_output_file(formatted_results, '2.1.0', output_file, source_root)
+
+
 def parse_sarif(sarif_filename, source_root, id_prefix=None):
     """This function parses all the SARIF results into the dictionary list of results.
 
@@ -307,7 +342,7 @@ def parse_sarif(sarif_filename, source_root, id_prefix=None):
                         if thread_location.get('location').get('message'):
                             # warning_description.append('{}:{}:'.format(thread_location.get('location').get('physicalLocation').get('artifactLocation').get('uri'), thread_location.get('location').get('physicalLocation').get('region').get('startLine')))
                             # warning_description.append(thread_location.get('location').get('message').get('text'))
-                            code_flow_file = thread_location.get('location').get('physicalLocation').get('artifactLocation').get('uri')
+                            code_flow_file = pathlib.Path(thread_location.get('location').get('physicalLocation').get('artifactLocation').get('uri'))
                             code_flow_line = thread_location.get('location').get('physicalLocation').get('region').get('startLine')
                             code_flow_description = thread_location.get('location').get('message').get('text')
                             code_flow.append(create_code_flow(code_flow_file, code_flow_line, code_flow_description))
@@ -370,10 +405,11 @@ def create_sarif_output_file(results_list, sarif_version, output_file, source_ro
         result_item['level'] = 'warning'
 
         # Set the file path
-        if source_root in warning['file'].parents:
-            warning_file = str(warning['file'].relative_to(source_root))
-        else:
-            warning_file = str(warning['file'])
+        warning_file = str(warning['file'])
+        # if source_root in warning['file'].parents:
+        #     warning_file = str(warning['file'].relative_to(source_root))
+        # else:
+        #     warning_file = str(warning['file'])
 
         # Set the rule ID
         result_item['ruleId'] = warning['query']
