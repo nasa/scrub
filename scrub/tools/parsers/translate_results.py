@@ -416,7 +416,7 @@ def create_sarif_output_file(results_list, sarif_version, output_file, source_ro
 
         if warning.get('description') is not None:
             result_item['message'] = {
-                'text': '\n'.join(warning['description'])
+                'text': ' '.join(warning['description'])
             }
         if sarif_version == '2.0.0':
             # TODO: CAREFUL USING 2.0.0, STRUCT IS NOT COMPLETELY DEPENDABLE, NEEDS WORK
