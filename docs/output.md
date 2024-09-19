@@ -65,12 +65,13 @@ The following section provides a description of the structure of the .scrub outp
     |  compiler.scrub                   (Filtered, aggregate results from all compilers)
     |  p10.scrub                        (Filtered, aggregate results from all P10 analysis engines)
     |  [tool].scrub                     (Filtered results file for each tool)
-    |  ...
     |
     |--raw_results                      (Directory containing unfiltered, SCRUB-formatted results)
     |    [tool]_p10_raw.scrub           (Unfiltered, SCRUB-formatted P10 results for each tool)
     |    [tool]_raw.scrub               (Unfiltered, SCRUB-formatted results for each tool)
-    |    ...
+    |
+    |--sarif_results                    (Directory container SARIF formatted output files)
+    |    [tool].sarif
     |
     |--log_files                        (Directory containing log files generated during SCRUB execution)
     |    filtering.log                  (Log file for results filtering post-processing step)
