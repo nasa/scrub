@@ -251,6 +251,7 @@ def format_sarif_for_upload(input_file, output_file, source_root, upload_format)
         for warning in unformatted_results:
             # Add a prefix to the tool name to allow for filtering
             warning['tool'] = 'external-' + warning['tool']
+            warning['query'] = warning['tool'].title() + ' ' + warning['query']
             formatted_results.append(warning)
         create_sarif_output_file(formatted_results, '2.1.0', output_file, source_root)
 

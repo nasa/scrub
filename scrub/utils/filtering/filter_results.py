@@ -240,13 +240,14 @@ def filter_results(warning_list, output_file, filtering_file, ignore_query_file,
         if enable_micro_filtering and micro_filter_check(warning['file'], warning['line'], valid_warning_types):
             continue
 
-        # Check to see if the query should be ignore
+        # Check to see if the query should be ignored
         if ignore_query_check(warning['tool'], warning['query'], ignore_query_file):
             continue
 
         # If we made it here we want the warning.
         # Make the warning file path relative, make any description references relative, and append to filtered list
-        warning['file'] = warning['file'].relative_to(source_root)
+        if source_root in warning['file'].parents:
+            warning['file'] = warning['file'].relative_to(source_root)
         for i, line in enumerate(warning['description']):
             warning['description'][i] = line.replace(str(source_root) + '/', '')
         filtered_warnings.append(warning)
