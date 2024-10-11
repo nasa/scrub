@@ -2,9 +2,11 @@ import sys
 import xml.etree.ElementTree
 import pathlib
 import logging
+from scrub.tools.parsers import translate_results
+from scrub.tools.parsers import parse_metrics
 
-
-def parse_warnings(input_file, output_file, codesonar_hub, exclude_p10=False):
+# def parse_warnings(input_file, output_file, codesonar_hub, exclude_p10=False):
+def parse_xml_warnings(input_file, output_file, codesonar_hub, exclude_p10=False):
     """This function parses the raw CodeSonar warnings into the SCRUB format.
 
     Inputs:
@@ -17,7 +19,8 @@ def parse_warnings(input_file, output_file, codesonar_hub, exclude_p10=False):
     """
 
     # Print a status message
-    logging.info('\t>> Executing command: get_codesonar_warnings.parse_warnings(%s, %s)', input_file, output_file)
+    logging.info('\t>> Executing command: get_codesonar_warnings.parse_xml_warnings(%s, %s)', input_file,
+                 output_file)
     logging.info('\t>> From directory: %s', str(pathlib.Path().absolute()))
 
     # Initialize the variables
@@ -122,6 +125,41 @@ def parse_warnings(input_file, output_file, codesonar_hub, exclude_p10=False):
 
                 # Increase the warning_count
                 warning_count = warning_count + 1
+
+
+def parse_warnings(analysis_dir, tool_config_data):
+    """This function handles parsing of raw CodeSonar data.
+
+    Inputs:
+        - analysis_dir: Absolute path to the raw SonarQube output file directory [string]
+        - tool_config_data: Dictionary of scrub configuration data [dict]
+    """
+
+    # Initialize variables
+    source_dir = tool_config_data.get('source_dir')
+    codesonar_hub = tool_config_data.get('codesonar_hub')
+    raw_metrics_file = analysis_dir.joinpath('metric_search.json')
+    parsed_output_file = tool_config_data.get('raw_results_dir').joinpath('codesonar_raw.scrub')
+    parsed_metrics_file = tool_config_data.get('scrub_analysis_dir').joinpath('codesonar_metrics.csv')
+
+    # Print a status message
+    logging.info('\t>> Executing command: get_codesonar_warnings.parse_warnings(%s, %s)', analysis_dir,
+                 parsed_output_file)
+    logging.info('\t>> From directory: %s', str(pathlib.Path().absolute()))
+
+    # Parse the SARIF results
+    if tool_config_data.get('code_sonar_results_template'):
+        raw_input_file = tool_config_data.glob('*.xml')
+        parse_xml_warnings(raw_input_file, parsed_output_file, codesonar_hub)
+    else:
+        raw_input_file = analysis_dir.glob('*.sarif')
+        raw_warnings = translate_results.parse_sarif(raw_input_file, source_dir)
+
+        # Create the SCRUB output file
+        translate_results.create_scrub_output_file(raw_warnings, parsed_output_file)
+
+    # Parse the metrics file
+    parse_metrics.parse_codesonar_metrics(raw_metrics_file, parsed_metrics_file, source_dir)
 
 
 if __name__ == '__main__':

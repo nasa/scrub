@@ -9,4 +9,4 @@ ${{JAVAC_CLEAN_CMD}}
 ${{JAVAC_BUILD_CMD}} > ${{TOOL_ANALYSIS_DIR}}/javac_build.log 2>&1
 
 # Parse the output file into SCRUB format
-python3 -m scrub.tools.parsers.get_javac_warnings ${{TOOL_ANALYSIS_DIR}}/javac_build.log ${{RAW_RESULTS_DIR}}/javac_compiler_raw.scrub
+#python3 -m scrub.tools.parsers.get_javac_warnings ${{TOOL_ANALYSIS_DIR}}/javac_build.log ${{RAW_RESULTS_DIR}}/javac_compiler_raw.scrub

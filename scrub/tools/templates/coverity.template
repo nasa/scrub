@@ -63,10 +63,7 @@ ${{COVERITY_PATH}}/cov-analyze --dir ${{TOOL_ANALYSIS_DIR}} ${{COVERITY_COVANALY
 ${{COVERITY_PATH}}/cov-format-errors --dir ${{TOOL_ANALYSIS_DIR}} ${{COVERITY_COVFORMATERRORS_FLAGS}} -x -X --json-output-v8 ${{TOOL_ANALYSIS_DIR}}/coverity.json
 
 # Check to see if SARIF generation should be performed
-if ${{COVERITY_JSON}}; then
-    # Otherwise, parse the JSON directly
-    python3 -m scrub.tools.parsers.get_coverity_warnings ${{TOOL_ANALYSIS_DIR}}/coverity.json ${{TOOL_ANALYSIS_DIR}}/output/FUNCTION.metrics.xml.gz ${{COVERITY_CC_THRESHOLD}} ${{RAW_RESULTS_DIR}}/coverity_raw.scrub
-else
+if [ ${{COVERITY_JSON}} != "true" ]; then
     # Get the GitHub data if it exists
     if [ -f "${{SOURCE_DIR}}/.git/config" ]; then
         repo_name=`grep "url =" "${{SOURCE_DIR}}/.git/config" | sed -E 's:.+com/::' | sed -E 's:.git::'`
@@ -82,7 +79,4 @@ else
 
     # Generate the SARIF file
     ${{COVERITY_PATH}}/../node/bin/node ${{COVERITY_PATH}}/../SARIF/cov-format-sarif-for-github.js --inputFile "${{TOOL_ANALYSIS_DIR}}/coverity.json" --outputFile "${{TOOL_ANALYSIS_DIR}}/coverity.sarif" --repoName $repo_name --checkoutPath $repo_name ${{SOURCE_DIR}} $commit_id
-
-    # Parse the results into SCRUB format
-    python3 -m scrub.tools.parsers.translate_results ${{TOOL_ANALYSIS_DIR}}/*.sarif ${{RAW_RESULTS_DIR}}/coverity_raw.scrub ${{SOURCE_DIR}} scrub
 fi

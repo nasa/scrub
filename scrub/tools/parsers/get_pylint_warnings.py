@@ -7,7 +7,7 @@ WARNING_LEVEL = 'Low'
 ID_PREFIX = 'pylint'
 
 
-def parse_warnings(raw_input_file, parsed_output_file):
+def parse_warnings(analysis_dir, tool_config_data):
     """This function parses the raw PyLint warnings into the SCRUB format.
 
     Inputs:
@@ -17,6 +17,8 @@ def parse_warnings(raw_input_file, parsed_output_file):
 
     # Initialize the variables
     warning_count = 1
+    raw_input_file = analysis_dir.joinpath('pylint_output.json')
+    parsed_output_file = tool_config_data.get('raw_results_dir').joinpath('pylint_compiler_raw.scrub')
 
     # Read in the input data
     with open(raw_input_file, 'r') as input_fh:
@@ -44,5 +46,5 @@ def parse_warnings(raw_input_file, parsed_output_file):
     translate_results.create_scrub_output_file(raw_warnings, parsed_output_file)
 
 
-if __name__ == '__main__':
-    parse_warnings(pathlib.Path(sys.argv[1]), pathlib.Path(sys.argv[2]))
+# if __name__ == '__main__':
+#     parse_warnings(pathlib.Path(sys.argv[1]), pathlib.Path(sys.argv[2]))

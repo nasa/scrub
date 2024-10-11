@@ -129,7 +129,8 @@ def parse_json(raw_input_file):
     return coverity_issues
 
 
-def parse_coverity_results(coverity_results_file, coverity_metrics_file, cc_threshold, parsed_output_file):
+# def parse_warnings(coverity_results_file, coverity_metrics_file, cc_threshold, parsed_output_file):
+def parse_warnings(analysis_dir, tool_config_data):
     """This function handles the parsing of Coverity data to generate a SCRUB formatted output file.
 
     Inputs:
@@ -139,8 +140,19 @@ def parse_coverity_results(coverity_results_file, coverity_metrics_file, cc_thre
         - parsed_output_file:
     """
 
-    # Parse the Coverity results
-    coverity_findings = parse_json(coverity_results_file)
+    # Initialize variables
+    cc_threshold = int(tool_config_data.get('coverity_cc_threshold'))
+    coverity_metrics_file = analysis_dir.joinpath('output/FUNCTION.metrics.xml.gz')
+    parsed_output_file = tool_config_data.get('raw_results_dir').joinpath('coverity_raw.scrub')
+
+    # Select the correct parser
+    if tool_config_data.get('coverity_json'):
+        # Parse the JSON Coverity results
+        coverity_findings = parse_json(analysis_dir.joinpath('coverity.json'))
+    else:
+        # Parse the SARIF Coverity results
+        coverity_findings = translate_results.parse_sarif(analysis_dir.joinpath('coverity.sarif'),
+                                                          tool_config_data.get('source_dir'))
 
     # Parse the metrics file
     if cc_threshold >= 0:
@@ -150,6 +162,6 @@ def parse_coverity_results(coverity_results_file, coverity_metrics_file, cc_thre
     translate_results.create_scrub_output_file(coverity_findings, parsed_output_file)
 
 
-if __name__ == '__main__':
-    parse_coverity_results(pathlib.Path(sys.argv[1]), pathlib.Path(sys.argv[2]), int(sys.argv[3]),
-                           pathlib.Path(sys.argv[4]))
+# if __name__ == '__main__':
+#     parse_coverity_results(pathlib.Path(sys.argv[1]), pathlib.Path(sys.argv[2]), int(sys.argv[3]),
+#                            pathlib.Path(sys.argv[4]))

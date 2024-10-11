@@ -161,6 +161,7 @@ def main(conf_file=pathlib.Path('./scrub.cfg').resolve(), clean=False, console_l
                 analysis_script = analysis_scripts_dir.joinpath(tool_name + '.sh')
                 tool_analysis_dir = scrub_conf_data.get('scrub_working_dir').joinpath(tool_name + '_analysis')
                 sarif_import_dir = tool_analysis_dir.joinpath('sarif_imports')
+                parser = importlib.import_module('scrub.tools.parsers.get_' + tool_name.lower() + '_warnings')
 
                 # Add derived values to configuration values
                 scrub_conf_data.update({'tool_analysis_dir': tool_analysis_dir})
@@ -225,6 +226,9 @@ def main(conf_file=pathlib.Path('./scrub.cfg').resolve(), clean=False, console_l
 
                     # Check the tool analysis directory
                     scrub_utilities.check_artifact(tool_analysis_dir, True)
+
+                    # Parse the results files
+                    parser.parse_warnings(tool_analysis_dir, scrub_conf_data)
 
                     # Check the raw results files
                     for raw_results_file in scrub_conf_data.get('raw_results_dir').glob(tool_name + '_*.scrub'):

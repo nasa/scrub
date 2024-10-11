@@ -525,6 +525,7 @@ def create_sarif_output_file(results_list, sarif_version, output_file, source_ro
 
 
 def perform_translation(input_file, output_file, source_root, output_format):
+# def perform_translation(analysis_dir, tool_config_data):
     """This function takes in an analysis results file in legacy format (.scrub), then parses and converts the contents
        of each analysis result into the SARIF format.
 
