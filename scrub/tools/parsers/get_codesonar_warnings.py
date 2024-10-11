@@ -148,11 +148,11 @@ def parse_warnings(analysis_dir, tool_config_data):
     logging.info('\t>> From directory: %s', str(pathlib.Path().absolute()))
 
     # Parse the SARIF results
-    if tool_config_data.get('code_sonar_results_template'):
-        raw_input_file = tool_config_data.glob('*.xml')
+    if tool_config_data.get('codesonar_results_template'):
+        raw_input_file = analysis_dir.joinpath('search.xml')[0]
         parse_xml_warnings(raw_input_file, parsed_output_file, codesonar_hub)
     else:
-        raw_input_file = analysis_dir.glob('*.sarif')
+        raw_input_file = analysis_dir.joinpath('warning_detail_search.sarif')
         raw_warnings = translate_results.parse_sarif(raw_input_file, source_dir)
 
         # Create the SCRUB output file
