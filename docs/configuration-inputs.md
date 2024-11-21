@@ -76,11 +76,13 @@ Each table below represents a portion of the complete `scrub.cfg` file.
 | CODEQL_WARNINGS              | True/False | Yes       | Should CodeQL analysis be performed?                         | False         |
 | CODEQL_PATH                  | String     | Optional  | Absolute path to the directory of the CodeQL installation    | Check `PATH`  |
 | CODEQL_QUERY_PATH            | String     | Yes       | Absolute path to the CodeQL query files                      | N/A           |
+| CODEQL_CODING_STANDARDS_PATH | String     | Yes       | Absolute path to the CodeQL coding standard files            | N/A           |
 | CODEQL_BUILD_DIR             | String     | Optional  | Relative path (to `SOURCE_DIR`) to the build directory       | `SOURCE_DIR`  |
 | CODEQL_BUILD_CMD             | String     | Optional  | Command to build the source code for CodeQL analysis         | N/A           |
 | CODEQL_CLEAN_CMD             | String     | Optional  | Command to clean the source code for CodeQL analysis         | N/A           |
 | CODEQL_BASELINE_ANALYSIS     | True/False | Yes       | Should baseline CodeQL analysis be performed?                | True          |
 | CODEQL_P10_ANALYSIS          | True/False | Yes       | Should CodeQL P10 analysis be performed?                     | True          |
+| CODEQL_AUTOSAR_ANALYSIS      | True/False | Yes       | Should CodeQL AUTOSAR analysis be performed?                 | True          |
 | CODEQL_DATABASECREATE_FLAGS  | String     | Optional  | Flags to be passed into 'codeql database create' command     | ''            |
 | CODEQL_DATEBASEANALYZE_FLAGS | String     | Optional  | Flags to be passed into 'codeql database analyze' command    | ''            |
 
@@ -270,13 +272,15 @@ The configuration file provided below is a sample configuration file for a C pro
     #
     [CodeQL Variables]
     CODEQL_WARNINGS: True
-    CODEQL_PATH: /opt/local/codeql/codeql-cli
-    CODEQL_QUERY_PATH: /opt/local/codeql/queries
-    CODEQL_BUILD_DIR: src
+    CODEQL_PATH: ~/codeql-home/codeql-cli
+    CODEQL_QUERY_PATH: ~/codeql-home/codeql-repo
+    CODEQL_CODING_STANDARDS_PATH: ~/codeql-home/codeql-coding-standards
+    CODEQL_BUILD_DIR: build
     CODEQL_BUILD_CMD: make all
     CODEQL_CLEAN_CMD: make clean
     CODEQL_BASELINE_ANALYSIS: True
-    CODEQL_P10_ANALYSIS: False
+    CODEQL_P10_ANALYSIS: True
+    CODEQL_AUTOSAR_ANALYSIS: True
     CODEQL_DATABASECREATE_FLAGS:
     CODEQL_DATABASEANALYZE_FLAGS:
     
