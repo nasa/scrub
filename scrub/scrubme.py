@@ -41,7 +41,8 @@ def parse_arguments():
         logging_level = logging.INFO
 
     # Run analysis
-    main(pathlib.Path(args['config']).resolve(), args['clean'], logging_level, args['tools'], args['targets'], args['define'])
+    main(pathlib.Path(args['config']).resolve(), args['clean'], logging_level, args['tools'], args['targets'],
+         args['define'])
 
 
 def main(conf_file=pathlib.Path('./scrub.cfg').resolve(), clean=False, console_logging=logging.INFO, tools=None,
@@ -91,18 +92,21 @@ def main(conf_file=pathlib.Path('./scrub.cfg').resolve(), clean=False, console_l
     try:
         shutil.copyfile(conf_file, str(scrub_conf_data.get('scrub_analysis_dir').joinpath('scrub.cfg')))
     except PermissionError:
-        print("WARNING: Could not create copy of configuration file {}".format(scrub_conf_data.get('scrub_analysis_dir').joinpath('scrub.cfg')))
+        print("WARNING: Could not create copy of configuration file {}"
+              .format(scrub_conf_data.get('scrub_analysis_dir').joinpath('scrub.cfg')))
 
     # Create a VERSION file
     try:
         with open(str(scrub_conf_data.get('scrub_analysis_dir').joinpath('VERSION')), 'w') as output_fh:
             output_fh.write(__version__)
     except PermissionError:
-        logging.warning('Could not create VERSION file {}'.format(str(scrub_conf_data.get('scrub_analysis_dir').joinpath('VERSION'))))
+        logging.warning('Could not create VERSION file {}'
+                        .format(str(scrub_conf_data.get('scrub_analysis_dir').joinpath('VERSION'))))
 
     # Check for SARIF import conflicts
     if scrub_conf_data.get("sonarqube_import") and scrub_conf_data.get("codesonar_import"):
-        print("ERROR: Conflict in SARIF import instructions. SARIF results can only be imported into one tool at a time.")
+        print("ERROR: Conflict in SARIF import instructions. "
+              "SARIF results can only be imported into one tool at a time.")
         print("  Please select SONARQUBE_IMPORT or CODESONAR_IMPORT, but not both.")
         sys.exit(10)
 
@@ -146,9 +150,6 @@ def main(conf_file=pathlib.Path('./scrub.cfg').resolve(), clean=False, console_l
 
         # Perform analysis using the template
         for analysis_template in analysis_templates:
-            # Initialize variables
-            execution_time = 0
-
             # Get the tool name
             tool_name = analysis_template.stem
 
@@ -287,7 +288,8 @@ def main(conf_file=pathlib.Path('./scrub.cfg').resolve(), clean=False, console_l
                 shutil.rmtree(scrub_conf_data.get('scrub_working_dir'))
 
         except PermissionError:
-            print("\tWARNING: Could not move results from {} to {}".format(scrub_conf_data.get('scrub_working_dir'), scrub_conf_data.get('scrub_analysis_dir')))
+            print("\tWARNING: Could not move results from {} to {}".format(scrub_conf_data.get('scrub_working_dir'),
+                                                                           scrub_conf_data.get('scrub_analysis_dir')))
             print("\t\tResults will remain at {}".format(scrub_conf_data.get('scrub_working_dir')))
 
         # Create a visible directory of results, if it doesn't already exist
@@ -304,7 +306,8 @@ def main(conf_file=pathlib.Path('./scrub.cfg').resolve(), clean=False, console_l
                         os.symlink(os.path.relpath(str(scrub_file), str(viewable_results_dir)), symlink_path)
 
                 except PermissionError:
-                    logging.warning('Could not create symbolic link {}'.format(viewable_results_dir.joinpath(scrub_file.name)))
+                    logging.warning('Could not create symbolic link {}'
+                                    .format(viewable_results_dir.joinpath(scrub_file.name)))
 
         # Print a status message
         tool_failure_count = 0

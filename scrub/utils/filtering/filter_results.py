@@ -5,7 +5,6 @@ from scrub.tools.parsers import translate_results
 
 
 # Initialize variables
-# 'compiler': ['compiler', 'cmp', 'gbuild', 'dblchck', 'doublecheck', 'javac', 'pylint'],
 suppression_lines = []
 filtering_aliases = {'gcc': ['cmp', 'compiler', 'gcc'],
                      'gbuild': ['cmp', 'compiler', 'gbuild', 'dblchck', 'doublecheck'],
@@ -189,7 +188,7 @@ def filter_results(warning_list, output_file, filtering_file, ignore_query_file,
     Inputs:
         - input_files: List of absolute paths to the input file(s) of interest [list of string]
         - output_file: Absolute path to file where filtered results will be stored [string]
-        - filtering_file: Absolute path to the SCRUBAnalayisFilteringList file [string]
+        - filtering_file: Absolute path to the SCRUBAnalysisFilteringList file [string]
         - ignore_query_file: Absolute path to the SCRUBExcludeQueries file [string]
         - source_root: Absolute path to the top level directory of the source code [string]
         - enable_micro_filtering: Flag to enable/disable micro filtering [logical]

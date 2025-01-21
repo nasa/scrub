@@ -1,4 +1,3 @@
-import re
 import pathlib
 import logging
 import traceback
@@ -44,7 +43,7 @@ def distribute_warnings(warning_file, source_dir):
             local_scrub_directory = warning_directory.joinpath('.scrub')
             local_scrub_warning_file = local_scrub_directory.joinpath(warning_type + '.scrub')
 
-            # Create a .scrub directory if it doesn't already exists
+            # Create a .scrub directory if it doesn't already exist
             if not local_scrub_directory.exists():
                 local_scrub_directory.mkdir()
                 local_scrub_directory.chmod(0o755)

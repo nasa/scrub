@@ -111,7 +111,7 @@ def parse_template(template_file, output_file, conf_data):
     with open(template_file, 'r') as input_fh:
         template_data = input_fh.read()
 
-    # Replace all of the variables with config data
+    # Replace all the variables with config data
     for key in conf_data.keys():
         if isinstance(conf_data.get(key), bool):
             template_data = template_data.replace('${{' + key.upper() + '}}', str(conf_data.get(key)).lower())
@@ -305,12 +305,11 @@ def create_conf_file(output_path=None):
     shutil.copyfile(default_config_file, output_path)
 
 
-def parse_common_configs(user_conf_file, raw_override_values, scrub_keys=[]):
+def parse_common_configs(user_conf_file, raw_override_values):
     """This function parses a SCRUB configuration file and adds default values.
 
     Inputs:
         - conf_file: Absolute path to the SCRUB configuration file [string]
-        - scrub_keys: List of configuration file sections to be retrieved [list of strings]
         - override_values: List of values that should override the config file values [list of strings]
 
     Outputs:

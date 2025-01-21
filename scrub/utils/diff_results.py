@@ -36,7 +36,7 @@ def diff(baseline_scrub_root, comparison_scrub_root):
         - None
     """
 
-    # Find all of the SARIF files in each directory
+    # Find all the SARIF files in each directory
     baseline_sarif_files = baseline_scrub_root.joinpath('sarif_results').glob('*.sarif')
     comparison_sarif_files = comparison_scrub_root.joinpath('sarif_results').glob('*.sarif')
 
@@ -54,4 +54,3 @@ def diff(baseline_scrub_root, comparison_scrub_root):
 
                 # Execute the analysis
                 scrub_utilities.execute_command(command_call, user_env)
-

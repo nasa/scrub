@@ -259,8 +259,8 @@ def create_batch_xml_comment_upload(file_list, comment_list, review_id):
                            '        <review>{}</review>\n'.format(review_id) +
                            '        <file>{}</file>\n'.format(comment.get('file')) +
                            '        <line-number>{}</line-number>\n'.format(comment.get('line')) +
-                           '        <comment>{}: {}</comment>\n'.format(comment.get('tool'),
-                                                                        format_description(comment.get('description'))) +
+                           '        <comment>{}: {}</comment>\n'
+                           .format(comment.get('tool'), format_description(comment.get('description'))) +
                            '    </admin_review_comment_create>\n')
 
             # Add it to the list
@@ -293,7 +293,7 @@ def create_batch_xml_defect_upload(file_list, defect_list, review_id):
                 severity = 'Minor'
 
             # Create the defect XML
-            defect_xml = ('    <admin_review_defect_create>\n'+
+            defect_xml = ('    <admin_review_defect_create>\n' +
                           '        <custom-field>Severity={}</custom-field>\n'.format(severity) +
                           '        <review>{}</review>\n'.format(review_id) +
                           '        <file>{}</file>\n'.format(defect.get('file')) +
@@ -344,7 +344,7 @@ def initialize_upload(tool_conf_data):
     # tool_conf_data.update({'collaborator_review_xml_comments': comments_xml})
 
     # Set the author of the review
-    subcommand = ('admin review set-participants ' + review_id + ' --participant author=' +
+    subcommand = ('admin review set-participants ' + str(review_id) + ' --participant author=' +
                   tool_conf_data.get('collaborator_username'))
     execute_ccollab(tool_conf_data.get('collaborator_ccollab_location'), subcommand)
 
@@ -395,7 +395,9 @@ def perform_upload(tool_conf_data):
                                                  tool_conf_data.get('source_dir'))
 
     # Create the XML data for uploading metrics
-    metrics_xml_data = create_xml_comment_metrics(metrics_list, file_list, tool_conf_data.get('collaborator_review_id')).replace(str(tool_conf_data.get('source_dir')) + '/', '')
+    metrics_xml_data = (create_xml_comment_metrics(metrics_list, file_list,
+                                                   tool_conf_data.get('collaborator_review_id'))
+                        .replace(str(tool_conf_data.get('source_dir')) + '/', ''))
 
     if tool_conf_data.get('collaborator_finding_level').lower() == 'defect':
         finding_xml_data = create_batch_xml_defect_upload(file_list, defect_list,
@@ -531,7 +533,8 @@ def run_analysis(baseline_conf_data, console_logging=logging.INFO, override=Fals
             # Move the log file to line up with the review id, if it exists
             if tool_conf_data.get('collaborator_log_file').exists() and tool_conf_data.get('collaborator_review_id') > 0:
                 shutil.move(tool_conf_data.get('collaborator_log_file'),
-                            tool_conf_data.get('scrub_log_dir').joinpath('collaborator_' + str(tool_conf_data.get('collaborator_review_id')) + '.log'))
+                            tool_conf_data.get('scrub_log_dir')
+                            .joinpath('collaborator_' + str(tool_conf_data.get('collaborator_review_id')) + '.log'))
 
     # Return the exit code
     return collaborator_exit_code

@@ -5,7 +5,6 @@ from scrub.utils.filtering import create_file_list
 from scrub.utils.filtering import filter_results
 from scrub.utils import scrub_utilities
 from scrub.tools.parsers import translate_results
-from scrub.utils import do_clean
 
 
 def initialize_analysis(scrub_conf_data):
@@ -60,9 +59,8 @@ def filter_scrub_results(scrub_conf_data):
             # Set the compiler output file path
             filtered_compiler_results_file = scrub_conf_data.get('scrub_analysis_dir').joinpath('compiler.scrub')
 
-            # Parse all of the input files
+            # Parse all the input files
             compiler_results = []
-            # valid_warning_types = []
             for results_file in raw_compiler_files:
                 # Append the results file
                 compiler_results = (compiler_results + translate_results.parse_scrub(results_file,
@@ -88,13 +86,12 @@ def filter_scrub_results(scrub_conf_data):
 
     # Filter P10 results
     if raw_p10_files:
-        try:
-            # Set the output file path
-            filtered_p10_results = scrub_conf_data.get('scrub_analysis_dir').joinpath('p10.scrub')
+        # Set the output file path
+        filtered_p10_results = scrub_conf_data.get('scrub_analysis_dir').joinpath('p10.scrub')
 
-            # Parse all of the input files
+        try:
+            # Parse all the input files
             p10_results = []
-            # valid_warning_types = []
             for results_file in raw_p10_files:
                 # Append the results file
                 p10_results = (p10_results + translate_results.parse_scrub(results_file,
@@ -120,14 +117,14 @@ def filter_scrub_results(scrub_conf_data):
     # Filter everything else
     if raw_generic_files:
         for raw_generic_file in raw_generic_files:
+            # Get the output file name
+            tool_name = raw_generic_file.stem.split('_')[0]
+            filtered_generic_results = scrub_conf_data.get('scrub_analysis_dir').joinpath(tool_name + '.scrub')
+
             try:
                 # Import the warning data
                 raw_generic_warnings = translate_results.parse_scrub(raw_generic_file,
                                                                      scrub_conf_data.get('source_dir'))
-
-                # Get the output file name
-                tool_name = raw_generic_file.stem.split('_')[0]
-                filtered_generic_results = scrub_conf_data.get('scrub_analysis_dir').joinpath(tool_name + '.scrub')
 
                 filter_results.filter_results(raw_generic_warnings, filtered_generic_results,
                                               scrub_conf_data.get('filtering_output_file'),
@@ -155,7 +152,7 @@ def generate_sarif(scrub_conf_data):
         - scrub_conf_data: Dictionary of SCRUB configuration variables [dict]
     """
 
-    # Find all of the SCRUB output files
+    # Find all the SCRUB output files
     scrub_files = scrub_conf_data.get('scrub_analysis_dir').glob('*.scrub')
 
     for scrub_file in scrub_files:
@@ -167,7 +164,7 @@ def generate_sarif(scrub_conf_data):
                                               'sarifv2.1.0')
 
 
-def run_analysis(scrub_conf_data, file_list=[], console_logging=logging.INFO, override=False):
+def run_analysis(scrub_conf_data, console_logging=logging.INFO, override=False):
     """This function performs results filtering of raw analysis results.
 
     Inputs:
