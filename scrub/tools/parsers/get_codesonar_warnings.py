@@ -1,11 +1,10 @@
-import sys
 import xml.etree.ElementTree
 import pathlib
 import logging
 from scrub.tools.parsers import translate_results
 from scrub.tools.parsers import parse_metrics
 
-# def parse_warnings(input_file, output_file, codesonar_hub, exclude_p10=False):
+
 def parse_xml_warnings(input_file, output_file, codesonar_hub, exclude_p10=False):
     """This function parses the raw CodeSonar warnings into the SCRUB format.
 
@@ -138,7 +137,8 @@ def parse_warnings(analysis_dir, tool_config_data):
     # Initialize variables
     source_dir = tool_config_data.get('source_dir')
     codesonar_hub = tool_config_data.get('codesonar_hub')
-    raw_metrics_file = analysis_dir.joinpath('metric_search.json')
+    raw_analysis_metrics_file = analysis_dir.joinpath('analysis_metrics.json')
+    raw_file_metrics_file = analysis_dir.joinpath('file_metrics.json')
     parsed_output_file = tool_config_data.get('raw_results_dir').joinpath('codesonar_raw.scrub')
     parsed_metrics_file = tool_config_data.get('scrub_analysis_dir').joinpath('codesonar_metrics.csv')
 
@@ -158,9 +158,10 @@ def parse_warnings(analysis_dir, tool_config_data):
         # Create the SCRUB output file
         translate_results.create_scrub_output_file(raw_warnings, parsed_output_file)
 
-    # Parse the metrics file
-    parse_metrics.parse_codesonar_metrics(raw_metrics_file, parsed_metrics_file, source_dir)
-
-
-if __name__ == '__main__':
-    parse_warnings(pathlib.Path(sys.argv[1]), pathlib.Path(sys.argv[2]), sys.argv[3])
+    # Parse the metrics files
+    parse_metrics.parse_codesonar_metrics(raw_analysis_metrics_file, raw_file_metrics_file, parsed_metrics_file,
+                                          source_dir)
+    # if raw_metrics_file.exists():
+    #     parse_metrics.parse_codesonar_metrics(raw_metrics_file, parsed_metrics_file, source_dir)
+    # else:
+    #     logging.info('\tWARNING: Metrics file not found. Check log for more details.')

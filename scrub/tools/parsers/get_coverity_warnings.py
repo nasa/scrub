@@ -1,9 +1,8 @@
 import re
-import sys
 import json
 import gzip
 import pathlib
-import xml.etree.ElementTree as ET
+import xml.etree.ElementTree
 from scrub.tools.parsers import translate_results
 
 ID_PREFIX = 'coverity'
@@ -28,7 +27,7 @@ def parse_cc(raw_input_file, threshold):
 
     # Import the metrics file data
     with gzip.open(raw_input_file, 'rb') as input_fh:
-        raw_metrics_data = ET.fromstring('<root>' + str(input_fh.read()) + '</root>')
+        raw_metrics_data = xml.etree.ElementTree.fromstring('<root>' + str(input_fh.read()) + '</root>')
 
     # Gather the CC data
     for function_metrics in raw_metrics_data.findall('fnmetric'):
@@ -51,8 +50,9 @@ def parse_cc(raw_input_file, threshold):
                         warning_file = pathlib.Path(file_path)
                         ranking = 'LOW'
                         warning_checker = 'SCRUB.HIGH_CC'
-                        warning_description = ['High cyclomatic complexity found in function: %s' % (function_name),
-                                               'Cyclomatic complexity of function is %d, which exceeds the defined threshold of %d. '
+                        warning_description = ['High cyclomatic complexity found in function: %s' % function_name,
+                                               'Cyclomatic complexity of function is %d, '
+                                               'which exceeds the defined threshold of %d. '
                                                'Refactor this function to lower the cyclomatic complexity.' %
                                                (cyclomatic_complexity, threshold)]
 
@@ -110,11 +110,9 @@ def parse_json(raw_input_file):
         # Get the warning description
         for event in issue['events']:
             if event['eventTag'] != 'caretline':
-                event_file =event['strippedFilePathname']
+                event_file = event['strippedFilePathname']
                 event_line = event['lineNumber']
                 event_description = '{}: {}'.format(event['eventTag'], event['eventDescription'])
-                # warning_description.append('{}:{}:'.format(event_file, event_line))
-                # warning_description.append(event_description)
 
                 # Add to the code flow
                 warning_code_flow.append(translate_results.create_code_flow(event_file, event_line, event_description))
@@ -155,13 +153,8 @@ def parse_warnings(analysis_dir, tool_config_data):
                                                           tool_config_data.get('source_dir'))
 
     # Parse the metrics file
-    if cc_threshold >= 0:
+    if (cc_threshold >= 0) and (coverity_metrics_file.exists()):
         coverity_findings = coverity_findings + parse_cc(coverity_metrics_file, cc_threshold)
 
     # Create the output file
     translate_results.create_scrub_output_file(coverity_findings, parsed_output_file)
-
-
-# if __name__ == '__main__':
-#     parse_coverity_results(pathlib.Path(sys.argv[1]), pathlib.Path(sys.argv[2]), int(sys.argv[3]),
-#                            pathlib.Path(sys.argv[4]))

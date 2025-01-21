@@ -5,6 +5,3 @@ pylint --version
 
 # Perform Pylint analysis
 find ${{SOURCE_DIR}} -type f -name '*.py' | xargs pylint ${{PYLINT_FLAGS}} --output ${{TOOL_ANALYSIS_DIR}}/pylint_output.json --output-format json
-
-# Parse the results into SCRUB format
-#python3 -m scrub.tools.parsers.get_pylint_warnings ${{TOOL_ANALYSIS_DIR}}/pylint_output.json ${{RAW_RESULTS_DIR}}/pylint_compiler_raw.scrub

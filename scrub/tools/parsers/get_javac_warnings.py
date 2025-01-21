@@ -1,5 +1,4 @@
 import re
-import sys
 import pathlib
 import logging
 from scrub.tools.parsers import translate_results
@@ -58,7 +57,3 @@ def parse_warnings(analysis_dir, tool_config_data):
 
     # Create the output file
     translate_results.create_scrub_output_file(raw_warnings, parsed_output_file)
-
-
-# if __name__ == '__main__':
-#     parse_warnings(pathlib.Path(sys.argv[1]), pathlib.Path(sys.argv[2]))

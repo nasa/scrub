@@ -10,7 +10,7 @@ def parse_warnings(input_dir, output_format='legacy'):
     # Initialize variables
     source_dir = pathlib.Path(input_dir).parent
     output_dir = input_dir.joinpath('csv_output')
-    timestamp = datetime.datetime.utcnow()
+    timestamp = datetime.datetime.now(datetime.UTC)
 
     # Make the output directory if it doesn't already exist
     if output_dir.exists():
@@ -40,7 +40,8 @@ def parse_warnings(input_dir, output_format='legacy'):
                     output_fh.write('{},{},{},{},{},{}\n'.format(result.get('id'), result.get('query'),
                                                                  ' '.join(result.get('description')).replace(',', ''),
                                                                  result.get('priority'),
-                                                                 os.path.relpath(str(result.get('file')), str(source_dir)),
+                                                                 os.path.relpath(str(result.get('file')),
+                                                                                 str(source_dir)),
                                                                  result.get('line')))
 
         else:
@@ -53,13 +54,13 @@ def parse_warnings(input_dir, output_format='legacy'):
                 # Iterate through every result
                 for result in scrub_results:
                     description_text = ' '.join(result.get('description')).replace(',', '').replace('\t', '').strip()
-                    output_fh.write('{},{},{},{},{},{}:{},{},{},{},{}\n'.format(result.get('query'), description_text,
-                                                                             result.get('priority'), description_text,
-                                                                             os.path.relpath(str(result.get('file')), str(source_dir)),
-                                                                             timestamp.strftime("%Y-%B-%d--%H-%M-%S"),
-                                                                             os.path.relpath(str(result.get('file')), str(source_dir)),
-                                                                             result.get('line'), result.get('line'), 0,
-                                                                             0))
+                    output_fh.write('{},{},{},{},{},{}:{},{},{},{},{}\n'
+                                    .format(result.get('query'), description_text,
+                                            result.get('priority'), description_text,
+                                            os.path.relpath(str(result.get('file')), str(source_dir)),
+                                            timestamp.strftime("%Y-%B-%d--%H-%M-%S"),
+                                            os.path.relpath(str(result.get('file')), str(source_dir)),
+                                            result.get('line'), result.get('line'), 0, 0))
 
 
 if __name__ == '__main__':

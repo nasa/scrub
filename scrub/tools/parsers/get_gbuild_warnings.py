@@ -1,6 +1,5 @@
 import re
 import os
-import sys
 import pathlib
 import logging
 from scrub.tools.parsers import translate_results
@@ -46,7 +45,7 @@ def get_raw_warning(raw_input_file, initial_index):
     line = input_data[current_index]
 
     # Get the end point
-    while not line == '\n':
+    while line != '\n':
         # Update the end point
         end_point = current_index
 
@@ -209,7 +208,3 @@ def parse_warnings(analysis_dir, tool_config_data):
 
     # Search for DoubleCheck warnings in the log file
     parse_doublecheck_warnings(raw_input_file, parsed_output_file)
-
-
-# if __name__ == '__main__':
-#     parse_warnings(pathlib.Path(sys.argv[1]), pathlib.Path(sys.argv[2]))

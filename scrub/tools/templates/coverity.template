@@ -18,6 +18,8 @@ if [[ "${{SOURCE_LANG}}" =~ "go" ]]; then
 fi
 if [[ "${{SOURCE_LANG}}" =~ "java" ]]; then
     find ${{SOURCE_DIR}} -iname "*.java" -o -iname "*.jav" >> "$file_list"
+    find ${{SOURCE_DIR}} -iname "*.class" >> "$file_list"
+    find ${{SOURCE_DIR}} -iname "*.jar" >> "$file_list"
 fi
 if [[ "${{SOURCE_LANG}}" =~ "javascript" ]]; then
     find ${{SOURCE_DIR}} -iname "*.js" -o -iname "*.jsx" -o -iname "*.cjs" -o -iname "*.mjs" -o -iname "*.vue" -o -iname "*.ts" -o -iname "*.tsx" -o -iname "*.cts" -o -iname "*.mts" >> "$file_list"
