@@ -55,7 +55,7 @@ An example of a set of two warnings that adhere to this format:
 
 ## List of Output Files
 
-The following section provides a description of the structure of the .scrub output directory located at `SOURCE_DIR` as specified in the `scrub.cfg` configuration file:
+The following section provides a description of the structure of the `.scrub` and `scrub_results` output directories located at `SOURCE_DIR` as specified in the `scrub.cfg` configuration file:
 
     .scrub
     |  VERSION                          (Version of SCRUB that generated results)
@@ -65,6 +65,8 @@ The following section provides a description of the structure of the .scrub outp
     |  compiler.scrub                   (Filtered, aggregate results from all compilers)
     |  p10.scrub                        (Filtered, aggregate results from all P10 analysis engines)
     |  [tool].scrub                     (Filtered results file for each tool)
+    |  [tool]_metrics.csv               (Metrics data file for each tool)
+    |  ...
     |
     |--raw_results                      (Directory containing unfiltered, SCRUB-formatted results)
     |    [tool]_p10_raw.scrub           (Unfiltered, SCRUB-formatted P10 results for each tool)
@@ -82,4 +84,13 @@ The following section provides a description of the structure of the .scrub outp
     |
     |--analysis_scripts                 (Directory containing parsed tool analysis scripts)
     |    [tool].sh
+    |
+    |--sarif_files                      (Directory containing SARIF-formatted results files)
+    |    [tool].sarif                   (Output file for analysis tool)
+
+    scrub_results
+    |  [tool].scrub                     (Symbolic link to tool results file from .scrub directory)
+    |  [tool].sarif                     (Symbolic link to tool results file from .scrub directory)
+    |  [tool]_metrics.csv               (Symbolic link to tool metrics file from .scrub directory)
+    |  ...
 

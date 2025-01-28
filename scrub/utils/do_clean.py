@@ -2,7 +2,7 @@ import shutil
 
 
 def clean_subdirs(root_dir):
-    """This function cleans all sub-directories under the specified root directory.
+    """This function cleans all subdirectories under the specified root directory.
 
     Inputs:
         - root_dir: Absolute path to the root directory of interest [string]
@@ -28,5 +28,5 @@ def clean_directory(directory):
     if directory.joinpath('.scrub').exists():
         shutil.rmtree(directory.joinpath('.scrub'))
 
-    # Remove all of the sub-directories
+    # Remove all the subdirectories
     clean_subdirs(directory)

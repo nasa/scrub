@@ -19,6 +19,12 @@ fi
 # Capture build artifacts
 ${{CODESONAR_PATH}}/codesonar build ${{TOOL_ANALYSIS_DIR}}/SCRUBAnalysis -project ${{CODESONAR_PROJ_NAME}} ${{CODESONAR_BUILD_FLAGS}} -foreground -auth certificate -hubcert ${{CODESONAR_CERT}} -hubkey ${{CODESONAR_KEY}} ${{CODESONAR_HUB}} ${{CODESONAR_BUILD_CMD}}
 
+# Add SARIF imports?
+if ${{CODESONAR_IMPORT}}; then
+  sarif_reports="`find ${{TOOL_ANALYSIS_DIR}}/sarif_imports/* | paste -sd " " -`"
+  ${{CODESONAR_PATH}}/codesonar build ${{TOOL_ANALYSIS_DIR}}/SCRUBAnalysis -project ${{CODESONAR_PROJ_NAME}} ${{CODESONAR_BUILD_FLAGS}} -foreground -auth certificate -hubcert ${{CODESONAR_CERT}} -hubkey ${{CODESONAR_KEY}} ${{CODESONAR_HUB}} ${{CODESONAR_PATH}}/codesonar import_sarif.py --require-source ${sarif_reports}
+fi
+
 # Perform CodeSonar analysis
 ${{CODESONAR_PATH}}/codesonar analyze ${{TOOL_ANALYSIS_DIR}}/SCRUBAnalysis -project ${{CODESONAR_PROJ_NAME}} $presets ${{CODESONAR_ANALYZE_FLAGS}} -foreground -auth certificate -hubcert ${{CODESONAR_CERT}} -hubkey ${{CODESONAR_KEY}} ${{CODESONAR_HUB}}
 
@@ -34,13 +40,11 @@ re='^[0-9]+$'
 if [[ $results_template =~ $re ]] ; then
     # Get the results from the CodeSonar Hub
     ${{CODESONAR_PATH}}/codesonar get -auth certificate -hubcert ${{CODESONAR_CERT}} -hubkey ${{CODESONAR_KEY}} ${{CODESONAR_GET_FLAGS}} "${{CODESONAR_HUB}}/search.xml?swarnings=%7B%0A%20%20%22visible%22%3A%20%7B%0A%20%20%20%20%22%2A%22%3A%20true%0A%20%20%7D%0A%7D&scope=aid%3A$aid&filter=%22active%22"
-
-    # Parse the results into SCRUB format
-    python3 -m scrub.tools.parsers.get_codesonar_warnings ${{TOOL_ANALYSIS_DIR}}/*.xml ${{RAW_RESULTS_DIR}}/codesonar_raw.scrub ${{CODESONAR_HUB}}
 else
     # Get the results from the CodeSonar Hub
-    ${{CODESONAR_PATH}}/codesonar get -auth certificate -hubcert ${{CODESONAR_CERT}} -hubkey ${{CODESONAR_KEY}} ${{CODESONAR_GET_FLAGS}} "${{CODESONAR_HUB}}/warning_detail_search.sarif?scope=aid%3A$aid&filter=%22active%22"
-
-    # Parse the results into SCRUB format
-    python3 -m scrub.tools.parsers.translate_results ${{TOOL_ANALYSIS_DIR}}/*.sarif ${{RAW_RESULTS_DIR}}/codesonar_raw.scrub ${{SOURCE_DIR}} scrub
+    ${{CODESONAR_PATH}}/codesonar get -auth certificate -hubcert ${{CODESONAR_CERT}} -hubkey ${{CODESONAR_KEY}} ${{CODESONAR_GET_FLAGS}} "${{CODESONAR_HUB}}/warning_detail_search.sarif?scope=aid%3A$aid&filter=%22active%22&query=-external"
 fi
+
+# Get the metrics
+${{CODESONAR_PATH}}/codesonar get -auth certificate -hubcert ${{CODESONAR_CERT}} -hubkey ${{CODESONAR_KEY}} -o "${{TOOL_ANALYSIS_DIR}}/file_metrics.json" "${{CODESONAR_HUB}}/metric_search.json?scope=aid%3A$aid&query=aid%3A$aid&metrics=LB%3A200&metrics=LCodeOnly%3A200&metrics=LComOnly%3A200&metrics=vG%3A200&metrics=TaintSink%3A200&metrics=TaintSource%3A200&metrics=LCode%3A200&metrics=LCom%3A200&metrics=LMCC%3A200&metrics=mvG%3A200&metrics=TaintProp%3A200&metrics=TL%3A200"
+${{CODESONAR_PATH}}/codesonar get -auth certificate -hubcert ${{CODESONAR_CERT}} -hubkey ${{CODESONAR_KEY}} -o "${{TOOL_ANALYSIS_DIR}}/analysis_metrics.json" "${{CODESONAR_HUB}}/metric_search.json?scope=aid%3A$aid&query=aid%3A$aid"

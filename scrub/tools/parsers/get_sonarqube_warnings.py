@@ -1,28 +1,30 @@
-import sys
 import json
-import pathlib
 from scrub.tools.parsers import translate_results
+from scrub.tools.parsers import parse_metrics
 
 ID_PREFIX = 'sonarqube'
 
 
-def parse_warnings(results_dir, parsed_output_file, source_root, sonarqube_url):
+def parse_warnings(analysis_dir, tool_config_data):
     """This function parses the raw SonarQube warnings into the SCRUB format.
-        Inputs:
-            - results_dir: Absolute path to the raw SonarQube output file directory [string]
-            - parsed_output_file: Absolute path to the file where the parsed warnings will be stored [string]
-            - source_root: Absolute path to the source root directory [string]
-            - sonarqube_url: URL of the SonarQube server [string]
-        """
+
+    Inputs:
+        - analysis_dir: Absolute path to the raw SonarQube output file directory [string]
+        - tool_config_data: Dictionary of scrub configuration data [dict]
+    """
 
     # Initialize the variables
     warning_count = 1
     raw_warnings = []
+    sonarqube_url = tool_config_data.get('sonarqube_server')
+    source_root = tool_config_data.get('source_dir')
+    parsed_output_file = tool_config_data.get('raw_results_dir').joinpath('sonarqube_raw.scrub')
+    metrics_output_file = tool_config_data.get('scrub_analysis_dir').joinpath('sonarqube_metrics.csv')
 
     # Find all the raw findings results files in the directory
-    findings_results_files = results_dir.glob('*.json')
+    findings_results_files = analysis_dir.glob('*.json')
 
-    # Iterate through every issues results file
+    # Iterate through every issue results file
     for raw_findings_file in findings_results_files:
         # Read in the input data
         with open(raw_findings_file, 'r') as input_fh:
@@ -75,7 +77,9 @@ def parse_warnings(results_dir, parsed_output_file, source_root, sonarqube_url):
                 sonarqube_priority = 'low'
 
             # Translate the priority to High/Med/Low
-            if (sonarqube_priority == 'blocker') or (sonarqube_priority == 'critical') or (sonarqube_priority == 'high'):
+            if ((sonarqube_priority == 'blocker') or
+                    (sonarqube_priority == 'critical') or
+                    (sonarqube_priority == 'high')):
                 priority = 'High'
             elif (sonarqube_priority == 'major') or (sonarqube_priority == 'medium'):
                 priority = 'Med'
@@ -103,6 +107,5 @@ def parse_warnings(results_dir, parsed_output_file, source_root, sonarqube_url):
     # Create the SCRUB output file
     translate_results.create_scrub_output_file(raw_warnings, parsed_output_file)
 
-
-if __name__ == '__main__':
-    parse_warnings(pathlib.Path(sys.argv[1]), pathlib.Path(sys.argv[2]), pathlib.Path(sys.argv[3]), sys.argv[4])
+    # Parse the metrics file, if it exists
+    parse_metrics.parse(analysis_dir, metrics_output_file, source_root, 'sonarqube')

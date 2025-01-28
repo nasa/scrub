@@ -11,6 +11,7 @@ from scrub import __version__
 from scrub.utils.filtering import do_filtering
 from scrub.utils import do_clean
 from scrub.utils import scrub_utilities
+from scrub.tools.parsers import translate_results
 
 
 def parse_arguments():
@@ -40,7 +41,8 @@ def parse_arguments():
         logging_level = logging.INFO
 
     # Run analysis
-    main(pathlib.Path(args['config']).resolve(), args['clean'], logging_level, args['tools'], args['targets'], args['define'])
+    main(pathlib.Path(args['config']).resolve(), args['clean'], logging_level, args['tools'], args['targets'],
+         args['define'])
 
 
 def main(conf_file=pathlib.Path('./scrub.cfg').resolve(), clean=False, console_logging=logging.INFO, tools=None,
@@ -90,14 +92,23 @@ def main(conf_file=pathlib.Path('./scrub.cfg').resolve(), clean=False, console_l
     try:
         shutil.copyfile(conf_file, str(scrub_conf_data.get('scrub_analysis_dir').joinpath('scrub.cfg')))
     except PermissionError:
-        print("WARNING: Could not create copy of configuration file {}".format(scrub_conf_data.get('scrub_analysis_dir').joinpath('scrub.cfg')))
+        print("WARNING: Could not create copy of configuration file {}"
+              .format(scrub_conf_data.get('scrub_analysis_dir').joinpath('scrub.cfg')))
 
     # Create a VERSION file
     try:
         with open(str(scrub_conf_data.get('scrub_analysis_dir').joinpath('VERSION')), 'w') as output_fh:
             output_fh.write(__version__)
     except PermissionError:
-        logging.warning('Could not create VERSION file {}'.format(str(scrub_conf_data.get('scrub_analysis_dir').joinpath('VERSION'))))
+        logging.warning('Could not create VERSION file {}'
+                        .format(str(scrub_conf_data.get('scrub_analysis_dir').joinpath('VERSION'))))
+
+    # Check for SARIF import conflicts
+    if scrub_conf_data.get("sonarqube_import") and scrub_conf_data.get("codesonar_import"):
+        print("ERROR: Conflict in SARIF import instructions. "
+              "SARIF results can only be imported into one tool at a time.")
+        print("  Please select SONARQUBE_IMPORT or CODESONAR_IMPORT, but not both.")
+        sys.exit(10)
 
     try:
         # Get the templates
@@ -107,6 +118,14 @@ def main(conf_file=pathlib.Path('./scrub.cfg').resolve(), clean=False, console_l
         if scrub_conf_data.get('custom_templates'):
             available_analysis_templates = (available_analysis_templates +
                                             scrub_conf_data.get('custom_templates').replace('\"', '').split(','))
+
+        # If we're doing SARIF import, we need to move that tool to the end
+        if scrub_conf_data.get('sonarqube_import'):
+            available_analysis_templates.remove(scrub_path.joinpath('tools/templates/sonarqube.template'))
+            available_analysis_templates.append(scrub_path.joinpath('tools/templates/sonarqube.template'))
+        elif scrub_conf_data.get('codesonar_import'):
+            available_analysis_templates.remove(scrub_path.joinpath('tools/templates/codesonar.template'))
+            available_analysis_templates.append(scrub_path.joinpath('tools/templates/codesonar.template'))
 
         # Check to make sure at least one possible template has been identified
         if len(available_analysis_templates) == 0:
@@ -123,7 +142,7 @@ def main(conf_file=pathlib.Path('./scrub.cfg').resolve(), clean=False, console_l
             analysis_templates = []
             for template in available_analysis_templates:
                 for tool in tools:
-                    if template.name  == tool + '.template':
+                    if template.name == tool + '.template':
                         analysis_templates.append(template)
                         scrub_conf_data.update({tool.lower() + '_warnings': True})
         else:
@@ -131,9 +150,6 @@ def main(conf_file=pathlib.Path('./scrub.cfg').resolve(), clean=False, console_l
 
         # Perform analysis using the template
         for analysis_template in analysis_templates:
-            # Initialize variables
-            execution_time = 0
-
             # Get the tool name
             tool_name = analysis_template.stem
 
@@ -145,6 +161,8 @@ def main(conf_file=pathlib.Path('./scrub.cfg').resolve(), clean=False, console_l
                 analysis_scripts_dir = scrub_conf_data.get('scrub_analysis_dir').joinpath('analysis_scripts')
                 analysis_script = analysis_scripts_dir.joinpath(tool_name + '.sh')
                 tool_analysis_dir = scrub_conf_data.get('scrub_working_dir').joinpath(tool_name + '_analysis')
+                sarif_import_dir = tool_analysis_dir.joinpath('sarif_imports')
+                parser = importlib.import_module('scrub.tools.parsers.get_' + tool_name.lower() + '_warnings')
 
                 # Add derived values to configuration values
                 scrub_conf_data.update({'tool_analysis_dir': tool_analysis_dir})
@@ -154,6 +172,18 @@ def main(conf_file=pathlib.Path('./scrub.cfg').resolve(), clean=False, console_l
 
                 # Create the tool analysis directory
                 scrub_utilities.create_dir(tool_analysis_dir, True, True)
+
+                # Is SARIF import being performed?
+                if scrub_conf_data.get(tool_name + '_import'):
+                    scrub_utilities.create_dir(sarif_import_dir, True, True)
+
+                    # Iterate through the existing SARIF files, process them, and drop them into the expected directory
+                    for sarif_file in list(scrub_conf_data.get('sarif_results_dir').glob('*.sarif')):
+                        if sarif_file.stem != tool_name:
+                            translate_results.format_sarif_for_upload(sarif_file,
+                                                                      sarif_import_dir.joinpath(sarif_file.name),
+                                                                      scrub_conf_data.get('source_dir'),
+                                                                      tool_name)
 
                 # Create the log file
                 analysis_log_file = scrub_conf_data.get('scrub_log_dir').joinpath(tool_name + '.log')
@@ -198,6 +228,9 @@ def main(conf_file=pathlib.Path('./scrub.cfg').resolve(), clean=False, console_l
                     # Check the tool analysis directory
                     scrub_utilities.check_artifact(tool_analysis_dir, True)
 
+                    # Parse the results files
+                    parser.parse_warnings(tool_analysis_dir, scrub_conf_data)
+
                     # Check the raw results files
                     for raw_results_file in scrub_conf_data.get('raw_results_dir').glob(tool_name + '_*.scrub'):
                         scrub_utilities.check_artifact(raw_results_file, False)
@@ -226,17 +259,17 @@ def main(conf_file=pathlib.Path('./scrub.cfg').resolve(), clean=False, console_l
                     # Calculate the execution time
                     execution_time = time.time() - start_time
 
-            # Update the execution status
-            execution_status.append([tool_name, tool_execution_status, execution_time])
+                    # Update the execution status
+                    execution_status.append([tool_name, tool_execution_status, execution_time])
 
-        # Perform filtering and track execution time, if necessary
-        if perform_filtering:
-            start_time = time.time()
-            filtering_status = do_filtering.run_analysis(scrub_conf_data, console_logging)
-            execution_time = time.time() - start_time
+                    # Perform filtering and track execution time, if necessary
+                    if perform_filtering:
+                        start_time = time.time()
+                        filtering_status = do_filtering.run_analysis(scrub_conf_data, console_logging)
+                        execution_time = time.time() - start_time
 
-            # Update the execution status
-            execution_status.append(['filtering', filtering_status, execution_time])
+                        # Update the execution status
+                        execution_status.append(['filtering', filtering_status, execution_time])
 
     finally:
         # Move the results back with the source code if necessary
@@ -255,7 +288,8 @@ def main(conf_file=pathlib.Path('./scrub.cfg').resolve(), clean=False, console_l
                 shutil.rmtree(scrub_conf_data.get('scrub_working_dir'))
 
         except PermissionError:
-            print("\tWARNING: Could not move results from {} to {}".format(scrub_conf_data.get('scrub_working_dir'), scrub_conf_data.get('scrub_analysis_dir')))
+            print("\tWARNING: Could not move results from {} to {}".format(scrub_conf_data.get('scrub_working_dir'),
+                                                                           scrub_conf_data.get('scrub_analysis_dir')))
             print("\t\tResults will remain at {}".format(scrub_conf_data.get('scrub_working_dir')))
 
         # Create a visible directory of results, if it doesn't already exist
@@ -263,7 +297,7 @@ def main(conf_file=pathlib.Path('./scrub.cfg').resolve(), clean=False, console_l
         scrub_utilities.create_dir(viewable_results_dir, False)
 
         # Create symbolic links for the output files
-        file_extensions = ['*.scrub', 'sarif_results/*.sarif']
+        file_extensions = ['*.scrub', 'sarif_results/*.sarif', '*_metrics.csv']
         for extension in file_extensions:
             for scrub_file in scrub_conf_data.get('scrub_analysis_dir').glob(extension):
                 symlink_path = viewable_results_dir.joinpath(scrub_file.name)
@@ -272,8 +306,8 @@ def main(conf_file=pathlib.Path('./scrub.cfg').resolve(), clean=False, console_l
                         os.symlink(os.path.relpath(str(scrub_file), str(viewable_results_dir)), symlink_path)
 
                 except PermissionError:
-                    logging.warning('Could not create symbolic link {}'.format(viewable_results_dir.joinpath(scrub_file.name)))
-
+                    logging.warning('Could not create symbolic link {}'
+                                    .format(viewable_results_dir.joinpath(scrub_file.name)))
 
         # Print a status message
         tool_failure_count = 0
@@ -299,8 +333,11 @@ def main(conf_file=pathlib.Path('./scrub.cfg').resolve(), clean=False, console_l
                 exit_code = 'Unknown error'
 
             # Print the status message
-            print('\t%s | %s: %s' % (time.strftime("%H:%M:%S", time.gmtime(status[2])), status[0], exit_code))
-            print('\t--------------------------------------------------')
+            if status[0] == 'filtering':
+                print('\t%s |     %s: %s' % (time.strftime("%H:%M:%S", time.gmtime(status[2])), status[0], exit_code))
+            else:
+                print('\t--------------------------------------------------')
+                print('\t%s | %s: %s' % (time.strftime("%H:%M:%S", time.gmtime(status[2])), status[0], exit_code))
 
         # Print the execution time
         print('\n\tTotal Execution Time: %s\n' % time.strftime("%H:%M:%S", time.gmtime(total_execution_time)))

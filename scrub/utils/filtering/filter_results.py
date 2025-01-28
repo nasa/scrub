@@ -190,7 +190,7 @@ def filter_results(warning_list, output_file, filtering_file, ignore_query_file,
     Inputs:
         - input_files: List of absolute paths to the input file(s) of interest [list of string]
         - output_file: Absolute path to file where filtered results will be stored [string]
-        - filtering_file: Absolute path to the SCRUBAnalayisFilteringList file [string]
+        - filtering_file: Absolute path to the SCRUBAnalysisFilteringList file [string]
         - ignore_query_file: Absolute path to the SCRUBExcludeQueries file [string]
         - source_root: Absolute path to the top level directory of the source code [string]
         - enable_micro_filtering: Flag to enable/disable micro filtering [logical]
@@ -241,7 +241,7 @@ def filter_results(warning_list, output_file, filtering_file, ignore_query_file,
         if enable_micro_filtering and micro_filter_check(warning['file'], warning['line'], valid_warning_types):
             continue
 
-        # Check to see if the query should be ignore
+        # Check to see if the query should be ignored
         if ignore_query_check(warning['tool'], warning['query'], ignore_query_file):
             continue
 

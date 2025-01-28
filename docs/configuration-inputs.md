@@ -97,6 +97,7 @@ Each table below represents a portion of the complete `scrub.cfg` file.
 | COVERITY_COVBUILD_FLAGS        | String     | Optional  | Flags to be passed into 'cov-build' command                | ''            |
 | COVERITY_COVANALYZE_FLAGS      | String     | Optional  | Flags to be passed into the 'cov-analyze' command          | ''            |
 | COVERITY_COVFORMATERRORS_FLAGS | String     | Optional  | Flags to be passed into the 'cov-format-errors' command    | ''            |
+| COVERITY_CC_THRESHOLD          | Integer    | Optional  | Set threshold for high cyclomatic complexity warnings      | -1            |
 
 
 ### CodeSonar Variables

@@ -84,6 +84,9 @@ if [[ "${{SOURCE_LANG}}" =~ "yaml" ]]; then
     file_extension_filters="$file_extension_filters,**/*.yaml,**/*.yml"
 fi
 
+# Set the required analysis flags
+required_flags="-X -D sonar.host.url=${{SONARQUBE_SERVER}} -D sonar.projectKey=${{SONARQUBE_PROJECT}} -D sonar.login=${{SONARQUBE_TOKEN}} -D sonar.working.directory=${{TOOL_ANALYSIS_DIR}}/scanner_output -D sonar.java.binaries=${{SOURCE_DIR}}"
+
 # Capture C/C++ code
 if [ -n "${{SONARQUBE_BUILD_CMD}}" ]; then
     # Change to the build directory
@@ -95,20 +98,21 @@ if [ -n "${{SONARQUBE_BUILD_CMD}}" ]; then
     # Build the code using the SonarQube build wrapper
     ${{SONARQUBE_WRAPPER_PATH}}/build-wrapper* --out-dir ${{TOOL_ANALYSIS_DIR}}/build_wrapper_output ${{SONARQUBE_BUILD_CMD}}
 
-    # Change to the source root directory
-    cd ${{SOURCE_DIR}}
-
-    # Perform SonarQube analysis
-    ${{SONARQUBE_PATH}}/sonar-scanner $file_extension_filters -X -D sonar.java.binaries=${{SOURCE_DIR}} -D sonar.host.url=${{SONARQUBE_SERVER}} -D sonar.projectKey=${{SONARQUBE_PROJECT}} -D sonar.login=${{SONARQUBE_TOKEN}} -D sonar.cfamily.build-wrapper-output=${{TOOL_ANALYSIS_DIR}}/build_wrapper_output -D sonar.working.directory=${{TOOL_ANALYSIS_DIR}}/scanner_output ${{SONARQUBE_SCANNER_FLAGS}}
-
-# Capture all other languages
-else
-    # Change to the source root directory
-    cd ${{SOURCE_DIR}}
-
-    # Perform SonarQube analysis
-    ${{SONARQUBE_PATH}}/sonar-scanner $file_extension_filters -X -D sonar.java.binaries=${{SOURCE_DIR}} -D sonar.host.url=${{SONARQUBE_SERVER}} -D sonar.projectKey=${{SONARQUBE_PROJECT}} -D sonar.login=${{SONARQUBE_TOKEN}} -D sonar.working.directory=${{TOOL_ANALYSIS_DIR}}/scanner_output ${{SONARQUBE_SCANNER_FLAGS}}
+    # Update the required flags
+    required_flags="$required_flags -D sonar.cfamily.build-wrapper-output=${{TOOL_ANALYSIS_DIR}}/build_wrapper_output -D sonar.cfamily.cache.enabled=false"
 fi
+
+# Add SARIF imports?
+if ${{SONARQUBE_IMPORT}}; then
+  sarif_reports=`find ${{TOOL_ANALYSIS_DIR}}/sarif_imports/* | sed -e 's/^/"/g' -e 's/$/"/g' | paste -sd "," - `
+  required_flags="$required_flags -D sonar.sarifReportPaths=$sarif_reports"
+fi
+
+# Change to the source root directory
+cd ${{SOURCE_DIR}}
+
+# Perform analysis
+${{SONARQUBE_PATH}}/sonar-scanner ${{SONARQUBE_SCANNER_FLAGS}} $file_extension_filters $required_flags
 
 # Wait for results to be finalized
 STATUS_URL=`tail -n 1 ${{TOOL_ANALYSIS_DIR}}/scanner_output/report-task.txt | cut -c11-`
@@ -150,8 +154,24 @@ fi
 for ((CURRENT_PAGE=2; CURRENT_PAGE <= TOTAL_PAGES; CURRENT_PAGE++));
 do
     # Get the page
-    RESULTS_FILE=${{TOOL_ANALYSIS_DIR}}/sonarqube_issues_$CURRENT_PAGE.json
-    curl -u ${{SONARQUBE_TOKEN}}: "${{SONARQUBE_SERVER}}/api/issues/search?ps=$PAGE_SIZE&componentKeys=${{SONARQUBE_PROJECT}}&p=$CURRENT_PAGE&${{SONARQUBE_CURL_FLAGS}}" -o $RESULTS_FILE
+    RESULTS_FILE=${{TOOL_ANALYSIS_DIR}}/sonarqube_issues_$PAGE.json
+    curl -u ${{SONARQUBE_TOKEN}}: "${{SONARQUBE_SERVER}}/api/issues/search?ps=500&componentKeys=${{SONARQUBE_PROJECT}}&languages=${{SOURCE_LANG}}&p=$PAGE&${{SONARQUBE_CURL_FLAGS}}" -o $RESULTS_FILE
+    # Check to see if the file is empty
+    if [ ! -s "$RESULTS_FILE" ]; then
+        exit 1
+    fi
+    # Check the contents, verify file is not empty, and make sure the max page hasn't been reached
+    if grep -q "Can return only the first 10000 results" $RESULTS_FILE; then
+        echo "WARNING: Not all results have been retrieved."
+        MORE_RESULTS=false
+    elif [ $PAGE -gt 20 ]; then
+        MORE_RESULTS=false
+    elif grep -q "\"issues\":\[\]" $RESULTS_FILE; then
+       rm -f $RESULTS_FILE
+       MORE_RESULTS=false
+    else
+       PAGE=$((PAGE+1))
+    fi
 done
 
 # Retrieve the hotspots from the SonarQube server
@@ -174,5 +194,23 @@ do
     curl -u ${{SONARQUBE_TOKEN}}: "${{SONARQUBE_SERVER}}/api/hotspots/search?ps=$PAGE_SIZE&projectKey=${{SONARQUBE_PROJECT}}&p=$CURRENT_PAGE&${{SONARQUBE_CURL_FLAGS}}" -o $RESULTS_FILE
 done
 
-# Parse the results
-python3 -m scrub.tools.parsers.get_sonarqube_warnings ${{TOOL_ANALYSIS_DIR}} ${{RAW_RESULTS_DIR}}/sonarqube_raw.scrub ${{SOURCE_DIR}} ${{SONARQUBE_SERVER}}
+# Get project metrics from the SonarQube server
+curl -u ${{SONARQUBE_TOKEN}}: "${{SONARQUBE_SERVER}}/api/measures/component_tree?component=${{SONARQUBE_PROJECT}}&ps=500&qualifiers=TRK&metricKeys=files,functions,lines,ncloc,comment_lines,complexity,cognitive_complexity,violations,vulnerabilities,security_hotspots,coverage,line_coverage,branch_coverage,sqale_index,duplicated_lines_density" -o "${{TOOL_ANALYSIS_DIR}}/sonarqube_metrics_project.json"
+
+# Get the file level metrics from the SonarQube server
+PAGE=1
+MORE_RESULTS=true
+while $MORE_RESULTS; do
+    METRICS_FILE="${{TOOL_ANALYSIS_DIR}}/sonarqube_metrics_file_$PAGE.json"
+    curl -u ${{SONARQUBE_TOKEN}}: "${{SONARQUBE_SERVER}}/api/measures/component_tree?component=${{SONARQUBE_PROJECT}}&ps=500&p=$PAGE&qualifiers=FIL&strategy=all&metricKeys=files,functions,lines,ncloc,comment_lines,complexity,cognitive_complexity,violations,vulnerabilities,security_hotspots,coverage,line_coverage,branch_coverage,sqale_index,duplicated_lines_density" -o "${{TOOL_ANALYSIS_DIR}}/sonarqube_metrics_file_$PAGE.json"
+
+    # Check if there are more results
+    if grep -q "\"components\":\[\]" $METRICS_FILE; then
+       rm -f $METRICS_FILE
+       MORE_RESULTS=false
+    elif [ $PAGE -gt 20 ]; then
+        MORE_RESULTS=false
+    else
+       PAGE=$((PAGE+1))
+    fi
+done

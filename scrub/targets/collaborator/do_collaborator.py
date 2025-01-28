@@ -8,6 +8,8 @@ import subprocess
 import pathlib
 from scrub.utils import scrub_utilities
 from scrub.utils.filtering import create_file_list
+from scrub.tools.parsers import translate_results
+from scrub.tools.parsers import parse_metrics
 
 
 def login(bin_dir, login_flags):
@@ -26,6 +28,31 @@ def login(bin_dir, login_flags):
 
     # Execute the command
     scrub_utilities.execute_command(call_string, os.environ.copy(), None, True)
+
+
+def format_description(description):
+    """This function formats descriptions for upload in Collaborator.
+
+    Inputs:
+        - description: List of lines in the warning description [list of strings]
+
+    Outputs:
+        - description_string: Properly encoded description string [string]
+    """
+
+    # Initialize variables
+    special_chars_dict = {'"': "&quot;",
+                          "'": "&apos;",
+                          "<": "&lt;",
+                          ">": "&gt;",
+                          "&": "&amp;"}
+    description_string = '\n'.join(description)
+
+    # Remove special characters from the description
+    for key in special_chars_dict.keys():
+        description_string = description_string.replace(key, special_chars_dict[key])
+
+    return description_string
 
 
 def check_login(bin_dir):
@@ -98,70 +125,6 @@ def get_review_id(log_file):
     return review_id
 
 
-def get_defects(scrub_file):
-    """This function parses the input file and creates an internal dictionary of findings.
-
-    Inputs:
-        - scrub_file: Absolute path to the SCRUB-formatted results file [string]
-
-    Outputs:
-        defect_list: List of defects found within the results file [list of dict]
-    """
-
-    # Initialize variables
-    special_chars_dict = {'"': "&quot;",
-                          "'": "&apos;",
-                          "<": "&lt;",
-                          ">": "&gt;",
-                          "&": "&amp;"}
-    defect_list = []
-
-    # Import the defects from the file of interest
-    with open(scrub_file, 'r', encoding='UTF-8') as fh:
-        results = fh.read()
-
-    # Split the results into defects
-    defects = results.split('\n\n')
-
-    # Extract defect info
-    for raw_defect in defects:
-        if raw_defect:
-            # Initialize the dict
-            defect = {'id': None,
-                      'file': None,
-                      'line': None,
-                      'priority': None,
-                      'description': None,
-                      'tool': None}
-
-            # Replace any whitespace with single space
-            raw_defect = re.sub(r'\s+', ' ', raw_defect)
-
-            # Get tool abbrv, defect num, severity, file name, line num, description
-            raw_defect = re.match(r'(\D+\d*\D+)(\d*) <(\D+)> :(\S+):(\d+): (.+)', raw_defect)
-
-            if 'p10' in scrub_file.stem:
-                defect.update({'tool': 'p10_' + raw_defect.group(1)})
-            else:
-                defect.update({'tool': raw_defect.group(1)})
-            defect_num = raw_defect.group(2)
-
-            defect.update({'id': defect.get('tool') + defect_num})
-            defect.update({'priority': raw_defect.group(3)})
-            defect.update({'file': raw_defect.group(4)})
-            defect.update({'line': raw_defect.group(5)})
-            defect.update({'description': raw_defect.group(6)})
-
-            # Convert special chars in description
-            for key in special_chars_dict.keys():
-                defect.update({'description': defect.get('description').replace(key, special_chars_dict[key])})
-
-            # Add the defect to the list
-            defect_list.append(defect)
-
-    return defect_list
-
-
 def construct_xml_global_options(url, username):
     """This function constructs the global options portion of the XML file.
 
@@ -201,11 +164,76 @@ def create_batch_xml_file_upload(file_list, review_id, source_root):
 
     # Iterate through every file and add it to the upload
     for file in file_list:
-        file_upload_xml_batch = file_upload_xml_batch + '        <file-path>{}</file-path>\n'.format(file.strip())
+        file_upload_xml_batch = file_upload_xml_batch + '        <file-path>{}</file-path>\n'.format(str(file))
 
     file_upload_xml_batch = file_upload_xml_batch + '    </addfiles>\n'
 
     return file_upload_xml_batch
+
+
+def create_xml_comment_metrics(metrics_data, file_list, review_id):
+    """This function creates the XML snippet that is used to upload metrics to Collaborator.
+
+    Inputs:
+        - metrics_data: Dictionary of metrics data to be uploaded [dict]
+        - file_list: List of files that are in scope for this review [string]
+        - review_id: ID of review to upload files [string]
+
+    Outputs:
+        - metrics_xml: XML snippet to be added to the batch command [string]
+    """
+
+    # Generate the metrics string
+    metrics_xml_comments = ''
+    project_metrics_string = ''
+    project_metric_data = {}
+
+    # Iterate through every file
+    for tool in metrics_data.keys():
+        project_metric_data[tool] = {}
+        for file in file_list:
+            file_metrics_string = ''
+            # Check for metrics data
+            if metrics_data.get(tool).get(str(file)):
+                tool_metrics_string = tool.capitalize() + ' Metrics:\n'
+                for metric in metrics_data.get(tool).get(str(file)).keys():
+                    metric_value = metrics_data.get(tool).get(str(file)).get(metric)
+                    tool_metrics_string = tool_metrics_string + '  - ' + metric + ': ' + str(metric_value) + '\n'
+
+                    # Add up the metrics to get project level measures
+                    if metric in project_metric_data.get(tool).keys():
+                        project_metric_data[tool][metric] = project_metric_data[tool][metric] + metric_value
+                    else:
+                        project_metric_data[tool][metric] = metric_value
+
+                # Add the tool metrics to the overall string
+                file_metrics_string = file_metrics_string + tool_metrics_string + '\n\n'
+
+            # Construct the XML comment and add it to the list
+            if file_metrics_string:
+                file_metrics_xml = ('    <admin_review_comment_create>\n' +
+                                    '        <review>{}</review>\n'.format(review_id) +
+                                    '        <file>{}</file>\n'.format(file) +
+                                    '        <comment>{}</comment>\n'.format(file_metrics_string) +
+                                    '    </admin_review_comment_create>\n')
+
+                metrics_xml_comments = metrics_xml_comments + file_metrics_xml
+
+        # Add the tool data to the project level metrics string
+        project_metrics_string = project_metrics_string + tool.capitalize() + ' Metrics:\n'
+        for metric in project_metric_data.get(tool).keys():
+            project_metrics_string = project_metrics_string + '  - ' + metric + ': ' + \
+                                     str(round(project_metric_data.get(tool).get(metric))) + '\n'
+        project_metrics_string = project_metrics_string + '\n\n'
+
+    # Construct the project XML comment and add it to the list of comments
+    project_metrics_xml = ('    <admin_review_comment_create>\n' +
+                           '        <review>{}</review>\n'.format(review_id) +
+                           '        <comment>{}</comment>\n'.format(project_metrics_string) +
+                           '    </admin_review_comment_create>\n')
+    metrics_xml_comments = metrics_xml_comments + project_metrics_xml
+
+    return metrics_xml_comments
 
 
 def create_batch_xml_comment_upload(file_list, comment_list, review_id):
@@ -215,6 +243,9 @@ def create_batch_xml_comment_upload(file_list, comment_list, review_id):
         - file_list: List of files that are present within the review [list of string]
         - defect_list: List of defects to be uploaded to the Collaborator review [list of dicts]
         - review_id: ID of review to upload files [string]
+
+    Outputs:
+        - comment_xml_list: XML snippet to be added to the batch command [string]
     """
 
     # Initialize variables
@@ -228,7 +259,8 @@ def create_batch_xml_comment_upload(file_list, comment_list, review_id):
                            '        <review>{}</review>\n'.format(review_id) +
                            '        <file>{}</file>\n'.format(comment.get('file')) +
                            '        <line-number>{}</line-number>\n'.format(comment.get('line')) +
-                           '        <comment>{}: {}</comment>\n'.format(comment.get('tool'), comment.get('description')) +
+                           '        <comment>{}: {}</comment>\n'
+                           .format(comment.get('tool'), format_description(comment.get('description'))) +
                            '    </admin_review_comment_create>\n')
 
             # Add it to the list
@@ -261,14 +293,14 @@ def create_batch_xml_defect_upload(file_list, defect_list, review_id):
                 severity = 'Minor'
 
             # Create the defect XML
-            defect_xml = ('    <admin_review_defect_create>\n'+
-                                 '        <custom-field>Severity={}</custom-field>\n'.format(severity) +
-                                 '        <review>{}</review>\n'.format(review_id) +
-                                 '        <file>{}</file>\n'.format(defect.get('file')) +
-                                 '        <line-number>{}</line-number>\n'.format(defect.get('line')) +
-                                 '        <comment>{}: {}</comment>\n'.format(defect.get('tool'),
-                                                                              defect.get('description')) +
-                                 '    </admin_review_defect_create>\n')
+            defect_xml = ('    <admin_review_defect_create>\n' +
+                          '        <custom-field>Severity={}</custom-field>\n'.format(severity) +
+                          '        <review>{}</review>\n'.format(review_id) +
+                          '        <file>{}</file>\n'.format(defect.get('file')) +
+                          '        <line-number>{}</line-number>\n'.format(defect.get('line')) +
+                          '        <comment>{}: {}</comment>\n'.format(defect.get('tool'),
+                                                                       format_description(defect.get('description'))) +
+                          '    </admin_review_defect_create>\n')
 
             # Update the list of defects
             defect_xml_list = defect_xml_list + defect_xml
@@ -312,7 +344,7 @@ def initialize_upload(tool_conf_data):
     # tool_conf_data.update({'collaborator_review_xml_comments': comments_xml})
 
     # Set the author of the review
-    subcommand = ('admin review set-participants ' + review_id + ' --participant author=' +
+    subcommand = ('admin review set-participants ' + str(review_id) + ' --participant author=' +
                   tool_conf_data.get('collaborator_username'))
     execute_ccollab(tool_conf_data.get('collaborator_ccollab_location'), subcommand)
 
@@ -327,10 +359,13 @@ def perform_upload(tool_conf_data):
     # Initialize variables
     tool_defect_types = []
     defect_list = []
+    metrics_list = {}
 
     # Get a list of the source code files to be uploaded
     with open(tool_conf_data.get('collaborator_filtering_output_file'), 'r') as fh:
-        file_list = list(filter(None, re.split('\n', fh.read())))
+        file_list = []
+        for line in fh:
+            file_list.append(tool_conf_data.get('source_dir').joinpath(pathlib.Path(line.strip())))
 
     # Check if any files specified
     if tool_conf_data.get('collaborator_src_files'):
@@ -343,16 +378,26 @@ def perform_upload(tool_conf_data):
                 tool_name = filename.stem
                 tool_defect_types.append(tool_name)
 
-    # Get the defects
+    # Get the defects and metrics if they exist
     for tool_name in tool_defect_types:
         scrub_file = tool_conf_data.get('scrub_analysis_dir').joinpath(tool_name + '.scrub')
 
         # Add the defects to the review
-        defect_list = defect_list + get_defects(scrub_file)
+        defect_list = defect_list + translate_results.parse_scrub(scrub_file, tool_conf_data.get('source_dir'))
+
+        # Add the metrics files, if they exist
+        metrics_file = tool_conf_data.get('scrub_analysis_dir').joinpath(tool_name + '_metrics.csv')
+        if metrics_file.exists():
+            metrics_list.update({tool_name: parse_metrics.parse_csv(metrics_file, tool_conf_data.get('source_dir'))})
 
     # Create XML data for uploading files
     file_xml_data = create_batch_xml_file_upload(file_list, tool_conf_data.get('collaborator_review_id'),
                                                  tool_conf_data.get('source_dir'))
+
+    # Create the XML data for uploading metrics
+    metrics_xml_data = (create_xml_comment_metrics(metrics_list, file_list,
+                                                   tool_conf_data.get('collaborator_review_id'))
+                        .replace(str(tool_conf_data.get('source_dir')) + '/', ''))
 
     if tool_conf_data.get('collaborator_finding_level').lower() == 'defect':
         finding_xml_data = create_batch_xml_defect_upload(file_list, defect_list,
@@ -368,12 +413,16 @@ def perform_upload(tool_conf_data):
                             '        <comment>No findings were found to include in this review.</comment>\n' +
                             '    </admin_review_comment_create>\n')
 
+    # Make the file paths relative
+    finding_xml_data = finding_xml_data.replace(str(tool_conf_data.get('source_dir')) + '/', '')
+
     # Create the XML batch file
     with open(tool_conf_data.get('batch_command_file'), 'w+') as output_fh:
         output_fh.write('<batch-commands>\n')
         output_fh.write('{}'.format(construct_xml_global_options(tool_conf_data.get('collaborator_server'),
                                                                  tool_conf_data.get('collaborator_username'))))
         output_fh.write('{}'.format(file_xml_data))
+        output_fh.write('{}'.format(metrics_xml_data))
         output_fh.write('{}'.format(finding_xml_data))
         output_fh.write('</batch-commands>')
 
@@ -484,7 +533,8 @@ def run_analysis(baseline_conf_data, console_logging=logging.INFO, override=Fals
             # Move the log file to line up with the review id, if it exists
             if tool_conf_data.get('collaborator_log_file').exists() and tool_conf_data.get('collaborator_review_id') > 0:
                 shutil.move(tool_conf_data.get('collaborator_log_file'),
-                            tool_conf_data.get('scrub_log_dir').joinpath('collaborator_' + str(tool_conf_data.get('collaborator_review_id')) + '.log'))
+                            tool_conf_data.get('scrub_log_dir')
+                            .joinpath('collaborator_' + str(tool_conf_data.get('collaborator_review_id')) + '.log'))
 
     # Return the exit code
     return collaborator_exit_code

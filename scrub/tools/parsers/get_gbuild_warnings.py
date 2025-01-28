@@ -1,6 +1,5 @@
 import re
 import os
-import sys
 import pathlib
 import logging
 from scrub.tools.parsers import translate_results
@@ -46,7 +45,7 @@ def get_raw_warning(raw_input_file, initial_index):
     line = input_data[current_index]
 
     # Get the end point
-    while not line == '\n':
+    while line != '\n':
         # Update the end point
         end_point = current_index
 
@@ -188,13 +187,17 @@ def parse_doublecheck_warnings(raw_input_file, parsed_output_file):
     translate_results.create_scrub_output_file(raw_warnings, parsed_output_file)
 
 
-def parse_warnings(raw_input_file, parsed_output_file):
+def parse_warnings(analysis_dir, tool_config_data):
     """This function parses the raw gbuild compiler warnings into the SCRUB format.
 
     Inputs:
         - raw_input_file: Absolute path to the raw gbuild compiler log containing warnings [string]
         - parsed_output_file: Absolute path to the file where the parsed warnings will be stored [string]
     """
+
+    # Initialize variables
+    raw_input_file = analysis_dir.joinpath('gbuild_build.log')
+    parsed_output_file = tool_config_data.get('raw_results_dir').joinpath('gbuild_compiler_raw.scrub')
 
     # Print a status message
     logging.info('')
@@ -205,7 +208,3 @@ def parse_warnings(raw_input_file, parsed_output_file):
 
     # Search for DoubleCheck warnings in the log file
     parse_doublecheck_warnings(raw_input_file, parsed_output_file)
-
-
-if __name__ == '__main__':
-    parse_warnings(pathlib.Path(sys.argv[1]), pathlib.Path(sys.argv[2]))

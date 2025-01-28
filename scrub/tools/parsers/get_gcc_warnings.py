@@ -1,4 +1,3 @@
-import sys
 import pathlib
 import logging
 from scrub.tools.parsers import translate_results
@@ -7,12 +6,12 @@ WARNING_LEVEL = 'Low'
 ID_PREFIX = 'gcc'
 
 
-def parse_warnings(raw_input_file, parsed_output_file):
+def parse_warnings(analysis_dir, tool_config_data):
     """This function parses the raw GCC compiler warnings into the SCRUB format.
 
     Inputs:
-        - raw_input_file: Absolute path to the raw GCC compiler log containing warnings [string]
-        - parsed_output_file: Absolute path to the file where the parsed warnings will be stored [string]
+        - analysis_dir: Absolute path to the raw SonarQube output file directory [string]
+        - tool_config_data: Dictionary of scrub configuration data [dict]
     """
 
     # Initialize the variables
@@ -25,6 +24,8 @@ def parse_warnings(raw_input_file, parsed_output_file):
     warning_message = []
     parsing = False
     description = False
+    raw_input_file = analysis_dir.joinpath('gcc_build.log')
+    parsed_output_file = tool_config_data.get('raw_results_dir').joinpath('gcc_compiler_raw.scrub')
 
     # Print a status message
     logging.info('')
@@ -75,7 +76,3 @@ def parse_warnings(raw_input_file, parsed_output_file):
 
     # Create the SCRUB output file
     translate_results.create_scrub_output_file(raw_warnings, parsed_output_file)
-
-
-if __name__ == '__main__':
-    parse_warnings(pathlib.Path(sys.argv[1]), pathlib.Path(sys.argv[2]))

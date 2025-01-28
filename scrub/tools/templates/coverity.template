@@ -18,6 +18,8 @@ if [[ "${{SOURCE_LANG}}" =~ "go" ]]; then
 fi
 if [[ "${{SOURCE_LANG}}" =~ "java" ]]; then
     find ${{SOURCE_DIR}} -iname "*.java" -o -iname "*.jav" >> "$file_list"
+    find ${{SOURCE_DIR}} -iname "*.class" >> "$file_list"
+    find ${{SOURCE_DIR}} -iname "*.jar" >> "$file_list"
 fi
 if [[ "${{SOURCE_LANG}}" =~ "javascript" ]]; then
     find ${{SOURCE_DIR}} -iname "*.js" -o -iname "*.jsx" -o -iname "*.cjs" -o -iname "*.mjs" -o -iname "*.vue" -o -iname "*.ts" -o -iname "*.tsx" -o -iname "*.cts" -o -iname "*.mts" >> "$file_list"
@@ -60,7 +62,23 @@ ${{COVERITY_PATH}}/cov-build --dir ${{TOOL_ANALYSIS_DIR}} ${{COVERITY_COVBUILD_F
 ${{COVERITY_PATH}}/cov-analyze --dir ${{TOOL_ANALYSIS_DIR}} ${{COVERITY_COVANALYZE_FLAGS}}
 
 # Generate the Coverity output file
-${{COVERITY_PATH}}/cov-format-errors --dir ${{TOOL_ANALYSIS_DIR}} ${{COVERITY_COVFORMATERRORS_FLAGS}} -x -X --json-output-v7 ${{TOOL_ANALYSIS_DIR}}/coverity.json
+${{COVERITY_PATH}}/cov-format-errors --dir ${{TOOL_ANALYSIS_DIR}} ${{COVERITY_COVFORMATERRORS_FLAGS}} -x -X --json-output-v8 ${{TOOL_ANALYSIS_DIR}}/coverity.json
 
-# Parse the results into SCRUB format
-python3 -m scrub.tools.parsers.get_coverity_warnings ${{TOOL_ANALYSIS_DIR}}/coverity.json ${{RAW_RESULTS_DIR}}/coverity_raw.scrub
+# Check to see if SARIF generation should be performed
+if [ ${{COVERITY_JSON}} != "true" ]; then
+    # Get the GitHub data if it exists
+    if [ -f "${{SOURCE_DIR}}/.git/config" ]; then
+        repo_name=`grep "url =" "${{SOURCE_DIR}}/.git/config" | sed -E 's:.+com/::' | sed -E 's:.git::'`
+    else
+        repo_name="$(basename ${{SOURCE_DIR}})/$(basename ${{SOURCE_DIR}})"
+    fi
+    if [ -f "${{SOURCE_DIR}}/.git/logs/HEAD" ]; then
+        commit_array=($(tail -n 1 "${{SOURCE_DIR}}/.git/logs/HEAD"))
+        commit_id=${commit_array[1]}
+    else
+        commit_id='0000000000000000000000000000000000000000'
+    fi
+
+    # Generate the SARIF file
+    ${{COVERITY_PATH}}/../node/bin/node ${{COVERITY_PATH}}/../SARIF/cov-format-sarif-for-github.js --inputFile "${{TOOL_ANALYSIS_DIR}}/coverity.json" --outputFile "${{TOOL_ANALYSIS_DIR}}/coverity.sarif" --repoName $repo_name --checkoutPath $repo_name ${{SOURCE_DIR}} $commit_id
+fi

@@ -111,7 +111,7 @@ def parse_template(template_file, output_file, conf_data):
     with open(template_file, 'r') as input_fh:
         template_data = input_fh.read()
 
-    # Replace all of the variables with config data
+    # Replace all the variables with config data
     for key in conf_data.keys():
         if isinstance(conf_data.get(key), bool):
             template_data = template_data.replace('${{' + key.upper() + '}}', str(conf_data.get(key)).lower())
@@ -305,12 +305,11 @@ def create_conf_file(output_path=None):
     shutil.copyfile(default_config_file, output_path)
 
 
-def parse_common_configs(user_conf_file, raw_override_values, scrub_keys=[]):
+def parse_common_configs(user_conf_file, raw_override_values):
     """This function parses a SCRUB configuration file and adds default values.
 
     Inputs:
         - conf_file: Absolute path to the SCRUB configuration file [string]
-        - scrub_keys: List of configuration file sections to be retrieved [list of strings]
         - override_values: List of values that should override the config file values [list of strings]
 
     Outputs:
@@ -356,6 +355,10 @@ def parse_common_configs(user_conf_file, raw_override_values, scrub_keys=[]):
         if key != 'sonarqube_token':
             scrub_conf_data.update({key: os.path.expandvars(scrub_conf_data.get(key))})
 
+        # Remove trailing slash on URL items if it exists
+        if ('hub' in key) or ('server' in key):
+            scrub_conf_data.update({key: scrub_conf_data.get(key).strip('/')})
+
         # # Update boolean values
         if scrub_conf_data.get(key).lower() == 'true':
             scrub_conf_data.update({key: True})
@@ -366,7 +369,7 @@ def parse_common_configs(user_conf_file, raw_override_values, scrub_keys=[]):
     source_langs = list(filter(None, scrub_conf_data.get('source_lang').replace(' ', '').split(',')))
     for i, source_lang in enumerate(source_langs):
         if source_lang == 'c':
-            source_langs[i] = 'cpp'
+            source_langs[i] = 'c,cpp'
         elif source_lang == 'j':
             source_langs[i] = 'java'
         elif source_lang == 'p':
