@@ -26,7 +26,7 @@ if ${{CODESONAR_IMPORT}}; then
 fi
 
 # Perform CodeSonar analysis
-${{CODESONAR_PATH}}/codesonar analyze ${{TOOL_ANALYSIS_DIR}}/SCRUBAnalysis -project ${{CODESONAR_PROJ_NAME}} ${{CODESONAR_ANALYZE_FLAGS}} -foreground $presets -auth certificate -hubcert ${{CODESONAR_CERT}} -hubkey ${{CODESONAR_KEY}} ${{CODESONAR_HUB}}
+${{CODESONAR_PATH}}/codesonar analyze ${{TOOL_ANALYSIS_DIR}}/SCRUBAnalysis -project ${{CODESONAR_PROJ_NAME}} $presets ${{CODESONAR_ANALYZE_FLAGS}} -foreground -auth certificate -hubcert ${{CODESONAR_CERT}} -hubkey ${{CODESONAR_KEY}} ${{CODESONAR_HUB}}
 
 # Get the analysis ID from the analysis artifacts
 aid=`cat ${{TOOL_ANALYSIS_DIR}}/*/aid.txt`

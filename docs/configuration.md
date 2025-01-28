@@ -1,3 +1,9 @@
+---
+layout: default
+title: Configuration
+nav_order: 4
+---
+
 # Configuration
 
 Configuration of SCRUB analysis is handled almost entirely via the configuration file `scrub.cfg`.

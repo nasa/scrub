@@ -1,3 +1,9 @@
+---
+layout: default
+title: Output
+nav_order: 6
+---
+
 # Output
 
 ## SCRUB Output File Format
@@ -65,7 +71,9 @@ The following section provides a description of the structure of the `.scrub` an
     |--raw_results                      (Directory containing unfiltered, SCRUB-formatted results)
     |    [tool]_p10_raw.scrub           (Unfiltered, SCRUB-formatted P10 results for each tool)
     |    [tool]_raw.scrub               (Unfiltered, SCRUB-formatted results for each tool)
-    |    ...
+    |
+    |--sarif_results                    (Directory container SARIF formatted output files)
+    |    [tool].sarif
     |
     |--log_files                        (Directory containing log files generated during SCRUB execution)
     |    filtering.log                  (Log file for results filtering post-processing step)
