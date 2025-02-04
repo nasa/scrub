@@ -153,8 +153,8 @@ def parse_warnings(analysis_dir, tool_config_data):
         coverity_findings = translate_results.parse_sarif(analysis_dir.joinpath('coverity.sarif'),
                                                           tool_config_data.get('source_dir'))
 
-    # Parse the metrics file
-    if (cc_threshold >= 0) and (coverity_metrics_file.exists()):
+    # Parse the metrics file, if necessary
+    if cc_threshold >= 0:
         coverity_findings = coverity_findings + parse_cc(coverity_metrics_file, cc_threshold)
 
     # Create the output file

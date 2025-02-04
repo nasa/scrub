@@ -22,7 +22,8 @@ def parse_warnings(analysis_dir, tool_config_data):
     metrics_output_file = tool_config_data.get('scrub_analysis_dir').joinpath('sonarqube_metrics.csv')
 
     # Find all the raw findings results files in the directory
-    findings_results_files = analysis_dir.glob('*.json')
+    findings_results_files = (list(analysis_dir.glob('sonarqube_issues*.json')) +
+                              list(analysis_dir.glob('sonarqube_hotspots*.json')))
 
     # Iterate through every issue results file
     for raw_findings_file in findings_results_files:
@@ -107,5 +108,5 @@ def parse_warnings(analysis_dir, tool_config_data):
     # Create the SCRUB output file
     translate_results.create_scrub_output_file(raw_warnings, parsed_output_file)
 
-    # Parse the metrics file, if it exists
+    # Parse the metrics data
     parse_metrics.parse(analysis_dir, metrics_output_file, source_root, 'sonarqube')

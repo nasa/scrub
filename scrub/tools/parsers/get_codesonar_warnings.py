@@ -161,7 +161,3 @@ def parse_warnings(analysis_dir, tool_config_data):
     # Parse the metrics files
     parse_metrics.parse_codesonar_metrics(raw_analysis_metrics_file, raw_file_metrics_file, parsed_metrics_file,
                                           source_dir)
-    # if raw_metrics_file.exists():
-    #     parse_metrics.parse_codesonar_metrics(raw_metrics_file, parsed_metrics_file, source_dir)
-    # else:
-    #     logging.info('\tWARNING: Metrics file not found. Check log for more details.')

@@ -98,6 +98,7 @@ def parse_codesonar_metrics(raw_analysis_metrics_file, raw_file_metrics_file, pa
     """
 
     # Initialize variables
+    cleaned_metrics_data = {'project_metrics': {}}
     metrics_list = {'Top-level file instances': 'Number of Files',
                     'User-defined functions': 'Number of Functions',
                     'Total Lines': 'Total Lines',
@@ -115,56 +116,59 @@ def parse_codesonar_metrics(raw_analysis_metrics_file, raw_file_metrics_file, pa
                     'Mixed Lines': 'In-Line Comments',
                     'Include file instances': 'Number of Includes'}
 
-    # Read in the analysis-level metrics file
-    with open(raw_analysis_metrics_file, 'r') as input_fh:
-        analysis_metrics_data = json.load(input_fh)
+    # Parse the metrics files if they exist
+    if raw_analysis_metrics_file.exists() and raw_file_metrics_file.exists():
+        # Read in the analysis-level metrics file
+        with open(raw_analysis_metrics_file, 'r') as input_fh:
+            analysis_metrics_data = json.load(input_fh)
 
-    # Read in the file-level metrics file
-    with open(raw_file_metrics_file, 'r') as input_fh:
-        file_metrics_data = json.load(input_fh)
+        # Read in the file-level metrics file
+        with open(raw_file_metrics_file, 'r') as input_fh:
+            file_metrics_data = json.load(input_fh)
 
-    # Update the data structure
-    cleaned_metrics_data = {'project_metrics': {}}
-    for metric in analysis_metrics_data.get('metrics'):
-        if metric.get('granularity').lower() == 'analysis':
-            cleaned_metrics_data['project_metrics'][metric.get('description')] = (metric.get('rows')[0]
-                                                                                  .get('metricValue'))
+        # Update the data structure
+        for metric in analysis_metrics_data.get('metrics'):
+            if metric.get('granularity').lower() == 'analysis':
+                cleaned_metrics_data['project_metrics'][metric.get('description')] = (metric.get('rows')[0]
+                                                                                      .get('metricValue'))
 
-    # Update the data structure
-    file_list = []
-    file_path = None
-    for metric in file_metrics_data.get('metrics'):
-        if metric.get('granularity').lower() == 'file':
-            for file_metric in metric.get('rows'):
-                # Find the file name in the source tree
-                file_name = file_metric.get('file')
-                file_search = source_root.rglob(file_name)
-                if len(list(file_search)) == 1:
-                    file_path = str(next(source_root.rglob(file_name)).relative_to(source_root))
-                else:
-                    print('ERROR: Could not resolve file path {}'.format(file_name))
+        # Update the data structure
+        file_list = []
+        file_path = None
+        for metric in file_metrics_data.get('metrics'):
+            if metric.get('granularity').lower() == 'file':
+                for file_metric in metric.get('rows'):
+                    # Find the file name in the source tree
+                    file_name = file_metric.get('file')
+                    file_search = source_root.rglob(file_name)
+                    if len(list(file_search)) == 1:
+                        file_path = str(next(source_root.rglob(file_name)).relative_to(source_root))
+                    else:
+                        print('ERROR: Could not resolve file path {}'.format(file_name))
 
-                # Add the file to the list
-                if file_path not in cleaned_metrics_data.keys():
-                    cleaned_metrics_data[file_path] = {}
-                    file_list.append(file_path)
+                    # Add the file to the list
+                    if file_path not in cleaned_metrics_data.keys():
+                        cleaned_metrics_data[file_path] = {}
+                        file_list.append(file_path)
 
-                # Add the metric to the dictionary
-                cleaned_metrics_data[file_path][metric.get('description')] = file_metric.get('metricValue')
-                cleaned_metrics_data[file_path]['Top-level file instances'] = 1
+                    # Add the metric to the dictionary
+                    cleaned_metrics_data[file_path][metric.get('description')] = file_metric.get('metricValue')
+                    cleaned_metrics_data[file_path]['Top-level file instances'] = 1
 
-    # Calculate comment density
-    for item in cleaned_metrics_data.keys():
-        comment_density = round(int(cleaned_metrics_data[item]['Comment Lines']) /
-                                int(cleaned_metrics_data[item]['Code Lines']) * 100, 2)
-        cleaned_metrics_data[item]['Comment Density'] = comment_density
+        # Calculate comment density
+        for item in cleaned_metrics_data.keys():
+            comment_density = round(int(cleaned_metrics_data[item]['Comment Lines']) /
+                                    int(cleaned_metrics_data[item]['Code Lines']) * 100, 2)
+            cleaned_metrics_data[item]['Comment Density'] = comment_density
 
-    # Check to make sure we have data
-    if cleaned_metrics_data:
-        # Generate the output file
-        create_output_file(cleaned_metrics_data, parsed_output_file, metrics_list, file_list)
+        # Check to make sure we have data
+        if cleaned_metrics_data:
+            # Generate the output file
+            create_output_file(cleaned_metrics_data, parsed_output_file, metrics_list, file_list)
+        else:
+            logging.warning('\tCould not parse metrics data. Check log for more information.')
     else:
-        logging.warning('\tCould not generate metrics file. Check log for more information.')
+        logging.warning('\tSome metrics data is missing. Check log for more information.')
 
     return cleaned_metrics_data
 
@@ -182,6 +186,8 @@ def parse_sonarqube_metrics(metrics_directory, parsed_output_file):
 
     # Initialize variables
     cleaned_metrics_data = {}
+    project_metrics_file = metrics_directory.joinpath('sonarqube_metrics_project.json')
+    metrics_files = list(metrics_directory.glob('sonarqube_metrics_file_*.json'))
     metrics_list = {'files': 'Number of Files',
                     'functions': 'Number of Functions',
                     'lines': 'Total Lines',
@@ -199,10 +205,8 @@ def parse_sonarqube_metrics(metrics_directory, parsed_output_file):
                     'sqale_index': 'SQALE Index',
                     'duplicated_lines_density': 'Duplication Density'}
 
-    # Read in the project metrics file, if it exists
-    project_metrics_file = metrics_directory.joinpath('sonarqube_metrics_project.json')
-
-    if project_metrics_file.exists():
+    # Read in the metrics data, if it exists
+    if project_metrics_file.exists() and metrics_files:
         with open(project_metrics_file, 'r') as input_fh:
             project_metrics_data = json.load(input_fh)
 
@@ -216,50 +220,45 @@ def parse_sonarqube_metrics(metrics_directory, parsed_output_file):
         comment_density = round(int(cleaned_metrics_data['project_metrics']['comment_lines']) /
                                 int(cleaned_metrics_data['project_metrics']['ncloc']) * 100, 2)
         cleaned_metrics_data['project_metrics']['comment_density'] = comment_density
+
+        # Parse the file level metrics
+        file_list = []
+        if len(metrics_files) > 0:
+            for metrics_file in metrics_files:
+                with open(metrics_file, 'r') as input_fh:
+                    file_metrics_data = json.load(input_fh)
+
+                # Parse every component
+                for source_file in file_metrics_data.get('components'):
+                    for file_metric in source_file.get('measures'):
+                        if source_file.get('path') not in cleaned_metrics_data.keys():
+                            cleaned_metrics_data[source_file.get('path')] = {}
+                            file_list.append(source_file.get('path'))
+                        cleaned_metrics_data[source_file.get('path')][file_metric.get('metric')] = float(file_metric
+                                                                                                         .get('value'))
+
+                    # Add in the comment density information
+                    if cleaned_metrics_data[source_file['path']]['ncloc'] > 0:
+                        comment_density = round(int(cleaned_metrics_data[source_file['path']]['comment_lines']) /
+                                                int(cleaned_metrics_data[source_file['path']]['ncloc']) * 100, 2)
+                    else:
+                        comment_density = 'N/A'
+                    cleaned_metrics_data[source_file.get('path')]['comment_density'] = comment_density
+
+                    # Update complexity measurement if necessary
+                    if 'complexity' not in cleaned_metrics_data[source_file.get('path')].keys():
+                        cleaned_metrics_data[source_file.get('path')]['complexity'] = 0
+                    # Update functions count measurement if necessary
+                    if 'functions' not in cleaned_metrics_data[source_file.get('path')].keys():
+                        cleaned_metrics_data[source_file.get('path')]['functions'] = 0
+
+        # Generate the output file
+        if cleaned_metrics_data:
+            create_output_file(cleaned_metrics_data, parsed_output_file, metrics_list, file_list)
+        else:
+            logging.warning('\tCould parse metrics data. Check log for more details.')
     else:
-        logging.warning('\tProject-level metrics data is missing. Check log for more details.')
-
-    # Find all the file level metrics
-    metrics_files = list(metrics_directory.glob('sonarqube_metrics_file_*.json'))
-
-    # Parse the file level metrics
-    file_list = []
-    if len(metrics_files) > 0:
-        for metrics_file in metrics_files:
-            with open(metrics_file, 'r') as input_fh:
-                file_metrics_data = json.load(input_fh)
-
-            # Parse every component
-            for source_file in file_metrics_data.get('components'):
-                for file_metric in source_file.get('measures'):
-                    if source_file.get('path') not in cleaned_metrics_data.keys():
-                        cleaned_metrics_data[source_file.get('path')] = {}
-                        file_list.append(source_file.get('path'))
-                    cleaned_metrics_data[source_file.get('path')][file_metric.get('metric')] = float(file_metric
-                                                                                                     .get('value'))
-
-                # Add in the comment density information
-                if cleaned_metrics_data[source_file['path']]['ncloc'] > 0:
-                    comment_density = round(int(cleaned_metrics_data[source_file['path']]['comment_lines']) /
-                                            int(cleaned_metrics_data[source_file['path']]['ncloc']) * 100, 2)
-                else:
-                    comment_density = 'N/A'
-                cleaned_metrics_data[source_file.get('path')]['comment_density'] = comment_density
-
-                # Update complexity measurement if necessary
-                if 'complexity' not in cleaned_metrics_data[source_file.get('path')].keys():
-                    cleaned_metrics_data[source_file.get('path')]['complexity'] = 0
-                # Update functions count measurement if necessary
-                if 'functions' not in cleaned_metrics_data[source_file.get('path')].keys():
-                    cleaned_metrics_data[source_file.get('path')]['functions'] = 0
-    else:
-        logging.warning('\tFile-level metrics data is missing. Check log for more details.')
-
-    # Generate the output file
-    if cleaned_metrics_data:
-        create_output_file(cleaned_metrics_data, parsed_output_file, metrics_list, file_list)
-    else:
-        logging.warning('\tCould not generate metrics output. Check log for more details.')
+        logging.warning('\tSome metrics data is missing. Check log for more information.')
 
     return cleaned_metrics_data
 
@@ -276,27 +275,30 @@ def parse_coverity_metrics(metrics_directory, parsed_output_file):
     """
 
     # Initialize variables
+    project_metrics_file = metrics_directory.joinpath('output/ANALYSIS.metrics.xml')
+    cleaned_metrics_data = {'project_metrics': {}}
     metrics_list = {'files-analyzed': 'Number of Files',
                     'function-metrics-count': 'Number of Functions',
                     'code-lines': 'Lines of Code',
                     'comment-lines': 'Number of Comments'}
 
     # Read in the project metrics file
-    project_metrics_file = metrics_directory.joinpath('output/ANALYSIS.metrics.xml')
-    project_metrics_tree = xml.etree.ElementTree.parse(project_metrics_file)
+    if project_metrics_file.exists():
+        project_metrics_tree = xml.etree.ElementTree.parse(project_metrics_file)
 
-    # Parse the project level metrics
-    cleaned_metrics_data = {'project_metrics': {}}
-    for raw_metric_data in project_metrics_tree.findall('metrics/metric'):
-        metric_name = raw_metric_data.find('name').text
-        metric_value = raw_metric_data.find('value').text
+        # Parse the project level metrics
+        for raw_metric_data in project_metrics_tree.findall('metrics/metric'):
+            metric_name = raw_metric_data.find('name').text
+            metric_value = raw_metric_data.find('value').text
 
-        # Gather only the metrics of interest
-        if metric_name in metrics_list:
-            cleaned_metrics_data['project_metrics'][metric_name] = metric_value
+            # Gather only the metrics of interest
+            if metric_name in metrics_list:
+                cleaned_metrics_data['project_metrics'][metric_name] = metric_value
 
-    # Generate the output file
-    create_output_file(cleaned_metrics_data, parsed_output_file, metrics_list, [])
+        # Generate the output file
+        create_output_file(cleaned_metrics_data, parsed_output_file, metrics_list, [])
+    else:
+        logging.warning('\tSome metrics data is missing. Check log for more information.')
 
     return cleaned_metrics_data
 
