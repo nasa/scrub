@@ -4,6 +4,7 @@ import sys
 import pytest
 import pathlib
 import traceback
+import shutil
 from scrub import scrub_cli
 from scrub.tools.parsers import get_codesonar_warnings
 from scrub.tools.parsers import get_coverity_warnings
@@ -13,6 +14,7 @@ from scrub.tools.parsers import get_javac_warnings
 from scrub.tools.parsers import get_pylint_warnings
 from scrub.tools.parsers import get_sonarqube_warnings
 from scrub.tools.parsers import translate_results
+from scrub import utils
 
 
 # Initialize variables
@@ -38,29 +40,36 @@ python_testcase = pathlib.Path(__file__).parent.joinpath('integration_tests/pyth
 multi_lang_testcase = pathlib.Path(__file__).parent.joinpath('integration_tests/multi_lang_testcase')
 diff_testcase = pathlib.Path(__file__).parent.joinpath('integration_tests/diff_testcase')
 raw_files = pathlib.Path(__file__).parent.joinpath('integration_tests/parsers').glob('*')
+parser_config_data = utils.scrub_utilities.parse_common_configs(c_testcase.joinpath('scrub.cfg'), None)
 
 @pytest.mark.parametrize("raw_file", raw_files)
 def test_parser(raw_file, capsys):
     output_file = raw_file.parent.joinpath(raw_file.stem + '_output.scrub')
 
     if 'codesonar' in raw_file.stem and raw_file.suffix == '.xml':
-        get_codesonar_warnings.parse_warnings(raw_file, output_file, os.getenv('CODESONAR_HUB'))
-    elif 'codesonar' in raw_file.stem and raw_file.suffix == '.sarif':
+        get_codesonar_warnings.parse_warnings(pathlib.Path(__file__).parent.joinpath('integration_tests/parsers'),
+                                              parser_config_data, raw_file, output_file)
+    elif raw_file.suffix == '.sarif':
         translate_results.perform_translation(raw_file, output_file, c_testcase, 'scrub')
     elif 'codeql' in raw_file.stem:
         translate_results.perform_translation(raw_file, output_file, pathlib.Path(c_testcase), 'scrub')
     elif 'coverity' in raw_file.stem:
-        get_coverity_warnings.parse_json(raw_file, output_file)
+        warnings = get_coverity_warnings.parse_json(raw_file)
+        translate_results.create_scrub_output_file(warnings, output_file)
     elif 'gbuild' in raw_file.stem:
-        get_gbuild_warnings.parse_warnings(raw_file, output_file)
+        get_gbuild_warnings.parse_warnings(pathlib.Path(__file__).parent.joinpath('integration_tests/parsers'),
+                                          parser_config_data, raw_file, output_file)
     elif 'gcc' in raw_file.stem:
-        get_gcc_warnings.parse_warnings(raw_file, output_file)
+        get_gcc_warnings.parse_warnings(pathlib.Path(__file__).parent.joinpath('integration_tests/parsers'),
+                                        parser_config_data, raw_file, output_file)
     elif 'java' in raw_file.stem:
-        get_javac_warnings.parse_warnings(raw_file, output_file)
+        get_javac_warnings.parse_warnings(pathlib.Path(__file__).parent.joinpath('integration_tests/parsers'),
+                                          parser_config_data, raw_file, output_file)
     elif 'pylint' in raw_file.stem:
-        get_pylint_warnings.parse_warnings(raw_file, output_file)
+        get_pylint_warnings.parse_warnings(pathlib.Path(__file__).parent.joinpath('integration_tests/parsers'),
+                                          parser_config_data, raw_file, output_file)
     elif 'sonarqube' in raw_file.stem:
-        get_sonarqube_warnings.parse_warnings(raw_file.parent, output_file, pathlib.Path(c_testcase), os.getenv('SONARQUBE_SERVER'))
+        get_sonarqube_warnings.parse_warnings(raw_file, parser_config_data, output_file)
 
     # Verify output
     assert output_file.exists()
