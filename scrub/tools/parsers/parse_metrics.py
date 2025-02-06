@@ -157,8 +157,11 @@ def parse_codesonar_metrics(raw_analysis_metrics_file, raw_file_metrics_file, pa
 
         # Calculate comment density
         for item in cleaned_metrics_data.keys():
-            comment_density = round(int(cleaned_metrics_data[item]['Comment Lines']) /
-                                    int(cleaned_metrics_data[item]['Code Lines']) * 100, 2)
+            if int(cleaned_metrics_data[item]['Code Lines']) != 0:
+                comment_density = round(int(cleaned_metrics_data[item]['Comment Lines']) /
+                                        int(cleaned_metrics_data[item]['Code Lines']) * 100, 2)
+            else:
+                comment_density = 'N/A'
             cleaned_metrics_data[item]['Comment Density'] = comment_density
 
         # Check to make sure we have data
