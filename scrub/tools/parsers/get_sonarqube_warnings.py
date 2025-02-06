@@ -5,7 +5,7 @@ from scrub.tools.parsers import parse_metrics
 ID_PREFIX = 'sonarqube'
 
 
-def parse_warnings(analysis_dir, tool_config_data):
+def parse_warnings(analysis_dir, tool_config_data, parsed_output_file=None):
     """This function parses the raw SonarQube warnings into the SCRUB format.
 
     Inputs:
@@ -18,8 +18,11 @@ def parse_warnings(analysis_dir, tool_config_data):
     raw_warnings = []
     sonarqube_url = tool_config_data.get('sonarqube_server')
     source_root = tool_config_data.get('source_dir')
-    parsed_output_file = tool_config_data.get('raw_results_dir').joinpath('sonarqube_raw.scrub')
     metrics_output_file = tool_config_data.get('scrub_analysis_dir').joinpath('sonarqube_metrics.csv')
+
+    # Set the output file
+    if parsed_output_file is None:
+        parsed_output_file = tool_config_data.get('raw_results_dir').joinpath('sonarqube_raw.scrub')
 
     # Find all the raw findings results files in the directory
     findings_results_files = (list(analysis_dir.glob('sonarqube_issues*.json')) +

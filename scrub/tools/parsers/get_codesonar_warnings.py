@@ -126,12 +126,14 @@ def parse_xml_warnings(input_file, output_file, codesonar_hub, exclude_p10=False
                 warning_count = warning_count + 1
 
 
-def parse_warnings(analysis_dir, tool_config_data):
+def parse_warnings(analysis_dir, tool_config_data, raw_input_file=None, parsed_output_file=None):
     """This function handles parsing of raw CodeSonar data.
 
     Inputs:
-        - analysis_dir: Absolute path to the raw SonarQube output file directory [string]
+        - analysis_dir: Absolute path to the raw CodeSonar output file directory [string]
         - tool_config_data: Dictionary of scrub configuration data [dict]
+        - raw_input_file: Absolute path to the raw input file [string] [optional]
+        - parsed_output_file: Absolute path to the raw output file [string] [optional]
     """
 
     # Initialize variables
@@ -139,20 +141,29 @@ def parse_warnings(analysis_dir, tool_config_data):
     codesonar_hub = tool_config_data.get('codesonar_hub')
     raw_analysis_metrics_file = analysis_dir.joinpath('analysis_metrics.json')
     raw_file_metrics_file = analysis_dir.joinpath('file_metrics.json')
-    parsed_output_file = tool_config_data.get('raw_results_dir').joinpath('codesonar_raw.scrub')
     parsed_metrics_file = tool_config_data.get('scrub_analysis_dir').joinpath('codesonar_metrics.csv')
+
+    # Set the input file
+    if raw_input_file is None:
+        if tool_config_data.get('codesonar_results_template'):
+            raw_input_file = analysis_dir.joinpath('search.xml')
+        else:
+            raw_input_file = analysis_dir.joinpath('warning_detail_search.sarif')
+
+    # Set the output file
+    if parsed_output_file is None:
+        parsed_output_file = tool_config_data.get('raw_results_dir').joinpath('codesonar_raw.scrub')
 
     # Print a status message
     logging.info('\t>> Executing command: get_codesonar_warnings.parse_warnings(%s, %s)', analysis_dir,
                  parsed_output_file)
     logging.info('\t>> From directory: %s', str(pathlib.Path().absolute()))
 
-    # Parse the SARIF results
-    if tool_config_data.get('codesonar_results_template'):
-        raw_input_file = analysis_dir.joinpath('search.xml')[0]
+    # Parse the results
+    if raw_input_file.suffix == '.xml':
         parse_xml_warnings(raw_input_file, parsed_output_file, codesonar_hub)
     else:
-        raw_input_file = analysis_dir.joinpath('warning_detail_search.sarif')
+        # Parse the SARIF file
         raw_warnings = translate_results.parse_sarif(raw_input_file, source_dir)
 
         # Create the SCRUB output file
