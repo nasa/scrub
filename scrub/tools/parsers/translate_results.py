@@ -233,6 +233,7 @@ def format_sarif_for_upload(input_file, output_file, source_root, upload_format)
 
     # Initialize variables
     formatted_results = []
+    tool_name = input_file.stem
 
     # Import the SARIF results
     unformatted_results = parse_sarif(input_file, source_root)
@@ -248,7 +249,7 @@ def format_sarif_for_upload(input_file, output_file, source_root, upload_format)
                 warning['description'] = [warning['description'][0]]
                 formatted_results.append(warning)
 
-        create_sarif_output_file(formatted_results, '2.1.0', output_file, source_root)
+        create_sarif_output_file(formatted_results, '2.1.0', output_file, source_root, tool_name)
     elif upload_format == 'codesonar':
         # shutil.copyfile(input_file, output_file)
         for warning in unformatted_results:
@@ -256,7 +257,7 @@ def format_sarif_for_upload(input_file, output_file, source_root, upload_format)
             warning['tool'] = 'external-' + warning['tool']
             warning['query'] = warning['tool'].title() + ' ' + warning['query']
             formatted_results.append(warning)
-        create_sarif_output_file(formatted_results, '2.1.0', output_file, source_root)
+        create_sarif_output_file(formatted_results, '2.1.0', output_file, source_root, tool_name)
 
 
 def parse_sarif(sarif_filename, source_root):
