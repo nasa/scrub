@@ -372,8 +372,8 @@ def parse_common_configs(user_conf_file, raw_override_values):
             source_langs[i] = 'c,cpp'
         elif source_lang == 'j':
             source_langs[i] = 'java'
-        elif source_lang == 'p':
-            source_langs[i] = 'python'
+        elif source_lang == 'p' or source_lang == 'python':
+            source_langs[i] = 'py'
         elif source_lang == 'js':
             source_langs[i] = 'javascript'
     scrub_conf_data.update({'source_lang': ','.join(source_langs)})

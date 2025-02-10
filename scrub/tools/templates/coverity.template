@@ -33,6 +33,8 @@ fi
 if [[ "${{SOURCE_LANG}}" =~ "python" ]]; then
     find ${{SOURCE_DIR}} -iname "*.py" >> "$file_list"
 fi
+if [[ "${{SOURCE_LANG}}" =~ "py" ]]; then
+    find ${{SOURCE_DIR}} -iname "*.py" >> "$file_list"
 if [[ "${{SOURCE_LANG}}" =~ "ruby" ]]; then
     find ${{SOURCE_DIR}} -iname "*.rb" >> "$file_list"
 fi
