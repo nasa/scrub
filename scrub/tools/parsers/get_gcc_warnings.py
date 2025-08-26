@@ -6,7 +6,7 @@ WARNING_LEVEL = 'Low'
 ID_PREFIX = 'gcc'
 
 
-def parse_warnings(analysis_dir, tool_config_data):
+def parse_warnings(analysis_dir, tool_config_data, raw_input_file=None, parsed_output_file=None):
     """This function parses the raw GCC compiler warnings into the SCRUB format.
 
     Inputs:
@@ -24,8 +24,14 @@ def parse_warnings(analysis_dir, tool_config_data):
     warning_message = []
     parsing = False
     description = False
-    raw_input_file = analysis_dir.joinpath('gcc_build.log')
-    parsed_output_file = tool_config_data.get('raw_results_dir').joinpath('gcc_compiler_raw.scrub')
+
+    # Set the input file
+    if raw_input_file is None:
+        raw_input_file = analysis_dir.joinpath('gcc_build.log')
+
+    # Set the output file
+    if parsed_output_file is None:
+        parsed_output_file = tool_config_data.get('raw_results_dir').joinpath('gcc_compiler_raw.scrub')
 
     # Print a status message
     logging.info('')

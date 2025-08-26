@@ -229,6 +229,8 @@ def main(conf_file=pathlib.Path('./scrub.cfg').resolve(), clean=False, console_l
                     scrub_utilities.check_artifact(tool_analysis_dir, True)
 
                     # Parse the results files
+                    logging.info('')
+                    logging.info('  Parsing results...')
                     parser.parse_warnings(tool_analysis_dir, scrub_conf_data)
 
                     # Check the raw results files

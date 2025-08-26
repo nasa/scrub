@@ -7,18 +7,26 @@ WARNING_LEVEL = 'Low'
 ID_PREFIX = 'javac'
 
 
-def parse_warnings(analysis_dir, tool_config_data):
+def parse_warnings(analysis_dir, tool_config_data, raw_input_file=None, parsed_output_file=None):
     """This function parses the raw javac compiler warnings into the SCRUB format.
 
     Inputs:
-        - raw_input_file: Absolute path to the raw javac compiler log containing warnings [string]
-        - parsed_output_file: Absolute path to the file where the parsed warnings will be stored [string]
+        - analysis_dir: Absolute path to the raw javac output file directory [string]
+        - tool_config_data: Dictionary of scrub configuration data [dict]
+        - raw_input_file: Absolute path to the raw input file [string] [optional]
+        - parsed_output_file: Absolute path to the raw output file [string] [optional]
     """
 
     # Initialize variables
     warning_count = 1
-    raw_input_file = analysis_dir.joinpath('javac_build.log')
-    parsed_output_file = tool_config_data.get('raw_results_dir').joinpath('javac_compiler_raw.scrub')
+
+    # Set the input file
+    if raw_input_file is None:
+        raw_input_file = analysis_dir.joinpath('javac_build.log')
+
+    # Set the output file
+    if parsed_output_file is None:
+        parsed_output_file = tool_config_data.get('raw_results_dir').joinpath('javac_compiler_raw.scrub')
 
     # Print a status message
     logging.info('')
