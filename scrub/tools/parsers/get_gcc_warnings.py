@@ -7,23 +7,17 @@ ID_PREFIX = 'gcc'
 
 
 def parse_warnings(analysis_dir, tool_config_data, raw_input_file=None, parsed_output_file=None):
-    """This function parses the raw GCC compiler warnings into the SCRUB format.
+    """This function parses raw GCC/Clang compiler warnings into the SCRUB format.
 
     Inputs:
-        - analysis_dir: Absolute path to the raw SonarQube output file directory [string]
-        - tool_config_data: Dictionary of scrub configuration data [dict]
+        - analysis_dir: Absolute path to the raw GCC/Clang output file directory [string]
+        - tool_config_data: Dictionary of SCRUB configuration data [dict]
     """
 
     # Initialize the variables
     warning_count = 1
     warning_list = []
     raw_warnings = []
-    warning_id = None
-    warning_file = None
-    warning_line = None
-    warning_message = []
-    parsing = False
-    description = False
 
     # Set the input file
     if raw_input_file is None:
@@ -45,26 +39,22 @@ def parse_warnings(analysis_dir, tool_config_data, raw_input_file=None, parsed_o
         input_data = input_fh.readlines()
 
     # Iterate through every line of the input file
-    for line in input_data:
+    for i, line in enumerate(input_data):
         # Find lines that contain warnings
-        if ('in function' in line.lower() or 'in file' in line.lower()) and not parsing:
-            parsing = True
-
-        if parsing and not description and 'warning:' in line.lower():
-            description = True
-
+        if 'warning: ' in line.lower():
             # Split the line and store the data
             warning_file = pathlib.Path(line.split(':')[0].strip()).resolve()
             warning_line = int(line.split(':')[1].strip())
-            warning_message = ['GCC Compiler Warning:', '\t' + line.rstrip()]
+            warning_overview = line.split('warning: ')[-1].rstrip()
+            warning_message = ['Compiler Warning:', '\t' + warning_overview]
             warning_id = ID_PREFIX + str(warning_count).zfill(3)
 
-        elif parsing and description and line.lower().startswith(' '):
-            warning_message.append('\t' + line.rstrip())
-
-        elif parsing and description and not line.lower().startswith(' '):
-            parsing = False
-            description = False
+            # Get the rest of the warning description
+            for j, desc_line in enumerate(input_data[i + 1:]):
+                if desc_line.startswith(' '):
+                    warning_message.append('\t' + desc_line.rstrip())
+                else:
+                    break
 
             # Check to see if the warning is in the list
             warning = [warning_file, warning_line, warning_message]
