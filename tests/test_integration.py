@@ -34,6 +34,7 @@ if not os.path.exists(log_dir):
 # diff_testcase = os.path.abspath('./tests/integration_tests/diff_testcase')
 # raw_files = pathlib.Path('./tests/integration_tests/parsers').resolve().glob('*')
 c_testcase = pathlib.Path(__file__).parent.joinpath('integration_tests/c_testcase')
+clang_testcase = pathlib.Path(__file__).parent.joinpath('integration_tests/clang_testcase')
 java_testcase = pathlib.Path(__file__).parent.joinpath('integration_tests/java_testcase')
 javascript_testcase = pathlib.Path(__file__).parent.joinpath('integration_tests/javascript_testcase')
 python_testcase = pathlib.Path(__file__).parent.joinpath('integration_tests/python_testcase')
@@ -86,18 +87,19 @@ def test_parser(raw_file, capsys):
 # 5        | Integration | Generate scrub.cfg     | Exit code: 0       |
 # 6        | Integration | Check version          | Exit code: 0       |
 # 7        | Integration | Diff testcase          | Exit code: 0       |
-# 8        | Integration | C integration          | Exit Code: 0       |
+# 8        | Integration | C integration (GCC)    | Exit Code: 0       |
 # 9        | Integration | C custom configs       | Exit Code: 0       |
-# 10       | Integration | Java integration       | Exit Code: 0       |
-# 11       | Integration | JavaScript integration | Exit Code: 0       |
-# 12       | Integration | Python integration     | Exit Code: 0       |
-# 13       | Integration | Filter only            | Exit Code: 0       |
-# 14       | Integration | Single tool            | Exit Code: 0       |
-# 15       | Integration | Multiple tools         | Exit Code: 0       |
-# 16       | Integration | Single target          | Exit Code: 0       |
-# 17       | Integration | Multiple targets       | Exit Code: 0       |
-# 18       | Integration | Multilang integration  | Exit Code: 0       |
-# 19       | Integration | Multilang subset       | Exit Code: 0       |
+# 10       | Integration | C integration (Clang)  | Exit Code: 0       |
+# 11       | Integration | Java integration       | Exit Code: 0       |
+# 12       | Integration | JavaScript integration | Exit Code: 0       |
+# 13       | Integration | Python integration     | Exit Code: 0       |
+# 14       | Integration | Filter only            | Exit Code: 0       |
+# 15       | Integration | Single tool            | Exit Code: 0       |
+# 16       | Integration | Multiple tools         | Exit Code: 0       |
+# 17       | Integration | Single target          | Exit Code: 0       |
+# 18       | Integration | Multiple targets       | Exit Code: 0       |
+# 19       | Integration | Multilang integration  | Exit Code: 0       |
+# 20       | Integration | Multilang subset       | Exit Code: 0       |
 
 
 # testcases = [[java_testcase, ['run', '--config', 'missing_scrub.cfg'], 10],                          # Testcase 0
@@ -112,16 +114,17 @@ def test_parser(raw_file, capsys):
 #                               '--comparison-scrub', 'results2/.scrub'], 0],
 #              [c_testcase, ['run', '--clean', '--debug'], 0],                                         # Testcase 8
 #              [c_testcase, ['run', '--clean', '--debug', '--config', 'scrub_custom.cfg'], 0],         # Testcase 9
-#              [java_testcase, ['run', '--clean', '--debug'], 0],                                      # Testcase 10
-#              [javascript_testcase, ['run', '--clean', '--debug'], 0],                                # Testcase 11
-#              [python_testcase, ['run', '--clean', '--debug'], 0],                                    # Testcase 12
-#              [c_testcase, ['run', '--tools', 'filter'], 0],                                          # Testcase 13
-#              [c_testcase, ['run', '--quiet', '--tools', 'coverity'], 0],                             # Testcase 14
-#              [javascript_testcase, ['run', '--tools', 'coverity', 'sonarqube'], 0],                  # Testcase 15
-#              [python_testcase, ['run', '--tools', 'none', '--targets', 'collaborator'], 0],          # Testcase 16
-#              [c_testcase, ['run', '--targets', 'collaborator', 'scrub_gui'], 0],                     # Testcase 17
-#              [multi_lang_testcase, ['run', '--debug'], 0],                                           # Testcase 18
-#              [multi_lang_testcase, ['run', '--debug', '--config', 'scrub_subset.cfg'], 0]           # Testcase 19
+#              [clang_testcase, ['run', '--clean', '--debug'], 0],                                     # Testcase 10
+#              [java_testcase, ['run', '--clean', '--debug'], 0],                                      # Testcase 11
+#              [javascript_testcase, ['run', '--clean', '--debug'], 0],                                # Testcase 12
+#              [python_testcase, ['run', '--clean', '--debug'], 0],                                    # Testcase 13
+#              [c_testcase, ['run', '--tools', 'filter'], 0],                                          # Testcase 14
+#              [c_testcase, ['run', '--quiet', '--tools', 'coverity'], 0],                             # Testcase 15
+#              [javascript_testcase, ['run', '--tools', 'coverity', 'sonarqube'], 0],                  # Testcase 16
+#              [python_testcase, ['run', '--tools', 'none', '--targets', 'collaborator'], 0],          # Testcase 17
+#              [c_testcase, ['run', '--targets', 'collaborator', 'scrub_gui'], 0],                     # Testcase 18
+#              [multi_lang_testcase, ['run', '--debug'], 0],                                           # Testcase 19
+#              [multi_lang_testcase, ['run', '--debug', '--config', 'scrub_subset.cfg'], 0]            # Testcase 20
 
 testcases = [
                 {
@@ -182,7 +185,7 @@ testcases = [
                     "exit-code": 0
                 },
                 {
-                    "name": "c-testcase",
+                    "name": "c-testcase-gcc",
                     "location": c_testcase,
                     "subcommand": "run",
                     "parameters": ['--clean', '--debug'],
@@ -193,6 +196,13 @@ testcases = [
                     "location": c_testcase,
                     "subcommand": "run",
                     "parameters": ['--clean', '--debug', '--config', 'scrub_custom.cfg'],
+                    "exit-code": 0
+                },
+                {
+                    "name": "c-testcase-clang",
+                    "location": clang_testcase,
+                    "subcommand": "run",
+                    "parameters": ['--clean', '--debug'],
                     "exit-code": 0
                 },
                 {
