@@ -29,7 +29,8 @@ Each table below represents a portion of the complete `scrub.cfg` file.
 
 ## Tool Variables
 
-### GCC Compiler Variables
+### GCC/Clang* Compiler Variables
+**Note**: Due to heavy similiarties in the format of compilation warnings, this set of configuration variables covers both GCC and Clang. If your build system uses both GCC and Clang, both sets of warnings will be covered by these configuration values.
 
 | Variable Name | Format     | Required? | Description                                              | Default Value |
 | ------------- | ---------- | --------- | -------------------------------------------------------- | ------------- |
@@ -37,6 +38,7 @@ Each table below represents a portion of the complete `scrub.cfg` file.
 | GCC_BUILD_DIR | String     | Optional  | Relative path (to `SOURCE_DIR`) to the build directory   | `SOURCE_DIR`  |
 | GCC_BUILD_CMD | String     | Yes       | Build command used by the GCC compiler                   | N/A           |
 | GCC_CLEAN_CMD | String     | Yes       | Clean command used by the GCC compiler                   | N/A           |
+
 
 
 ### JAVAC Compiler Variables
