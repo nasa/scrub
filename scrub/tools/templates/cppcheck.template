@@ -1,0 +1,9 @@
+#!/bin/bash -x
+# Change to the source root directory
+cd ${{SOURCE_DIR}}
+
+# Generate version information
+cppcheck --version
+
+# Perform analysis
+cppcheck --xml --cppcheck-build-dir=${{TOOL_ANALYSIS_DIR}} --output-file=${{TOOL_ANALYSIS_DIR}}/cppcheck_output.xml ${{CPPCHECK_FLAGS}} ${{CPPCHECK_FILES}}
