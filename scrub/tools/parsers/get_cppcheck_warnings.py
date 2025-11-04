@@ -66,8 +66,3 @@ def parse_warnings(analysis_dir, tool_config_data, raw_input_file=None, parsed_o
 
     # Create the SCRUB output file
     translate_results.create_scrub_output_file(raw_warnings, parsed_output_file)
-
-analysis_dir = pathlib.Path('../../../tests').resolve()
-tool_config_data = {'raw_results_dir': analysis_dir}
-
-parse_warnings(analysis_dir, tool_config_data)
