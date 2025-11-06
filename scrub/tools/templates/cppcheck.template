@@ -6,4 +6,4 @@ cd ${{SOURCE_DIR}}
 cppcheck --version
 
 # Perform analysis
-cppcheck --template="{file}::{line}::{severity}::{id}::{cwe}::{message}" --cppcheck-build-dir=${{TOOL_ANALYSIS_DIR}} --output-file=${{TOOL_ANALYSIS_DIR}}/cppcheck_output.txt ${{CPPCHECK_FLAGS}} ${{CPPCHECK_FILES}}
+cppcheck --template="{file}::{line}::{severity}::{id}::{cwe}::{message}" --output-file=${{TOOL_ANALYSIS_DIR}}/cppcheck_output.txt ${{CPPCHECK_FLAGS}} ${{CPPCHECK_FILES}}
