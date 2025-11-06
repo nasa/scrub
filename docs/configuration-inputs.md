@@ -71,6 +71,15 @@ Each table below represents a portion of the complete `scrub.cfg` file.
 | PYLINT_FLAGS     | String     | Optional  | Optional flags to be passed to pylint  | ''            |
 
 
+### CPPCheck Variables
+
+| Variable Name      | Format     | Required? | Description                                | Default Value |
+| ------------------ | ---------- | --------- | ------------------------------------------ | ------------- |
+| CPPCHECK_WARNINGS  | True/False | Yes       | Should CPPCheck analysis be performed?     | False         |
+| CPPCHECK_FILES     | String     | Optional  | What files should be analyzed by CPPCheck? | './'          |
+| CPPCHECK_FLAGS     | String     | Optional  | Optional flags to be passed to CPPCheck    | ''            |
+
+
 ### CodeQL Variables
 
 | Variable Name                | Format     | Required? | Description                                                  | Default Value |
