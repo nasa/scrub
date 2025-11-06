@@ -106,6 +106,7 @@ Python v3.6 or later is required.
 | JAVAC Compiler  | Java                             | No            | No                |
 | Pylint          | Python                           | No            | No                |
 | SonarQube       | C/C++, Java, JavaScript, Python  | No            | No**              |
+| CPPCheck        | C/C++                            | No            | No                |
 
 **Note**: P10 checks are only applicable to C/C++ analysis.
 
