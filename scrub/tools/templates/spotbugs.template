@@ -1,0 +1,19 @@
+#!/bin/bash -x
+# Generate version information
+spotbugs -version
+
+# Change to the build directory
+cd ${{SPOTBUGS_BUILD_DIR}}
+
+# Execute the build command
+${{SPOTBUGS_BUILD_CMD}}
+
+# Change back to the source root
+cd ${{SOURCE_DIR}}
+
+# Generate the list of files to analyze
+find ${{SOURCE_DIR}} ${{SOURCE_DIR}} -iname '*.class' > ${{TOOL_ANALYSIS_DIR}}/input_files.txt
+find ${{SOURCE_DIR}} ${{SOURCE_DIR}} -iname '*.jar' >> ${{TOOL_ANALYSIS_DIR}}/input_files.txt
+
+# Perform analysis
+spotbugs ${{SPOTBUGS_FLAGS}} -sarif=${{TOOL_ANALYSIS_DIR}}/spotbugs.sarif -analyzeFromFile ${{SPOTBUGS_FILES}}
