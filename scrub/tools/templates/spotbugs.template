@@ -2,18 +2,27 @@
 # Generate version information
 spotbugs -version
 
-# Change to the build directory
-cd ${{SPOTBUGS_BUILD_DIR}}
+# Is SpotBugs integrated into the build system?
+if [ ${{SPOTBUGS_OUTPUT}} ]; then
+    # Copy the output file to prep for parsing
+    cp ${{SPOTBUGS_OUTPUT}} ${{TOOL_ANALYSIS_DIR}}/spotbugs.sarif
+else
+    # Change to the build directory
+    cd ${{SPOTBUGS_BUILD_DIR}}
 
-# Execute the build command
-${{SPOTBUGS_BUILD_CMD}}
+    # Execute the build command
+    ${{SPOTBUGS_BUILD_CMD}}
 
-# Change back to the source root
-cd ${{SOURCE_DIR}}
+    # Change back to the source root
+    cd ${{SOURCE_DIR}}
 
-# Generate the list of files to analyze
-find ${{SOURCE_DIR}} ${{SOURCE_DIR}} -iname '*.class' > ${{TOOL_ANALYSIS_DIR}}/input_files.txt
-find ${{SOURCE_DIR}} ${{SOURCE_DIR}} -iname '*.jar' >> ${{TOOL_ANALYSIS_DIR}}/input_files.txt
+    # Generate the list of files to analyze
+    find ${{SOURCE_DIR}} ${{SOURCE_DIR}} -iname '*.class' > ${{TOOL_ANALYSIS_DIR}}/input_files.txt
+    find ${{SOURCE_DIR}} ${{SOURCE_DIR}} -iname '*.jar' >> ${{TOOL_ANALYSIS_DIR}}/input_files.txt
 
-# Perform analysis
-spotbugs ${{SPOTBUGS_FLAGS}} -sarif=${{TOOL_ANALYSIS_DIR}}/spotbugs.sarif -analyzeFromFile ${{SPOTBUGS_FILES}}
+    # Perform analysis
+    spotbugs ${{SPOTBUGS_FLAGS}} -sarif=${{TOOL_ANALYSIS_DIR}}/spotbugs.sarif -analyzeFromFile ${{SPOTBUGS_FILES}}
+fi
+
+
+
