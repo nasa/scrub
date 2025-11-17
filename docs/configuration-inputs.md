@@ -80,6 +80,22 @@ Each table below represents a portion of the complete `scrub.cfg` file.
 | CPPCHECK_FLAGS     | String     | Optional  | Optional flags to be passed to CPPCheck    | ''            |
 
 
+### SpotBugs Variables
+
+| Variable Name      | Format     | Required? | Description                                            | Default Value                            |
+| ------------------ | ---------- | --------- | ------------------------------------------------------ | ---------------------------------------- |
+| SPOTBUGS_WARNINGS  | True/False | Yes       | Should SpotBugs analysis be performed?                 | False                                    |
+| SPOTBUGS_OUTPUT*   | String     | Optional  | Where is SpotBugs raw SARIF output file?               | ''                                       |
+| SPOTBUGS_BUILD_DIR | String     | Optional  | Relative path (to `SOURCE_DIR`) to the build directory | `SOURCE_DIR`                             |
+| SPOTBUGS_BUILD_CMD | String     | Yes       | Build command used to compile code                     | N/A                                      |
+| SPOTBUGS_FILES     | String     | Optional  | What files should be analyzed by SpotBugs?             | `${{TOOL_ANALYSIS_DIR}}/input_files.txt` |
+| SPOTBUGS_FLAGS     | String     | Optional  | Optional flags to be passed to SpotBugs                | ''                                       |
+
+**\*NOTE:** SpotBugs analysis can be performed in two different ways: through direct invocation or via build system integration. Details for utilizing each option are provided below.
+
+- Direct invocation: Minimally complete the `SPOTBUGS_BUILD_DIR` and `SPOTBUGS_BUILD_CMD` configuration values.
+- Build system integration: In addition to the configuration value required for direct invocation, complete the `SPOTBUGS_OUTPUT` value. This location will be used to parse the  output file from SpotBugs. This file must be formatted as SARIF output.
+
 ### CodeQL Variables
 
 | Variable Name                | Format     | Required? | Description                                                  | Default Value |
