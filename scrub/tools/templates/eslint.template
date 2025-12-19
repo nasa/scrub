@@ -1,0 +1,15 @@
+#!/bin/bash -x
+# Generate version information
+npx eslint -version
+
+# Change back to the source root
+cd ${{SOURCE_DIR}}
+
+# Is ESLint integrated into the build system?
+if [ ${{ESLINT_OUTPUT}} ]; then
+    # Copy the output file to prep for parsing
+    cp ${{ESLINT_OUTPUT}} ${{TOOL_ANALYSIS_DIR}}/eslint.json
+else
+    # If not, invoke directly
+    npx eslint -c ${{ESLINT_CONFIG}} -f json -o ${{TOOL_ANALYSIS_DIR}}/eslint.json ${{ESLINT_FLAGS}}
+fi
