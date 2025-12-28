@@ -62,7 +62,7 @@ SCRUB can also be integrated into the CodeQL GitHub Action to produce SCRUB form
         
       
     - name: Upload CodeQL Artifacts
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: codeql-artifacts
         path: ${{ env.RESULTS_DIR }}
