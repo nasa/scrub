@@ -96,6 +96,24 @@ Each table below represents a portion of the complete `scrub.cfg` file.
 - Direct invocation: Minimally complete the `SPOTBUGS_BUILD_DIR` and `SPOTBUGS_BUILD_CMD` configuration values.
 - Build system integration: In addition to the configuration value required for direct invocation, complete the `SPOTBUGS_OUTPUT` value. This location will be used to parse the  output file from SpotBugs. This file must be formatted as SARIF output.
 
+
+### ESLint Variables
+
+| Variable Name    | Format     | Required? | Description                                 | Default Value   |
+| ---------------- | ---------- | --------- | ------------------------------------------- | --------------- |
+| ESLINT_WARNINGS  | True/False | Yes       | Should ESLint analysis be performed?        | False           |
+| ESLINT_OUTPUT*   | String     | Optional  | Where is ESLint raw JSON output file?       | ''              |
+| ESLINT_CONFIG**  | String     | Optional  | Absolute path to ESLint configuration file  | ''              |
+| ESLINT_FLAGS     | String     | Optional  | Optional flags to be passed to ESLINT       | ''              |
+
+**\*NOTE:** ESLint analysis can be performed in two different ways: through direct invocation or via build system integration. Details for utilizing each option are provided below.
+
+- Direct invocation: Simply set `ESLINT_WARNINGS: True` and ESLINT analysis will be attempted
+- Build system integration: In addition to the configuration value required for direct invocation, complete the `ESLINT_OUTPUT` value. This location will be used to parse the  output file from ESLINT.
+
+**\*\*NOTE:** [ESLint requries pre-configuration](https://eslint.org/docs/latest/use/configure/) before analysis can be performed. By default, SCRUB expects configuration data to be located within `SOURCE_DIR`. If it is in an alternate locattion, it can be specified using the `ESLINT_CONFIG` value.
+  
+
 ### CodeQL Variables
 
 | Variable Name                | Format     | Required? | Description                                                  | Default Value |
