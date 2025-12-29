@@ -1,0 +1,21 @@
+#!/bin/bash -x
+# Get the proper command based on the system
+if [ "$(uname)" == "Darwin" ]; then
+    CMD="inspect.sh"
+elif [ `uname -s` == Linux* ]; then
+    CMD="idea.sh inspect"
+else
+    CMD="idea64.exe inspect"
+fi
+
+# Generate version information
+$CMD --version
+
+# Is analysis performed elsewhere?
+if [ ${{IDEA_OUTPUT}} ]; then
+    # Copy the output file to prep for parsing
+    cp ${{ESLINT_OUTPUT}} ${{TOOL_ANALYSIS_DIR}}/idea.json
+# If not, invoke directly
+else
+    $CMD ${{SOURCE_DIR}} ${{IDEA_PROFILE}} ${{TOOL_ANALYSIS_DIR}}/idea.json -v2 -format json ${{IDEA_FLAGS}}
+fi

@@ -284,7 +284,7 @@ def parse_sarif(sarif_filename, source_root):
 
         # Get the tool name
         if sarif_data.get_distinct_tool_names():
-            tool_name = sarif_data.get_distinct_tool_names()[0].lower()
+            tool_name = sarif_data.get_distinct_tool_names()[0].replace(' ', '').lower()
         else:
             print("ERROR: No run data found for results file {}".format(sarif_filename))
             raise Exception
