@@ -112,7 +112,24 @@ Each table below represents a portion of the complete `scrub.cfg` file.
 - Build system integration: In addition to the configuration value required for direct invocation, complete the `ESLINT_OUTPUT` value. This location will be used to parse the  output file from ESLINT.
 
 **\*\*NOTE:** [ESLint requries pre-configuration](https://eslint.org/docs/latest/use/configure/) before analysis can be performed. By default, SCRUB expects configuration data to be located within `SOURCE_DIR`. If it is in an alternate locattion, it can be specified using the `ESLINT_CONFIG` value.
-  
+
+
+### IntelliJ IDEA Variables
+
+| Variable Name  | Format     | Required? | Description                               | Default Value   |
+| -------------- | ---------- | --------- | ----------------------------------------- | --------------- |
+| IDEA_WARNINGS  | True/False | Yes       | Should IDEA analysis be performed?        | False           |
+| IDEA_PROFILE*  | String     | Yes       | Absolute path to IDEA inspection profile  | ''              |
+| IDEA_OUTPUT**  | String     | Optional  | Where is IDEA raw JSON output file?       | ''              |
+| IDEA_FLAGS     | String     | Optional  | Optional flags to be passed to IDEA       | ''              |
+
+**\*NOTE:** [IDEA requries the creation of an inspection profile](https://www.jetbrains.com/help/idea/customizing-profiles.html) before analysis can be performed.
+
+**\*\*NOTE:** IDEA analysis can be performed in two different ways: through direct invocation or via parsing of a IDEA results file. Details for utilizing each option are provided below.
+
+- Direct invocation: Simply set `IDEA_WARNINGS: True` and IDEA analysis will be attempted
+- Results  file parsing: In addition to the configuration value required for direct invocation, complete the `IDEA_OUTPUT` value. This location will be used to parse the output file from IDEA.
+
 
 ### CodeQL Variables
 
