@@ -88,7 +88,7 @@ if [[ "${{SOURCE_LANG}}" =~ "yaml" ]]; then
 fi
 
 # Set the required analysis flags
-required_flags="-X -D sonar.host.url=${{SONARQUBE_SERVER}} -D sonar.projectKey=${{SONARQUBE_PROJECT}} -D sonar.login=${{SONARQUBE_TOKEN}} -D sonar.working.directory=${{TOOL_ANALYSIS_DIR}}/scanner_output -D sonar.java.binaries=${{SOURCE_DIR}}"
+required_flags="-X -D sonar.host.url=${{SONARQUBE_SERVER}} -D sonar.projectKey=${{SONARQUBE_PROJECT}} -D sonar.token=${{SONARQUBE_TOKEN}} -D sonar.working.directory=${{TOOL_ANALYSIS_DIR}}/scanner_output -D sonar.java.binaries=${{SOURCE_DIR}}"
 
 # Capture C/C++ code
 if [ -n "${{SONARQUBE_BUILD_CMD}}" ]; then
@@ -102,7 +102,7 @@ if [ -n "${{SONARQUBE_BUILD_CMD}}" ]; then
     ${{SONARQUBE_WRAPPER_PATH}}/build-wrapper* --out-dir ${{TOOL_ANALYSIS_DIR}}/build_wrapper_output ${{SONARQUBE_BUILD_CMD}}
 
     # Update the required flags
-    required_flags="$required_flags -D sonar.cfamily.build-wrapper-output=${{TOOL_ANALYSIS_DIR}}/build_wrapper_output -D sonar.cfamily.cache.enabled=false"
+    required_flags="$required_flags -D sonar.cfamily.compile-commands=${{TOOL_ANALYSIS_DIR}}/build_wrapper_output/compile_commands.json"
 fi
 
 # Add SARIF imports?
