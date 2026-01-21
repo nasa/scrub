@@ -72,6 +72,12 @@ def parse_warnings(analysis_dir, tool_config_data, parsed_output_file=None):
             else:
                 warning_query = ''
 
+            # Get the blame information if it exists
+            warning_author = None
+            if finding['author']:
+                if finding['author']:
+                    warning_author = finding['author']
+
             # Get the priority value from SonarQube
             if 'vulnerabilityProbability' in finding.keys():
                 sonarqube_priority = finding['vulnerabilityProbability'].lower()
@@ -102,7 +108,7 @@ def parse_warnings(analysis_dir, tool_config_data, parsed_output_file=None):
 
             # Add to the warning dictionary
             raw_warnings.append(translate_results.create_warning(warning_id, warning_file, warning_line,
-                                                                 warning_message, ID_PREFIX, priority,
+                                                                 warning_message, warning_author, ID_PREFIX, priority,
                                                                  warning_query, suppression))
 
             # Increment the warning count

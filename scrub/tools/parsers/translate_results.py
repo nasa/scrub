@@ -30,7 +30,8 @@ def create_code_flow(file, line, description):
     return code_flow
 
 
-def create_warning(scrub_id, file, line, description, tool, priority='Low', query='', suppress=False, code_flow=None):
+def create_warning(scrub_id, file, line, description, author, tool, priority='Low', query='', suppress=False,
+                   code_flow=None):
     """This function creates an internal representation of a warning t be used for processing.
 
     Inputs:
@@ -38,6 +39,7 @@ def create_warning(scrub_id, file, line, description, tool, priority='Low', quer
         - file: Absolute path to the source file referenced by the finding [string]
         - line: Line number of the source file being referenced by the findings [int]
         - description: Finding description [list of strings]
+        - author: Author of code that generated the finding [string]
         - tool: Tool that generated the finding [string]
         - priority: Priority marking for the finding [Low/Med/High]
         - query: Tool query name that generated the finding [string]
@@ -59,6 +61,7 @@ def create_warning(scrub_id, file, line, description, tool, priority='Low', quer
                      'file': file,
                      'line': line,
                      'description': description,
+                     'author': author,
                      'tool': tool,
                      'priority': priority,
                      'query': query,
@@ -82,23 +85,29 @@ def format_scrub_warning(warning):
     scrub_warning = (warning.get('id') + ' <' + warning.get('priority') + '> :' + str(warning.get('file')) + ':' +
                      str(warning.get('line')) + ': ' + warning.get('query') + '\n')
 
-    # Add the description
+    # Add the author data
+    if warning.get('author'):
+        author_description = f"    Author: {warning.get('author')}\n"
+    else:
+        author_description = ''
+
+    # Add the warning description
     description = ''
     for line in warning.get('description'):
-        description = description + '    ' + line + '\n'
+        description += f"    {line}\n"
 
     # Add the code flow
     if len(warning.get('code_flow')) > 0:
         code_flow_description = '    Code flow data:\n'
         for flow_step in warning.get('code_flow'):
-            code_flow_description = code_flow_description + '    {}\n    {}:{}\n'.format(flow_step.get('description'),
-                                                                                         flow_step.get('file'),
-                                                                                         flow_step.get('line'))
+            code_flow_description += '    {}\n    {}:{}\n'.format(flow_step.get('description'),
+                                                                  flow_step.get('file'),
+                                                                  flow_step.get('line'))
     else:
         code_flow_description = ''
 
     # Add the description
-    scrub_warning = scrub_warning + description + code_flow_description + '\n'
+    scrub_warning = scrub_warning + author_description + description + code_flow_description + '\n'
 
     return scrub_warning
 
@@ -181,13 +190,16 @@ def parse_scrub(scrub_file, source_root):
             warning_query = ''
 
         # Get the warning description
+        warning_author = None
         warning_description = []
         code_flow_data = []
         for i in range(1, len(warning_lines)):
             description_line = warning_lines[i].rstrip().lstrip('    ')
 
-            # Parse code flow data if it exists
-            if description_line.lower() == 'code flow data:':
+            # Parse author, code flow, and description data
+            if description_line.lower() == 'author:':
+                warning_author = description_line.replace('author:', '').strip()
+            elif description_line.lower() == 'code flow data:':
                 code_flow_line = i + 1
 
                 # Parse out the code flow if it exists
@@ -217,7 +229,8 @@ def parse_scrub(scrub_file, source_root):
 
         # Add the warning to the dictionary
         warning_list.append(create_warning(warning_id, warning_file.resolve(), warning_line, warning_description,
-                                           warning_tool, warning_priority, warning_query, code_flow=code_flow_data))
+                                           warning_author, warning_tool, warning_priority, warning_query,
+                                           code_flow=code_flow_data))
 
     return warning_list
 
@@ -338,6 +351,12 @@ def parse_sarif(sarif_filename, source_root):
                 print('WARNING: Description data missing. Could not parse finding {}'.format(warning_query))
                 continue
 
+            # Get the owner information if it exists
+            warning_author = None
+            if finding.get('properties'):
+                if finding['properties']['owner']:
+                    warning_author = finding['properties']['owner']
+
             # Get any code flow information that exists
             code_flow = []
             if finding.get('codeFlows'):
@@ -366,7 +385,8 @@ def parse_sarif(sarif_filename, source_root):
 
             # Add to the warning dictionary
             results.append(create_warning(warning_id, warning_file.resolve(), warning_line, warning_description,
-                                          tool_name, ranking, warning_query, suppress_warning, code_flow))
+                                          warning_author, tool_name, ranking, warning_query, suppress_warning,
+                                          code_flow))
 
             # Update the warning count
             warning_count = warning_count + 1
@@ -423,6 +443,12 @@ def create_sarif_output_file(results_list, sarif_version, output_file, source_ro
         # Set the rule ID
         result_item['ruleId'] = warning['query']
 
+        # Set the author
+        if warning.get('author'):
+            result_item['properties'] = {}
+            result_item['properties']['owner'] = warning.get('author')
+
+        # Set the description
         if warning.get('description') is not None:
             result_item['message'] = {
                 'text': ' '.join(warning['description'])
