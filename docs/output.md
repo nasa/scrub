@@ -13,6 +13,7 @@ All SCRUB files that store analysis results must adhere to the following format 
     [tool][count] <[severity]> :[path to file]:[line number]: [query name]
         [warning description]
         [warning description continued]
+        [warning author] (optional)
 
 - Tool: A string indicator for the specific tool reporting the warnings
 - Count: The numeric count of the warning for the given tool
@@ -21,6 +22,7 @@ All SCRUB files that store analysis results must adhere to the following format 
 - Line number: The line number of the file being referenced by the warning
 - Query name [optional]: If applicable, the tool query name that generated the warning
 - Warning description: A detailed description of the warning. May be more than one line
+- Warning author: Author of the offending section of code. This attribute may not be supported by all analysis tools.
 
 **Note**: For analysis tools that include a web component for viewing analysis results, the warning description section will also include a URL where the detailed warning results may be viewed
 
