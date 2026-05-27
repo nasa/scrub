@@ -396,19 +396,22 @@ def create_sarif_output_file(results_list, sarif_version, output_file, source_ro
     rules_list = get_rules_list(results_list)
     sarif_output = {
         'version': sarif_version,
-        '$schema': 'https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json',
+        '$schema': 'https://json.schemastore.org/sarif-{}.json'.format(sarif_version),
         'runs': [
                    {
                        'tool': {
                            'driver': {
                                'name': tool_name
-                           },
-                           'rules': []
+                           }
                        },
                        'results': []
                    }
         ]
     }
+    if sarif_version == '2.1.0':
+        sarif_output['runs'][0]['tool']['driver']['rules'] = []
+    else:
+        sarif_output['runs'][0]['tool']['rules'] = []
 
     # Iterate through every warning
     for warning in results_list:
@@ -463,7 +466,7 @@ def create_sarif_output_file(results_list, sarif_version, output_file, source_ro
                         'text': rule
                     }
                 })
-            sarif_output['runs'][0]['tool']['rules'] = sarif_rules
+            sarif_output['runs'][0]['tool']['driver']['rules'] = sarif_rules
             result_item['locations'] = [{
                 'physicalLocation': {
                     'artifactLocation': {

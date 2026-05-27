@@ -1,5 +1,6 @@
 bump2version
 coverage
+jsonschema
 pip>=20.3
 pylint
 pytest>=5.4
