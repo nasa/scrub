@@ -27,7 +27,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout the code
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
     - name: Scan the image and upload dependency results
       uses: anchore/sbom-action@v0.14.3      
       with:

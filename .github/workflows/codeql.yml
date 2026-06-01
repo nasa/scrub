@@ -38,11 +38,11 @@ jobs:
 
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
 
     # Initializes the CodeQL tools for scanning.
     - name: Initialize CodeQL
-      uses: github/codeql-action/init@v2
+      uses: github/codeql-action/init@v3
       with:
         #config-file: ./.github/workflows/codeql/codeql-config.yml
         languages: ${{ matrix.language }}
@@ -64,7 +64,7 @@ jobs:
     #   make release
 
     - name: Perform CodeQL Analysis
-      uses: github/codeql-action/analyze@v2
+      uses: github/codeql-action/analyze@v3
     
     - name: Post-Process Output
       run: |
@@ -86,7 +86,7 @@ jobs:
         
       
     - name: Upload CodeQL Artifacts
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: codeql-artifacts
         path: ${{ env.RESULTS_DIR }}
