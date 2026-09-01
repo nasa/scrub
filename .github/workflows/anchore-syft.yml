@@ -31,5 +31,5 @@ jobs:
     - name: Scan the image and upload dependency results
       uses: anchore/sbom-action@v0.14.3      
       with:
-        artifact-name: scrub-sbom.json
+        artifact-name: scrub-sbom
         dependency-snapshot: true
