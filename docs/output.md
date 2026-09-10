@@ -53,6 +53,14 @@ An example of a set of two warnings that adhere to this format:
         This use of parameter thread has not been checked.
 
 
+## SARIF locations without line numbers
+
+When a SARIF finding or code-flow step identifies a file without a source line,
+SCRUB retains the file location and represents the unknown line internally as
+zero. SARIF 2.1.0 exports omit the optional region in this case, since
+`region.startLine` must be positive. Known positive line numbers are unchanged.
+
+
 ## List of Output Files
 
 The following section provides a description of the structure of the `.scrub` and `scrub_results` output directories located at `SOURCE_DIR` as specified in the `scrub.cfg` configuration file:
