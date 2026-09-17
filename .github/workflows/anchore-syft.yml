@@ -16,6 +16,7 @@ name: Anchore Syft SBOM scan
 on:
   push:
     branches: [ "master" ]
+  workflow_dispatch:
 
 permissions:
   contents: write
@@ -29,7 +30,7 @@ jobs:
     - name: Checkout the code
       uses: actions/checkout@v4
     - name: Scan the image and upload dependency results
-      uses: anchore/sbom-action@v0.14.3      
+      uses: anchore/sbom-action@v0.24.2      
       with:
-        artifact-name: scrub-sbom
+        artifact-name: scrub-sbom.spdx.json
         dependency-snapshot: true
