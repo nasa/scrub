@@ -348,8 +348,8 @@ def parse_sarif(sarif_filename, source_root):
                         if thread_location.get('location').get('message'):
                             code_flow_file = pathlib.Path(thread_location.get('location')
                                                           .get('physicalLocation').get('artifactLocation').get('uri'))
-                            code_flow_line = (thread_location.get('location').get('physicalLocation').get('region')
-                                              .get('startLine'))
+                            code_flow_line = (thread_location.get('location').get('physicalLocation').get('region', {})
+                                              .get('startLine', 0))
                             code_flow_description = thread_location.get('location').get('message').get('text')
                             code_flow.append(create_code_flow(code_flow_file, code_flow_line, code_flow_description))
 
@@ -375,6 +375,13 @@ def parse_sarif(sarif_filename, source_root):
         raise Exception
 
     return results
+
+
+def _sarif_region(line):
+    """Omit unknown source lines; SARIF startLine values must be positive."""
+    if line is None or line <= 0:
+        return {}
+    return {'region': {'startLine': line}}
 
 
 def create_sarif_output_file(results_list, sarif_version, output_file, source_root, tool_name):
@@ -473,9 +480,7 @@ def create_sarif_output_file(results_list, sarif_version, output_file, source_ro
                         'uri': warning_file,
                         'uriBaseId': str(source_root)
                     },
-                    'region': {
-                        'startLine': warning['line']
-                    }
+                    **_sarif_region(warning['line'])
                 }
             }]
 
@@ -509,9 +514,7 @@ def create_sarif_output_file(results_list, sarif_version, output_file, source_ro
                                                 'artifactLocation': {
                                                     'uri': artifact_location
                                                 },
-                                                'region': {
-                                                    'startLine': code_flow_item['line']
-                                                }
+                                                **_sarif_region(code_flow_item['line'])
                                             }
                                         }
                                     }
