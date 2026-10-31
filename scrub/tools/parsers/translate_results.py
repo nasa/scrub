@@ -319,11 +319,13 @@ def parse_sarif(sarif_filename, source_root):
                 else:
                     warning_file = pathlib.Path(source_root).joinpath(warning_file)
 
-                # Get the line number
-                if location_data.get('region'):
-                    warning_line = int(location_data.get('region').get('startLine', 0))
-                else:
-                    warning_line = 0
+                # Get the line number. A location without a region (or
+                # without startLine) is a file-level finding: keep the
+                # internal unknown-line sentinel (0) instead of inventing
+                # a line number, which the SARIF exporter must not emit
+                # (the schema requires startLine >= 1).
+                region = location_data.get('region') or {}
+                warning_line = int(region.get('startLine') or 0)
             else:
                 print('WARNING: Location data missing. Could not parse finding {}'.format(warning_query))
                 continue
@@ -348,8 +350,10 @@ def parse_sarif(sarif_filename, source_root):
                         if thread_location.get('location').get('message'):
                             code_flow_file = pathlib.Path(thread_location.get('location')
                                                           .get('physicalLocation').get('artifactLocation').get('uri'))
-                            code_flow_line = (thread_location.get('location').get('physicalLocation').get('region')
-                                              .get('startLine'))
+                            code_flow_region = (thread_location.get('location').get('physicalLocation')
+                                              .get('region') or {})
+                            code_flow_line = code_flow_region.get('startLine')
+                            code_flow_line = int(code_flow_line) if code_flow_line else 0
                             code_flow_description = thread_location.get('location').get('message').get('text')
                             code_flow.append(create_code_flow(code_flow_file, code_flow_line, code_flow_description))
 
@@ -375,6 +379,17 @@ def parse_sarif(sarif_filename, source_root):
         raise Exception
 
     return results
+
+
+def _sarif_region(line):
+    """Return a SARIF region for a known line, or None when the line is unknown.
+
+    SARIF requires region.startLine >= 1, so a file-level finding (internal
+    line 0) must export a location without a region instead of startLine 0.
+    """
+    if line and int(line) > 0:
+        return {'startLine': int(line)}
+    return None
 
 
 def create_sarif_output_file(results_list, sarif_version, output_file, source_root, tool_name):
@@ -442,17 +457,18 @@ def create_sarif_output_file(results_list, sarif_version, output_file, source_ro
                     "uri": results_list[0]['file']
                 }
             }]
+            physical_location = {
+                'fileLocation': {
+                    # TODO: get the logic right on properly indexing file paths (like with ruleIndex)
+                    'fileIndex': file_index
+                }
+            }
+            region = _sarif_region(warning['line'])
+            if region is not None:
+                physical_location['region'] = region
             result_item['locations'] = [
                 {
-                    'physicalLocation': {
-                        'fileLocation': {
-                            # TODO: get the logic right on properly indexing file paths (like with ruleIndex)
-                            'fileIndex': file_index
-                        },
-                        'region': {
-                            'startLine': warning['line']
-                        }
-                    }
+                    'physicalLocation': physical_location
                 }
             ]
             file_index += 1
@@ -467,16 +483,17 @@ def create_sarif_output_file(results_list, sarif_version, output_file, source_ro
                     }
                 })
             sarif_output['runs'][0]['tool']['driver']['rules'] = sarif_rules
-            result_item['locations'] = [{
-                'physicalLocation': {
-                    'artifactLocation': {
-                        'uri': warning_file,
-                        'uriBaseId': str(source_root)
-                    },
-                    'region': {
-                        'startLine': warning['line']
-                    }
+            physical_location = {
+                'artifactLocation': {
+                    'uri': warning_file,
+                    'uriBaseId': str(source_root)
                 }
+            }
+            region = _sarif_region(warning['line'])
+            if region is not None:
+                physical_location['region'] = region
+            result_item['locations'] = [{
+                'physicalLocation': physical_location
             }]
 
             if len(warning.get('code_flow')) > 0:
@@ -500,19 +517,20 @@ def create_sarif_output_file(results_list, sarif_version, output_file, source_ro
                     else:
                         artifact_location = str(code_flow_item.get('file'))
 
+                    code_flow_physical_location = {
+                        'artifactLocation': {
+                            'uri': artifact_location
+                        }
+                    }
+                    code_flow_region = _sarif_region(code_flow_item['line'])
+                    if code_flow_region is not None:
+                        code_flow_physical_location['region'] = code_flow_region
                     location_item = {
                                         'location': {
                                             'message': {
                                                 'text': code_flow_item.get('description')
                                             },
-                                            'physicalLocation': {
-                                                'artifactLocation': {
-                                                    'uri': artifact_location
-                                                },
-                                                'region': {
-                                                    'startLine': code_flow_item['line']
-                                                }
-                                            }
+                                            'physicalLocation': code_flow_physical_location
                                         }
                                     }
 
